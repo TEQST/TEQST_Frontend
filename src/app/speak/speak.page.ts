@@ -29,10 +29,6 @@ export class SpeakPage implements OnInit {
     
   }
 
-  publisherSelected(pub) {
-    
-  }
-
 
 
 }

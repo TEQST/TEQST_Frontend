@@ -9,7 +9,7 @@ const routes: Routes = [
     component: TextListPage
   },
   {
-    path: 'record-view',
+    path: ':textId',
     loadChildren: () => import('./record-view/record-view.module').then( m => m.RecordViewPageModule)
   }
 ];
