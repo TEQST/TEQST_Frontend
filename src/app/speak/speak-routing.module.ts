@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SpeakPage } from './speak.page';
-import { TextListPage } from './text-list/text-list.page';
 
 const routes: Routes = [
   {
@@ -11,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: ':publisherName',
-    loadChildren: () => import('./text-list/text-list.module').then( m => m.TextListPageModule)
+    loadChildren: './text-list/text-list.module#TextListPageModule'
   }
 ];
 

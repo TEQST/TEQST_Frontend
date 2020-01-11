@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { SpeakPageRoutingModule } from './speak-routing.module';
 
 import { SpeakPage } from './speak.page';
-import { TextListPage } from './text-list/text-list.page';
 
 @NgModule({
   imports: [
@@ -16,6 +15,6 @@ import { TextListPage } from './text-list/text-list.page';
     IonicModule,
     SpeakPageRoutingModule
   ],
-  declarations: [SpeakPage, TextListPage]
+  declarations: [SpeakPage]
 })
 export class SpeakPageModule {}
