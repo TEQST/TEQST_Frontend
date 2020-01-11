@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SpeakPageRoutingModule } from './speak-routing.module';
+import { TextListPageRoutingModule } from './text-list-routing.module';
 
-import { SpeakPage } from './speak.page';
-import { TextListPage } from './text-list/text-list.page';
+import { TextListPage } from './text-list.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SpeakPageRoutingModule
+    TextListPageRoutingModule
   ],
-  declarations: [SpeakPage, TextListPage]
+  declarations: [TextListPage]
 })
-export class SpeakPageModule {}
+export class TextListPageModule {}
