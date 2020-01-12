@@ -14,12 +14,16 @@ export class TextServiceService {
   private totalSentenceNumber = new ReplaySubject<number>(1);
   private furthestSentenceIndex = new BehaviorSubject<number>(1);
 
+  constructor() {
+    this.fetchText();
+  }
+
   fetchText(): void {
-    of(TEXT).subscribe( text => {
+    of(TEXT).subscribe(text => {
       this.totalSentenceNumber.next(text.totalSentenceNumber);
       this.sentences.next(text.sentences);
     })
-    of(RECORDINGINFO).subscribe( recording => {
+    of(RECORDINGINFO).subscribe(recording => {
       this.activeSentenceIndex.next(recording.nextSentence);
       this.furthestSentenceIndex.next(recording.nextSentence);
     })
@@ -35,9 +39,5 @@ export class TextServiceService {
 
   getTotalSentenceNumber(): ReplaySubject<number> {
     return this.totalSentenceNumber;
-  }
-
-  constructor() {
-    this.fetchText();
   }
 }
