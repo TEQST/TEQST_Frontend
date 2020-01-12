@@ -10,8 +10,9 @@ import { RECORDINGINFO} from './mock-recording-information';
 
 export class TextServiceService {
   private sentences = new ReplaySubject<Sentence[]>(1);
+  // instantiate BehaviorSubjekts with 1 because every text has at least 1 sentence
   private activeSentenceIndex = new BehaviorSubject<number>(1);
-  private totalSentenceNumber = new ReplaySubject<number>(1);
+  private totalSentenceNumber = new BehaviorSubject<number>(1);
   private furthestSentenceIndex = new BehaviorSubject<number>(1);
 
   constructor() {
@@ -37,12 +38,13 @@ export class TextServiceService {
     return this.sentences;
   }
 
-  getTotalSentenceNumber(): ReplaySubject<number> {
+  getTotalSentenceNumber(): BehaviorSubject<number> {
     return this.totalSentenceNumber;
   }
 
-  //TODO: Check if active Sentence is within bounds
   setActiveSentenceIndex(index: number): void {
-    this.activeSentenceIndex.next(index);
+    if(index > 0 && index <= this.totalSentenceNumber.getValue()) {
+      this.activeSentenceIndex.next(index);
+    }
   }
 }
