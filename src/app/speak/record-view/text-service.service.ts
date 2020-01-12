@@ -43,8 +43,18 @@ export class TextServiceService {
   }
 
   setActiveSentenceIndex(index: number): void {
-    if(index > 0 && index <= this.totalSentenceNumber.getValue()) {
+    if(index > 0 && index <= this.totalSentenceNumber.getValue() && index <= this.furthestSentenceIndex.getValue()) {
       this.activeSentenceIndex.next(index);
     }
+  }
+
+  setNextSenteceActive(): void {
+    let next = this.activeSentenceIndex.getValue() + 1;
+    this.setActiveSentenceIndex(next);
+  }
+
+  setPreviousSentenceActive(): void {
+    let previous = this.activeSentenceIndex.getValue() - 1;
+    this.setActiveSentenceIndex(previous);
   }
 }
