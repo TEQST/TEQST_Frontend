@@ -1,12 +1,12 @@
 export class Sentence {
-    sentenceContent: String;
     index: number;
+    sentenceContent: String;
 
-    getSentenceContent(): String {
-        return this.sentenceContent;
-    }
+    // getSentenceContent(): String {
+    //     return this.sentenceContent;
+    // }
 
-    getIndex(): number {
-        return this.index;
-    }
+    // getIndex(): number {
+    //     return this.index;
+    // }
 }
