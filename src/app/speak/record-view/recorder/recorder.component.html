@@ -1,3 +1,9 @@
-<p>
-  recorder works!
-</p>
+    <ion-button class="btn" color="primary" shape="round" (click)=previousSentence()>
+      <ion-icon slot="icon-only" name="skip-backward"></ion-icon>
+    </ion-button>
+    <ion-button class="btn-mic" color="primary" shape="round">
+      <ion-icon slot="icon-only" name="mic"></ion-icon>
+    </ion-button>
+    <ion-button class="btn" color="primary" shape="round" (click)=nextSentence()>
+      <ion-icon slot="icon-only" name="skip-forward"></ion-icon>
+    </ion-button>
