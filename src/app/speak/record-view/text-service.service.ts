@@ -40,4 +40,9 @@ export class TextServiceService {
   getTotalSentenceNumber(): ReplaySubject<number> {
     return this.totalSentenceNumber;
   }
+
+  //TODO: Check if active Sentence is within bounds
+  setActiveSentenceIndex(index: number): void {
+    this.activeSentenceIndex.next(index);
+  }
 }

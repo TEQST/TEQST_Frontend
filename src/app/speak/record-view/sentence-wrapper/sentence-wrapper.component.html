@@ -1,4 +1,6 @@
-<p *ngFor="let sentence of sentences">
+<p *ngFor="let sentence of sentences"
+[class.active]="sentence.index === activeSentence"
+(click)="onSelect(sentence)">
   {{sentence.index}}.
   {{sentence.sentenceContent}}
 </p>

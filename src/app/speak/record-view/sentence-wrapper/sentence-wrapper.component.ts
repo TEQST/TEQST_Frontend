@@ -27,4 +27,8 @@ export class SentenceWrapperComponent implements OnInit {
     this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
   }
 
+  onSelect(sentence: Sentence): void {
+    this.textService.setActiveSentenceIndex(sentence.index)
+  }
+
 }
