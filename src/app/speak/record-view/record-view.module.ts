@@ -8,6 +8,7 @@ import { RecordViewPageRoutingModule } from './record-view-routing.module';
 
 import { RecordViewPage } from './record-view.page';
 
+import {SentenceWrapperComponent} from './sentence-wrapper/sentence-wrapper.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +16,9 @@ import { RecordViewPage } from './record-view.page';
     IonicModule,
     RecordViewPageRoutingModule
   ],
-  declarations: [RecordViewPage]
+  declarations: [
+    RecordViewPage,
+    SentenceWrapperComponent
+  ]
 })
 export class RecordViewPageModule {}
