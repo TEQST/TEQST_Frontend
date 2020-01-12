@@ -1,3 +1,4 @@
-<p>
-  sentence-wrapper works!
+<p *ngFor="let sentence of sentences">
+  {{sentence.index}}.
+  {{sentence.sentenceContent}}
 </p>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Sentence } from '../sentence';
+import {TextServiceService} from '../text-service.service'
 
 @Component({
   selector: 'app-sentence-wrapper',
@@ -7,8 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SentenceWrapperComponent implements OnInit {
 
-  constructor() { }
+  sentences: Sentence[];
 
-  ngOnInit() {}
+  getSentences(): void {
+    this.textService.getSentences().subscribe(sentences => this.sentences = sentences)
+  }
+  constructor(private textService: TextServiceService) { }
+
+  ngOnInit() {
+    this.getSentences();
+  }
 
 }
