@@ -7,20 +7,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content>  
   <ion-list>
     <ion-item >
-      <ion-label>Username </ion-label>
+      <ion-label>Username: </ion-label>
       <ion-input placeholder="Max Mustermann"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Birthyear</ion-label>
+      <ion-label>Birthyear:</ion-label>
       <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" [(ngModel)]="myDate" placeholder="1983"></ion-datetime>     
     </ion-item>
 
     <ion-item>
-      <ion-label>Gender</ion-label>
+      <ion-label>Gender:</ion-label>
       <ion-select placeholder="Select One">
         <ion-select-option value="f">Female</ion-select-option>
         <ion-select-option selected value="m">Male</ion-select-option>
@@ -28,20 +28,25 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Country</ion-label>      
+      <ion-label>Country:</ion-label>      
       <ion-select>        
         <ion-select-option selected>Germany</ion-select-option>
         <ion-select-option>England</ion-select-option>
         <ion-select-option>Saudi Arabia</ion-select-option>
         <ion-select-option>Spain</ion-select-option>
         <ion-select-option>Italy</ion-select-option>
-        <ion-select-option>French</ion-select-option>
+        <ion-select-option>French</ion-select-option>      
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label>Accent</ion-label>
+      <ion-label>Accent:</ion-label>
       <ion-input placeholder="Scotish"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Email:</ion-label> 
+      <ion-input placeholder="example@gmail.com"></ion-input>
     </ion-item>
 
   </ion-list>
