@@ -17,14 +17,26 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item [routerLink]="'/settings/contact/'">
       <ion-label>Contact Developer</ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Recommend TEQST</ion-label>
-    </ion-item>    
+    </ion-item>     
 </ion-list>
 
+<ion-fab horizontal="center">
+  <ion-fab-button >
+    <ion-icon name="share"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list>
+    <ion-fab-button color="light">
+      <ion-icon name="logo-facebook"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="light">
+      <ion-icon name="logo-twitter"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="logo-instagram"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
 
 
