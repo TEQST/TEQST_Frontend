@@ -10,14 +10,21 @@ import {TextServiceService} from '../text-service.service'
 export class SentenceWrapperComponent implements OnInit {
 
   sentences: Sentence[];
+  activeSentence: number;
 
-  getSentences(): void {
-    this.textService.getSentences().subscribe(sentences => this.sentences = sentences)
-  }
   constructor(private textService: TextServiceService) { }
 
   ngOnInit() {
     this.getSentences();
+    this.getActiveSentence();
+  }
+
+  getSentences(): void {
+    this.textService.getSentences().subscribe(sentences => this.sentences = sentences);
+  }
+
+  getActiveSentence(): void {
+    this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
   }
 
 }
