@@ -9,6 +9,7 @@ import {TextServiceService} from '../text-service.service'
 export class RecorderComponent implements OnInit {
 
   activeSentence: number;
+  isRecording: boolean = false;
 
   constructor(private textService: TextServiceService) { }
 
@@ -26,6 +27,18 @@ export class RecorderComponent implements OnInit {
 
   nextSentence(): void {
     this.textService.setNextSenteceActive();
+  }
+
+  startRecording(): void {
+    this.isRecording = true;
+  }
+
+  stopRecording(): void {
+    this.isRecording = false;
+  }
+
+  trashRecording(): void {
+    this.isRecording = false;
   }
 
 }

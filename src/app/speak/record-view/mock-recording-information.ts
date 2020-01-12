@@ -1,5 +1,5 @@
 import {RecordingInformation} from './recording-information';
 
 export const RECORDINGINFO: RecordingInformation = {
-    nextSentence: 2
+    nextSentence: 4
 }
