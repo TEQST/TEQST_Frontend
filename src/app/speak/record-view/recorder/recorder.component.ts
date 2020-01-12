@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TextServiceService} from '../text-service.service'
 
 @Component({
   selector: 'app-recorder',
@@ -7,8 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecorderComponent implements OnInit {
 
-  constructor() { }
+  activeSentence: number;
 
-  ngOnInit() {}
+  constructor(private textService: TextServiceService) { }
+
+  ngOnInit() {
+    this.getActiveSentence();
+  }
+
+  getActiveSentence(): void {
+    this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
+  }
+
+  previousSentence(): void {
+    this.textService.setPreviousSentenceActive();
+  }
+
+  nextSentence(): void {
+    this.textService.setNextSenteceActive();
+  }
 
 }
