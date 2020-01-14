@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="speak"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Texts by {{publisherName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button *ngFor="let text of texts" routerLink="/speak/{{publisherName}}/{{text.id}}">
+      {{ text.name }}
+    </ion-item>
+  </ion-list>
+</ion-content>

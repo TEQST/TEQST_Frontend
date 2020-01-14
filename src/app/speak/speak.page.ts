@@ -6,10 +6,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./speak.page.scss'],
 })
 export class SpeakPage implements OnInit {
+  publishers: { name: string; }[];
 
-  constructor() { }
+  constructor() {
+    this.publishers = [
+      {
+        name: "publisher1"
+      },
+      {
+        name: "publisher2"
+      },
+      {
+        name: "publisher3"
+      },
+      {
+        name: "publisher4"
+      }
+    ]
+  }
 
   ngOnInit() {
+    
   }
+
+
 
 }
