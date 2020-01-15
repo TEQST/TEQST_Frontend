@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TextServiceService} from '../text-service.service'
+import { AudioRecordingService } from '../audio-recording.service';
 
 @Component({
   selector: 'app-recorder',
@@ -11,7 +12,11 @@ export class RecorderComponent implements OnInit {
   activeSentence: number;
   isRecording: boolean = false;
 
-  constructor(private textService: TextServiceService) { }
+  constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) {
+    recordingService.getRecordingState().subscribe((status) => {
+      this.isRecording = status;
+    })
+  }
 
   ngOnInit() {
     this.getActiveSentence();
@@ -30,15 +35,15 @@ export class RecorderComponent implements OnInit {
   }
 
   startRecording(): void {
-    this.isRecording = true;
+    this.recordingService.startRecording();
   }
 
   stopRecording(): void {
-    this.isRecording = false;
+    this.recordingService.stopRecording();
   }
 
   trashRecording(): void {
-    this.isRecording = false;
+    this.recordingService.abortRecording();
   }
 
 }
