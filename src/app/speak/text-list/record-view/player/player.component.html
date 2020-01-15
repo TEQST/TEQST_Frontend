@@ -1,3 +1,9 @@
-<p>
-  player works!
-</p>
+<div class="playback">
+  <ion-toolbar color="primary">
+    <ion-button slot="start" color="primary" onclick="playRecording(this)" shape="round">
+      <ion-icon slot="icon-only" name="play"></ion-icon>
+    </ion-button>
+    <ion-range min="0" color="light" max="30" value="10" name="seekbar">
+    </ion-range>
+  </ion-toolbar>
+</div>

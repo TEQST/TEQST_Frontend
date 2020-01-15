@@ -8,8 +8,9 @@ import { RecordViewPageRoutingModule } from './record-view-routing.module';
 
 import { RecordViewPage } from './record-view.page';
 
-import {SentenceWrapperComponent} from './sentence-wrapper/sentence-wrapper.component'
-import {RecorderComponent} from './recorder/recorder.component'
+import { SentenceWrapperComponent } from './sentence-wrapper/sentence-wrapper.component';
+import { RecorderComponent } from './recorder/recorder.component';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {RecorderComponent} from './recorder/recorder.component'
   declarations: [
     RecordViewPage,
     SentenceWrapperComponent,
-    RecorderComponent
+    RecorderComponent,
+    PlayerComponent
   ]
 })
 export class RecordViewPageModule {}
