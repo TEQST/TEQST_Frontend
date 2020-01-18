@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TextServiceService } from './text-service.service';
 
 @Component({
   selector: 'app-record-view',
@@ -8,8 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RecordViewPage implements OnInit {
   textId: string;
+  hasRecording: boolean;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private textService: TextServiceService) {
+    textService.getHasRecording().subscribe((status) => this.hasRecording = status)
+   }
 
   ngOnInit() {
     this.textId = this.route.snapshot.paramMap.get('publisherName');

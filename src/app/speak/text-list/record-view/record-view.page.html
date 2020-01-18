@@ -11,6 +11,6 @@
   <app-sentence-wrapper></app-sentence-wrapper>
 </ion-content>
 <ion-footer class="center-content">
-  <app-player></app-player>
+  <app-player *ngIf="hasRecording"></app-player>
   <app-recorder></app-recorder>
 </ion-footer>

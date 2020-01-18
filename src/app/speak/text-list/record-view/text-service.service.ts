@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Sentence } from './sentence';
-import { BehaviorSubject, ReplaySubject, of } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, of, Observable } from 'rxjs';
 import { TEXT } from './mock-text';
 import { RECORDINGINFO} from './mock-recording-information';
 
@@ -14,6 +14,7 @@ export class TextServiceService {
   private activeSentenceIndex = new BehaviorSubject<number>(1);
   private totalSentenceNumber = new BehaviorSubject<number>(1);
   private furthestSentenceIndex = new BehaviorSubject<number>(1);
+  private hasRecording = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.fetchText();
@@ -28,6 +29,10 @@ export class TextServiceService {
       this.activeSentenceIndex.next(recording.nextSentence);
       this.furthestSentenceIndex.next(recording.nextSentence);
     })
+  }
+
+  getHasRecording(): Observable<boolean> {
+    return this.hasRecording.asObservable();
   }
 
   getActiveSentenceIndex(): BehaviorSubject<number> {
@@ -45,6 +50,13 @@ export class TextServiceService {
   setActiveSentenceIndex(index: number): void {
     if(index > 0 && index <= this.totalSentenceNumber.getValue() && index <= this.furthestSentenceIndex.getValue()) {
       this.activeSentenceIndex.next(index);
+
+      // check if sentence has recording
+      if(this.activeSentenceIndex.getValue() < this.furthestSentenceIndex.getValue()) {
+        this.hasRecording.next(true)
+      } else {
+        this.hasRecording.next(false)
+      }
     }
   }
 
