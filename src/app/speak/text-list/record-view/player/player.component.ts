@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AudioRecordingService } from '../audio-recording.service';
 
 @Component({
   selector: 'app-player',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private recordingService: AudioRecordingService) { }
 
   ngOnInit() {}
+
+  playRecording(): void {
+    this.recordingService.playRecording()
+  }
 
 }

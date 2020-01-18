@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ModuleWithComponentFactories } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 import * as RecordRTC from 'recordrtc';
@@ -12,18 +12,20 @@ export class AudioRecordingService {
 
   private stream: MediaStream;
   private recorder;
-  private _recorded = new Subject<any>();
-  private _recordingFailed = new Subject<string>();
+  private recorded = new Map<number, Blob>()
+  private recordingFailed$ = new Subject<string>();
   private state$ = new Subject<boolean>();
+  private recordingLength$ = new Subject<number>();
+  private recordingPosition$ = new Subject<number>();
 
-  constructor() {}
+  constructor(private textService: TextServiceService) {}
 
   // getRecordedBlob(): Observable<RecordedAudioOutput> {
   //   return this._recorded.asObservable();
   // }
 
   recordingFailed(): Observable<string> {
-    return this._recordingFailed.asObservable();
+    return this.recordingFailed$.asObservable();
   }
 
   getRecordingState(): Observable<boolean> {
@@ -40,7 +42,7 @@ export class AudioRecordingService {
       this.stream = s;
       this.record();
     }).catch(error => {
-      this._recordingFailed.next();
+      this.recordingFailed$.next();
       this.state$.next(false);
       console.log(error)
     });
@@ -51,7 +53,8 @@ export class AudioRecordingService {
 
     this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
       type: 'audio',
-      mimeType: 'audio/wav'
+      mimeType: 'audio/wav',
+      
     });
     this.recorder.record();
     this.state$.next(true);
@@ -62,10 +65,12 @@ export class AudioRecordingService {
 
     if (this.recorder) {
       this.recorder.stop((blob) => {
+        //safe recording
+        this.recorded.set(this.textService.getActiveSentenceIndex().getValue(), blob)
         this.stopMedia();
       }, () => {
         this.stopMedia();
-        this._recordingFailed.next();
+        this.recordingFailed$.next();
       });
     }
 
@@ -84,6 +89,18 @@ export class AudioRecordingService {
 
   abortRecording() {
     this.stopMedia();
+  }
+
+  playRecording() {
+    let audio = new Audio();
+    let blob = this.recorded.get(this.textService.getActiveSentenceIndex().getValue());
+    audio.src = URL.createObjectURL(blob);
+    audio.load();
+    audio.play();
+    
+    // audio.addEventListener("timeupdate", () => {
+    //   console.log(audio.currentTime)
+    // })
   }
 
 }
