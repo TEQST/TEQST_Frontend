@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Sentence } from './sentence';
 import { BehaviorSubject, ReplaySubject, of, Observable } from 'rxjs';
 import { TEXT } from './mock-text';
 import { RECORDINGINFO} from './mock-recording-information';
@@ -9,7 +8,7 @@ import { RECORDINGINFO} from './mock-recording-information';
 })
 
 export class TextServiceService {
-  private sentences = new ReplaySubject<Sentence[]>(1);
+  private sentences = new ReplaySubject<String[]>(1);
   // instantiate BehaviorSubjekts with 1 because every text has at least 1 sentence
   private activeSentenceIndex = new BehaviorSubject<number>(1);
   private totalSentenceNumber = new BehaviorSubject<number>(1);
@@ -39,7 +38,7 @@ export class TextServiceService {
     return this.activeSentenceIndex;
   }
 
-  getSentences(): ReplaySubject<Sentence[]> {
+  getSentences(): ReplaySubject<String[]> {
     return this.sentences;
   }
 
