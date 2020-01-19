@@ -1,0 +1,13 @@
+<ion-content padding center text-center>
+  <ion-title>TEQST</ion-title>
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder= "Username" [(ngModel)]="username"> </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder= "Password" type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+  </ion-list>
+<ion-button full (click)="login()">Log in</ion-button>
+<ion-button full color="light" (click)="goRegister()">Register</ion-button>
+</ion-content>
