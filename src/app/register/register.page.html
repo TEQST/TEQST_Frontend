@@ -1,27 +1,32 @@
 
 
-<ion-content padding center>
+<ion-content padding center text-center>
   <ion-list padding center>
     <ion-item >
       <ion-label>Username: </ion-label>
       <ion-input placeholder="Username" [(ngModel)]="username" required = true><ion-text color="danger">*</ion-text></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Password: </ion-label>
-      <ion-input placeholder="Password" [(ngModel)]="password" type="password"><ion-text color="danger">*</ion-text></ion-input>
+      <ion-input placeholder="Password" [(ngModel)]="password" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Password: </ion-label>
-      <ion-input placeholder="repeat Password" [(ngModel)]="repassword" type="password"><ion-text color="danger">*</ion-text></ion-input>
+      <ion-input placeholder="repeat Password" [(ngModel)]="repassword" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Birthyear: </ion-label>
-      <ion-input placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal"></ion-input>
+      <ion-input placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'([1-2])([0-9]{3})'"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Country: </ion-label>
-      <ion-input placeholder="Country" [(ngModel)]="country"></ion-input>
+      <ion-input placeholder="Country" [(ngModel)]="country" ></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Gender:</ion-label>
       <ion-select placeholder="Select One" [(ngModel)]="gender">
