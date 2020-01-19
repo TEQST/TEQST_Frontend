@@ -1,6 +1,6 @@
 <p *ngFor="let sentence of sentences; index as i"
 [class.active]="i+1 === activeSentence"
-(click)="onSelect(i+1)">
+(click)="!isRecording && onSelect(i+1)">
   {{i+1}}.
   {{sentence}}
 </p>
