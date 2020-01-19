@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Sentence } from '../sentence';
 import {TextServiceService} from '../text-service.service'
 
 @Component({
@@ -9,7 +8,7 @@ import {TextServiceService} from '../text-service.service'
 })
 export class SentenceWrapperComponent implements OnInit {
 
-  sentences: Sentence[];
+  sentences: String[];
   activeSentence: number;
 
   constructor(private textService: TextServiceService) { }
@@ -27,8 +26,8 @@ export class SentenceWrapperComponent implements OnInit {
     this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
   }
 
-  onSelect(sentence: Sentence): void {
-    this.textService.setActiveSentenceIndex(sentence.index)
+  onSelect(index: number): void {
+    this.textService.setActiveSentenceIndex(index)
   }
 
 }
