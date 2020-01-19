@@ -18,7 +18,13 @@ export class AudioRecordingService {
   private recordingLength$ = new Subject<number>();
   private recordingPosition$ = new Subject<number>();
 
-  constructor(private textService: TextServiceService) {}
+  private activeSentence: number;
+  private furthestSentence: number;
+
+  constructor(private textService: TextServiceService) {
+    textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
+    textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
+  }
 
   // getRecordedBlob(): Observable<RecordedAudioOutput> {
   //   return this._recorded.asObservable();
@@ -33,6 +39,7 @@ export class AudioRecordingService {
   }
 
   startRecording() {
+    console.log(this.textService.getActiveSentenceIndex().getValue())
     if (this.recorder) {
       // It means recording is already started or it is already recording something
       return;
@@ -66,7 +73,11 @@ export class AudioRecordingService {
     if (this.recorder) {
       this.recorder.stop((blob) => {
         //safe recording
-        this.recorded.set(this.textService.getActiveSentenceIndex().getValue(), blob)
+        this.recorded.set(this.activeSentence, blob)
+        console.log(this.recorded);
+        if (this.activeSentence === this.furthestSentence) {
+          this.textService.increaseFurthestSentence();
+        }
         this.stopMedia();
       }, () => {
         this.stopMedia();
@@ -74,6 +85,25 @@ export class AudioRecordingService {
       });
     }
 
+  }
+ // TODO: export safe into own function
+  nextRecording() {
+    if (this.recorder) {
+      this.recorder.stop((blob) => {
+        //safe recording
+        this.recorded.set(this.activeSentence, blob)
+        console.log(this.recorded);
+        //start next recording here because otherwise the functions would be run before the blob is safed
+        if(this.activeSentence === this.furthestSentence) {
+          this.textService.increaseFurthestSentence();
+        }
+        this.textService.setNextSenteceActive();
+        this.recorder.record();
+      }, () => {
+        this.stopMedia();
+        this.recordingFailed$.next();
+      });
+    }
   }
 
   private stopMedia() {

@@ -25,7 +25,8 @@ export class TextServiceService {
       this.sentences.next(text.sentences);
     })
     of(RECORDINGINFO).subscribe(recording => {
-      this.activeSentenceIndex.next(recording.nextSentence);
+      // only valid if text data is fetched first... because totalSentenceNumber would be wrong
+      this.activeSentenceIndex.next(Math.min(recording.nextSentence, this.totalSentenceNumber.getValue()));
       this.furthestSentenceIndex.next(recording.nextSentence);
     })
   }
@@ -55,11 +56,15 @@ export class TextServiceService {
       this.activeSentenceIndex.next(index);
 
       // check if sentence has recording
-      if(this.activeSentenceIndex.getValue() < this.furthestSentenceIndex.getValue()) {
-        this.hasRecording.next(true)
-      } else {
-        this.hasRecording.next(false)
-      }
+      this.checkRecordingStatus()
+    }
+  }
+
+  private checkRecordingStatus(): void {
+    if (this.activeSentenceIndex.getValue() < this.furthestSentenceIndex.getValue()) {
+      this.hasRecording.next(true)
+    } else {
+      this.hasRecording.next(false)
     }
   }
 
@@ -71,5 +76,13 @@ export class TextServiceService {
   setPreviousSentenceActive(): void {
     let previous = this.activeSentenceIndex.getValue() - 1;
     this.setActiveSentenceIndex(previous);
+  }
+
+  increaseFurthestSentence(): void {
+    if(this.furthestSentenceIndex.getValue() <= this.totalSentenceNumber.getValue() + 1) {
+      this.furthestSentenceIndex.next(this.furthestSentenceIndex.getValue() + 1);
+      this.checkRecordingStatus()
+    }
+    console.log(this.furthestSentenceIndex.getValue())
   }
 }

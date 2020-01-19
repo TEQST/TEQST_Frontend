@@ -33,7 +33,11 @@ export class RecorderComponent implements OnInit {
   }
 
   nextSentence(): void {
-    this.textService.setNextSenteceActive();
+    if(this.isRecording === true) {
+      this.recordingService.nextRecording();
+    } else {
+      this.textService.setNextSenteceActive();
+    }
   }
 
   startRecording(): void {
