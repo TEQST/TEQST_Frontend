@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -7,17 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterPage implements OnInit {
 
-  username:string;
-  password:string;
-  constructor() { }
+  username:null;
+  password:null;  
+  repassword:null;
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
   }
-  register(){
-    if(this.username.length==0|| this.password.length==0){
-      alert("Please fill out all fields")
-    }
+  registerUser(){
+    if(this.username == null||this.password== null){
+      alert("Please fill out all fields")    
+    }else if(this.password==this.repassword){
       alert("Registration completed successfully")
+      this.navCtrl.navigateForward("speak");      
+    }else{
+      alert("The repeated password doesn't match the original password")
+    } 
   }
 
 }
