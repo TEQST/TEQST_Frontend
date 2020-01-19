@@ -38,6 +38,10 @@ export class TextServiceService {
     return this.activeSentenceIndex;
   }
 
+  getFurthestSentenceIndex(): BehaviorSubject<number> {
+    return this.furthestSentenceIndex;
+  }
+
   getSentences(): ReplaySubject<String[]> {
     return this.sentences;
   }

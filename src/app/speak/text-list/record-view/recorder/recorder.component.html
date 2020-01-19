@@ -1,5 +1,5 @@
     <!-- left button -->
-    <ion-button *ngIf="!isRecording" class="btn" color="primary" shape="round" (click)=previousSentence()>
+    <ion-button *ngIf="!isRecording" class="btn" [disabled]="activeSentence === 1 ? 'true' : 'false'" color="primary" shape="round" (click)=previousSentence()>
       <ion-icon slot="icon-only" name="skip-backward"></ion-icon>
     </ion-button>
     <ion-button *ngIf="isRecording" class="btn" color="danger" shape="round" (click)=trashRecording()>
@@ -13,6 +13,6 @@
       <ion-icon slot="icon-only" name="square"></ion-icon>
     </ion-button>
     <!-- right button -->
-    <ion-button class="btn" color="primary" shape="round" (click)=nextSentence()>
+    <ion-button class="btn" color="primary" [disabled]="activeSentence === totalSentenceNumber ? 'true' : 'false'" shape="round" (click)=nextSentence()>
       <ion-icon slot="icon-only" name="skip-forward"></ion-icon>
     </ion-button>

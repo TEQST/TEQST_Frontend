@@ -10,6 +10,7 @@ import { AudioRecordingService } from '../audio-recording.service';
 export class RecorderComponent implements OnInit {
 
   activeSentence: number;
+  totalSentenceNumber: number;
   isRecording: boolean = false;
 
   constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) {
@@ -19,11 +20,12 @@ export class RecorderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getActiveSentence();
+    this.subscribeTextService();
   }
 
-  getActiveSentence(): void {
+  subscribeTextService(): void {
     this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
+    this.textService.getTotalSentenceNumber().subscribe(totalNumber => this.totalSentenceNumber = totalNumber);
   }
 
   previousSentence(): void {
