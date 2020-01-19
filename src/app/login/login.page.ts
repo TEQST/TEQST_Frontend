@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
   login(){
     console.log("Username: "+ this.username);
     console.log("Password: "+ this.password);
+    this.navCtrl.navigateForward("speak");
   }
 
   goRegister(){
