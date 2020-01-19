@@ -23,8 +23,7 @@ export class RegisterPage implements OnInit {
       alert("Please fill out all fields")    
     }else if(this.password==this.repassword){
       alert("Registration completed successfully")
-      //this.navCtrl.navigateForward("speak");     
-      console.log("geschlecht "+ this.gender); 
+      this.navCtrl.navigateForward("speak");     
     }else{
       alert("The repeated password doesn't match the original password")
     } 
