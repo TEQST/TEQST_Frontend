@@ -1,9 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>manage</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div *ngIf="folderType=='struct'; then folderList else textList"></div>
 
-<ion-content>
+<ng-template #folderList>
 
-</ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button *ngIf="folderId" defaultHref="manage" ></ion-back-button>
+      </ion-buttons>
+      <ion-title>Folders inside {{folderName ? folderName : '/'}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item button *ngFor="let folder of folders" routerLink="/manage/{{folder.id}}">
+        {{ folder.name }}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ng-template>
+
+
+<ng-template #textList>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button *ngIf="folderId" defaultHref="manage" ></ion-back-button>
+      </ion-buttons>
+      <ion-title>Texts inside {{folderName}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item button *ngFor="let text of texts">
+        {{ text.name }}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+</ng-template>
+

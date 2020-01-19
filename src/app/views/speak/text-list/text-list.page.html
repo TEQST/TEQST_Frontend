@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="speak"></ion-back-button>
+      <ion-back-button [ngIf]="folderId" defaultHref="speak"></ion-back-button>
     </ion-buttons>
     <ion-title>Texts by {{publisherName}}</ion-title>
   </ion-toolbar>
