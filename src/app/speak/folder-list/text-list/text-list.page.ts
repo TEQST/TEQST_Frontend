@@ -9,20 +9,21 @@ import { ActivatedRoute } from '@angular/router';
 export class TextListPage implements OnInit {
 
   publisherName = null
+  folderId = null
   texts: { id: string, name: string; }[];
 
   constructor(private route: ActivatedRoute) {
     this.texts = [
       {
-        id: "123",
+        id: "t554",
         name: "text1"
       },
       {
-        id: "456",
+        id: "t843",
         name: "text2"
       },
       {
-        id: "789",
+        id: "t399",
         name: "text3"
       }
     ]
@@ -30,6 +31,7 @@ export class TextListPage implements OnInit {
 
   ngOnInit() {
     this.publisherName = this.route.snapshot.paramMap.get('publisherName');
+    this.folderId = this.route.snapshot.paramMap.get('folderId');
   }
 
 }

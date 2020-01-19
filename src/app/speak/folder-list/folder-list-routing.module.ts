@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SpeakPage } from './speak.page';
+import { FolderListPage } from './folder-list.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SpeakPage
+    component: FolderListPage
   },
   {
-    path: ':publisherName',
-    loadChildren:  () => import('./folder-list/folder-list.module').then( m => m.FolderListPageModule)
+    path: ':folderId',
+    loadChildren: () => import('./text-list/text-list.module').then( m => m.TextListPageModule)
   }
 ];
 
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SpeakPageRoutingModule {}
+export class FolderListPageRoutingModule {}
