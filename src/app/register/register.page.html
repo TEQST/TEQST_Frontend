@@ -3,14 +3,33 @@
 <ion-content padding center>
   <ion-list padding center>
     <ion-item >
+      <ion-label>Username: </ion-label>
       <ion-input placeholder="Username" [(ngModel)]="username" required = true><ion-text color="danger">*</ion-text></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label>Password: </ion-label>
       <ion-input placeholder="Password" [(ngModel)]="password" type="password"><ion-text color="danger">*</ion-text></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label>Password: </ion-label>
       <ion-input placeholder="repeat Password" [(ngModel)]="repassword" type="password"><ion-text color="danger">*</ion-text></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>Birthyear: </ion-label>
+      <ion-input placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Country: </ion-label>
+      <ion-input placeholder="Country" [(ngModel)]="country"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Gender:</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="gender">
+        <ion-select-option value="f">Female</ion-select-option>
+        <ion-select-option selected value="m">Male</ion-select-option>
+      </ion-select>
+    </ion-item>
+
   </ion-list>
   <ion-button full (click)="registerUser()">Register</ion-button>
 </ion-content>
