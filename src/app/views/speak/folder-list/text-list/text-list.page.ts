@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 
 @Component({
   selector: 'app-text-list',
@@ -9,29 +10,15 @@ import { ActivatedRoute } from '@angular/router';
 export class TextListPage implements OnInit {
 
   publisherName = null
-  folderId = null
+  folderName = null
   texts: { id: string, name: string; }[];
 
-  constructor(private route: ActivatedRoute) {
-    this.texts = [
-      {
-        id: "t554",
-        name: "text1"
-      },
-      {
-        id: "t843",
-        name: "text2"
-      },
-      {
-        id: "t399",
-        name: "text3"
-      }
-    ]
-  }
+  constructor(private navService : SpeakTabNavService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.publisherName = this.route.snapshot.paramMap.get('publisherName');
-    this.folderId = this.route.snapshot.paramMap.get('folderId');
+    this.folderName = this.route.snapshot.paramMap.get('folderName');
+    this.texts = this.navService.getTextsByFolderId(this.folderName)
   }
 
 }

@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let folder of folders" routerLink="/speak/{{publisherName}}/{{folder.id}}">
+    <ion-item button *ngFor="let folder of folders" routerLink="/speak/{{publisherName}}/{{folder.name}}">
       {{ folder.name }}
     </ion-item>
   </ion-list>

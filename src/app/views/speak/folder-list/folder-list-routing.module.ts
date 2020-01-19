@@ -9,7 +9,7 @@ const routes: Routes = [
     component: FolderListPage
   },
   {
-    path: ':folderId',
+    path: ':folderName',
     loadChildren: () => import('./text-list/text-list.module').then( m => m.TextListPageModule)
   }
 ];

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 
 @Component({
   selector: 'app-speak',
@@ -8,27 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class SpeakPage implements OnInit {
   publishers: { name: string; }[];
 
-  constructor() {
-    this.publishers = [
-      {
-        name: "publisher1"
-      },
-      {
-        name: "publisher2"
-      },
-      {
-        name: "publisher3"
-      },
-      {
-        name: "publisher4"
-      }
-    ]
-  }
+  constructor(private navService : SpeakTabNavService) { }
 
   ngOnInit() {
-    
+    this.publishers = this.navService.getPublishers()
   }
-
-
 
 }
