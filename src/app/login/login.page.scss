@@ -7,3 +7,15 @@ ion-img {
   margin: auto;
   display: block;
 }
+.inner {
+  max-width: 300px;
+  min-height: 165px;
+  margin: 0 auto;
+
+}
+.outer {
+  width: 100%;
+  // justify-content: center;
+  // display: flex!important;
+  // align-items: center!important;
+}

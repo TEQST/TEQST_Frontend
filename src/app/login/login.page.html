@@ -1,15 +1,21 @@
-<ion-content padding center text-center>
+<ion-content class="ion-padding ion-text-center">
   
   <ion-img src="../../assets/img/logo.jpg" width='20'></ion-img>
-  <ion-list>
-    <ion-item>
-      <ion-input placeholder= "Username" [(ngModel)]="username"> </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input placeholder= "Password" type="password" [(ngModel)]="password"></ion-input>
-    </ion-item>
-  </ion-list>
-<ion-button full (click)="login()">Log in</ion-button>
-<ion-button full color="light" (click)="goRegister()">Register</ion-button>
+  <div class="outer">
+    <ion-card class="inner">
+      <ion-list  >
+        <ion-item>
+          <ion-input placeholder= "Username" [(ngModel)]="username"> </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder= "Password" type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button full (click)="login()">Log in</ion-button>
+      <ion-button full color="light" (click)="goRegister()">Register</ion-button>
+    </ion-card>
+  </div>
+
+
 
 </ion-content>
