@@ -1,6 +1,7 @@
-<p *ngFor="let sentence of sentences; index as i"
+<div class="verticalLine" *ngFor="let sentence of sentences; index as i"
 [class.active]="i+1 === activeSentence"
+[class.verticalLineDone]="i+1 < furthestSentence"
 (click)="!isRecording && onSelect(i+1)">
   {{i+1}}.
   {{sentence}}
-</p>
+</div>

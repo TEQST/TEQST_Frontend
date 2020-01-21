@@ -12,6 +12,7 @@ export class SentenceWrapperComponent implements OnInit {
   sentences: String[];
   activeSentence: number;
   isRecording: boolean;
+  furthestSentence: number;
 
   constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) { }
 
@@ -19,6 +20,11 @@ export class SentenceWrapperComponent implements OnInit {
     this.getSentences();
     this.getActiveSentence();
     this.getRecordingStatus();
+    this.getFurthestSentence();
+  }
+
+  getFurthestSentence(): void {
+    this.textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
   }
 
   getRecordingStatus(): void {
