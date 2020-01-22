@@ -2,8 +2,8 @@ ion-title {
     margin-top: 30vh;
 }
 ion-img {
-  height: 50vh;
-  width: auto;
+  height: auto;
+  width: 300px;
   margin: auto;
   display: block;
 }
@@ -14,8 +14,5 @@ ion-img {
 
 }
 .outer {
-  width: 100%;
-  // justify-content: center;
-  // display: flex!important;
-  // align-items: center!important;
+  width: 100%;  
 }

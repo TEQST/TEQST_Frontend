@@ -2,10 +2,17 @@
 
 <ion-content padding center text-center>
   <ion-grid class="max">
-    <ion-row class="ion-align-items-center">
-      <ion-col></ion-col>
+    
+    <ion-row class="image-row ion-align-items-center ion-justify-content-center">
       <ion-col class="inner2">
-        <ion-card>
+        <ion-img src="../../assets/img/logo.png"></ion-img>
+      </ion-col>
+      
+    </ion-row>
+
+    <ion-row class="ion-align-items-center content-row ion-justify-content-center">
+      <ion-col class="inner2">
+        <ion-card class="max">
           <ion-list padding center >
             <ion-item >
               <ion-label>Username: </ion-label>
@@ -31,6 +38,10 @@
               <ion-label>Country: </ion-label>
               <ion-input placeholder="Country" [(ngModel)]="country" ></ion-input>
             </ion-item>
+
+            <ion-item>
+              <ion-label>Language:</ion-label>
+            </ion-item>
   
             <ion-item>
               <ion-label>Gender:</ion-label>
@@ -44,7 +55,6 @@
             <ion-button full (click)="registerUser()">Register</ion-button>
         </ion-card>
       </ion-col>
-      <ion-col></ion-col>
     </ion-row>
   </ion-grid>
   
