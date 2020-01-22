@@ -1,18 +1,22 @@
-ion-title {
-    margin-top: 30vh;
+.max{
+  height: 100%;
 }
-ion-img {
-  height: auto;
-  width: 300px;
-  margin: auto;
-  display: block;
+
+.inner2 {
+  max-width: 400px;
+  min-width: 300px;
 }
-.inner {
-  max-width: 300px;
-  min-height: 165px;
-  margin: 0 auto;
+
+// zentriert Login card in der Mitte, ohneist login oben am Logo
+.image-row {
+  height: 40%;
 
 }
-.outer {
-  width: 100%;  
+.content-row {
+  height: 60%;
+}
+.register-text-settings {
+  background-color:white;
+  color:blue;
+  font-size:16px;
 }
