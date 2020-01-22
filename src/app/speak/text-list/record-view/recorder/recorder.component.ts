@@ -29,10 +29,12 @@ export class RecorderComponent implements OnInit {
   }
 
   previousSentence(): void {
+    this.recordingService.stopAudioPlaying();
     this.textService.setPreviousSentenceActive();
   }
 
   nextSentence(): void {
+    this.recordingService.stopAudioPlaying();
     if(this.isRecording === true) {
       this.recordingService.nextRecording();
     } else {

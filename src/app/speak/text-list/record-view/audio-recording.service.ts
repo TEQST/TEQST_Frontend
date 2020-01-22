@@ -17,9 +17,11 @@ export class AudioRecordingService {
   private state$ = new Subject<boolean>();
   private recordingLength$ = new Subject<number>();
   private recordingPosition$ = new Subject<number>();
+  private isPlaying$ = new Subject<boolean>();
 
   private activeSentence: number;
   private furthestSentence: number;
+  private audio = new Audio();
 
   constructor(private textService: TextServiceService) {
     textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
@@ -36,6 +38,10 @@ export class AudioRecordingService {
 
   getRecordingState(): Observable<boolean> {
     return this.state$.asObservable();
+  }
+
+  getIsPlayingState(): Observable<boolean> {
+    return this.isPlaying$.asObservable();
   }
 
   startRecording() {
@@ -61,6 +67,9 @@ export class AudioRecordingService {
     this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
       type: 'audio',
       mimeType: 'audio/wav',
+      // audioBitsPerSecond: 16000,
+      // desiredSampRate: 16000,
+      numberOfAudioChannels: 1
       
     });
     this.recorder.record();
@@ -117,20 +126,33 @@ export class AudioRecordingService {
     }
   }
 
-  abortRecording() {
+  abortRecording(): void {
     this.stopMedia();
   }
 
-  playRecording() {
-    let audio = new Audio();
+  playRecording(): void {
     let blob = this.recorded.get(this.textService.getActiveSentenceIndex().getValue());
-    audio.src = URL.createObjectURL(blob);
-    audio.load();
-    audio.play();
+    this.audio.src = URL.createObjectURL(blob);
+    this.audio.load();
+    this.audio.play();
+
+    this.audio.addEventListener("play", () => {
+      this.isPlaying$.next(true);
+    })
     
     // audio.addEventListener("timeupdate", () => {
     //   console.log(audio.currentTime)
     // })
+  }
+
+  stopAudioPlaying(): void {
+    this.audio.pause();
+    this.audio.currentTime = 0;
+
+    this.audio.addEventListener("pause", () => {
+      this.isPlaying$.next(false);
+    })
+
   }
 
 }

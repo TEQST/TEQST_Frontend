@@ -40,6 +40,7 @@ export class SentenceWrapperComponent implements OnInit {
   }
 
   onSelect(index: number): void {
+    this.recordingService.stopAudioPlaying();
     this.textService.setActiveSentenceIndex(index)
   }
 

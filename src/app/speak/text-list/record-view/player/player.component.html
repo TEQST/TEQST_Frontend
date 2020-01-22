@@ -1,7 +1,10 @@
 <div class="playback">
   <ion-toolbar color="primary">
-    <ion-button slot="start" color="primary" (click)="playRecording()" shape="round">
+    <ion-button *ngIf="!isPlaying" slot="start" color="primary" (click)="playRecording()" shape="round">
       <ion-icon slot="icon-only" name="play"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="isPlaying" slot="start" color="primary" (click)="stopRecording()" shape="round">
+      <ion-icon slot="icon-only" name="square"></ion-icon>
     </ion-button>
     <ion-range min="0" color="light" max="30" value="0" name="seekbar" disabled="true">
     </ion-range>
