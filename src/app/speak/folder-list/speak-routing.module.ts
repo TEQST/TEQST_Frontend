@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: ':publisherName',
-    loadChildren:  () => import('./text-list/text-list.module').then( m => m.TextListPageModule)
+    loadChildren:  () => import('./folder-list/folder-list.module').then( m => m.FolderListPageModule)
   }
 ];
 
