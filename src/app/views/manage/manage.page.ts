@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FolderManageService } from 'src/app/services/folder-manage.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { CreateFolderPage } from './create-folder/create-folder.page';
 import { CreateTextPage } from './create-text/create-text.page';
 
@@ -20,6 +20,7 @@ export class ManagePage implements OnInit {
   constructor(private folderManageService: FolderManageService,
               private route: ActivatedRoute,
               private router: Router,
+              public alertController: AlertController,
               public modalController: ModalController) { }
 
   ngOnInit() {
@@ -62,6 +63,32 @@ export class ManagePage implements OnInit {
     component: CreateTextPage
     })
     return await modal.present()
+  }
+
+  async openDeleteFolderAlert(event) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const alert = await this.alertController.create({
+      header: 'Attention!',
+      message: 'Do you really want to delete this folder?',
+      buttons: ['Yes', 'No']
+    });
+
+    await alert.present();
+  }
+
+  async openDeleteTextAlert(event) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const alert = await this.alertController.create({
+      header: 'Attention!',
+      message: 'Do you really want to delete this text?',
+      buttons: ['Yes', 'No']
+    });
+
+    await alert.present();
   }
 
 }
