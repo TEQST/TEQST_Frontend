@@ -3,10 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="speak"></ion-back-button>
     </ion-buttons>
-    <ion-title>record-view</ion-title>
+    <ion-title>TextTitel</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <app-sentence-wrapper></app-sentence-wrapper>
 </ion-content>
+<ion-footer class="center-content">
+  <app-player *ngIf="hasRecording"></app-player>
+  <app-recorder></app-recorder>
+</ion-footer>
