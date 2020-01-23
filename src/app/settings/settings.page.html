@@ -5,5 +5,38 @@
 </ion-header>
 
 <ion-content>
+<ion-list>
+    <ion-item [routerLink]="'/settings/profile/'">
+        <ion-label>Profile-settings</ion-label>
+    </ion-item>
 
-</ion-content>
+    <ion-item>
+      <ion-label>Language</ion-label>
+      <ion-select>
+        <ion-select-option selected>English</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item [routerLink]="'/settings/contact/'">
+      <ion-label>Contact Developer</ion-label>
+    </ion-item>     
+</ion-list>
+
+<ion-fab horizontal="center">
+  <ion-fab-button >
+    <ion-icon name="share"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list>
+    <ion-fab-button color="light">
+      <ion-icon name="logo-facebook"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="light">
+      <ion-icon name="logo-twitter"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="light">
+      <ion-icon name="logo-instagram"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+
