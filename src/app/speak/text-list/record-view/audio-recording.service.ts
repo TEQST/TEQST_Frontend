@@ -103,11 +103,17 @@ export class AudioRecordingService {
         this.recorded.set(this.activeSentence, blob)
         console.log(this.recorded);
         //start next recording here because otherwise the functions would be run before the blob is safed
-        if(this.activeSentence === this.furthestSentence) {
+        if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
+        } 
+        // if the next sentence hasn't been recorded before start next recording otherwise just skip to next sentence
+        if (this.activeSentence >= this.furthestSentence - 1) {
+          this.recorder.record();
+          this.textService.setNextSenteceActive();
+        } else {
+          this.stopMedia();
+          this.textService.setNextSenteceActive();
         }
-        this.textService.setNextSenteceActive();
-        this.recorder.record();
       }, () => {
         this.stopMedia();
         this.recordingFailed$.next();
@@ -139,6 +145,9 @@ export class AudioRecordingService {
     this.audio.addEventListener("play", () => {
       this.isPlaying$.next(true);
     })
+    this.audio.addEventListener("pause", () => {
+      this.isPlaying$.next(false);
+    })
     
     // audio.addEventListener("timeupdate", () => {
     //   console.log(audio.currentTime)
@@ -148,11 +157,6 @@ export class AudioRecordingService {
   stopAudioPlaying(): void {
     this.audio.pause();
     this.audio.currentTime = 0;
-
-    this.audio.addEventListener("pause", () => {
-      this.isPlaying$.next(false);
-    })
-
   }
 
 }
