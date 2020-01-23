@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FolderManageService } from 'src/app/services/folder-manage.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { CreateFolderPage } from './create-folder/create-folder.page';
+import { CreateTextPage } from './create-text/create-text.page';
 
 @Component({
   selector: 'app-manage',
@@ -16,18 +19,49 @@ export class ManagePage implements OnInit {
 
   constructor(private folderManageService: FolderManageService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              public modalController: ModalController) { }
 
-  ngOnInit() {      
-    this.folderId = this.route.snapshot.paramMap.get('folderId');
-    let folderInfo = this.folderManageService.getFolderInfo(this.folderId)
-    this.folderType = folderInfo.type
-    this.folderName = folderInfo.name
-    if (this.folderType == 'struct') {
-      this.folders = this.folderManageService.getSubfolderList(this.folderId)
+  ngOnInit() {
+    this.initFolder()
+  }
+
+  initFolder() {
+    let urlParam = this.route.snapshot.paramMap.get('folderInfo');
+    if (urlParam == null) {
+      this.folderType = 'folder'
+      this.folderId = null
+      this.folderName = '/'
     } else {
+      let folderTypeStr = urlParam.charAt(0)
+      this.folderType = folderTypeStr == 'f' ? 'folder' : 'sharedFolder'
+      this.folderId = urlParam.substring(1, urlParam.length)
+      let folderInfo = this.folderManageService.getFolderInfo(this.folderId)
+      if (folderInfo == null) { } // TODO: show error alert message and redirect to root directory
+      else {
+        this.folderName = folderInfo.name
+      }
+    }
+    
+    if (this.folderType == 'folder') {
+      this.folders = this.folderManageService.getSubfolderList(this.folderId)
+    } else { // is sharedFolder
       this.texts = this.folderManageService.getTextList(this.folderId)
     }
+  }
+
+  async openCreateFolderModal() {
+    const modal = await this.modalController.create({
+    component: CreateFolderPage
+    })
+    return await modal.present()
+  }
+
+  async openCreateTextModal() {
+    const modal = await this.modalController.create({
+    component: CreateTextPage
+    })
+    return await modal.present()
   }
 
 }

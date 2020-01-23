@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TextListViewPage } from './text-list-view.page';
+import { CreateTextPage } from './create-text.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: TextListViewPage
+    component: CreateTextPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TextListViewPageRoutingModule {}
+export class CreateTextPageRoutingModule {}

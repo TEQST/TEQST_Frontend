@@ -5,17 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class FolderManageService {
 
-  constructor() { }
+  confolderor() { }
 
   getFolderInfo(folderId: string) {
     if (folderId == '010') {
       return {
-        type: 'shared',
+        type: 'sharedFolder',
         name: 'folder 10'
       }
     }
     return {
-      type: 'struct',
+      type: 'folder',
       name: 'name_for_id_'+folderId
     }
   }
@@ -27,17 +27,17 @@ export class FolderManageService {
           {
             id: '003',
             name: 'folder 3',
-            type: 'struct'
+            type: 'folder'
           },
           {
             id: '004',
             name: 'folder 4',
-            type: 'struct'
+            type: 'folder'
           },
           {
             id: '005',
             name: 'folder 5',
-            type: 'struct'
+            type: 'folder'
           }
         ]
       case '005':
@@ -45,12 +45,12 @@ export class FolderManageService {
             {
               id: '007',
               name: 'folder 7',
-              type: 'struct'
+              type: 'folder'
             },
             {
               id: '008',
               name: 'folder 8',
-              type: 'struct'
+              type: 'folder'
             }
           ]
       case '008':
@@ -58,12 +58,12 @@ export class FolderManageService {
           {
             id: '009',
             name: 'folder 9',
-            type: 'struct'
+            type: 'folder'
           },
           {
             id: '010',
             name: 'folder 10',
-            type: 'shared'
+            type: 'sharedFolder'
           }
         ]
       default: return []

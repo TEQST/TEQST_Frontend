@@ -1,4 +1,4 @@
-<div *ngIf="folderType=='struct'; then folderList else textList"></div>
+<div *ngIf="folderType=='folder'; then folderList else textList"></div>
 
 <ng-template #folderList>
 
@@ -7,17 +7,26 @@
       <ion-buttons slot="start">
         <ion-back-button *ngIf="folderId" defaultHref="manage" ></ion-back-button>
       </ion-buttons>
-      <ion-title>Folders inside {{folderName ? folderName : '/'}}</ion-title>
+      <ion-title>{{folderName ? folderName : '/'}}</ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content>
     <ion-list>
-      <ion-item button *ngFor="let folder of folders" routerLink="/manage/{{folder.id}}">
-        {{ folder.name }}
+      <ion-item button *ngFor="let folder of folders" [routerLink]="folder.type == 'folder' ? ['/manage/f'+folder.id] : ['/manage/s'+folder.id]">
+        <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
+        <ion-button color="danger" slot="end">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-list>
   </ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCreateFolderModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ng-template>
 
@@ -29,17 +38,31 @@
       <ion-buttons slot="start">
         <ion-back-button *ngIf="folderId" defaultHref="manage" ></ion-back-button>
       </ion-buttons>
-      <ion-title>Texts inside {{folderName}}</ion-title>
+      <ion-title>{{folderName}}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button color="primary">
+          <ion-icon name="cloudy"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
   
   <ion-content>
     <ion-list>
       <ion-item button *ngFor="let text of texts">
-        {{ text.name }}
+        <ion-icon name="list" class="textIcon"></ion-icon>{{ text.name }}
+        <ion-button color="danger" slot="end">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-list>
   </ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCreateTextModal()" color="dark">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   
 </ng-template>
 

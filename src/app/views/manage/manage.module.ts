@@ -8,12 +8,18 @@ import { ManagePageRoutingModule } from './manage-routing.module';
 
 import { ManagePage } from './manage.page';
 
+import {CreateFolderPageModule} from './create-folder/create-folder.module';
+import {CreateTextPageModule} from './create-text/create-text.module';
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ManagePageRoutingModule
+    ManagePageRoutingModule,
+    CreateFolderPageModule,
+    CreateTextPageModule
   ],
   declarations: [ManagePage]
 })

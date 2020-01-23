@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TextListViewPageRoutingModule } from './text-list-view-routing.module';
+import { CreateTextPageRoutingModule as CreateTextPageRoutingModule } from './create-text-routing.module';
 
-import { TextListViewPage } from './text-list-view.page';
+import { CreateTextPage } from './create-text.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TextListViewPageRoutingModule
+    CreateTextPageRoutingModule
   ],
-  declarations: [TextListViewPage]
+  declarations: [CreateTextPage]
 })
-export class TextListViewPageModule {}
+export class CreateTextPageModule {}

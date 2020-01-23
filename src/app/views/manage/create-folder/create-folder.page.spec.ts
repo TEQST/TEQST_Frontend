@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TextListViewPage } from './text-list-view.page';
+import { CreateFolderPage } from './create-folder.page';
 
-describe('TextListViewPage', () => {
-  let component: TextListViewPage;
-  let fixture: ComponentFixture<TextListViewPage>;
+describe('CreateFolderPage', () => {
+  let component: CreateFolderPage;
+  let fixture: ComponentFixture<CreateFolderPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextListViewPage ],
+      declarations: [ CreateFolderPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TextListViewPage);
+    fixture = TestBed.createComponent(CreateFolderPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
