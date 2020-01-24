@@ -1,0 +1,69 @@
+
+
+<ion-content padding center text-center>
+  <ion-grid class="max-height">
+    
+    <ion-row class="image-row ion-align-items-center ion-justify-content-center">
+      <ion-col class="inner-col-setting">
+        <ion-img src="../../assets/img/logo.png"></ion-img>
+      </ion-col>      
+    </ion-row>
+
+    <ion-row class="ion-align-items-center content-row ion-justify-content-center">
+      <ion-col class="inner-col-setting">
+        <ion-card class="max-height">
+          <ion-list padding center >
+            <ion-item >
+              <ion-label>Username: </ion-label>
+              <ion-input placeholder="Username" [(ngModel)]="username" required = true><ion-text color="danger">*</ion-text></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label>Password: </ion-label>
+              <ion-input placeholder="Password" [(ngModel)]="password" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label>Password: </ion-label>
+              <ion-input placeholder="repeat Password" [(ngModel)]="repassword" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label>Birthyear: </ion-label>
+              <ion-input placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'([1-2])([0-9]{3})'"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label>Country: </ion-label>
+              <ion-input placeholder="Country" [(ngModel)]="country" ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Language:</ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Education Level:</ion-label>
+                <ion-select placeholder="Select One">
+                  <ion-select-option>0-6 years</ion-select-option>
+                  <ion-select-option>6-12 years</ion-select-option>
+                  <ion-select-option>more than 12 years</ion-select-option>
+                </ion-select>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label>Gender:</ion-label>
+              <ion-select placeholder="Select One" [(ngModel)]="gender">
+                <ion-select-option value="f">Female</ion-select-option>
+                <ion-select-option selected value="m">Male</ion-select-option>
+              </ion-select>
+            </ion-item>
+  
+          </ion-list>
+            <ion-button full (click)="registerUser()">Register</ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-content class="ion-padding ion-text-center">
+  <ion-grid class="max">
+
+    <ion-row class="image-row ion-align-items-center ion-justify-content-center">
+      <ion-col class="inner2">
+        <ion-img src="../../assets/img/logo.png"></ion-img>
+      </ion-col>      
+    </ion-row>
+    
+    <ion-row class="ion-align-items-center content-row ion-justify-content-center">
+      <ion-col class="inner2">
+        <ion-card class="max">
+          <ion-list>
+
+            <ion-item>
+              <ion-input placeholder= "Username" [(ngModel)]="username"> </ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input placeholder= "Password" type="password" [(ngModel)]="password"></ion-input>
+            </ion-item>
+          </ion-list>
+
+          <ion-button full (click)="login()" expand="block">Login</ion-button>         
+         
+          <ion-card-content>
+            Don't have an Account yet?<button (click)="goRegister()" class="register-text-settings">Register</button>here
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>   
+
+  </ion-grid>
+ 
+</ion-content>
