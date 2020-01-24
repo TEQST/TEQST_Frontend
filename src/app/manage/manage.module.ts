@@ -10,6 +10,7 @@ import { ManagePage } from './manage.page';
 
 import {CreateFolderPageModule} from './create-folder/create-folder.module';
 import {CreateTextPageModule} from './create-text/create-text.module';
+import { ShareFolderPageModule } from './share-folder/share-folder.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {CreateTextPageModule} from './create-text/create-text.module';
     IonicModule,
     ManagePageRoutingModule,
     CreateFolderPageModule,
-    CreateTextPageModule
+    CreateTextPageModule,
+    ShareFolderPageModule
   ],
   declarations: [ManagePage]
 })

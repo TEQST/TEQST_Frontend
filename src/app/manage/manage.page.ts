@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { CreateFolderPage } from './create-folder/create-folder.page';
 import { CreateTextPage } from './create-text/create-text.page';
+import { ShareFolderPage } from './share-folder/share-folder.page';
+
+
 
 @Component({
   selector: 'app-manage',
@@ -61,6 +64,13 @@ export class ManagePage implements OnInit {
   async openCreateTextModal() {
     const modal = await this.modalController.create({
     component: CreateTextPage
+    })
+    return await modal.present()
+  }
+
+  async openShareFolderModal() {
+    const modal = await this.modalController.create({
+      component: ShareFolderPage
     })
     return await modal.present()
   }

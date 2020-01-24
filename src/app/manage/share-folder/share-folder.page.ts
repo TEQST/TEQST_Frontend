@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-share-folder',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShareFolderPage implements OnInit {
 
-  constructor() { }
+  constructor(public viewCtrl: ModalController) { }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 
   ngOnInit() {
   }
