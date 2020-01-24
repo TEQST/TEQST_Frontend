@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: ':folderInfo',
     component: ManagePage
+  },  {
+    path: 'share-folder',
+    loadChildren: () => import('./share-folder/share-folder.module').then( m => m.ShareFolderPageModule)
   }
+
 ];
 
 @NgModule({
