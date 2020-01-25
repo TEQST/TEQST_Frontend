@@ -12,7 +12,7 @@ export class ShareFolderPage implements OnInit {
   private speakers: String[];
   public filteredSpeakers: String[] = this.folderService.getSpeakers();
   private allUsers: String[];
-  public filteredUsers: String[];
+  public filteredUsers: String[] = this.folderService.getAllUsers();;
 
   constructor(public viewCtrl: ModalController, private folderService: FolderManageService) { }
 
@@ -35,6 +35,14 @@ export class ShareFolderPage implements OnInit {
       if (this.filteredSpeakers.includes(user)) return false; // do not list names already listed in the added speaker section
       return user.toLowerCase().startsWith(searchTerm.toLowerCase())
     });
+  }
+
+  addSpeaker(user: String) {
+
+  }
+
+  removeSpeaker(user: String) {
+
   }
 
 }
