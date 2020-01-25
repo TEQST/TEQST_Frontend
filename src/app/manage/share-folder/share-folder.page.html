@@ -7,8 +7,26 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="Search for User"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Added User</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let speaker of filteredSpeakers">
+      <ion-label>{{speaker}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>All Users</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let user of filteredUsers">
+      <ion-label>{{user}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

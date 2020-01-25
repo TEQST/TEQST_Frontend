@@ -90,4 +90,14 @@ export class FolderManageService {
       default: return []
     }
   }
+
+  getSpeakers(): String[] {
+    let speakers = ["Alex", "Kevin", "Anna"];
+    return speakers;
+  }
+
+  getAllUsers(): String[] {
+    let users = ["Ariel", "Marcel", "Alex", "Kevin", "Anna", "Isabelle", "Charline", "Gertrud", "Franz"];
+    return users;
+  }
 }
