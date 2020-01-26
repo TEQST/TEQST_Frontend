@@ -7,7 +7,7 @@
 <ion-content>
   <ion-list>
     <ion-item button *ngFor="let pub of publishers" routerLink="/speak/{{pub.name}}">
-      {{ pub.name }}
+      <ion-icon name="person" class="personIcon"></ion-icon> {{ pub.name }}
     </ion-item>
   </ion-list>
 </ion-content>

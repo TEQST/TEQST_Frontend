@@ -10,7 +10,7 @@
 <ion-content>
   <ion-list>
     <ion-item button *ngFor="let text of texts" routerLink="/speak/{{publisherName}}/{{folderName}}/{{text.id}}">
-      {{ text.name }}
+      <ion-icon name="paper" class="textIcon"></ion-icon> {{ text.name }}
     </ion-item>
   </ion-list>
 </ion-content>
