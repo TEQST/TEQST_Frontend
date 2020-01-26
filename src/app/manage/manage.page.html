@@ -49,7 +49,7 @@
   
   <ion-content>
     <ion-list>
-      <ion-item button *ngFor="let text of texts">
+      <ion-item *ngFor="let text of texts">
         <ion-icon name="paper" class="textIcon"></ion-icon>{{ text.name }}
         <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event)">
           <ion-icon name="trash"></ion-icon>

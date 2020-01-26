@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class FolderManageService {
 
-  confolderor() { }
+  constructor() { }
 
   getFolderInfo(folderId: string) {
     if (folderId == '010') {
@@ -89,6 +89,22 @@ export class FolderManageService {
         ]
       default: return []
     }
+  }
+
+  createFolder(parentId: string, title: string) {
+
+  }
+
+  deleteFolder(folderId: string) {
+
+  }
+
+  createText(folderId: string, title: string, textContent: string) {
+
+  }
+
+  deleteText(textId: string) {
+
   }
 
   getSpeakers(): String[] {

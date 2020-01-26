@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FolderManageService } from 'src/app/services/folder-manage.service';
+import { FolderManageService } from 'src/app/services/manage-folder.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { CreateFolderPage } from './create-folder/create-folder.page';
