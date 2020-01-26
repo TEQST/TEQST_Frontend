@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
 
+  birthyear:null;
+  username:null;
+  language:null;
+  gender:null;
+  education:null;
+  country:null;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  save(){
+    //TODO implement method to save changes 
   }
 
 }
