@@ -14,6 +14,7 @@ export class RegisterPage implements OnInit {
   birthyear:null;
   country:null;
   gender:null;
+  language:null;
   constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
