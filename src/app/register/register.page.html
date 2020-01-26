@@ -30,7 +30,7 @@
   
             <ion-item>
               <ion-label>Birthyear: </ion-label>
-              <ion-input placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'([1-2])([0-9]{3})'"></ion-input>
+              <ion-input placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'"></ion-input>
             </ion-item>
   
             <ion-item>
@@ -40,6 +40,7 @@
 
             <ion-item>
               <ion-label>Language:</ion-label>
+              <ion-input placeholder="Scotish" [(ngModel)]="language"></ion-input>
             </ion-item>
 
             <ion-item>

@@ -11,25 +11,17 @@
   <ion-list>
     <ion-item >
       <ion-label>Username: </ion-label>
-      <ion-input placeholder="Max Mustermann"></ion-input>
+      <ion-input placeholder="Max Mustermann" [(ngModel)]="username"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>Birthyear:</ion-label>
-      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" [(ngModel)]="myDate" placeholder="1983"></ion-datetime>     
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Gender:</ion-label>
-      <ion-select placeholder="Select One">
-        <ion-select-option value="f">Female</ion-select-option>
-        <ion-select-option selected value="m">Male</ion-select-option>
-      </ion-select>
-    </ion-item>
+        <ion-input placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'"></ion-input>   
+      </ion-item>
 
     <ion-item>
       <ion-label>Country:</ion-label>      
-      <ion-select>        
+      <ion-select [(ngModel)]="country">        
         <ion-select-option selected>Germany</ion-select-option>
         <ion-select-option>England</ion-select-option>
         <ion-select-option>Saudi Arabia</ion-select-option>
@@ -41,7 +33,24 @@
 
     <ion-item>
       <ion-label>Language:</ion-label>
-      <ion-input placeholder="Scotish"></ion-input>
+      <ion-input placeholder="Scotish" [(ngModel)]="language"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Education Level:</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="education">
+          <ion-select-option>0-6 years</ion-select-option>
+          <ion-select-option>6-12 years</ion-select-option>
+          <ion-select-option>more than 12 years</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Gender:</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="gender">
+        <ion-select-option value="f">Female</ion-select-option>
+        <ion-select-option selected value="m">Male</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-button (click)="save()">Save changes</ion-button>
