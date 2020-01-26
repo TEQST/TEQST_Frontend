@@ -19,7 +19,7 @@
     </ion-list-header>
     <ion-item *ngFor="let speaker of filteredSpeakers">
       <ion-label>{{speaker}}</ion-label>
-      <ion-button fill="clear" color="danger" slot="end" (click)="openDeleteFolderAlert($event)">
+      <ion-button fill="clear" color="danger" slot="end" (click)="removeSpeaker(speaker)">
         <ion-icon name="remove"></ion-icon>
       </ion-button>
     </ion-item>
@@ -30,7 +30,7 @@
     </ion-list-header>
     <ion-item *ngFor="let user of filteredUsers">
       <ion-label>{{user}}</ion-label>
-      <ion-button fill="clear" color="success" slot="end" (click)="openDeleteFolderAlert($event)">
+      <ion-button fill="clear" color="success" slot="end" (click)="addSpeaker(user)">
         <ion-icon name="add"></ion-icon>
       </ion-button>
     </ion-item>
