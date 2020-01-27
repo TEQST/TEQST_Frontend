@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-tabBar',
@@ -7,8 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {}
+
+  navigateToSettings(){
+    this.navCtrl.navigateForward("settings");
+  }
+
+  navigateToPublish(){
+    this.navCtrl.navigateForward("manage");
+    
+  }
+
+  navigateToSpeak(){
+    this.navCtrl.navigateForward("speak");
+  }
 
 }

@@ -1,19 +1,20 @@
 <ion-footer>
   <ion-toolbar>
     <div text-center align-items-center>
-      <ion-button color="dark" fill="clear">
+      <ion-button color="dark" (click)="navigateToSpeak()" fill="clear">
         <ion-icon slot="start" name="folder-open"></ion-icon>
         <ion-label>Speak</ion-label>
       </ion-button>
-      <ion-button color="dark" fill="clear">
+      <ion-button color="dark" (click)="navigateToPublish()" fill="clear">
         <ion-icon slot="start" name="cloud-upload"></ion-icon>
         <ion-label>Publish</ion-label>
       </ion-button>
     
-      <ion-button color="dark" fill="clear">
-        <ion-icon  name="settings"></ion-icon>        
+      <ion-button color="dark" (click)="navigateToSettings()" fill="clear">
+        <ion-icon slot="start" name="settings"></ion-icon>        
         <ion-label>Settings</ion-label>    
       </ion-button>
+     
     </div>
       
   </ion-toolbar>

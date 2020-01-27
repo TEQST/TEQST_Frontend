@@ -17,13 +17,13 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   login(){
-    //console.log("Username: "+ this.username);
-   // console.log("Password: "+ this.password);
+   
     this.navCtrl.navigateForward("speak");
   }
 
   goRegister(){
     this.navCtrl.navigateForward("register");
+   
   }
 
 }
