@@ -22,7 +22,7 @@
     </ion-list>
   </ion-content>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fabfix">
     <ion-fab-button (click)="openCreateFolderModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
@@ -57,12 +57,15 @@
       </ion-item>
     </ion-list>
   </ion-content>
+  
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fabfix" >
     <ion-fab-button (click)="openCreateTextModal()" color="dark">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   
 </ng-template>
+
+<app-tabBar></app-tabBar>
 
