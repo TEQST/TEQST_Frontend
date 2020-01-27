@@ -8,14 +8,17 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
 import { TabBarComponent } from 'src/app/tabBar/tab-bar.component';
+import { ComponentsModule } from '../tabBar/components.modules';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SettingsPageRoutingModule
+    
+    SettingsPageRoutingModule,
+    ComponentsModule,
   ],
-  declarations: [SettingsPage, TabBarComponent]
+  declarations: [SettingsPage]
 })
 export class SettingsPageModule {}
