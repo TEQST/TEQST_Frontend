@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { ContactPageRoutingModule } from './contact-routing.module';
 
 import { ContactPage } from './contact.page';
+import { ComponentsModule } from '../../tabBar/components.modules';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     ContactPageRoutingModule
   ],
   declarations: [ContactPage]

@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { SpeakPageRoutingModule } from './speak-routing.module';
 
 import { SpeakPage } from './speak.page';
+import { ComponentsModule } from '../tabBar/components.modules';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     SpeakPageRoutingModule
   ],
   declarations: [SpeakPage]
