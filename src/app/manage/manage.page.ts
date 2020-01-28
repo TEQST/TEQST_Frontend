@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FolderManageService } from 'src/app/services/manage-folder.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { CreateFolderPage } from './create-folder/create-folder.page';
 import { CreateTextPage } from './create-text/create-text.page';
 import { ShareFolderPage } from './share-folder/share-folder.page';
-
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -14,44 +15,71 @@ import { ShareFolderPage } from './share-folder/share-folder.page';
   styleUrls: ['./manage.page.scss'],
 })
 export class ManagePage implements OnInit {
+  loading: any;
   folderId: string
-  folderType: string
+  is_sharedfolder: boolean
   folderName: string
-  folders: { id: string; name: string; type: string; }[];
-  texts: { id: string; name: string; }[];
+  texts: object;
+  subfolders: object;
 
-  constructor(private folderManageService: FolderManageService,
+  constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
               private router: Router,
               public alertController: AlertController,
-              public modalController: ModalController) { }
+              public modalController: ModalController,
+              public loadingController: LoadingController) { }
 
-  ngOnInit() {
-    this.initFolder()
-  }
+  ngOnInit() { }
 
-  initFolder() {
+  ionViewWillEnter() {
     let urlParam = this.route.snapshot.paramMap.get('folderInfo');
     if (urlParam == null) {
-      this.folderType = 'folder'
-      this.folderId = null
+      this.is_sharedfolder = false
       this.folderName = '/'
     } else {
-      let folderTypeStr = urlParam.charAt(0)
-      this.folderType = folderTypeStr == 'f' ? 'folder' : 'sharedFolder'
+      let folderTypeChar = urlParam.charAt(0)
+      this.is_sharedfolder = folderTypeChar == 's'
       this.folderId = urlParam.substring(1, urlParam.length)
-      let folderInfo = this.folderManageService.getFolderInfo(this.folderId)
-      if (folderInfo == null) { } // TODO: show error alert message and redirect to root directory
-      else {
-        this.folderName = folderInfo.name
-      }
+    }
+
+    if (this.is_sharedfolder) {
+      this.initTextList()
+    } else {
+      this.initSubfolderList()
     }
     
-    if (this.folderType == 'folder') {
-      this.folders = this.folderManageService.getSubfolderList(this.folderId)
-    } else { // is sharedFolder
-      this.texts = this.folderManageService.getTextList(this.folderId)
-    }
+  }
+
+  async initSubfolderList() {
+    await this.presentLoadingSpinner();
+    this.manageFolderService.getSubfolderListFor(this.folderId)
+      .pipe(
+        finalize(async () => { await this.loading.dismiss(); })
+      )
+      .subscribe(
+        data => {
+          this.subfolders = data
+        },
+        err => {
+          this.showErrorMessageAlert(err.status, err.statusText)
+        }
+      );
+  }
+
+  async initTextList() {
+    await this.presentLoadingSpinner();
+    this.manageFolderService.getTextList(this.folderId)
+      .pipe(
+        finalize(async () => { await this.loading.dismiss(); })
+      )
+      .subscribe(
+        data => {
+          this.texts = data
+        },
+        err => {
+          this.showErrorMessageAlert(err.status, err.statusText)
+        }
+      );
   }
 
   async openCreateFolderModal() {
@@ -96,6 +124,26 @@ export class ManagePage implements OnInit {
       header: 'Attention!',
       message: 'Do you really want to delete this text?',
       buttons: ['Yes', 'No']
+    });
+
+    await alert.present();
+  }
+
+  async presentLoadingSpinner() {
+    this.loading = await this.loadingController.create({
+        message: 'Loading...'
+    });
+    await this.loading.present();
+  }
+
+  async showErrorMessageAlert(status, msg) {
+    const alert = await this.alertController.create({
+      header: 'Error '+status,
+      message: msg,
+      buttons: [{
+        text: 'Reload',
+        handler: () => window.location.reload()
+      }]
     });
 
     await alert.present();

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { FolderManageService } from 'src/app/services/manage-folder.service';
+import { ManageFolderService } from 'src/app/services/manage-folder.service';
 
 @Component({
   selector: 'app-share-folder',
@@ -14,7 +14,7 @@ export class ShareFolderPage implements OnInit {
   private allUsers: String[];
   public filteredUsers: String[] = this.folderService.getAllUsers();;
 
-  constructor(public viewCtrl: ModalController, private folderService: FolderManageService) { }
+  constructor(public viewCtrl: ModalController, private folderService: ManageFolderService) { }
 
   ngOnInit() {
   }

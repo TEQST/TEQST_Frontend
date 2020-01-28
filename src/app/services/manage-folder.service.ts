@@ -1,94 +1,39 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FolderManageService {
 
-  constructor() { }
+export class ManageFolderService {
 
-  getFolderInfo(folderId: string) {
-    if (folderId == '010') {
-      return {
-        type: 'sharedFolder',
-        name: 'folder 10'
+  constructor(private http: HttpClient) { }
+
+  SERVER_URL = 'http://localhost:8000'
+  AUTH_TOKEN = 'Token 15eb455f1c1d17fa69fe1738e58046b95b7524be'
+
+  getSubfolderListFor(folderId: string): Observable<object> {
+    let url = new URL(this.SERVER_URL + "/api/folders")
+    if (folderId) {
+      url.searchParams.append('parent', folderId)
+    }
+    return this.http.get(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
       }
-    }
-    return {
-      type: 'folder',
-      name: 'name_for_id_'+folderId
-    }
-  }
-
-  getSubfolderList(folderId: string) {
-    switch (folderId) {
-      case null:
-        return [
-          {
-            id: '003',
-            name: 'folder 3',
-            type: 'folder'
-          },
-          {
-            id: '004',
-            name: 'folder 4',
-            type: 'folder'
-          },
-          {
-            id: '005',
-            name: 'folder 5',
-            type: 'folder'
-          }
-        ]
-      case '005':
-          return [
-            {
-              id: '007',
-              name: 'folder 7',
-              type: 'folder'
-            },
-            {
-              id: '008',
-              name: 'folder 8',
-              type: 'folder'
-            }
-          ]
-      case '008':
-        return [
-          {
-            id: '009',
-            name: 'folder 9',
-            type: 'folder'
-          },
-          {
-            id: '010',
-            name: 'folder 10',
-            type: 'sharedFolder'
-          }
-        ]
-      default: return []
-    }
+    });
   }
 
   getTextList(folderId: string) {
-    switch (folderId) {
-      case '010':
-        return [
-          {
-            id: '4592',
-            name: 'text 1'
-          },
-          {
-            id: '6942',
-            name: 'text 2'
-          },
-          {
-            id: '5818',
-            name: 'text 3'
-          },
-        ]
-      default: return []
-    }
+    let url = new URL(this.SERVER_URL + "/api/pub/texts")
+    url.searchParams.append('sharedfolder', folderId)
+
+    return this.http.get(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
+      }
+    });
   }
 
   createFolder(parentId: string, title: string) {

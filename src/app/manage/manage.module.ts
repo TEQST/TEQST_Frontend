@@ -23,6 +23,6 @@ import { ShareFolderPageModule } from './share-folder/share-folder.module';
     CreateTextPageModule,
     ShareFolderPageModule
   ],
-  declarations: [ManagePage]
+  declarations: [ManagePage],
 })
 export class ManagePageModule {}

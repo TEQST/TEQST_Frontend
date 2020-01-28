@@ -10,11 +10,11 @@
 </ion-header>
 
 <ion-content>
-  <form onsubmit="createFolder()">
+  <form >
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
         <ion-label position="stacked">Title</ion-label>
-        <ion-input name="name" autofocus="true"></ion-input>
+        <ion-input #folderName name="name" autofocus="true"></ion-input>
       </ion-item>
     </ion-list>
     <div class="ion-padding">
