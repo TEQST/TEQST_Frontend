@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
-import { TabBarComponent } from 'src/app/tabBar/tab-bar.component';
-import { ComponentsModule } from '../../tabBar/components.modules';
+
+import { ComponentsModule } from '../../tabBar/tab-bar.modules';
 
 @NgModule({
   imports: [

@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SpeakPageRoutingModule } from './speak-routing.module';
 
 import { SpeakPage } from './speak.page';
-import { ComponentsModule } from '../tabBar/components.modules';
+import { ComponentsModule } from '../tabBar/tab-bar.modules';
 
 @NgModule({
   imports: [

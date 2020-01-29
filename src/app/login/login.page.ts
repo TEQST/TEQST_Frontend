@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import { RegisterPage } from '../register/register.page';
+import { UsermgmtService } from '../services/usermgmt.service';
+
+
+
  
 @Component({
   selector: 'app-login',
@@ -10,16 +14,20 @@ import { RegisterPage } from '../register/register.page';
 export class LoginPage implements OnInit {
   username:string;
   password:string;
+  
+  
 
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController,public usermgmtService:UsermgmtService) { }
 
 
   ngOnInit() {
   }
-  login(){
-   
-    this.navCtrl.navigateForward("speak");
-  }
+
+  login(){    
+    var dataToSend = {username:this.username, password:this.password}; 
+    
+    this.usermgmtService.login(dataToSend);
+  }  
 
   goRegister(){
     this.navCtrl.navigateForward("register");

@@ -8,7 +8,7 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
 import { TabBarComponent } from 'src/app/tabBar/tab-bar.component';
-import { ComponentsModule } from '../tabBar/components.modules';
+import { ComponentsModule } from '../tabBar/tab-bar.modules';
 
 @NgModule({
   imports: [
