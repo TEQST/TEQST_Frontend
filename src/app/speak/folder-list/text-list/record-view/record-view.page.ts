@@ -10,7 +10,7 @@ import { TextServiceService } from './text-service.service';
   styleUrls: ['./record-view.page.scss'],
 })
 export class RecordViewPage implements OnInit {
-  textId: string;
+  textId: number;
   hasRecording: boolean;
 
   constructor(private route: ActivatedRoute, private textService: TextServiceService, private alertController: AlertController, private navCtrl: NavController) {
@@ -18,7 +18,9 @@ export class RecordViewPage implements OnInit {
    }
 
   ngOnInit() {
-    this.textId = this.route.snapshot.paramMap.get('publisherName'); 
+    this.textId = parseInt(this.route.snapshot.paramMap.get('textId')) ; 
+    console.log(this.textId);
+    this.textService.setTextId(this.textId);
     this.textService.checkIfRecordingInfoExists().then(result => {
       result ? '' : this.presentPermissionsCheckbox()
     });

@@ -21,12 +21,10 @@ export class TextServiceService {
   private recordingId = new Subject<number>();
 
   //Url Information
-  private textId = 2;
+  private textId;
   private baseUrl = "http://127.0.0.1:8000";
-  private textUrl = this.baseUrl + `/api/spk/texts/${this.textId}/`;
-  private getRecordingInfoUrl = this.baseUrl + `/api/textrecordings/?text=${this.textId}`;
   private postRecordingInfoUrl = this.baseUrl + `/api/textrecordings/`;
-  private authToken = "Token f397422fb8e3f2e5f59630fb059316e24952f8f3";
+  private authToken = "Token 3eb103bc990fad5f02fd20d3bea3559036723368";
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -34,14 +32,14 @@ export class TextServiceService {
     })
   };
 
-  constructor(private http: HttpClient) {
-    this.fetchText();
-  }
+  constructor(private http: HttpClient) {}
 
   fetchText(): void {
     //fetch TextData from Server
     console.log(this.httpOptions)
-    this.http.get(this.textUrl, this.httpOptions).subscribe(text => {
+    let textUrl = this.baseUrl + `/api/spk/texts/${this.textId}/`;
+
+    this.http.get(textUrl, this.httpOptions).subscribe(text => {
       this.totalSentenceNumber.next(text['content'].length);
       this.sentences.next(text['content']);
     });
@@ -56,7 +54,9 @@ export class TextServiceService {
 
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
-    await this.http.get(this.getRecordingInfoUrl, this.httpOptions).toPromise()
+    let getRecordingInfoUrl = this.baseUrl + `/api/textrecordings/?text=${this.textId}`;
+
+    await this.http.get(getRecordingInfoUrl, this.httpOptions).toPromise()
     .then(info => {
       if(info === null) {
         console.log("false")
@@ -105,6 +105,11 @@ export class TextServiceService {
 
   getRecordingId(): Observable<number> {
     return this.recordingId.asObservable();
+  }
+
+  setTextId(index: number): void {
+    this.textId = index;
+    this.fetchText();
   }
 
   setActiveSentenceIndex(index: number): void {
