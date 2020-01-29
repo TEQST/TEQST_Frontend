@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsermgmtService } from '../services/usermgmt.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  constructor(public usermgmtService:UsermgmtService) { }
 
   ngOnInit() {
+  }
+  logout(){
+    this.usermgmtService.logout();
   }
 
 }
