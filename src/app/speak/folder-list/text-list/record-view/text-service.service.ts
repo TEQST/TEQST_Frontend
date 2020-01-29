@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, of, Observable } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, of, Observable, Subject } from 'rxjs';
 import { TEXT } from './mock-text';
 import { Text } from './text';
 import { RECORDINGINFO } from './mock-recording-information';
@@ -18,6 +18,7 @@ export class TextServiceService {
   private totalSentenceNumber = new BehaviorSubject<number>(1);
   private furthestSentenceIndex = new BehaviorSubject<number>(1);
   private sentenceHasRecording = new BehaviorSubject<boolean>(false);
+  private recordingId = new Subject<number>();
 
   //Url Information
   private textId = 2;
@@ -25,7 +26,7 @@ export class TextServiceService {
   private textUrl = this.baseUrl + `/api/spk/texts/${this.textId}/`;
   private getRecordingInfoUrl = this.baseUrl + `/api/textrecordings/?text=${this.textId}`;
   private postRecordingInfoUrl = this.baseUrl + `/api/textrecordings/`;
-  private authToken = "Token 47cd8da0467088d9d682796c8b031b099b73cbcb";
+  private authToken = "Token f397422fb8e3f2e5f59630fb059316e24952f8f3";
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -39,6 +40,7 @@ export class TextServiceService {
 
   fetchText(): void {
     //fetch TextData from Server
+    console.log(this.httpOptions)
     this.http.get(this.textUrl, this.httpOptions).subscribe(text => {
       this.totalSentenceNumber.next(text['content'].length);
       this.sentences.next(text['content']);
@@ -49,7 +51,7 @@ export class TextServiceService {
     let index = recordingInfo[0]['active_sentence']
     this.activeSentenceIndex.next(Math.min(index, this.totalSentenceNumber.getValue()));
     this.furthestSentenceIndex.next(index);
-
+    this.recordingId.next(recordingInfo[0]['id']);
   }
 
   async checkIfRecordingInfoExists(): Promise<boolean> {
@@ -99,6 +101,10 @@ export class TextServiceService {
 
   getTotalSentenceNumber(): BehaviorSubject<number> {
     return this.totalSentenceNumber;
+  }
+
+  getRecordingId(): Observable<number> {
+    return this.recordingId.asObservable();
   }
 
   setActiveSentenceIndex(index: number): void {

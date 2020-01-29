@@ -1,4 +1,5 @@
 import { Injectable, ModuleWithComponentFactories } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
 import * as RecordRTC from 'recordrtc';
@@ -19,13 +20,25 @@ export class AudioRecordingService {
   private recordingPosition$ = new Subject<number>();
   private isPlaying$ = new Subject<boolean>();
 
+  private recordingId: number;
   private activeSentence: number;
   private furthestSentence: number;
   private audio = new Audio();
 
-  constructor(private textService: TextServiceService) {
+  private baseUrl = "http://127.0.0.1:8000";
+  private sentenceRecordingUrl = this.baseUrl + "/api/sentencerecordings/";
+  private authToken = "Token f397422fb8e3f2e5f59630fb059316e24952f8f3";
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Authorization': this.authToken
+    })
+  };
+
+  constructor(private textService: TextServiceService, private http: HttpClient) {
     textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
     textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
+    textService.getRecordingId().subscribe((id) => this.recordingId = id);
   }
 
   // getRecordedBlob(): Observable<RecordedAudioOutput> {
@@ -77,13 +90,27 @@ export class AudioRecordingService {
     
   }
 
+  safeRecording(index: number, blob: Blob) {
+    this.recorded.set(index, blob)
+    this.uploadRecording(index, blob);
+  }
+
+  uploadRecording(index: number, blob: Blob) {
+    let blobFile = new File([blob], "test.wav");
+
+    let formdata = new FormData();
+    formdata.append("recording", this.recordingId.toString());
+    formdata.append("audiofile", blobFile);
+    formdata.append("index", index.toString());
+    console.log(formdata)
+    this.http.post(this.sentenceRecordingUrl, formdata, this.httpOptions).subscribe((response) => console.log(response));
+  }
+
   stopRecording() {
 
     if (this.recorder) {
       this.recorder.stop((blob) => {
-        //safe recording
-        this.recorded.set(this.activeSentence, blob)
-        console.log(this.recorded);
+        this.safeRecording(this.activeSentence, blob);
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
         }
@@ -99,9 +126,7 @@ export class AudioRecordingService {
   nextRecording() {
     if (this.recorder) {
       this.recorder.stop((blob) => {
-        //safe recording
-        this.recorded.set(this.activeSentence, blob)
-        console.log(this.recorded);
+        this.safeRecording(this.activeSentence, blob);
         //start next recording here because otherwise the functions would be run before the blob is safed
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
