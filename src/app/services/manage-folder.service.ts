@@ -38,7 +38,6 @@ export class ManageFolderService {
 
   createFolder(parentId: string, folderName: string) {
     let url = new URL(this.SERVER_URL + "/api/folders/")
-    console.log(parentId, folderName)
 
     return this.http.post(url.toString(),
       {
@@ -54,7 +53,12 @@ export class ManageFolderService {
   }
 
   deleteFolder(folderId: string) {
-
+    let url = new URL(this.SERVER_URL + "/api/folders/" + folderId + "/")
+    return this.http.delete(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
+      }
+    });
   }
 
   createText(folderId: string, title: string, textContent: string) {

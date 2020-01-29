@@ -50,7 +50,7 @@
     <ion-list>
       <ion-item button *ngFor="let folder of subfolders" [routerLink]="folder.is_sharedfolder ? ['/manage/s'+folder.id] : ['/manage/f'+folder.id]">
         <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
-        <ion-button color="danger" slot="end" (click)="openDeleteFolderAlert($event)">
+        <ion-button color="danger" slot="end" (click)="openDeleteFolderAlert($event, folder)">
           <ion-icon name="trash"></ion-icon>
         </ion-button>
       </ion-item>

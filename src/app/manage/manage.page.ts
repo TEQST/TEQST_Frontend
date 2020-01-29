@@ -98,18 +98,43 @@ export class ManagePage implements OnInit {
       );
   }
 
-  // delete
-  async openDeleteFolderAlert(event) {
-    event.preventDefault()
-    event.stopPropagation()
+  // delete alert
+  async openDeleteFolderAlert($event, folder) {
+    $event.preventDefault()
+    $event.stopPropagation()
 
     const alert = await this.alertController.create({
       header: 'Attention!',
-      message: 'Do you really want to delete this folder?',
-      buttons: ['Yes', 'No']
+      message: `Do you really want to delete folder "${folder.name}"?`,
+      buttons: [
+        'No',
+        {
+          text: 'Yes',
+          handler: () => {
+            this.deleteFolder(folder.id)
+          }
+        }
+      ]
     });
 
     await alert.present();
+  }
+
+  // delete
+  async deleteFolder(folderId) {
+    await this.presentLoadingSpinner();
+    this.manageFolderService.deleteFolder(folderId)
+      .pipe(
+        finalize(async () => { await this.loading.dismiss(); })
+      )
+      .subscribe(
+        data => {
+          this.initSubfolderList()
+        },
+        err => {
+          this.showErrorAlert(err.status, err.statusText)
+        }
+      );
   }
 
   // ### texts ###

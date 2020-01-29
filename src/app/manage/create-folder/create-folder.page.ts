@@ -18,7 +18,7 @@ export class CreateFolderPage implements OnInit {
               private manageFolderService: ManageFolderService,
               public viewCtrl: ModalController) {
     this.folderInfo = this.formBuilder.group({
-      folderName: ['', Validators.pattern('^[a-zA-Z0-9_]*$')],
+      folderName: ['', Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')],
     });
   }
 
