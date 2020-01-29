@@ -23,6 +23,7 @@ export class AudioRecordingService {
   private recordingId: number;
   private activeSentence: number;
   private furthestSentence: number;
+  private sentenceHasRecording: boolean;
   private audio = new Audio();
 
   private baseUrl = "http://127.0.0.1:8000";
@@ -39,6 +40,7 @@ export class AudioRecordingService {
     textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
     textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
     textService.getRecordingId().subscribe((id) => this.recordingId = id);
+    textService.getSentenceHasRecording().subscribe((value) => this.sentenceHasRecording = value);
   }
 
   // getRecordedBlob(): Observable<RecordedAudioOutput> {
@@ -96,14 +98,20 @@ export class AudioRecordingService {
   }
 
   uploadRecording(index: number, blob: Blob) {
-    let blobFile = new File([blob], "test.wav");
+    let blobFile = new File([blob], "recording.wav");
 
     let formdata = new FormData();
-    formdata.append("recording", this.recordingId.toString());
     formdata.append("audiofile", blobFile);
-    formdata.append("index", index.toString());
-    console.log(formdata)
-    this.http.post(this.sentenceRecordingUrl, formdata, this.httpOptions).subscribe((response) => console.log(response));
+    //check if sentence has already been recorded
+    if(!this.sentenceHasRecording) {
+      formdata.append("recording", this.recordingId.toString());
+      formdata.append("index", index.toString());
+      this.http.post(this.sentenceRecordingUrl, formdata, this.httpOptions).subscribe((response) => console.log(response));
+    } else {
+      // replace existing sentence recording
+      this.http.put(this.sentenceRecordingUrl + `${this.recordingId}/?index=${this.activeSentence}`,
+       formdata, this.httpOptions).subscribe((response) => console.log(response));
+    }
   }
 
   stopRecording() {
