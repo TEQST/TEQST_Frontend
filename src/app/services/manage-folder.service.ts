@@ -25,7 +25,7 @@ export class ManageFolderService {
     });
   }
 
-  getTextList(folderId: string) {
+  getTextList(folderId: string): Observable<object> {
     let url = new URL(this.SERVER_URL + "/api/pub/texts")
     url.searchParams.append('sharedfolder', folderId)
 
@@ -36,8 +36,21 @@ export class ManageFolderService {
     });
   }
 
-  createFolder(parentId: string, title: string) {
+  createFolder(parentId: string, folderName: string) {
+    let url = new URL(this.SERVER_URL + "/api/folders/")
+    console.log(parentId, folderName)
 
+    return this.http.post(url.toString(),
+      {
+        parent: parentId,
+        name: folderName
+      },
+      {
+        headers:  {
+          "Authorization": this.AUTH_TOKEN
+        }
+      }
+    );
   }
 
   deleteFolder(folderId: string) {

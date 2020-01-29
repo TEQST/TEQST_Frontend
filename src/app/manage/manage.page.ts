@@ -24,21 +24,20 @@ export class ManagePage implements OnInit {
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
-              private router: Router,
               public alertController: AlertController,
               public modalController: ModalController,
               public loadingController: LoadingController) { }
 
-  ngOnInit() { }
+  async ngOnInit() {
+    await this.presentLoadingSpinner();
 
-  ionViewWillEnter() {
     let urlParam = this.route.snapshot.paramMap.get('folderInfo');
     if (urlParam == null) {
       this.is_sharedfolder = false
+      this.folderId = null
       this.folderName = '/'
     } else {
-      let folderTypeChar = urlParam.charAt(0)
-      this.is_sharedfolder = folderTypeChar == 's'
+      this.is_sharedfolder = urlParam.charAt(0) == 's'
       this.folderId = urlParam.substring(1, urlParam.length)
     }
 
@@ -47,11 +46,12 @@ export class ManagePage implements OnInit {
     } else {
       this.initSubfolderList()
     }
-    
   }
 
+  // ### folders ###
+
+  // list
   async initSubfolderList() {
-    await this.presentLoadingSpinner();
     this.manageFolderService.getSubfolderListFor(this.folderId)
       .pipe(
         finalize(async () => { await this.loading.dismiss(); })
@@ -61,48 +61,44 @@ export class ManagePage implements OnInit {
           this.subfolders = data
         },
         err => {
-          this.showErrorMessageAlert(err.status, err.statusText)
+          this.showErrorAlert(err.status, err.statusText)
         }
       );
   }
 
-  async initTextList() {
+  // create modal
+  async openCreateFolderModal() {
+    const modal = await this.modalController.create({
+      component: CreateFolderPage
+    })
+    modal.onDidDismiss()
+      .then((returnData) => {
+        let data = returnData.data
+        if (data) {
+          this.createFolder(data.folderName)
+        }
+      });
+    return await modal.present()
+  }
+
+  // create
+  async createFolder(folderName) {
     await this.presentLoadingSpinner();
-    this.manageFolderService.getTextList(this.folderId)
+    this.manageFolderService.createFolder(this.folderId, folderName)
       .pipe(
         finalize(async () => { await this.loading.dismiss(); })
       )
       .subscribe(
         data => {
-          this.texts = data
+          this.initSubfolderList()
         },
         err => {
-          this.showErrorMessageAlert(err.status, err.statusText)
+          this.showErrorAlert(err.status, err.statusText)
         }
       );
   }
 
-  async openCreateFolderModal() {
-    const modal = await this.modalController.create({
-    component: CreateFolderPage
-    })
-    return await modal.present()
-  }
-
-  async openCreateTextModal() {
-    const modal = await this.modalController.create({
-    component: CreateTextPage
-    })
-    return await modal.present()
-  }
-
-  async openShareFolderModal() {
-    const modal = await this.modalController.create({
-      component: ShareFolderPage
-    })
-    return await modal.present()
-  }
-
+  // delete
   async openDeleteFolderAlert(event) {
     event.preventDefault()
     event.stopPropagation()
@@ -116,6 +112,39 @@ export class ManagePage implements OnInit {
     await alert.present();
   }
 
+  // ### texts ###
+  async initTextList() {
+    this.manageFolderService.getTextList(this.folderId)
+      .pipe(
+        finalize(async () => { await this.loading.dismiss(); })
+      )
+      .subscribe(
+        data => {
+          this.texts = data
+        },
+        err => {
+          this.showErrorAlert(err.status, err.statusText)
+        }
+      );
+  }
+
+  // create modal
+  async openCreateTextModal() {
+    const modal = await this.modalController.create({
+      component: CreateTextPage
+    })
+    return await modal.present()
+  }
+
+  // share
+  async openShareFolderModal() {
+    const modal = await this.modalController.create({
+      component: ShareFolderPage
+    })
+    return await modal.present()
+  }
+
+  // delete
   async openDeleteTextAlert(event) {
     event.preventDefault()
     event.stopPropagation()
@@ -129,6 +158,8 @@ export class ManagePage implements OnInit {
     await alert.present();
   }
 
+  // ### other ###
+
   async presentLoadingSpinner() {
     this.loading = await this.loadingController.create({
         message: 'Loading...'
@@ -136,7 +167,7 @@ export class ManagePage implements OnInit {
     await this.loading.present();
   }
 
-  async showErrorMessageAlert(status, msg) {
+  async showErrorAlert(status, msg) {
     const alert = await this.alertController.create({
       header: 'Error '+status,
       message: msg,
