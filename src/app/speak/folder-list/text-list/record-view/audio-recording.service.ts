@@ -133,7 +133,7 @@ export class AudioRecordingService {
         } 
         // if the next sentence hasn't been recorded before start next recording otherwise just skip to next sentence
         if (this.activeSentence >= this.furthestSentence - 1) {
-          this.recorder.record();
+          this.record();
           this.textService.setNextSenteceActive();
         } else {
           this.stopMedia();
