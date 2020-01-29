@@ -14,20 +14,13 @@ export class UsermgmtService {
   private dataFromServer:any="";
   private authToken:string;
   private baseUrl = "http://127.0.0.1:8000";
-
   private httpOptions;
   constructor(public http: HttpClient, public navCtrl: NavController) { } 
 
 
   login(dataToSend) {
     let url = this.baseUrl +  "/api/auth/login/";
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'authToken'
-      })
-    };
-    
+       this.reset();
     return this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: any)=>{
       this.dataFromServer = JSON.stringify(dataReturnFromServer);       
       this.authToken = "Token " + JSON.parse(this.dataFromServer).token;  
@@ -40,16 +33,28 @@ export class UsermgmtService {
       });
   }
 
-  logout(){
-    let url = this.baseUrl + "/api/auth/logout/";  
-  
-     
-    this.http.post(url, '', this.httpOptions).subscribe(() => {
-      this.navCtrl.navigateForward("login");
-      console.log("case 2"+ this.authToken);
-    });
+  register(dataToSend, logInData){
+    let url = this.baseUrl + "/api/auth/register/";
+      this.reset;//Doesnt work 
+    this.http.post(url,dataToSend,this.httpOptions).subscribe(() => {
+      this.login(logInData);
+    });//TODO error Handling
   }
 
+  logout(){
+    let url = this.baseUrl + "/api/auth/logout/";       
+    this.http.post(url, '', this.httpOptions).subscribe(() => {
+      this.navCtrl.navigateForward("login");     
+    });
+  }
+  reset(){
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'authToken'
+      })
+    }; 
+  }
   public getToken(){
     return this.authToken;
   }
