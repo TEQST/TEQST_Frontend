@@ -81,7 +81,7 @@ export class AudioRecordingService {
       type: 'audio',
       mimeType: 'audio/wav',
       // audioBitsPerSecond: 16000,
-      // desiredSampRate: 16000,
+      desiredSampRate: 16000,
       numberOfAudioChannels: 1
       
     });
@@ -161,8 +161,26 @@ export class AudioRecordingService {
     this.stopMedia();
   }
 
-  playRecording(): void {
-    let blob = this.recorded.get(this.textService.getActiveSentenceIndex().getValue());
+  async fetchSentenceRecording() {
+    //set blob as response type
+    let audioHttpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.authToken
+      }),
+      responseType: 'blob' as 'json'
+    };
+    
+    return await this.http.get<Blob>(this.baseUrl + `/api/sentencerecordings/${this.recordingId}/?index=${this.activeSentence}`,
+      audioHttpOptions).toPromise();
+  }
+
+  async playRecording() {
+    let blob: Blob;
+    if (this.recorded.has(this.activeSentence)) {
+      blob = this.recorded.get(this.activeSentence);
+    } else {
+      blob =  await this.fetchSentenceRecording();
+    }
     this.audio.src = URL.createObjectURL(blob);
     this.audio.load();
     this.audio.play();
