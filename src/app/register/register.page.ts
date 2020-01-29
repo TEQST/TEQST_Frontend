@@ -19,6 +19,9 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
   }
+  goLogin(){
+    this.navCtrl.navigateForward("login");
+  }
   registerUser(){
     if(this.username == null||this.password== null ){
       alert("Please fill out all fields")    
