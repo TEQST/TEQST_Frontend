@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { CreateFolderPage } from './create-folder/create-folder.page';
 import { CreateTextPage } from './create-text/create-text.page';
 import { ShareFolderPage } from './share-folder/share-folder.page';
-import { finalize } from 'rxjs/operators';
-
+import { Folder } from './folder'
 
 @Component({
   selector: 'app-manage',
@@ -16,9 +16,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class ManagePage implements OnInit {
   loading: any;
-  folderId: string
-  is_sharedfolder: boolean
-  folderName: string
+  currentFolder = new Folder(null, '/', false)
   texts: object;
   subfolders: object;
 
@@ -26,79 +24,78 @@ export class ManagePage implements OnInit {
               private route: ActivatedRoute,
               public alertController: AlertController,
               public modalController: ModalController,
-              public loadingController: LoadingController) { }
+              public loadingController: LoadingController) {
+      
+    Folder.setServiceProvider(manageFolderService)
+  }
 
   async ngOnInit() {
     await this.presentLoadingSpinner();
 
     let urlParam = this.route.snapshot.paramMap.get('folderInfo');
-    if (urlParam == null) {
-      this.is_sharedfolder = false
-      this.folderId = null
-      this.folderName = '/'
-    } else {
-      this.is_sharedfolder = urlParam.charAt(0) == 's'
-      this.folderId = urlParam.substring(1, urlParam.length)
+    if (urlParam != null) {
+      let is_sharedfolder = urlParam.charAt(0) == 's'
+      let folderId = urlParam.substring(1, urlParam.length)
+      this.currentFolder = new Folder(folderId, '/', is_sharedfolder)
     }
 
-    if (this.is_sharedfolder) {
+    if (this.currentFolder.is_sharedfolder) {
       this.initTextList()
     } else {
       this.initSubfolderList()
     }
   }
 
-  // ### folders ###
-
-  // list
-  async initSubfolderList() {
-    this.manageFolderService.getSubfolderListFor(this.folderId)
-      .pipe(
-        finalize(async () => { await this.loading.dismiss(); })
-      )
-      .subscribe(
-        data => {
-          this.subfolders = data
-        },
-        err => {
-          this.showErrorAlert(err.status, err.statusText)
+  initSubfolderList() {
+    this.currentFolder.getSubfolderList()
+    .pipe(
+      finalize(async () => { await this.loading.dismiss(); })
+    )
+    .subscribe(
+      data => {
+        if (Array.isArray(data)) {
+          let subfolders = []
+          for (let folderInfo of data) {
+            let folder = new Folder(folderInfo.id, folderInfo.name, folderInfo.is_sharedfolder)
+            subfolders.push(folder)
+          }
+          this.subfolders = subfolders
+        } else {
+          this.showErrorAlert('', 'invalid data from server!')
         }
-      );
+      },
+      err => {
+        this.showErrorAlert(err.status, err.statusText)
+      }
+    );
   }
 
-  // create modal
   async openCreateFolderModal() {
     const modal = await this.modalController.create({
       component: CreateFolderPage
     })
     modal.onDidDismiss()
-      .then((returnData) => {
+      .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          this.createFolder(data.folderName)
+          await this.presentLoadingSpinner();
+          this.currentFolder.createSubfolder(data.folderName)
+            .pipe(
+              finalize(async () => { await this.loading.dismiss(); })
+            )
+            .subscribe(
+              data => {
+                this.initSubfolderList()
+              },
+              err => {
+                this.showErrorAlert(err.status, err.statusText)
+              }
+            );
         }
       });
     return await modal.present()
   }
 
-  // create
-  async createFolder(folderName) {
-    await this.presentLoadingSpinner();
-    this.manageFolderService.createFolder(this.folderId, folderName)
-      .pipe(
-        finalize(async () => { await this.loading.dismiss(); })
-      )
-      .subscribe(
-        data => {
-          this.initSubfolderList()
-        },
-        err => {
-          this.showErrorAlert(err.status, err.statusText)
-        }
-      );
-  }
-
-  // delete alert
   async openDeleteFolderAlert($event, folder) {
     $event.preventDefault()
     $event.stopPropagation()
@@ -110,36 +107,30 @@ export class ManagePage implements OnInit {
         'No',
         {
           text: 'Yes',
-          handler: () => {
-            this.deleteFolder(folder.id)
+          handler: async () => {
+            await this.presentLoadingSpinner();
+            folder.delete()
+              .pipe(
+                finalize(async () => { await this.loading.dismiss(); })
+              )
+              .subscribe(
+                data => {
+                  this.initSubfolderList()
+                },
+                err => {
+                  this.showErrorAlert(err.status, err.statusText)
+                }
+              );
           }
         }
       ]
     });
-
     await alert.present();
-  }
-
-  // delete
-  async deleteFolder(folderId) {
-    await this.presentLoadingSpinner();
-    this.manageFolderService.deleteFolder(folderId)
-      .pipe(
-        finalize(async () => { await this.loading.dismiss(); })
-      )
-      .subscribe(
-        data => {
-          this.initSubfolderList()
-        },
-        err => {
-          this.showErrorAlert(err.status, err.statusText)
-        }
-      );
   }
 
   // ### texts ###
   async initTextList() {
-    this.manageFolderService.getTextList(this.folderId)
+    this.manageFolderService.getTextList(this.currentFolder.id)
       .pipe(
         finalize(async () => { await this.loading.dismiss(); })
       )

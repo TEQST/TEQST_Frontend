@@ -18,7 +18,7 @@ export class ManageFolderService {
     if (folderId) {
       url.searchParams.append('parent', folderId)
     }
-    return this.http.get(url.toString(), {
+    return this.http.get<any[]>(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }

@@ -1,13 +1,13 @@
-<div *ngIf="is_sharedfolder; then textList else folderList"></div>
+<div *ngIf="currentFolder.is_sharedfolder; then textList else folderList"></div>
 
 <ng-template #textList>
 
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button *ngIf="folderId" defaultHref="manage" ></ion-back-button>
+        <ion-back-button *ngIf="currentFolder.id" defaultHref="manage" ></ion-back-button>
       </ion-buttons>
-      <ion-title>{{folderName}}</ion-title>
+      <ion-title>{{currentFolder.name}}</ion-title>
       <ion-buttons slot="end">
         <ion-button color="primary" (click)="openShareFolderModal()">
           <ion-icon name="cloudy"></ion-icon>
@@ -40,7 +40,7 @@
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button *ngIf="folderId" defaultHref="manage" ></ion-back-button>
+        <ion-back-button *ngIf="currentFolder.id" defaultHref="manage" ></ion-back-button>
       </ion-buttons>
       <ion-title>{{folderName ? folderName : '/'}}</ion-title>
     </ion-toolbar>
