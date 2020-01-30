@@ -41,15 +41,15 @@ export class SpeakTabNavService {
   getTextsByFolderId(folderId: string) {
     return [
       {
-        id: "t554",
+        id: "554",
         name: "text1"
       },
       {
-        id: "t843",
+        id: "2",
         name: "text2"
       },
       {
-        id: "t399",
+        id: "3",
         name: "text3"
       }
     ]

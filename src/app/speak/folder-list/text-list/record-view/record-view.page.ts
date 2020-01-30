@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { TextServiceService } from './text-service.service';
+import { AlertManagerService } from 'src/app/services/alert-manager.service';
 
 @Component({
   selector: 'app-record-view',
@@ -13,17 +14,23 @@ export class RecordViewPage implements OnInit {
   textId: number;
   hasRecording: boolean;
 
-  constructor(private route: ActivatedRoute, private textService: TextServiceService, private alertController: AlertController, private navCtrl: NavController) {
+  constructor(private route: ActivatedRoute, private textService: TextServiceService,
+     private alertController: AlertController, private navCtrl: NavController,
+     private alertService: AlertManagerService) {
     textService.getSentenceHasRecording().subscribe((status) => this.hasRecording = status)
    }
 
   ngOnInit() {
-    this.textId = parseInt(this.route.snapshot.paramMap.get('textId')) ; 
-    console.log(this.textId);
+    let textId = parseInt(this.route.snapshot.paramMap.get('textId')) ; 
+    if(isNaN(textId)) {
+      this.alertService.presentGoBackAlert("Invalid Text ID")
+      return
+    }
+    this.textId = textId;
     this.textService.setTextId(this.textId);
     this.textService.checkIfRecordingInfoExists().then(result => {
       result ? '' : this.presentPermissionsCheckbox()
-    });
+    }, () => this.alertService.presentGoBackAlert("No Access"));
     // TODO: get text name from service and set as title
   }
 
