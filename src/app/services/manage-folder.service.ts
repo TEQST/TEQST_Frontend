@@ -88,6 +88,15 @@ export class ManageFolderService {
     });
   }
 
+  getTextInfo(textId: string) {
+    let url = new URL(this.SERVER_URL + "/api/pub/texts/" + textId + "/")
+    return this.http.get(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
+      }
+    });
+  }
+
   getSpeakers(): String[] {
     let speakers = ["Alex", "Kevin", "Anna"];
     return speakers;

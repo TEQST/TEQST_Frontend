@@ -18,7 +18,7 @@
   
   <ion-content>
     <ion-list>
-      <ion-item *ngFor="let text of texts">
+      <ion-item button *ngFor="let text of texts" [routerLink]="['/manage/text', text.id]">
         <ion-icon name="paper" class="textIcon"></ion-icon>{{ text.title }}
         <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
           <ion-icon name="trash"></ion-icon>

@@ -5,14 +5,16 @@ export class Text {
 
     id: string
     title: string
+    content: string
 
     static setServiceProvider(folderService) {
         this.folderService = folderService
     }
 
-    constructor(id, title) {
+    constructor(id, title, content='') {
         this.id = id;
         this.title = title;
+        this.content = content
     }
 
     delete() {
