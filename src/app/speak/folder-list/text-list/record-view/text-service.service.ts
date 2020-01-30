@@ -48,10 +48,12 @@ export class TextServiceService {
   }
 
   setRecordingInfo(recordingInfo: Object) {
-    let index = recordingInfo[0]['active_sentence']
-    this.activeSentenceIndex.next(Math.min(index, this.totalSentenceNumber.getValue()));
+    let index = recordingInfo['active_sentence']
+    console.log(recordingInfo);
     this.furthestSentenceIndex.next(index);
-    this.recordingId.next(recordingInfo[0]['id']);
+    this.recordingId.next(recordingInfo['id']);
+    this.setActiveSentenceIndex(Math.min(index, this.totalSentenceNumber.getValue()));
+
   }
 
   async checkIfRecordingInfoExists(): Promise<boolean> {
@@ -65,7 +67,7 @@ export class TextServiceService {
         result = false;
       } else {
         console.log("true");
-        this.setRecordingInfo(info);
+        this.setRecordingInfo(info[0]);
         result = true;
       }
     });
@@ -81,6 +83,7 @@ export class TextServiceService {
       "SP_permission": speechRecognition
     }
     this.http.post(this.postRecordingInfoUrl, recordingInfo, this.httpOptions).subscribe(info => {
+      console.log(info)
       this.setRecordingInfo(info);
     })
   }

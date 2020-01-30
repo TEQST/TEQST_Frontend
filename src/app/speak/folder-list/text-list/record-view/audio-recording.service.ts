@@ -39,13 +39,17 @@ export class AudioRecordingService {
   constructor(private textService: TextServiceService, private http: HttpClient) {
     textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
     textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
-    textService.getRecordingId().subscribe((id) => this.recordingId = id);
+    textService.getRecordingId().subscribe((id) => {
+      this.recordingId = id;
+      this.resetRecordingData();
+    });
     textService.getSentenceHasRecording().subscribe((value) => this.sentenceHasRecording = value);
   }
 
-  // getRecordedBlob(): Observable<RecordedAudioOutput> {
-  //   return this._recorded.asObservable();
-  // }
+  resetRecordingData() {
+    this.recorded = new Map<number, Blob>()
+
+  }
 
   recordingFailed(): Observable<string> {
     return this.recordingFailed$.asObservable();
