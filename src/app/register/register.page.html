@@ -1,6 +1,6 @@
 
 
-<ion-content padding center text-center>
+<ion-content class="padding center text-center">
   <ion-grid class="max-height">
     
     <ion-row class="image-row ion-align-items-center ion-justify-content-center">
@@ -12,7 +12,7 @@
     <ion-row class="ion-align-items-center content-row ion-justify-content-center">
       <ion-col class="inner-col-setting">
         <ion-card class="max-height">
-          <ion-list padding center >
+          <ion-list class="padding center">
             <ion-item >
               <ion-label>Username: </ion-label>
               <ion-input placeholder="Username" [(ngModel)]="username" required = true><ion-text color="danger">*</ion-text></ion-input>
@@ -39,8 +39,9 @@
             </ion-item>
 
             <ion-item>
-              <ion-label>Language:</ion-label>
-              <ion-select multiple="true" placeholder="Select One" [(ngModel)]="language">
+              <ion-label>Language:<ion-text color="danger">*</ion-text></ion-label>
+              
+              <ion-select multiple="true" placeholder="Select One" [(ngModel)]="language" required="true" >
                 <ion-select-option value="1">English</ion-select-option>
                 <ion-select-option value="1">German</ion-select-option>
               </ion-select>

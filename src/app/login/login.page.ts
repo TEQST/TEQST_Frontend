@@ -26,6 +26,7 @@ export class LoginPage implements OnInit {
   login(){    
     var dataToSend = {username:this.username, password:this.password};    
     this.usermgmtService.login(dataToSend);
+  
   }  
 
   goRegister(){

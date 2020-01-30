@@ -31,9 +31,13 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
   }
+
+  goLogin(){
+    this.navCtrl.navigateForward("login");
+  }
   
   registerUser(){
-    var dataToSend = {username:this.username, password:this.password,language_ids:this.language,birth_year: this.birthyear,gender:this.gender,education:this.education};
+    var dataToSend = {username:this.username, password:this.password,language_ids:this.language,birth_year: this.birthyear,gender:this.gender,education:this.education,country:this.country};
     var logInData = {username:this.username, password:this.password}
     
 
