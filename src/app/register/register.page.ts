@@ -1,36 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { UsermgmtService } from '../services/usermgmt.service';
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
+
 export class RegisterPage implements OnInit {
 
-  username:null;
-  password:null;  
-  repassword:null;
-  birthyear:null;
-  country:null;
-  gender:null;
-  language:null;
-  constructor(public navCtrl: NavController) { }
+  username:string="";
+  password:string="";  
+  repassword:string="";
+  education:string="N";
+  birthyear:number;
+  country:string;
+  gender:string="N";
+  language:[];
+  
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'authToken'
+    })
+  };;
+  constructor(public navCtrl: NavController, public http: HttpClient,public usermgmtService:UsermgmtService) { }
 
   ngOnInit() {
   }
+
   goLogin(){
     this.navCtrl.navigateForward("login");
   }
+  
   registerUser(){
-    if(this.username == null||this.password== null ){
-      alert("Please fill out all fields")    
-    }else if(this.password==this.repassword){
-      alert("Registration completed successfully")
-      this.navCtrl.navigateForward("speak");     
-    }else{
-      alert("The repeated password doesn't match the original password")
-    } 
-  }
+    var dataToSend = {username:this.username, password:this.password,language_ids:this.language,birth_year: this.birthyear,gender:this.gender,education:this.education,country:this.country};
+    var logInData = {username:this.username, password:this.password}
+    
 
+       if(this.username == ""||this.password== ""|| this.repassword=="" ){
+        alert("Please fill out all fields");    
+       }else if(this.password!=this.repassword){
+        alert("The repeated password doesn't match the original password");
+       } else {
+        this.usermgmtService.register(dataToSend, logInData);        
+       }
+  }
 }
