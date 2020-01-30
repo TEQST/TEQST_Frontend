@@ -18,14 +18,14 @@ export class ManageFolderService {
     if (folderId) {
       url.searchParams.append('parent', folderId)
     }
-    return this.http.get<any[]>(url.toString(), {
+    return this.http.get(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
     });
   }
 
-  getTextList(folderId: string): Observable<object> {
+  getTextListFor(folderId: string): Observable<object> {
     let url = new URL(this.SERVER_URL + "/api/pub/texts")
     url.searchParams.append('sharedfolder', folderId)
 
@@ -61,12 +61,31 @@ export class ManageFolderService {
     });
   }
 
-  createText(folderId: string, title: string, textContent: string) {
+  createText(folderId: string, title: string, textFile: File) {
+    let formData = new FormData(); 
+    formData.append('shared_folder', folderId); 
+    formData.append('title', title); 
+    formData.append('textfile', textFile, textFile.name); 
 
+    let url = new URL(this.SERVER_URL + "/api/pub/texts/")
+
+    return this.http.post(url.toString(),
+      formData,
+      {
+        headers:  {
+          "Authorization": this.AUTH_TOKEN
+        }
+      }
+    );
   }
 
   deleteText(textId: string) {
-
+    let url = new URL(this.SERVER_URL + "/api/pub/texts/" + textId + "/")
+    return this.http.delete(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
+      }
+    });
   }
 
   getSpeakers(): String[] {

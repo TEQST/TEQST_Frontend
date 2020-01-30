@@ -7,7 +7,8 @@ import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { CreateFolderPage } from './create-folder/create-folder.page';
 import { CreateTextPage } from './create-text/create-text.page';
 import { ShareFolderPage } from './share-folder/share-folder.page';
-import { Folder } from './folder'
+import { Folder } from './manage.folder'
+import { Text } from './manage.text'
 
 @Component({
   selector: 'app-manage',
@@ -15,10 +16,10 @@ import { Folder } from './folder'
   styleUrls: ['./manage.page.scss'],
 })
 export class ManagePage implements OnInit {
-  loading: any;
+  loadingSpinner: any;
   currentFolder = new Folder(null, '/', false)
-  texts: object;
   subfolders: object;
+  texts: object;
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class ManagePage implements OnInit {
               public loadingController: LoadingController) {
       
     Folder.setServiceProvider(manageFolderService)
+    Text.setServiceProvider(manageFolderService)
   }
 
   async ngOnInit() {
@@ -46,10 +48,12 @@ export class ManagePage implements OnInit {
     }
   }
 
+  // ### folders ###
+
   initSubfolderList() {
     this.currentFolder.getSubfolderList()
     .pipe(
-      finalize(async () => { await this.loading.dismiss(); })
+      finalize(async () => { await this.loadingSpinner.dismiss(); })
     )
     .subscribe(
       data => {
@@ -61,12 +65,10 @@ export class ManagePage implements OnInit {
           }
           this.subfolders = subfolders
         } else {
-          this.showErrorAlert('', 'invalid data from server!')
+          this.showErrorAlert('', 'received invalid data from server!')
         }
       },
-      err => {
-        this.showErrorAlert(err.status, err.statusText)
-      }
+      err => this.showErrorAlert(err.status, err.statusText)
     );
   }
 
@@ -80,19 +82,13 @@ export class ManagePage implements OnInit {
         if (data) {
           await this.presentLoadingSpinner();
           this.currentFolder.createSubfolder(data.folderName)
-            .pipe(
-              finalize(async () => { await this.loading.dismiss(); })
-            )
+            .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
             .subscribe(
-              data => {
-                this.initSubfolderList()
-              },
-              err => {
-                this.showErrorAlert(err.status, err.statusText)
-              }
-            );
+              data => this.initSubfolderList(),
+              err  => this.showErrorAlert(err.status, err.statusText)
+            )
         }
-      });
+      })
     return await modal.present()
   }
 
@@ -110,49 +106,18 @@ export class ManagePage implements OnInit {
           handler: async () => {
             await this.presentLoadingSpinner();
             folder.delete()
-              .pipe(
-                finalize(async () => { await this.loading.dismiss(); })
-              )
+              .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
               .subscribe(
-                data => {
-                  this.initSubfolderList()
-                },
-                err => {
-                  this.showErrorAlert(err.status, err.statusText)
-                }
-              );
+                data => this.initSubfolderList(),
+                err  => this.showErrorAlert(err.status, err.statusText)
+              )
           }
         }
       ]
-    });
-    await alert.present();
-  }
-
-  // ### texts ###
-  async initTextList() {
-    this.manageFolderService.getTextList(this.currentFolder.id)
-      .pipe(
-        finalize(async () => { await this.loading.dismiss(); })
-      )
-      .subscribe(
-        data => {
-          this.texts = data
-        },
-        err => {
-          this.showErrorAlert(err.status, err.statusText)
-        }
-      );
-  }
-
-  // create modal
-  async openCreateTextModal() {
-    const modal = await this.modalController.create({
-      component: CreateTextPage
     })
-    return await modal.present()
+    await alert.present()
   }
 
-  // share
   async openShareFolderModal() {
     const modal = await this.modalController.create({
       component: ShareFolderPage
@@ -160,15 +125,72 @@ export class ManagePage implements OnInit {
     return await modal.present()
   }
 
+  // ### texts ###
+
+  async initTextList() {
+    this.manageFolderService.getTextListFor(this.currentFolder.id)
+      .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
+      .subscribe(
+        data => {
+          if (Array.isArray(data)) {
+            let texts = []
+            for (let textInfo of data) {
+              let text = new Text(textInfo.id, textInfo.title)
+              texts.push(text)
+            }
+            this.texts = texts
+          } else {
+            this.showErrorAlert('', 'received invalid data from server!')
+          }
+        },
+        err => this.showErrorAlert(err.status, err.statusText)
+      );
+  }
+
+  async openCreateTextModal() {
+    const modal = await this.modalController.create({
+      component: CreateTextPage
+    })
+    modal.onDidDismiss()
+      .then(async (returnData) => {
+        let data = returnData.data
+        if (data) {
+          await this.presentLoadingSpinner();
+
+          this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
+            .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
+            .subscribe(
+              data => this.initTextList(),
+              err  => this.showErrorAlert(err.status, err.statusText)
+            )
+        }
+      })
+    return await modal.present()
+  }
+
   // delete
-  async openDeleteTextAlert(event) {
-    event.preventDefault()
-    event.stopPropagation()
+  async openDeleteTextAlert($event, text) {
+    $event.preventDefault()
+    $event.stopPropagation()
 
     const alert = await this.alertController.create({
       header: 'Attention!',
-      message: 'Do you really want to delete this text?',
-      buttons: ['Yes', 'No']
+      message: `Do you really want to delete text "${text.title}"?`,
+      buttons: [
+        'No',
+        {
+          text: 'Yes',
+          handler: async () => {
+            await this.presentLoadingSpinner();
+            text.delete()
+              .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
+              .subscribe(
+                data => this.initTextList(),
+                err  => this.showErrorAlert(err.status, err.statusText)
+              )
+          }
+        }
+      ]
     });
 
     await alert.present();
@@ -177,10 +199,10 @@ export class ManagePage implements OnInit {
   // ### other ###
 
   async presentLoadingSpinner() {
-    this.loading = await this.loadingController.create({
+    this.loadingSpinner = await this.loadingController.create({
         message: 'Loading...'
     });
-    await this.loading.present();
+    await this.loadingSpinner.present();
   }
 
   async showErrorAlert(status, msg) {

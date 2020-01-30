@@ -20,7 +20,7 @@
     <ion-list>
       <ion-item *ngFor="let text of texts">
         <ion-icon name="paper" class="textIcon"></ion-icon>{{ text.title }}
-        <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event)">
+        <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
           <ion-icon name="trash"></ion-icon>
         </ion-button>
       </ion-item>

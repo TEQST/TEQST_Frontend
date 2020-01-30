@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModalController, IonInput } from '@ionic/angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-create-folder',
