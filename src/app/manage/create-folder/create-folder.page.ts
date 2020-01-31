@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { ModalController, IonInput } from '@ionic/angular';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ManageFolderService } from 'src/app/services/manage-folder.service';
 
 @Component({
   selector: 'app-create-folder',
@@ -7,16 +9,35 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./create-folder.page.scss'],
 })
 export class CreateFolderPage implements OnInit {
+  @Input() parentId: any;
+  @ViewChild('folderName', {  static: false })  folderNameInput: IonInput;
+  private folderInfo : FormGroup;
 
-  constructor(public viewCtrl: ModalController) { }
-
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder,
+              private manageFolderService: ManageFolderService,
+              public viewCtrl: ModalController) {
+    this.folderInfo = this.formBuilder.group({
+      folderName: ['', Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')],
+    });
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+        this.folderNameInput.setFocus();
+    }, 100);
   }
 
-  createFolder() { }
+  submitForm(){
+    let formData = this.folderInfo.value
+    this.viewCtrl.dismiss({
+      folderName: formData.folderName
+    });
+  }
+
+  dismissForm() {
+    this.viewCtrl.dismiss()
+  }
 
 }

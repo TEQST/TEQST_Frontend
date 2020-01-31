@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ManagePage } from './manage.page';
+import { TextDetailPage } from './text-detail/text-detail.page';
 
 const routes: Routes = [
   {
@@ -11,9 +12,10 @@ const routes: Routes = [
   {
     path: ':folderInfo',
     component: ManagePage
-  },  {
-    path: 'share-folder',
-    loadChildren: () => import('./share-folder/share-folder.module').then( m => m.ShareFolderPageModule)
+  },
+  {
+    path: 'text/:textId',
+    loadChildren: () => import('./text-detail/text-detail.module').then( m => m.TextDetailPageModule)
   }
 
 ];

@@ -10,19 +10,19 @@
 </ion-header>
 
 <ion-content>
-  <form onsubmit="createText()">
+  <form [formGroup]="createTextForm" (ngSubmit)="createText(createTextForm.value)">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
         <ion-label position="stacked">Title</ion-label>
-        <ion-input name="name" autofocus="true"></ion-input>
+        <ion-input formControlName="title" name="name" autofocus="true"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Text Content</ion-label>
-        <ion-textarea></ion-textarea>
+        <ion-input (change)="setFile($event.target.files.item(0))" ng-required="required" type="file" accept=".txt"></ion-input>
       </ion-item>
     </ion-list>
     <div class="ion-padding">
-      <ion-button expand="block" type="submit" class="ion-no-margin" color="dark">Create text</ion-button>
+      <ion-button [disabled]="!formValid" expand="block" type="submit" class="ion-no-margin" color="dark">Create text</ion-button>
     </div>
   </form>
 </ion-content>

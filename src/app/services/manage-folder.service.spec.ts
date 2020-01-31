@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FolderManageService } from './folder-manage.service';
+import { ManageFolderService } from './manage-folder.service';
 
-describe('FolderManageService', () => {
+describe('MangeFolderService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FolderManageService = TestBed.get(FolderManageService);
+    const service: ManageFolderService = TestBed.get(ManageFolderService);
     expect(service).toBeTruthy();
   });
 });

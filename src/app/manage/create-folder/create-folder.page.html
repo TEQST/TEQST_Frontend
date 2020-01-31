@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Create a new folder</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismiss()">
+      <ion-button (click)="dismissForm()">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -10,15 +10,13 @@
 </ion-header>
 
 <ion-content>
-  <form onsubmit="createFolder()">
-    <ion-list lines="full" class="ion-no-margin ion-no-padding">
-      <ion-item>
-        <ion-label position="stacked">Title</ion-label>
-        <ion-input name="name" autofocus="true"></ion-input>
-      </ion-item>
-    </ion-list>
+  <form [formGroup]="folderInfo" (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-label position="stacked">Title</ion-label>
+      <ion-input #folderName formControlName="folderName" name="name" autofocus="true"></ion-input>
+    </ion-item>
     <div class="ion-padding">
-      <ion-button expand="block" type="submit" class="ion-no-margin">Create folder</ion-button>
+      <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!folderInfo.valid">Create folder</ion-button>
     </div>
   </form>
 </ion-content>

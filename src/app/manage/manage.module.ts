@@ -12,6 +12,7 @@ import {CreateFolderPageModule} from './create-folder/create-folder.module';
 import {CreateTextPageModule} from './create-text/create-text.module';
 import { ShareFolderPageModule } from './share-folder/share-folder.module';
 import { ComponentsModule } from '../tabBar/tab-bar.modules';
+import { TextDetailPageModule } from './text-detail/text-detail.module';
 
 
 @NgModule({
@@ -23,8 +24,9 @@ import { ComponentsModule } from '../tabBar/tab-bar.modules';
     ManagePageRoutingModule,
     CreateFolderPageModule,
     CreateTextPageModule,
-    ShareFolderPageModule
+    ShareFolderPageModule,
+    TextDetailPageModule
   ],
-  declarations: [ManagePage]
+  declarations: [ManagePage],
 })
 export class ManagePageModule {}

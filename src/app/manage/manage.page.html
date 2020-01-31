@@ -1,44 +1,13 @@
-<div *ngIf="folderType=='folder'; then folderList else textList"></div>
-
-<ng-template #folderList>
-
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button *ngIf="folderId" defaultHref="manage" ></ion-back-button>
-      </ion-buttons>
-      <ion-title>{{folderName ? folderName : '/'}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-list>
-      <ion-item button *ngFor="let folder of folders" [routerLink]="folder.type == 'folder' ? ['/manage/f'+folder.id] : ['/manage/s'+folder.id]">
-        <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
-        <ion-button color="danger" slot="end" (click)="openDeleteFolderAlert($event)">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fabfix">
-    <ion-fab-button (click)="openCreateFolderModal()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-</ng-template>
-
+<div *ngIf="currentFolder.is_sharedfolder; then textList else folderList"></div>
 
 <ng-template #textList>
 
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button *ngIf="folderId" defaultHref="manage" ></ion-back-button>
+        <ion-back-button *ngIf="currentFolder.id" defaultHref="manage" ></ion-back-button>
       </ion-buttons>
-      <ion-title>{{folderName}}</ion-title>
+      <ion-title>{{currentFolder.name}}</ion-title>
       <ion-buttons slot="end">
         <ion-button color="primary" (click)="openShareFolderModal()">
           <ion-icon name="cloudy"></ion-icon>
@@ -49,23 +18,62 @@
   
   <ion-content>
     <ion-list>
-      <ion-item button *ngFor="let text of texts">
-        <ion-icon name="paper" class="textIcon"></ion-icon>{{ text.name }}
-        <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event)">
+      <ion-item button *ngFor="let text of texts" [routerLink]="['/manage/text', text.id]">
+        <ion-icon name="paper" class="textIcon"></ion-icon>{{ text.title }}
+        <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
           <ion-icon name="trash"></ion-icon>
         </ion-button>
       </ion-item>
     </ion-list>
   </ion-content>
-  
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fabfix" >
-    <ion-fab-button (click)="openCreateTextModal()" color="dark">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="openCreateTextModal()">
+        <ion-icon name="paper"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
   
 </ng-template>
 
+<ng-template #folderList>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button *ngIf="currentFolder.id" defaultHref="manage" ></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{currentFolder.name}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item button *ngFor="let folder of subfolders" [routerLink]="folder.is_sharedfolder ? ['/manage/s'+folder.id] : ['/manage/f'+folder.id]">
+        <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
+        <ion-button color="danger" slot="end" (click)="openDeleteFolderAlert($event, folder)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="openCreateFolderModal()">
+        <ion-icon name="folder"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="subfolders.length == 0" (click)="openCreateTextModal()">
+        <ion-icon name="paper"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
 <app-tabBar></app-tabBar>
 
+</ng-template>
