@@ -64,7 +64,6 @@ export class AudioRecordingService {
   }
 
   startRecording() {
-    console.log(this.textService.getActiveSentenceIndex().getValue())
     if (this.recorder) {
       // It means recording is already started or it is already recording something
       return;
@@ -110,11 +109,11 @@ export class AudioRecordingService {
     if(!this.sentenceHasRecording) {
       formdata.append("recording", this.recordingId.toString());
       formdata.append("index", index.toString());
-      this.http.post(this.sentenceRecordingUrl, formdata, this.httpOptions).subscribe((response) => console.log(response));
+      this.http.post(this.sentenceRecordingUrl, formdata, this.httpOptions).subscribe((response) => "");
     } else {
       // replace existing sentence recording
       this.http.put(this.sentenceRecordingUrl + `${this.recordingId}/?index=${this.activeSentence}`,
-       formdata, this.httpOptions).subscribe((response) => console.log(response));
+       formdata, this.httpOptions).subscribe((response) => "");
     }
   }
 
@@ -204,9 +203,6 @@ export class AudioRecordingService {
       this.isPlaying$.next(false);
     })
     
-    // audio.addEventListener("timeupdate", () => {
-    //   console.log(audio.currentTime)
-    // })
   }
 
   stopAudioPlaying(): void {

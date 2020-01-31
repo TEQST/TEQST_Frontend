@@ -38,7 +38,6 @@ export class TextServiceService {
 
   fetchText(): void {
     //fetch TextData from Server
-    console.log(this.httpOptions)
     let textUrl = this.baseUrl + `/api/spk/texts/${this.textId}/`;
 
     this.http.get(textUrl, this.httpOptions).subscribe(text => {
@@ -49,7 +48,6 @@ export class TextServiceService {
 
   setRecordingInfo(recordingInfo: Object) {
     let index = recordingInfo['active_sentence']
-    console.log(recordingInfo);
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingInfo['id']);
     this.setActiveSentenceIndex(Math.min(index, this.totalSentenceNumber.getValue()));
@@ -63,16 +61,12 @@ export class TextServiceService {
     await this.http.get(getRecordingInfoUrl, this.httpOptions).toPromise()
     .then(info => {
       if(info === null) {
-        console.log("false")
         result = false;
       } else {
-        console.log("true");
         this.setRecordingInfo(info[0]);
         result = true;
       }
     });
-    //TODO
-    console.log(result)
     return result
   }
 
@@ -83,7 +77,6 @@ export class TextServiceService {
       "SP_permission": speechRecognition
     }
     this.http.post(this.postRecordingInfoUrl, recordingInfo, this.httpOptions).subscribe(info => {
-      console.log(info)
       this.setRecordingInfo(info);
     })
   }
@@ -149,6 +142,5 @@ export class TextServiceService {
       this.furthestSentenceIndex.next(this.furthestSentenceIndex.getValue() + 1);
       this.checkRecordingStatus()
     }
-    console.log(this.furthestSentenceIndex.getValue())
   }
 }
