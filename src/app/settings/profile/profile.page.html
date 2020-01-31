@@ -24,11 +24,11 @@
       
     </ion-item>
     
+    
     <ion-item>
-      <ion-label>Language:</ion-label>
-      <ion-select multiple="true" placeholder="Select One" [(ngModel)]="language" >
-        <ion-select-option value="1">English</ion-select-option>
-        <ion-select-option value="2">German</ion-select-option>
+      <ion-label>Languages:</ion-label>
+      <ion-select multiple="true" [(ngModel)]="language_ids" placeholder="{{languageString}}" class="sel">
+        <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}}>{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -60,6 +60,7 @@
 
     <ion-button (click)="getAllLangs()">getAllLangs</ion-button>
 
+    <ion-button (click)="testLang()">TestLang</ion-button>
   </ion-list>
 </ion-content>
 <app-tabBar></app-tabBar>

@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UsermgmtService } from '../../services/usermgmt.service';
+import { JsonPipe } from '@angular/common';
 
+const myObj ={
+  "id": 1,
+  "english_name": "English",
+  "native_name": "English",
+  "short": "en"
+}
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -13,9 +20,11 @@ export class ProfilePage implements OnInit {
   language:[object];
   gender:string;
   education:string;
-  country:string="Germany"; 
-  language_ids;
+  country:string="Germany";   
   allLangs:[];
+  languageString:string="";
+   language_ids=[];
+  
   
 
   constructor(public usermgmtService:UsermgmtService) { }
@@ -25,31 +34,29 @@ export class ProfilePage implements OnInit {
   }
 
   loadContent(){
+    var tempLangIds = []
    this.usermgmtService.loadContent().subscribe((dataReturnFromServer:any) => {
     this.dataFromServer = JSON.stringify(dataReturnFromServer);
      //speichert die Sprachen in einem Array Sprache englisch ist arr[0]
-     this.language = dataReturnFromServer.languages;       
-   
-     this.username = JSON.parse(this.dataFromServer).username;
-     this.birthyear = JSON.parse(this.dataFromServer).birth_year;    
-     //this.language = this.language["english_name"];
-     this.gender = JSON.parse(this.dataFromServer).gender;
-     this.education = JSON.parse(this.dataFromServer).education;
-     this.country = JSON.parse(this.dataFromServer).country;
-    console.log(this.birthyear);
-    console.log(this.language[0]);
-    
-    console.log(this.gender);
-    console.log(this.education);
-    console.log(this.country);
+     this.language = dataReturnFromServer.languages; 
+    for(let i=0; i<this.language.length;i++){
+      this.languageString += dataReturnFromServer.languages[i].native_name + ", ";
+      tempLangIds .push(JSON.stringify(dataReturnFromServer.languages[i].id));           
+    }
+      this.language_ids = tempLangIds;    
+      this.languageString = this.languageString.substr(0, this.languageString.length - 2);
+      this.username = JSON.parse(this.dataFromServer).username;
+      this.birthyear = JSON.parse(this.dataFromServer).birth_year;    
+      this.gender = JSON.parse(this.dataFromServer).gender;
+      this.education = JSON.parse(this.dataFromServer).education;
+      this.country = JSON.parse(this.dataFromServer).country;
+      this.getAllLangs();     
    });  
   }
+
   getAllLangs(){
     this.usermgmtService.getLangs().subscribe((dataReturnFromServer: any) => {
-      this.dataFromServer = JSON.stringify(dataReturnFromServer);
       this.allLangs = dataReturnFromServer;
-      console.log(this.allLangs);
-      console.log(this.dataFromServer);
     })
   }
 
@@ -57,10 +64,6 @@ export class ProfilePage implements OnInit {
 
   save(){
     var dataToSend = {birth_year:this.birthyear,language_ids:this.language_ids, country:this.country}
-    console.log(this.language)
     this.usermgmtService.updateProfile(dataToSend);
   }
-
-  
-
 }
