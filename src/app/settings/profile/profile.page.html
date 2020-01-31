@@ -37,18 +37,20 @@
 
     <ion-item>
       <ion-label>Education Level:</ion-label>
-        <ion-select placeholder="{{education}}" [(ngModel)]="education">
-          <ion-select-option>0-6 years</ion-select-option>
-          <ion-select-option>6-12 years</ion-select-option>
-          <ion-select-option>more than 12 years</ion-select-option>
+        <ion-select [(ngModel)]="education">
+          <ion-select-option value="B6">0-6 years of education</ion-select-option>
+          <ion-select-option value="6T12">6-12 years of education</ion-select-option>
+          <ion-select-option value="M12">more than 12 years of education</ion-select-option>
         </ion-select>
-    </ion-item>
+    </ion-item>  
+    
+   
 
     <ion-item>
       <ion-label>Gender:</ion-label>
-      <ion-select placeholder={{gender}} [(ngModel)]="gender">
-        <ion-select-option value="f">Female</ion-select-option>
-        <ion-select-option selected value="m">Male</ion-select-option>
+      <ion-select [(ngModel)]="gender">
+        <ion-select-option value="F">Female</ion-select-option>
+        <ion-select-option value="M">Male</ion-select-option>
       </ion-select>
     </ion-item>
 

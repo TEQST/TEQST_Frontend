@@ -33,7 +33,7 @@ export class UsermgmtService {
 
   register(dataToSend, logInData){
     let url = this.baseUrl + "/api/auth/register/";
-      this.reset();//Doesnt work 
+      this.reset();
     this.http.post(url,dataToSend,this.httpOptions).subscribe(() => {
       this.login(logInData);
     });//TODO error Handling
@@ -53,11 +53,7 @@ export class UsermgmtService {
   }
 
   loadContent(){
-    let url = this.baseUrl + "/api/user/"; 
-    // this.http.get(this.baseUrl+"api/langs",this.httpOptions).subscribe((dataReturnFromServer: any) => {
-    //   this.dataFromServer = JSON.parse(dataReturnFromServer); 
-    //   console.log(this.dataFromServer);
-    // });
+    let url = this.baseUrl + "/api/user/";     
     return this.http.get(url, this.httpOptions);
   }
 

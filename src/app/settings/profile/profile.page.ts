@@ -11,10 +11,11 @@ export class ProfilePage implements OnInit {
   birthyear:number;
   username:string="";
   language:[object];
-  gender:string="Male";
-  education:null;
+  gender:string;
+  education:string;
   country:string="Germany"; 
   language_ids;
+  allLangs:[];
   
 
   constructor(public usermgmtService:UsermgmtService) { }
@@ -46,6 +47,8 @@ export class ProfilePage implements OnInit {
   getAllLangs(){
     this.usermgmtService.getLangs().subscribe((dataReturnFromServer: any) => {
       this.dataFromServer = JSON.stringify(dataReturnFromServer);
+      this.allLangs = dataReturnFromServer;
+      console.log(this.allLangs);
       console.log(this.dataFromServer);
     })
   }
