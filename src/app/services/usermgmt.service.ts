@@ -22,7 +22,7 @@ export class UsermgmtService {
     return this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: any)=>{
       this.dataFromServer = JSON.stringify(dataReturnFromServer);       
       this.authToken = "Token " + JSON.parse(this.dataFromServer).token;  
-
+     
       this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken); 
 
       this.navCtrl.navigateForward("speak");
@@ -40,9 +40,8 @@ export class UsermgmtService {
   }
   updateProfile(dataToSend){
     let url = this.baseUrl + "/api/user/";
-    this.http.put(url, dataToSend, this.httpOptions).subscribe(() => {
-      //upadate profile Page View- loadContent()
-    });
+    return this.http.put(url, dataToSend, this.httpOptions)
+     
   }
 
   logout(){
@@ -70,7 +69,8 @@ export class UsermgmtService {
       })
     }; 
   }
-  public getToken(){
+  get _authToken():string{
     return this.authToken;
   }
+  
 }

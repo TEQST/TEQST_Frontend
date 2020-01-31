@@ -51,7 +51,7 @@ export class ProfilePage implements OnInit {
       this.education = JSON.parse(this.dataFromServer).education;
       this.country = JSON.parse(this.dataFromServer).country;
       this.getAllLangs();     
-   });  
+   });     
   }
 
   getAllLangs(){
@@ -63,7 +63,15 @@ export class ProfilePage implements OnInit {
   
 
   save(){
-    var dataToSend = {birth_year:this.birthyear,language_ids:this.language_ids, country:this.country}
-    this.usermgmtService.updateProfile(dataToSend);
+    var dataToSend = {birth_year:this.birthyear,language_ids:this.language_ids, country:this.country,gender:this.gender, education:this.education}
+    this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
+      this.loadContent();
+    });
+    
+    
+ 
+
+    
   }
+  
 }

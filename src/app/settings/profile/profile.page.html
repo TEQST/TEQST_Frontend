@@ -28,12 +28,9 @@
     <ion-item>
       <ion-label>Languages:</ion-label>
       <ion-select multiple="true" [(ngModel)]="language_ids" placeholder="{{languageString}}" class="sel">
-        <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}}>{{lang.native_name}}</ion-select-option>
+        <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}} >{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
-
-
- 
 
     <ion-item>
       <ion-label>Education Level:</ion-label>
@@ -56,11 +53,7 @@
 
     <ion-button (click)="save()">Save changes</ion-button>
 
-    <ion-button (click)="loadContent()">test</ion-button>
-
-    <ion-button (click)="getAllLangs()">getAllLangs</ion-button>
-
-    <ion-button (click)="testLang()">TestLang</ion-button>
+   
   </ion-list>
 </ion-content>
 <app-tabBar></app-tabBar>
