@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
@@ -23,22 +23,27 @@ export class ManagePage implements OnInit {
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
+              private router: Router,
               public alertController: AlertController,
               public modalController: ModalController,
               public loadingController: LoadingController) {
       
     Folder.setServiceProvider(manageFolderService)
     Text.setServiceProvider(manageFolderService)
+    this.subfolders = []
+    this.texts = []
   }
 
-  async ngOnInit() {
+  ngOnInit() {}
+
+  async ionViewWillEnter() {
     await this.presentLoadingSpinner();
 
     let urlParam = this.route.snapshot.paramMap.get('folderInfo');
     if (urlParam != null) {
       let is_sharedfolder = urlParam.charAt(0) == 's'
       let folderId = urlParam.substring(1, urlParam.length)
-      this.currentFolder = new Folder(folderId, '/', is_sharedfolder)
+      this.currentFolder = new Folder(folderId, '', is_sharedfolder)
     }
 
     if (this.currentFolder.is_sharedfolder) {
@@ -46,6 +51,7 @@ export class ManagePage implements OnInit {
     } else {
       this.initSubfolderList()
     }
+
   }
 
   // ### folders ###
@@ -57,16 +63,20 @@ export class ManagePage implements OnInit {
     )
     .subscribe(
       data => {
+        let subfolderInfo = []
         if (Array.isArray(data)) {
-          let subfolders = []
-          for (let folderInfo of data) {
-            let folder = new Folder(folderInfo.id, folderInfo.name, folderInfo.is_sharedfolder)
-            subfolders.push(folder)
-          }
-          this.subfolders = subfolders
+          subfolderInfo = data
         } else {
-          this.showErrorAlert('', 'received invalid data from server!')
+          this.currentFolder.name = data['name']
+          subfolderInfo = data['subfolder']
         }
+
+        let subfolders = []
+        for (let folderInfo of subfolderInfo) {
+          let folder = new Folder(folderInfo.id, folderInfo.name, folderInfo.is_sharedfolder)
+          subfolders.push(folder)
+        }
+        this.subfolders = subfolders
       },
       err => this.showErrorAlert(err.status, err.statusText)
     );
@@ -120,7 +130,11 @@ export class ManagePage implements OnInit {
 
   async openShareFolderModal() {
     const modal = await this.modalController.create({
-      component: ShareFolderPage
+      component: ShareFolderPage,
+      componentProps: {
+        folderId: this.currentFolder.id,
+        folderName: this.currentFolder.name
+      }
     })
     return await modal.present()
   }
@@ -160,7 +174,13 @@ export class ManagePage implements OnInit {
           this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
             .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
             .subscribe(
-              data => this.initTextList(),
+              data => {
+                if (!this.currentFolder.is_sharedfolder) {
+                  this.currentFolder.is_sharedfolder = true
+                  history.replaceState('', 'manage', '/s'+this.currentFolder.id);
+                }
+                this.initTextList()
+              },
               err  => this.showErrorAlert(err.status, err.statusText)
             )
         }

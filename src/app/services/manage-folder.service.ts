@@ -11,13 +11,15 @@ export class ManageFolderService {
   constructor(private http: HttpClient) { }
 
   SERVER_URL = 'http://localhost:8000'
-  AUTH_TOKEN = 'Token 15eb455f1c1d17fa69fe1738e58046b95b7524be'
+  AUTH_TOKEN = 'Token 7477fd394659be203dc13e5feecf11009d9fcd8e'
 
   getSubfolderListFor(folderId: string): Observable<object> {
-    let url = new URL(this.SERVER_URL + "/api/folders")
+    let urlStr = this.SERVER_URL + "/api/folders/"
     if (folderId) {
-      url.searchParams.append('parent', folderId)
+      urlStr += folderId
     }
+    let url = new URL(urlStr)
+    
     return this.http.get(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
