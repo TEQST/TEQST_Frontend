@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
@@ -23,13 +23,14 @@ interface User {
 
 export class ShareFolderPage implements OnInit {
 
-  public folderName: String = "Test"
+  @Input() folderId: number;
+  @Input() folderName: string
+
   private speakers: User[];
   public filteredSpeakers: User[];
   private allUsers: User[];
   public filteredUsers: User[]
-  private folderId: number = 3;
-  private searchTerm: String = "";
+  private searchTerm: string = "";
 
   constructor(public viewCtrl: ModalController, private folderService: ManageFolderService, private route: ActivatedRoute) { }
 
