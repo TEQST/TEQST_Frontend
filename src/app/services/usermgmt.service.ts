@@ -45,9 +45,10 @@ export class UsermgmtService {
   }
 
   logout(){
-    let url = this.baseUrl + "/api/auth/logout/";       
+    let url = this.baseUrl + "/api/auth/logout/";   
+    this.navCtrl.navigateForward("login");     
     this.http.post(url, '', this.httpOptions).subscribe(() => {
-      this.navCtrl.navigateForward("login");     
+          
     });
   }
 
