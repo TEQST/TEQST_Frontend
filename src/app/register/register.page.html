@@ -42,8 +42,8 @@
               <ion-label>Language:<ion-text color="danger">*</ion-text></ion-label>
               
               <ion-select multiple="true" placeholder="Select One" [(ngModel)]="language" required="true" >
-                <ion-select-option value="1">English</ion-select-option>
-                <ion-select-option value="1">German</ion-select-option>
+                <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}} >{{lang.native_name}}</ion-select-option>
+                
               </ion-select>
             </ion-item>
 

@@ -20,7 +20,8 @@ export class RegisterPage implements OnInit {
   country:string;
   gender:string="N";
   language:[];
-  
+  allLangs:[];
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -30,6 +31,7 @@ export class RegisterPage implements OnInit {
   constructor(public navCtrl: NavController, public http: HttpClient,public usermgmtService:UsermgmtService) { }
 
   ngOnInit() {
+    this.getAllLangs();
   }
 
   goLogin(){
@@ -49,4 +51,10 @@ export class RegisterPage implements OnInit {
         this.usermgmtService.register(dataToSend, logInData);        
        }
   }
+  getAllLangs(){
+    this.usermgmtService.getLangs().subscribe((dataReturnFromServer: any) => {
+      this.allLangs = dataReturnFromServer;
+    })
+  }
+
 }
