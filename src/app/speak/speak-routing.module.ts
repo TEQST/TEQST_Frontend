@@ -9,7 +9,7 @@ const routes: Routes = [
     component: SpeakPage
   },
   {
-    path: ':publisherName',
+    path: ':publisherId',
     loadChildren:  () => import('./folder-list/folder-list.module').then( m => m.FolderListPageModule)
   }
 ];

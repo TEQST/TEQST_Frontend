@@ -1,57 +1,46 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpeakTabNavService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getPublishers() {
-    return [
-      {
-        name: "publisher1"
-      },
-      {
-        name: "publisher2"
-      },
-      {
-        name: "publisher3"
-      },
-      {
-        name: "publisher4"
+  SERVER_URL = 'http://localhost:8000'
+  AUTH_TOKEN = 'Token b81c0b29328e2f247da76fba6dc9d8b628cd6baf'
+
+  getPublisherList() {
+    let urlStr = this.SERVER_URL + "/api/publishers/"
+    let url = new URL(urlStr)
+    
+    return this.http.get(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
       }
-    ]
+    })
   }
 
-  getFoldersByPublisherName(publisher: string) {
-    return [
-      {
-        name: "folder1"
-      },
-      {
-        name: "folder2"
-      },
-      {
-        name: "folder3"
+  getSharedFoldersByPublisher(publisherId: string) {
+    let url = new URL(this.SERVER_URL + "/api/sharedfolders")
+    url.searchParams.append('publisher', publisherId)
+
+    return this.http.get(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
       }
-    ]
+    });
   }
 
   getTextsByFolderId(folderId: string) {
-    return [
-      {
-        id: "t554",
-        name: "text1"
-      },
-      {
-        id: "t843",
-        name: "text2"
-      },
-      {
-        id: "t399",
-        name: "text3"
+    let url = new URL(this.SERVER_URL + "/api/spk/texts")
+    url.searchParams.append('sharedfolder', folderId)
+
+    return this.http.get(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
       }
-    ]
+    });
   }
 }

@@ -27,7 +27,7 @@ export class AudioRecordingService {
 
   private baseUrl = "http://127.0.0.1:8000";
   private sentenceRecordingUrl = this.baseUrl + "/api/sentencerecordings/";
-  private authToken = "Token f397422fb8e3f2e5f59630fb059316e24952f8f3";
+  private authToken = "Token b81c0b29328e2f247da76fba6dc9d8b628cd6baf";
 
   private httpOptions = {
     headers: new HttpHeaders({
