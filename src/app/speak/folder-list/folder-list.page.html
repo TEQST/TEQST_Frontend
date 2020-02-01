@@ -3,13 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="speak"></ion-back-button>
     </ion-buttons>
-    <ion-title>Folders by {{publisherName}}</ion-title>
+    <ion-title>Folders by</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let folder of folders" routerLink="/speak/{{publisherName}}/{{folder.name}}">
+    <ion-item button *ngFor="let folder of folders" routerLink="/speak/{{publisherId}}/{{folder.id}}">
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
     </ion-item>
   </ion-list>

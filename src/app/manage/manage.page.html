@@ -25,17 +25,17 @@
         </ion-button>
       </ion-item>
     </ion-list>
-  </ion-content>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="primary">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button (click)="openCreateTextModal()">
-        <ion-icon name="paper"></ion-icon>
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+      <ion-fab-button color="primary">
+        <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+      <ion-fab-list side="top">
+        <ion-fab-button (click)="openCreateTextModal()">
+          <ion-icon name="paper"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+  </ion-content>
   
 </ng-template>
 
@@ -59,20 +59,20 @@
         </ion-button>
       </ion-item>
     </ion-list>
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+      <ion-fab-button color="primary">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button (click)="openCreateFolderModal()">
+          <ion-icon name="folder"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button *ngIf="subfolders.length == 0" (click)="openCreateTextModal()">
+          <ion-icon name="paper"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
   </ion-content>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="primary">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button (click)="openCreateFolderModal()">
-        <ion-icon name="folder"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button *ngIf="subfolders.length == 0" (click)="openCreateTextModal()">
-        <ion-icon name="paper"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
 
 <app-tabBar></app-tabBar>
 
