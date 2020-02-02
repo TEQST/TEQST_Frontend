@@ -2,8 +2,8 @@ import { AlertController, LoadingController } from '@ionic/angular';
 
 export class PopupNotifier {
     private loadingSpinner: HTMLIonLoadingElement
-    private loadingController: LoadingController;
-    private alertController: AlertController;
+    private loadingController: LoadingController
+    private alertController: AlertController
 
     constructor() {
         this.loadingController = new LoadingController()
