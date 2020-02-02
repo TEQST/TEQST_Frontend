@@ -16,8 +16,6 @@ interface User {
   providedIn: 'root'
 })
 
-
-
 export class ManageFolderService {
 
   constructor(private http: HttpClient) { }
@@ -36,7 +34,7 @@ export class ManageFolderService {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
   }
 
   getTextListFor(folderId: string): Observable<object> {
@@ -47,7 +45,7 @@ export class ManageFolderService {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
   }
 
   createFolder(parentId: string, folderName: string) {
@@ -63,7 +61,7 @@ export class ManageFolderService {
           "Authorization": this.AUTH_TOKEN
         }
       }
-    );
+    )
   }
 
   deleteFolder(folderId: string) {
@@ -90,7 +88,7 @@ export class ManageFolderService {
           "Authorization": this.AUTH_TOKEN
         }
       }
-    );
+    )
   }
 
   deleteText(textId: string) {
@@ -108,7 +106,7 @@ export class ManageFolderService {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
   }
 
   getSpeakers(sharedfolderId: number) {
@@ -117,7 +115,7 @@ export class ManageFolderService {
       headers: {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
   }
 
   setSpeakers(sharedfolderId: number, speakers: number[]) {
@@ -135,6 +133,6 @@ export class ManageFolderService {
       headers: {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
   }
 }

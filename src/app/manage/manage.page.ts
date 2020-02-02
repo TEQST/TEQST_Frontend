@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, AlertController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
+
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { CreateFolderPage } from './create-folder/create-folder.page';
 import { CreateTextPage } from './create-text/create-text.page';
@@ -18,9 +19,9 @@ import { PopupNotifier } from '../popupNotifier/popup-notifier';
 
 export class ManagePage implements OnInit {
 
-  currentFolder = new Folder(null, '/', false)
-  subfolders: object;
-  texts: object;
+  private currentFolder: Folder
+  private subfolders: object
+  private texts: object
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
@@ -31,6 +32,7 @@ export class ManagePage implements OnInit {
     Folder.setServiceProvider(manageFolderService)
     Text.setServiceProvider(manageFolderService)
 
+    this.currentFolder = new Folder(null, '/', false)
     this.subfolders = []
     this.texts = []
   }
@@ -40,7 +42,7 @@ export class ManagePage implements OnInit {
   async ionViewWillEnter() {
     await this.popupNotifier.showLoadingSpinner();
 
-    let urlParam = this.route.snapshot.paramMap.get('folderInfo');
+    let urlParam = this.route.snapshot.paramMap.get('folderInfo')
     if (urlParam != null) {
       let is_sharedfolder = urlParam.charAt(0) == 's'
       let folderId = urlParam.substring(1, urlParam.length)
@@ -80,7 +82,7 @@ export class ManagePage implements OnInit {
         this.subfolders = subfolders
       },
       err => this.popupNotifier.showErrorAlert(err.status, err.statusText)
-    );
+    )
   }
 
   async openCreateFolderModal() {
@@ -178,7 +180,7 @@ export class ManagePage implements OnInit {
               data => {
                 if (!this.currentFolder.is_sharedfolder) {
                   this.currentFolder.is_sharedfolder = true
-                  history.replaceState('', 'manage', '/s'+this.currentFolder.id);
+                  history.replaceState('', 'manage', '/s'+this.currentFolder.id)
                 }
                 this.initTextList()
               },
@@ -214,7 +216,7 @@ export class ManagePage implements OnInit {
       ]
     });
 
-    await alert.present();
+    await alert.present()
   }
 
 }

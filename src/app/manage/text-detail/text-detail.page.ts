@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { Text } from '../manage.text'
 import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
@@ -13,7 +14,7 @@ import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
 
 export class TextDetailPage implements OnInit {
 
-  text: Text
+  private text: Text
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ManagePage } from './manage.page';
-import { TextDetailPage } from './text-detail/text-detail.page';
 
 const routes: Routes = [
   {
