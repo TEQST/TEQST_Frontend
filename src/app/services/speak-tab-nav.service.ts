@@ -30,7 +30,7 @@ export class SpeakTabNavService {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
   }
 
   getTextsByFolderId(folderId: string) {
@@ -41,6 +41,6 @@ export class SpeakTabNavService {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
   }
 }
