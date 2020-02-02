@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
-import { AlertController, LoadingController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
+import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
 
 @Component({
   selector: 'app-text-list',
@@ -11,15 +11,14 @@ import { finalize } from 'rxjs/operators';
 })
 
 export class TextListPage implements OnInit {
-  loadingSpinner: any;
+
   publisherId = null
-  folderId: string;
-  texts: any;
+  folderId: string
+  texts: any
 
   constructor(private navService : SpeakTabNavService,
-    private route: ActivatedRoute,
-    public alertController: AlertController,
-    public loadingController: LoadingController) { }
+              private route: ActivatedRoute,
+              private popupNotifer: PopupNotifier) { }
 
   ngOnInit() {
     this.publisherId = this.route.snapshot.paramMap.get('publisherId');
@@ -27,40 +26,17 @@ export class TextListPage implements OnInit {
   }
   
   async ionViewWillEnter() {
-    await this.presentLoadingSpinner()
+    await this.popupNotifer.showLoadingSpinner()
     this.navService.getTextsByFolderId(this.folderId)
       .pipe(
-        finalize(async () => { await this.loadingSpinner.dismiss(); })
+        finalize(async () => { await this.popupNotifer.hideLoadingSpinner() })
       )
       .subscribe(
         data => {
           this.texts = data
         },
-        err => this.showErrorAlert(err.status, err.statusText)
+        err => this.popupNotifer.showErrorAlert(err.status, err.statusText)
       );
-  }
-  
-
-  // ### other ###
-
-  async presentLoadingSpinner() {
-    this.loadingSpinner = await this.loadingController.create({
-        message: 'Loading...'
-    });
-    await this.loadingSpinner.present();
-  }
-
-  async showErrorAlert(status, msg) {
-    const alert = await this.alertController.create({
-      header: 'Error '+status,
-      message: msg,
-      buttons: [{
-        text: 'Reload',
-        handler: () => window.location.reload()
-      }]
-    });
-
-    await alert.present();
   }
 
 }
