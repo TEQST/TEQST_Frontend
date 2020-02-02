@@ -23,7 +23,7 @@ export class ManageFolderService {
   constructor(private http: HttpClient) { }
 
   SERVER_URL = 'http://localhost:8000'
-  AUTH_TOKEN = 'Token 4fdf7502a5618eafc29b88ab38463ed6dbf377ea'
+  AUTH_TOKEN = 'Token b990a0e71fa3431f48a1056e68b0269a5cc4f699'
 
   getSubfolderListFor(folderId: string): Observable<object> {
     let urlStr = this.SERVER_URL + "/api/folders/"

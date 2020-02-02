@@ -9,7 +9,7 @@ export class SpeakTabNavService {
   constructor(private http: HttpClient) { }
 
   SERVER_URL = 'http://localhost:8000'
-  AUTH_TOKEN = 'Token b81c0b29328e2f247da76fba6dc9d8b628cd6baf'
+  AUTH_TOKEN = 'Token b990a0e71fa3431f48a1056e68b0269a5cc4f699'
 
   getPublisherList() {
     let urlStr = this.SERVER_URL + "/api/publishers/"

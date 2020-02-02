@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
-import { LoadingController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { ModalController, AlertController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { CreateFolderPage } from './create-folder/create-folder.page';
@@ -9,27 +8,29 @@ import { CreateTextPage } from './create-text/create-text.page';
 import { ShareFolderPage } from './share-folder/share-folder.page';
 import { Folder } from './manage.folder'
 import { Text } from './manage.text'
+import { PopupNotifier } from '../popupNotifier/popup-notifier';
 
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.page.html',
   styleUrls: ['./manage.page.scss'],
 })
+
 export class ManagePage implements OnInit {
-  loadingSpinner: any;
+
   currentFolder = new Folder(null, '/', false)
   subfolders: object;
   texts: object;
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
-              private router: Router,
-              public alertController: AlertController,
-              public modalController: ModalController,
-              public loadingController: LoadingController) {
+              private alertController: AlertController,
+              private modalController: ModalController,
+              private popupNotifier: PopupNotifier) {
       
     Folder.setServiceProvider(manageFolderService)
     Text.setServiceProvider(manageFolderService)
+
     this.subfolders = []
     this.texts = []
   }
@@ -37,7 +38,7 @@ export class ManagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    await this.presentLoadingSpinner();
+    await this.popupNotifier.showLoadingSpinner();
 
     let urlParam = this.route.snapshot.paramMap.get('folderInfo');
     if (urlParam != null) {
@@ -59,7 +60,7 @@ export class ManagePage implements OnInit {
   initSubfolderList() {
     this.currentFolder.getSubfolderList()
     .pipe(
-      finalize(async () => { await this.loadingSpinner.dismiss(); })
+      finalize(async () => { await this.popupNotifier.hideLoadingSpinner(); })
     )
     .subscribe(
       data => {
@@ -78,7 +79,7 @@ export class ManagePage implements OnInit {
         }
         this.subfolders = subfolders
       },
-      err => this.showErrorAlert(err.status, err.statusText)
+      err => this.popupNotifier.showErrorAlert(err.status, err.statusText)
     );
   }
 
@@ -90,12 +91,12 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          await this.presentLoadingSpinner();
+          await this.popupNotifier.showLoadingSpinner();
           this.currentFolder.createSubfolder(data.folderName)
-            .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
+            .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
             .subscribe(
               data => this.initSubfolderList(),
-              err  => this.showErrorAlert(err.status, err.statusText)
+              err  => this.popupNotifier.showErrorAlert(err.status, err.statusText)
             )
         }
       })
@@ -114,12 +115,12 @@ export class ManagePage implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.presentLoadingSpinner();
+            await this.popupNotifier.showLoadingSpinner();
             folder.delete()
-              .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
+              .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
               .subscribe(
                 data => this.initSubfolderList(),
-                err  => this.showErrorAlert(err.status, err.statusText)
+                err  => this.popupNotifier.showErrorAlert(err.status, err.statusText)
               )
           }
         }
@@ -143,7 +144,7 @@ export class ManagePage implements OnInit {
 
   async initTextList() {
     this.manageFolderService.getTextListFor(this.currentFolder.id)
-      .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
+      .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
       .subscribe(
         data => {
           if (Array.isArray(data)) {
@@ -154,10 +155,10 @@ export class ManagePage implements OnInit {
             }
             this.texts = texts
           } else {
-            this.showErrorAlert('', 'received invalid data from server!')
+            this.popupNotifier.showErrorAlert('', 'received invalid data from server!')
           }
         },
-        err => this.showErrorAlert(err.status, err.statusText)
+        err => this.popupNotifier.showErrorAlert(err.status, err.statusText)
       );
   }
 
@@ -169,10 +170,10 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          await this.presentLoadingSpinner();
+          await this.popupNotifier.showLoadingSpinner();
 
           this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
-            .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
+            .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
             .subscribe(
               data => {
                 if (!this.currentFolder.is_sharedfolder) {
@@ -181,7 +182,7 @@ export class ManagePage implements OnInit {
                 }
                 this.initTextList()
               },
-              err  => this.showErrorAlert(err.status, err.statusText)
+              err  => this.popupNotifier.showErrorAlert(err.status, err.statusText)
             )
         }
       })
@@ -201,38 +202,16 @@ export class ManagePage implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.presentLoadingSpinner();
+            await this.popupNotifier.showLoadingSpinner();
             text.delete()
-              .pipe( finalize(async () => { await this.loadingSpinner.dismiss() }) )
+              .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
               .subscribe(
                 data => this.initTextList(),
-                err  => this.showErrorAlert(err.status, err.statusText)
+                err  => this.popupNotifier.showErrorAlert(err.status, err.statusText)
               )
           }
         }
       ]
-    });
-
-    await alert.present();
-  }
-
-  // ### other ###
-
-  async presentLoadingSpinner() {
-    this.loadingSpinner = await this.loadingController.create({
-        message: 'Loading...'
-    });
-    await this.loadingSpinner.present();
-  }
-
-  async showErrorAlert(status, msg) {
-    const alert = await this.alertController.create({
-      header: 'Error '+status,
-      message: msg,
-      buttons: [{
-        text: 'Reload',
-        handler: () => window.location.reload()
-      }]
     });
 
     await alert.present();
