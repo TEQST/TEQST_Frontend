@@ -14,7 +14,7 @@ export class SpeakTabNavService {
   getPublisherList() {
     let urlStr = this.SERVER_URL + "/api/publishers/"
     let url = new URL(urlStr)
-    
+
     return this.http.get(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN

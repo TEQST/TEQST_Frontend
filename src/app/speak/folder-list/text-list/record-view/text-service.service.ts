@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, of, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, of, Observable, Subject, throwError } from 'rxjs';
 import { TEXT } from './mock-text';
 import { Text } from './text';
 import { RECORDINGINFO } from './mock-recording-information';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+
 
 
 @Injectable({
@@ -21,10 +23,8 @@ export class TextServiceService {
   private recordingId = new Subject<number>();
 
   //Url Information
-  private textId = 2;
+  private textId;
   private baseUrl = "http://127.0.0.1:8000";
-  private textUrl = this.baseUrl + `/api/spk/texts/${this.textId}/`;
-  private getRecordingInfoUrl = this.baseUrl + `/api/textrecordings/?text=${this.textId}`;
   private postRecordingInfoUrl = this.baseUrl + `/api/textrecordings/`;
   private authToken = "Token b81c0b29328e2f247da76fba6dc9d8b628cd6baf";
 
@@ -34,41 +34,39 @@ export class TextServiceService {
     })
   };
 
-  constructor(private http: HttpClient) {
-    this.fetchText();
-  }
+  constructor(private http: HttpClient) {}
 
   fetchText(): void {
     //fetch TextData from Server
-    console.log(this.httpOptions)
-    this.http.get(this.textUrl, this.httpOptions).subscribe(text => {
+    let textUrl = this.baseUrl + `/api/spk/texts/${this.textId}/`;
+
+    this.http.get(textUrl, this.httpOptions).subscribe(text => {
       this.totalSentenceNumber.next(text['content'].length);
       this.sentences.next(text['content']);
     });
   }
 
   setRecordingInfo(recordingInfo: Object) {
-    let index = recordingInfo[0]['active_sentence']
-    this.activeSentenceIndex.next(Math.min(index, this.totalSentenceNumber.getValue()));
+    let index = recordingInfo['active_sentence']
     this.furthestSentenceIndex.next(index);
-    this.recordingId.next(recordingInfo[0]['id']);
+    this.recordingId.next(recordingInfo['id']);
+    this.setActiveSentenceIndex(Math.min(index, this.totalSentenceNumber.getValue()));
+
   }
 
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
-    await this.http.get(this.getRecordingInfoUrl, this.httpOptions).toPromise()
+    let getRecordingInfoUrl = this.baseUrl + `/api/textrecordings/?text=${this.textId}`;
+
+    await this.http.get(getRecordingInfoUrl, this.httpOptions).toPromise()
     .then(info => {
       if(info === null) {
-        console.log("false")
         result = false;
       } else {
-        console.log("true");
-        this.setRecordingInfo(info);
+        this.setRecordingInfo(info[0]);
         result = true;
       }
     });
-    //TODO
-    console.log(result)
     return result
   }
 
@@ -107,6 +105,11 @@ export class TextServiceService {
     return this.recordingId.asObservable();
   }
 
+  setTextId(index: number): void {
+    this.textId = index;
+    this.fetchText();
+  }
+
   setActiveSentenceIndex(index: number): void {
     if(index > 0 && index <= this.totalSentenceNumber.getValue() && index <= this.furthestSentenceIndex.getValue()) {
       this.activeSentenceIndex.next(index);
@@ -139,6 +142,5 @@ export class TextServiceService {
       this.furthestSentenceIndex.next(this.furthestSentenceIndex.getValue() + 1);
       this.checkRecordingStatus()
     }
-    console.log(this.furthestSentenceIndex.getValue())
   }
 }
