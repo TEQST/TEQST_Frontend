@@ -180,7 +180,7 @@ export class ManagePage implements OnInit {
               data => {
                 if (!this.currentFolder.is_sharedfolder) {
                   this.currentFolder.is_sharedfolder = true
-                  history.replaceState('', 'manage', '/s'+this.currentFolder.id)
+                  history.replaceState('', 'manage', 'manage/s'+this.currentFolder.id)
                 }
                 this.initTextList()
               },
