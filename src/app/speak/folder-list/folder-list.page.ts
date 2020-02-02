@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 import { finalize } from 'rxjs/operators';
+
+import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
 
 
@@ -13,12 +14,15 @@ import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
 
 export class FolderListPage implements OnInit {
 
-  publisherId = null
-  folders: any
+  private publisherId: string
+  private folders: any
 
   constructor(private navService : SpeakTabNavService,
               private route: ActivatedRoute,
-              private popupNotifier: PopupNotifier) { }
+              private popupNotifier: PopupNotifier) {
+
+    this.publisherId = ''
+  }
 
   ngOnInit() {
     this.publisherId = this.route.snapshot.paramMap.get('publisherId')
@@ -26,6 +30,7 @@ export class FolderListPage implements OnInit {
   
   async ionViewWillEnter() {
     await this.popupNotifier.showLoadingSpinner()
+
     this.navService.getSharedFoldersByPublisher(this.publisherId)
       .pipe(
         finalize(async () => { await this.popupNotifier.hideLoadingSpinner() })

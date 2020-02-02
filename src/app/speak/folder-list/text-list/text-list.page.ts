@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 import { finalize } from 'rxjs/operators';
+
+import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
 
 @Component({
@@ -12,21 +13,25 @@ import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
 
 export class TextListPage implements OnInit {
 
-  publisherId = null
-  folderId: string
-  texts: any
+  private publisherId: string
+  private folderId: string
+  private texts: any
 
   constructor(private navService : SpeakTabNavService,
               private route: ActivatedRoute,
-              private popupNotifer: PopupNotifier) { }
+              private popupNotifer: PopupNotifier) {
+
+    this.publisherId = ''
+  }
 
   ngOnInit() {
-    this.publisherId = this.route.snapshot.paramMap.get('publisherId');
-    this.folderId = this.route.snapshot.paramMap.get('folderId');
+    this.publisherId = this.route.snapshot.paramMap.get('publisherId')
+    this.folderId    = this.route.snapshot.paramMap.get('folderId')
   }
   
   async ionViewWillEnter() {
     await this.popupNotifer.showLoadingSpinner()
+
     this.navService.getTextsByFolderId(this.folderId)
       .pipe(
         finalize(async () => { await this.popupNotifer.hideLoadingSpinner() })
@@ -36,7 +41,7 @@ export class TextListPage implements OnInit {
           this.texts = data
         },
         err => this.popupNotifer.showErrorAlert(err.status, err.statusText)
-      );
+      )
   }
 
 }

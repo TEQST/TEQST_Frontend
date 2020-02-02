@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 import { finalize } from 'rxjs/operators';
-import { PopupNotifier } from '../popupNotifier/popup-notifier';
+
+import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
+import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
 
 @Component({
   selector: 'app-speak',
@@ -11,7 +12,7 @@ import { PopupNotifier } from '../popupNotifier/popup-notifier';
 
 export class SpeakPage implements OnInit {
 
-  publishers: any
+  private publishers: any
 
   constructor(private navService : SpeakTabNavService,
               private popupNotifier: PopupNotifier) { }
@@ -20,6 +21,7 @@ export class SpeakPage implements OnInit {
 
   async ionViewWillEnter() {
     await this.popupNotifier.showLoadingSpinner()
+
     this.navService.getPublisherList()
       .pipe(
         finalize(async () => { await this.popupNotifier.hideLoadingSpinner() })
