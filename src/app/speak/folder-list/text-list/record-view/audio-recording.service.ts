@@ -4,12 +4,17 @@ import { Observable, Subject } from 'rxjs';
 
 import * as RecordRTC from 'recordrtc';
 import { TextServiceService } from './text-service.service';
+import { Constants } from 'src/app/constants';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AudioRecordingService {
+
+  SERVER_URL = Constants.SERVER_URL
+  AUTH_TOKEN = "Token 3eb103bc990fad5f02fd20d3bea3559036723368"
+
 
   private stream: MediaStream;
   private recorder;
@@ -26,13 +31,11 @@ export class AudioRecordingService {
   private sentenceHasRecording: boolean;
   private audio = new Audio();
 
-  private baseUrl = "http://127.0.0.1:8000";
-  private sentenceRecordingUrl = this.baseUrl + "/api/sentencerecordings/";
-  private authToken = "Token b81c0b29328e2f247da76fba6dc9d8b628cd6baf";
+  private sentenceRecordingUrl = this.SERVER_URL + "/api/sentencerecordings/";
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Authorization': this.authToken
+      'Authorization': this.AUTH_TOKEN
     })
   };
 
@@ -176,12 +179,12 @@ export class AudioRecordingService {
     //set blob as response type
     let audioHttpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authToken
+        'Authorization': this.AUTH_TOKEN
       }),
       responseType: 'blob' as 'json'
     };
 
-    return await this.http.get<Blob>(this.baseUrl + `/api/sentencerecordings/${this.recordingId}/?index=${this.activeSentence}`,
+    return await this.http.get<Blob>(this.SERVER_URL + `/api/sentencerecordings/${this.recordingId}/?index=${this.activeSentence}`,
       audioHttpOptions).toPromise();
   }
 

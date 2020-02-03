@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Constants } from '../constants';
 
 interface User {
   "id": number,
@@ -20,8 +21,8 @@ export class ManageFolderService {
 
   constructor(private http: HttpClient) { }
 
-  SERVER_URL = 'http://localhost:8000'
-  AUTH_TOKEN = 'Token b990a0e71fa3431f48a1056e68b0269a5cc4f699'
+  SERVER_URL = Constants.SERVER_URL
+  AUTH_TOKEN = 'Token 4fdf7502a5618eafc29b88ab38463ed6dbf377ea'
 
   getFolderInfoFor(folderId: string): Observable<object> {
     let url = new URL(this.SERVER_URL + "/api/folders/" + folderId)

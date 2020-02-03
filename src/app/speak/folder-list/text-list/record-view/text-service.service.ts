@@ -3,6 +3,7 @@ import { BehaviorSubject, ReplaySubject, of, Observable, Subject, throwError } f
 import { Text } from './text';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { Constants } from 'src/app/constants';
 
 
 
@@ -11,6 +12,10 @@ import { catchError } from 'rxjs/operators';
 })
 
 export class TextServiceService {
+
+  SERVER_URL = Constants.SERVER_URL
+  AUTH_TOKEN = "Token 3eb103bc990fad5f02fd20d3bea3559036723368"
+
 
   private sentences = new ReplaySubject<String[]>(1);
   // instantiate BehaviorSubjekts with 1 because every text has at least 1 sentence
@@ -22,13 +27,11 @@ export class TextServiceService {
 
   //Url Information
   private textId;
-  private baseUrl = "http://127.0.0.1:8000";
-  private postRecordingInfoUrl = this.baseUrl + `/api/textrecordings/`;
-  private authToken = "Token b81c0b29328e2f247da76fba6dc9d8b628cd6baf";
+  private postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Authorization': this.authToken
+      'Authorization': this.AUTH_TOKEN
     })
   };
 
@@ -36,7 +39,7 @@ export class TextServiceService {
 
   fetchText(): void {
     //fetch TextData from Server
-    let textUrl = this.baseUrl + `/api/spk/texts/${this.textId}/`;
+    let textUrl = this.SERVER_URL + `/api/spk/texts/${this.textId}/`;
 
     this.http.get(textUrl, this.httpOptions).subscribe(text => {
       this.totalSentenceNumber.next(text['content'].length);
@@ -54,7 +57,7 @@ export class TextServiceService {
 
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
-    let getRecordingInfoUrl = this.baseUrl + `/api/textrecordings/?text=${this.textId}`;
+    let getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
 
     await this.http.get(getRecordingInfoUrl, this.httpOptions).toPromise()
     .then(info => {
