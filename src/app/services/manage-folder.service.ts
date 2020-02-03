@@ -25,7 +25,7 @@ export class ManageFolderService {
   }
 
   SERVER_URL = Constants.SERVER_URL
-  AUTH_TOKEN = 'Token 4fdf7502a5618eafc29b88ab38463ed6dbf377ea'
+  AUTH_TOKEN: string;
 
   getFolderInfoFor(folderId: string): Observable<object> {
     let url = new URL(this.SERVER_URL + "/api/folders/" + folderId)

@@ -14,7 +14,7 @@ import { UsermgmtService } from 'src/app/services/usermgmt.service';
 export class AudioRecordingService {
 
   SERVER_URL = Constants.SERVER_URL
-  AUTH_TOKEN = "Token 3eb103bc990fad5f02fd20d3bea3559036723368"
+  AUTH_TOKEN: string;
 
 
   private stream: MediaStream;
