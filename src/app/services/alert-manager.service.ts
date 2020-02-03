@@ -6,10 +6,16 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class AlertManagerService {
 
+  private alertActive: boolean;
+  private alert: HTMLIonAlertElement;
+
   constructor(public alertController: AlertController, private navCtrl: NavController) { }
 
   async presentGoBackAlert(header: string) {
-    const alert = await this.alertController.create({
+    if(this.alertActive) {
+      return;
+    }
+    this.alert = await this.alertController.create({
       header: header,
       subHeader: 'Press OK to go back',
       buttons: [
@@ -23,12 +29,16 @@ export class AlertManagerService {
       }]
     });
 
-    await alert.present();
+    await this.alert.present();
   }
 
   async presentNotLoggedInAlert() {
-    const alert = await this.alertController.create({
-      header: "Unautherized",
+    if (this.alertActive) {
+      this.alert.dismiss;
+    }
+    this.alertActive = true;
+    this.alert = await this.alertController.create({
+      header: "Unauthorized",
       subHeader: 'You are not logged in',
       buttons: [
         {
@@ -37,9 +47,10 @@ export class AlertManagerService {
           handler: () => {
             //Navigate back to the login page
             this.navCtrl.navigateBack("/login");
+            this.alertActive = false;
           }
         }]
     });
-    await alert.present();
+    await this.alert.present();
   }
 }
