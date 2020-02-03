@@ -1,3 +1,9 @@
-.center-content {
- text-align: center;   
+.recordSentences {
+    height: calc(100% - 120px);
+    overflow-y: auto;
+}
+
+.recordFooter {
+    text-align: center;
+    height: 120px;
 }
