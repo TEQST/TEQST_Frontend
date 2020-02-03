@@ -10,19 +10,21 @@
     <ion-row class="ion-align-items-center content-row ion-justify-content-center">
       <ion-col class="inner2">
         <ion-card class="max">
+          <form (ngSubmit)="login">
           <ion-list>
-
             <ion-item>
-              <ion-input placeholder= "Username" [(ngModel)]="username"> </ion-input>
+              <ion-input placeholder= "Username" [(ngModel)]="username" [ngModelOptions]="{standalone: true}"> </ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input placeholder= "Password" type="password" [(ngModel)]="password"></ion-input>
+              <ion-input placeholder= "Password" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
           </ion-list>
 
-          <ion-button full (click)="login()" expand="block">Login</ion-button>         
-         
+          <ion-button  type="submit" (click)="login()" expand="block">
+            <button type="submit" class="test">Login</button>
+          </ion-button>            
+        </form>
           <ion-card-content>
             Don't have an Account yet?<button (click)="goRegister()" class="register-text-settings">Register</button>here
           </ion-card-content>

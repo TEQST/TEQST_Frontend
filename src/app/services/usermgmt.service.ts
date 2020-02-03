@@ -32,7 +32,8 @@ export class UsermgmtService {
       
       this.AUTH_TOKEN.next("Token " + JSON.parse(this.dataFromServer).token);  
       this.initHeaders();
-      //this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.AUTH_TOKEN); 
+      localStorage.setItem('Token', this.AUTH_TOKEN.getValue())
+ 
 
       this.navCtrl.navigateForward("speak");
       },(error: any) => {       
@@ -56,7 +57,8 @@ export class UsermgmtService {
   logout(){
     let url = this.SERVER_URL + "/api/auth/logout/";   
     this.navCtrl.navigateForward("login"); 
-    this.reset()    
+    this.reset()   
+    localStorage.clear() 
     this.http.post(url, '', this.httpOptions).subscribe(() => {
           
     });
@@ -96,6 +98,7 @@ export class UsermgmtService {
     return this._is_publisher
   }
   getAuthToken(){
+    this.AUTH_TOKEN.next(localStorage.getItem('Token'));
     return this.AUTH_TOKEN.asObservable()
   }
   
