@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { Text } from '../manage.text'
-import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
+import { AlertManagerService } from 'src/app/services/alert-manager.service';
 
 @Component({
   selector: 'app-text-detail',
@@ -18,22 +18,22 @@ export class TextDetailPage implements OnInit {
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
-              private popupNotifier: PopupNotifier) {
+              private alertManager: AlertManagerService) {
     this.text = new Text('', '')
   }
 
   async ngOnInit() {
     let textId = this.route.snapshot.paramMap.get('textId')
-    await this.popupNotifier.showLoadingSpinner()
+    await this.alertManager.hideLoadingSpinner()
     this.manageFolderService.getTextInfo(textId)
     .pipe(
-      finalize(async () => { await this.popupNotifier.hideLoadingSpinner() })
+      finalize(async () => { await this.alertManager.hideLoadingSpinner() })
     )
     .subscribe(
       data => {
         this.text = new Text(data['id'], data['title'], data['content'])
       },
-      err => this.popupNotifier.showErrorAlert(err.status, err.statusText)
+      err => this.alertManager.showErrorAlert(err.status, err.statusText)
     )
   }
 }

@@ -10,7 +10,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PopupNotifier } from './popupNotifier/popup-notifier';
 import { ServerErrorInterceptorService } from './services/server-error-interceptor.service'
 
 
@@ -22,7 +21,6 @@ import { ServerErrorInterceptorService } from './services/server-error-intercept
     StatusBar,
     SplashScreen,    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },
-    PopupNotifier,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerErrorInterceptorService,

@@ -9,7 +9,7 @@ import { CreateTextPage } from './create-text/create-text.page';
 import { ShareFolderPage } from './share-folder/share-folder.page';
 import { Folder } from './manage.folder'
 import { Text } from './manage.text'
-import { PopupNotifier } from '../popupNotifier/popup-notifier';
+import { AlertManagerService } from '../services/alert-manager.service';
 
 @Component({
   selector: 'app-manage',
@@ -27,7 +27,7 @@ export class ManagePage implements OnInit {
               private route: ActivatedRoute,
               private alertController: AlertController,
               private modalController: ModalController,
-              private popupNotifier: PopupNotifier) {
+              private alertManager: AlertManagerService) {
       
     Folder.setServiceProvider(manageFolderService)
     Text.setServiceProvider(manageFolderService)
@@ -40,7 +40,7 @@ export class ManagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    await this.popupNotifier.showLoadingSpinner();
+    await this.alertManager.showLoadingSpinner();
 
     let urlParam = this.route.snapshot.paramMap.get('folderInfo')
     if (urlParam != null) {
@@ -62,7 +62,7 @@ export class ManagePage implements OnInit {
   initSubfolderList() {
     this.currentFolder.getSubfolderList()
     .pipe(
-      finalize(async () => { await this.popupNotifier.hideLoadingSpinner(); })
+      finalize(async () => { await this.alertManager.hideLoadingSpinner(); })
     )
     .subscribe(
       data => {
@@ -81,7 +81,7 @@ export class ManagePage implements OnInit {
         }
         this.subfolders = subfolders
       },
-      err => this.popupNotifier.showErrorAlert(err.status, err.statusText)
+      err => this.alertManager.showErrorAlert(err.status, err.statusText)
     )
   }
 
@@ -93,12 +93,12 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          await this.popupNotifier.showLoadingSpinner();
+          await this.alertManager.showLoadingSpinner();
           this.currentFolder.createSubfolder(data.folderName)
-            .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
+            .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
             .subscribe(
               data => this.initSubfolderList(),
-              err  => this.popupNotifier.showErrorAlert(err.status, err.statusText)
+              err  => this.alertManager.showErrorAlert(err.status, err.statusText)
             )
         }
       })
@@ -117,12 +117,12 @@ export class ManagePage implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.popupNotifier.showLoadingSpinner();
+            await this.alertManager.showLoadingSpinner();
             folder.delete()
-              .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
+              .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
               .subscribe(
                 data => this.initSubfolderList(),
-                err  => this.popupNotifier.showErrorAlert(err.status, err.statusText)
+                err  => this.alertManager.showErrorAlert(err.status, err.statusText)
               )
           }
         }
@@ -155,15 +155,15 @@ export class ManagePage implements OnInit {
         this.currentFolder.name = data['name']
       },
       async err => {
-        this.popupNotifier.showErrorAlert(err.status, err.statusText)
-        await this.popupNotifier.hideLoadingSpinner()
+        this.alertManager.showErrorAlert(err.status, err.statusText)
+        await this.alertManager.hideLoadingSpinner()
       }
     )
   }
 
   async initTextList() {
     this.manageFolderService.getTextListFor(this.currentFolder.id)
-      .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
+      .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
       .subscribe(
         data => {
           if (Array.isArray(data)) {
@@ -174,10 +174,10 @@ export class ManagePage implements OnInit {
             }
             this.texts = texts
           } else {
-            this.popupNotifier.showErrorAlert('', 'received invalid data from server!')
+            this.alertManager.showErrorAlert('', 'received invalid data from server!')
           }
         },
-        err => this.popupNotifier.showErrorAlert(err.status, err.statusText)
+        err => this.alertManager.showErrorAlert(err.status, err.statusText)
       )
   }
 
@@ -189,10 +189,10 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          await this.popupNotifier.showLoadingSpinner();
+          await this.alertManager.showLoadingSpinner();
 
           this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
-            .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
+            .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
             .subscribe(
               data => {
                 if (!this.currentFolder.is_sharedfolder) {
@@ -201,7 +201,7 @@ export class ManagePage implements OnInit {
                 }
                 this.initTextList()
               },
-              err  => this.popupNotifier.showErrorAlert(err.status, err.statusText)
+              err  => this.alertManager.showErrorAlert(err.status, err.statusText)
             )
         }
       })
@@ -220,12 +220,12 @@ export class ManagePage implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.popupNotifier.showLoadingSpinner();
+            await this.alertManager.showLoadingSpinner();
             text.delete()
-              .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
+              .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
               .subscribe(
                 data => this.initTextList(),
-                err  => this.popupNotifier.showErrorAlert(err.status, err.statusText)
+                err  => this.alertManager.showErrorAlert(err.status, err.statusText)
               )
           }
         }

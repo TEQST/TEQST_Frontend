@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
-import { PopupNotifier } from 'src/app/popupNotifier/popup-notifier';
+import { AlertManagerService } from 'src/app/services/alert-manager.service';
 
 @Component({
   selector: 'app-text-list',
@@ -20,7 +20,7 @@ export class TextListPage implements OnInit {
 
   constructor(private navService : SpeakTabNavService,
               private route: ActivatedRoute,
-              private popupNotifer: PopupNotifier) {
+              private alertManager: AlertManagerService) {
 
     this.publisherId = ''
   }
@@ -31,18 +31,18 @@ export class TextListPage implements OnInit {
   }
   
   async ionViewWillEnter() {
-    await this.popupNotifer.showLoadingSpinner()
+    await this.alertManager.showLoadingSpinner()
 
     this.navService.getInfoForSharedfolder(this.folderId)
       .pipe(
-        finalize(async () => { await this.popupNotifer.hideLoadingSpinner() })
+        finalize(async () => { await this.alertManager.hideLoadingSpinner() })
       )
       .subscribe(
         data => {
           this.folderName = data['name']
           this.texts = data['texts']
         },
-        err => this.popupNotifer.showErrorAlert(err.status, err.statusText)
+        err => this.alertManager.showErrorAlert(err.status, err.statusText)
       )
   }
 
