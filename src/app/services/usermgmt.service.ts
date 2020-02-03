@@ -31,10 +31,7 @@ export class UsermgmtService {
       this.dataFromServer = JSON.stringify(dataReturnFromServer);       
       
       this.AUTH_TOKEN.next("Token " + JSON.parse(this.dataFromServer).token);  
-      this.getauthToken().subscribe((token: any)=>{
-        this.AUTH_TOKEN = token;
-      });
-
+     
       this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.AUTH_TOKEN); 
 
       this.navCtrl.navigateForward("speak");
@@ -86,7 +83,7 @@ export class UsermgmtService {
   getIsPublisher(){
     return this._is_publisher
   }
-  getauthToken(){
+  getAuthToken(){
     return this.AUTH_TOKEN.asObservable()
   }
   

@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import * as RecordRTC from 'recordrtc';
 import { TextServiceService } from './text-service.service';
 import { Constants } from 'src/app/constants';
+import { UsermgmtService } from 'src/app/services/usermgmt.service';
 
 
 @Injectable({
@@ -39,7 +40,8 @@ export class AudioRecordingService {
     })
   };
 
-  constructor(private textService: TextServiceService, private http: HttpClient) {
+  constructor(private textService: TextServiceService, private http: HttpClient, private usermgmtService: UsermgmtService) {
+    usermgmtService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token);
     textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
     textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
     textService.getRecordingId().subscribe((id) => {

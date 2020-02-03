@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Constants } from '../constants';
+import { UsermgmtService } from './usermgmt.service';
 
 interface User {
   "id": number,
@@ -19,7 +20,9 @@ interface User {
 
 export class ManageFolderService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private usermgmtService: UsermgmtService) { 
+    usermgmtService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token)
+  }
 
   SERVER_URL = Constants.SERVER_URL
   AUTH_TOKEN = 'Token 4fdf7502a5618eafc29b88ab38463ed6dbf377ea'

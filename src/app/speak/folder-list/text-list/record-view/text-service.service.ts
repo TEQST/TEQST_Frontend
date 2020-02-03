@@ -4,6 +4,7 @@ import { Text } from './text';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Constants } from 'src/app/constants';
+import { UsermgmtService } from 'src/app/services/usermgmt.service';
 
 
 
@@ -35,7 +36,9 @@ export class TextServiceService {
     })
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private usermgmtService: UsermgmtService) {
+    usermgmtService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token)
+  }
 
   fetchText(): void {
     //fetch TextData from Server
