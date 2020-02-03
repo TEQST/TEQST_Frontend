@@ -22,9 +22,8 @@ export class SpeakTabNavService {
     })
   }
 
-  getSharedFoldersByPublisher(publisherId: string) {
-    let url = new URL(this.SERVER_URL + "/api/sharedfolders")
-    url.searchParams.append('publisher', publisherId)
+  getInfoForPublisher(publisherId: string) {
+    let url = new URL(this.SERVER_URL + "/api/publishers/" + publisherId)
 
     return this.http.get(url.toString(), {
       headers:  {
@@ -33,9 +32,8 @@ export class SpeakTabNavService {
     })
   }
 
-  getTextsByFolderId(folderId: string) {
-    let url = new URL(this.SERVER_URL + "/api/spk/texts")
-    url.searchParams.append('sharedfolder', folderId)
+  getInfoForSharedfolder(folderId: string) {
+    let url = new URL(this.SERVER_URL + "/api/spk/sharedfolders/" + folderId)
 
     return this.http.get(url.toString(), {
       headers:  {
