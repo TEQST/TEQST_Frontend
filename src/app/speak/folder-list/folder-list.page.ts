@@ -16,6 +16,7 @@ export class FolderListPage implements OnInit {
 
   private publisherId: string
   private folders: any
+  publisherName: any;
 
   constructor(private navService : SpeakTabNavService,
               private route: ActivatedRoute,
@@ -31,13 +32,14 @@ export class FolderListPage implements OnInit {
   async ionViewWillEnter() {
     await this.popupNotifier.showLoadingSpinner()
 
-    this.navService.getSharedFoldersByPublisher(this.publisherId)
+    this.navService.getInfoForPublisher(this.publisherId)
       .pipe(
         finalize(async () => { await this.popupNotifier.hideLoadingSpinner() })
       )
       .subscribe(
         data => {
-          this.folders = data
+          this.publisherName = data['username']
+          this.folders = data['freedfolders']
         },
         err => this.popupNotifier.showErrorAlert(err.status, err.statusText)
       )

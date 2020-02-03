@@ -16,6 +16,7 @@ export class TextListPage implements OnInit {
   private publisherId: string
   private folderId: string
   private texts: any
+  folderName: any;
 
   constructor(private navService : SpeakTabNavService,
               private route: ActivatedRoute,
@@ -32,13 +33,14 @@ export class TextListPage implements OnInit {
   async ionViewWillEnter() {
     await this.popupNotifer.showLoadingSpinner()
 
-    this.navService.getTextsByFolderId(this.folderId)
+    this.navService.getInfoForSharedfolder(this.folderId)
       .pipe(
         finalize(async () => { await this.popupNotifer.hideLoadingSpinner() })
       )
       .subscribe(
         data => {
-          this.texts = data
+          this.folderName = data['name']
+          this.texts = data['texts']
         },
         err => this.popupNotifer.showErrorAlert(err.status, err.statusText)
       )
