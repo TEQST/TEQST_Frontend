@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,12 @@ import { NavController } from '@ionic/angular';
 
 export class UsermgmtService {
   private dataFromServer:any="";
-  private authToken:string;
+  
   private baseUrl = "http://127.0.0.1:8000";
   private httpOptions; 
   private _is_publisher:boolean; 
-
+  
+  private AUTH_TOKEN = new BehaviorSubject<string>("");
   constructor(public http: HttpClient, public navCtrl: NavController) { } 
 
 
@@ -21,14 +23,15 @@ export class UsermgmtService {
     let url = this.baseUrl +  "/api/auth/login/";
        this.reset();
     return this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: object)=>{
-      this._is_publisher = dataReturnFromServer['user']['is_publisher'];
-      console.log(this.getIsPublisher())
-      
-      
+      this._is_publisher = dataReturnFromServer['user']['is_publisher'];      
       this.dataFromServer = JSON.stringify(dataReturnFromServer);       
-      this.authToken = "Token " + JSON.parse(this.dataFromServer).token;  
       
-      this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken); 
+      this.AUTH_TOKEN.next("Token " + JSON.parse(this.dataFromServer).token);  
+      this.getauthToken().subscribe((token: any)=>{
+        this.AUTH_TOKEN = token;
+      });
+
+      this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.AUTH_TOKEN); 
 
       this.navCtrl.navigateForward("speak");
       },(error: any) => {       
@@ -75,12 +78,12 @@ export class UsermgmtService {
       })
     }; 
   }
-  getAuthToken():string{
-    return this.authToken;
-  }
 
   getIsPublisher(){
     return this._is_publisher
+  }
+  getauthToken(){
+    return this.AUTH_TOKEN.asObservable()
   }
   
 }
