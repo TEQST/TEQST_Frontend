@@ -29,7 +29,6 @@ export class TextServiceService {
   //Url Information
   private textId;
   private postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
-
   private httpOptions;
 
   constructor(private http: HttpClient, private usermgmtService: UsermgmtService) {
@@ -68,12 +67,9 @@ export class TextServiceService {
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
     let getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
-    console.log(this.httpOptions)
-
 
     await this.http.get(getRecordingInfoUrl, this.httpOptions).toPromise()
     .then(info => {
-      console.log(info);
       if(info === null) {
         result = false;
       } else {
