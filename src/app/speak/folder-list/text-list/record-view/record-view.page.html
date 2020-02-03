@@ -8,9 +8,11 @@
 </ion-header>
 
 <ion-content>
-  <app-sentence-wrapper></app-sentence-wrapper>
+  <div class="recordSentences">
+    <app-sentence-wrapper></app-sentence-wrapper>
+  </div>
+  <div class="recordFooter">
+    <app-player *ngIf="hasRecording"></app-player>
+    <app-recorder></app-recorder>
+  </div>
 </ion-content>
-<ion-footer class="center-content">
-  <app-player *ngIf="hasRecording"></app-player>
-  <app-recorder></app-recorder>
-</ion-footer>
