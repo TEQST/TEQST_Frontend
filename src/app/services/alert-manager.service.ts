@@ -25,4 +25,21 @@ export class AlertManagerService {
 
     await alert.present();
   }
+
+  async presentNotLoggedInAlert() {
+    const alert = await this.alertController.create({
+      header: "Unautherized",
+      subHeader: 'You are not logged in',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          handler: () => {
+            //Navigate back to the login page
+            this.navCtrl.navigateBack("/login");
+          }
+        }]
+    });
+    await alert.present();
+  }
 }
