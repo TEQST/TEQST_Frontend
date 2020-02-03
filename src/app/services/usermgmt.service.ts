@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
 import { Constants } from '../constants';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +14,32 @@ export class UsermgmtService {
   SERVER_URL = Constants.SERVER_URL
 
   private dataFromServer:any="";
-  private authToken:string;
-  private httpOptions;  
-
+  
+  private baseUrl = "http://127.0.0.1:8000";
+  private httpOptions; 
+  private _is_publisher:boolean; 
+  
+  private AUTH_TOKEN = new BehaviorSubject<string>("");
   constructor(public http: HttpClient, public navCtrl: NavController) { } 
 
 
   login(dataToSend) {
     let url = this.SERVER_URL +  "/api/auth/login/";
        this.reset();
-    return this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: any)=>{
+    return this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: object)=>{
+      this._is_publisher = dataReturnFromServer['user']['is_publisher'];      
       this.dataFromServer = JSON.stringify(dataReturnFromServer);       
-      this.authToken = "Token " + JSON.parse(this.dataFromServer).token;  
-     
-      this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken); 
+      
+      this.AUTH_TOKEN.next("Token " + JSON.parse(this.dataFromServer).token);  
+      this.getauthToken().subscribe((token: any)=>{
+        this.AUTH_TOKEN = token;
+      });
+
+      this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.AUTH_TOKEN); 
 
       this.navCtrl.navigateForward("speak");
       },(error: any) => {       
-        alert("wrong Password or Username")
+        alert("invalid Password or Username")
       });
   }
 
@@ -73,8 +82,12 @@ export class UsermgmtService {
       })
     }; 
   }
-  get _authToken():string{
-    return this.authToken;
+
+  getIsPublisher(){
+    return this._is_publisher
+  }
+  getauthToken(){
+    return this.AUTH_TOKEN.asObservable()
   }
   
 }
