@@ -11,7 +11,8 @@ export class UsermgmtService {
   private dataFromServer:any="";
   private authToken:string;
   private baseUrl = "http://127.0.0.1:8000";
-  private httpOptions;  
+  private httpOptions; 
+  private _is_publisher:boolean; 
 
   constructor(public http: HttpClient, public navCtrl: NavController) { } 
 
@@ -19,15 +20,19 @@ export class UsermgmtService {
   login(dataToSend) {
     let url = this.baseUrl +  "/api/auth/login/";
        this.reset();
-    return this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: any)=>{
+    return this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: object)=>{
+      this._is_publisher = dataReturnFromServer['user']['is_publisher'];
+      console.log(this.getIsPublisher())
+      
+      
       this.dataFromServer = JSON.stringify(dataReturnFromServer);       
       this.authToken = "Token " + JSON.parse(this.dataFromServer).token;  
-     
+      
       this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken); 
 
       this.navCtrl.navigateForward("speak");
       },(error: any) => {       
-        alert("wrong Password or Username")
+        alert("invalid Password or Username")
       });
   }
 
@@ -70,8 +75,12 @@ export class UsermgmtService {
       })
     }; 
   }
-  get _authToken():string{
+  getAuthToken():string{
     return this.authToken;
+  }
+
+  getIsPublisher(){
+    return this._is_publisher
   }
   
 }
