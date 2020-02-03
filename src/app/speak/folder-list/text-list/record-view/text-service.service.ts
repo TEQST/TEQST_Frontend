@@ -82,18 +82,13 @@ export class TextServiceService {
 
   givePermissions(textToSpeech: boolean, speechRecognition: boolean ): void {
     
-    // let recordingInfo = {
-    //   "text" : this.textId,
-    //   "TTS_permission": textToSpeech,
-    //   "SP_permission": speechRecognition
-    // }
+    let recordingInfo = {
+      "text" : this.textId,
+      "TTS_permission": textToSpeech,
+      "SR_permission": speechRecognition
+    }
 
-    var formdata = new FormData();
-    formdata.append("text", `${this.textId}`);
-    formdata.append("TTS_permission", `${textToSpeech}`);
-    formdata.append("SR_permission", `${speechRecognition}`);
-
-    this.http.post(this.postRecordingInfoUrl, formdata, this.httpOptions).subscribe(info => {
+    this.http.post(this.postRecordingInfoUrl, recordingInfo, this.httpOptions).subscribe(info => {
       this.setRecordingInfo(info);
     })
   }
