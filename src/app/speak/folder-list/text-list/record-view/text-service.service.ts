@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, of, Observable, Subject, throwError } from 'rxjs';
-import { TEXT } from './mock-text';
 import { Text } from './text';
-import { RECORDINGINFO } from './mock-recording-information';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
