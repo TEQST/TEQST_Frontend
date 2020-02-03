@@ -23,6 +23,16 @@ export class ManageFolderService {
   SERVER_URL = 'http://localhost:8000'
   AUTH_TOKEN = 'Token b990a0e71fa3431f48a1056e68b0269a5cc4f699'
 
+  getFolderInfoFor(folderId: string): Observable<object> {
+    let url = new URL(this.SERVER_URL + "/api/folders/" + folderId)
+
+    return this.http.get(url.toString(), {
+      headers:  {
+        "Authorization": this.AUTH_TOKEN
+      }
+    })
+  }
+
   getSubfolderListFor(folderId: string): Observable<object> {
     let urlStr = this.SERVER_URL + "/api/folders/"
     if (folderId) {

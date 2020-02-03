@@ -50,7 +50,7 @@ export class ManagePage implements OnInit {
     }
 
     if (this.currentFolder.is_sharedfolder) {
-      this.initTextList()
+      this.initTextData()
     } else {
       this.initSubfolderList()
     }
@@ -144,6 +144,23 @@ export class ManagePage implements OnInit {
 
   // ### texts ###
 
+  async initTextData() {
+    await this.initFolderName().then(() => this.initTextList())
+  }
+
+  async initFolderName() {
+    this.manageFolderService.getFolderInfoFor(this.currentFolder.id)
+    .subscribe(
+      data => {
+        this.currentFolder.name = data['name']
+      },
+      async err => {
+        this.popupNotifier.showErrorAlert(err.status, err.statusText)
+        await this.popupNotifier.hideLoadingSpinner()
+      }
+    )
+  }
+
   async initTextList() {
     this.manageFolderService.getTextListFor(this.currentFolder.id)
       .pipe( finalize(async () => { await this.popupNotifier.hideLoadingSpinner() }) )
@@ -161,7 +178,7 @@ export class ManagePage implements OnInit {
           }
         },
         err => this.popupNotifier.showErrorAlert(err.status, err.statusText)
-      );
+      )
   }
 
   async openCreateTextModal() {
@@ -191,7 +208,6 @@ export class ManagePage implements OnInit {
     return await modal.present()
   }
 
-  // delete
   async openDeleteTextAlert($event, text) {
     $event.preventDefault()
     $event.stopPropagation()
@@ -214,7 +230,7 @@ export class ManagePage implements OnInit {
           }
         }
       ]
-    });
+    })
 
     await alert.present()
   }
