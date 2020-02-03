@@ -26,13 +26,13 @@ export class UsermgmtService {
   login(dataToSend) {
     let url = this.SERVER_URL +  "/api/auth/login/";
        this.reset();
-    return this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: object)=>{
+     this.http.post(url,dataToSend,this.httpOptions).subscribe((dataReturnFromServer: object)=>{
       this._is_publisher = dataReturnFromServer['user']['is_publisher'];      
       this.dataFromServer = JSON.stringify(dataReturnFromServer);       
       
       this.AUTH_TOKEN.next("Token " + JSON.parse(this.dataFromServer).token);  
-     
-      this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.AUTH_TOKEN); 
+      this.initHeaders();
+      //this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.AUTH_TOKEN); 
 
       this.navCtrl.navigateForward("speak");
       },(error: any) => {       
@@ -42,10 +42,10 @@ export class UsermgmtService {
 
   register(dataToSend, logInData){
     let url = this.SERVER_URL + "/api/auth/register/";
-      this.reset();
+      
     this.http.post(url,dataToSend,this.httpOptions).subscribe(() => {
       this.login(logInData);
-    });//TODO error Handling
+    });
   }
   updateProfile(dataToSend){
     let url = this.SERVER_URL + "/api/user/";
@@ -55,7 +55,8 @@ export class UsermgmtService {
 
   logout(){
     let url = this.SERVER_URL + "/api/auth/logout/";   
-    this.navCtrl.navigateForward("login");     
+    this.navCtrl.navigateForward("login"); 
+    this.reset()    
     this.http.post(url, '', this.httpOptions).subscribe(() => {
           
     });
@@ -63,11 +64,13 @@ export class UsermgmtService {
 
   loadContent(){
     let url = this.SERVER_URL + "/api/user/";     
+    
     return this.http.get(url, this.httpOptions);
   }
 
   getLangs(){
     let url = this.SERVER_URL + "/api/langs/"; 
+    
     return this.http.get(url, this.httpOptions);
   }
   
@@ -75,7 +78,16 @@ export class UsermgmtService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'Authorization': 'authToken'
+        'Authorization': 'authtoken'
+      })
+    }; 
+  }
+
+  private initHeaders(){
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.AUTH_TOKEN.getValue(),
       })
     }; 
   }
