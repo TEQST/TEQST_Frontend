@@ -1,9 +1,29 @@
 .recordSentences {
-    height: calc(100% - 120px);
     overflow-y: auto;
 }
 
 .recordFooter {
     text-align: center;
-    height: 120px;
+}
+
+ion-content div {
+    height: 100%;
+}
+
+ion-content div.noRecording {
+    .recordSentences {
+        height: calc(100% - 120px);
+    }
+    .recordFooter {
+        height: 120px;
+    }
+}
+
+ion-content div.hasRecording {
+    .recordSentences {
+        height: calc(100% - 180px);
+    }
+    .recordFooter {
+        height: 180px;
+    }
 }
