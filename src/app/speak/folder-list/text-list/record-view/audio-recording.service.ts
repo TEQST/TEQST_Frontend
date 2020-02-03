@@ -34,14 +34,13 @@ export class AudioRecordingService {
 
   private sentenceRecordingUrl = this.SERVER_URL + "/api/sentencerecordings/";
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': this.AUTH_TOKEN
-    })
-  };
+  private httpOptions;
 
   constructor(private textService: TextServiceService, private http: HttpClient, private usermgmtService: UsermgmtService) {
-    usermgmtService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token);
+    usermgmtService.getAuthToken().subscribe((token) => {
+      this.AUTH_TOKEN = token;
+      this.initHttpOptions();
+    });
     textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
     textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
     textService.getRecordingId().subscribe((id) => {
@@ -49,6 +48,14 @@ export class AudioRecordingService {
       this.resetRecordingData();
     });
     textService.getSentenceHasRecording().subscribe((value) => this.sentenceHasRecording = value);
+  }
+
+  private initHttpOptions(): void {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.AUTH_TOKEN
+      })
+    };
   }
 
   resetRecordingData() {

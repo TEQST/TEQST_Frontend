@@ -30,14 +30,21 @@ export class TextServiceService {
   private textId;
   private postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': this.AUTH_TOKEN
-    })
-  };
+  private httpOptions;
 
   constructor(private http: HttpClient, private usermgmtService: UsermgmtService) {
-    usermgmtService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token)
+    usermgmtService.getAuthToken().subscribe((token) => {
+      this.AUTH_TOKEN = token;
+      this.initHttpOptions();
+    })
+  }
+
+  private initHttpOptions(): void {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.AUTH_TOKEN
+      })
+    };
   }
 
   fetchText(): void {
@@ -61,9 +68,12 @@ export class TextServiceService {
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
     let getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
+    console.log(this.httpOptions)
+
 
     await this.http.get(getRecordingInfoUrl, this.httpOptions).toPromise()
     .then(info => {
+      console.log(info);
       if(info === null) {
         result = false;
       } else {
