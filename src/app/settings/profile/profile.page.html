@@ -39,15 +39,20 @@
           <ion-select-option value="6T12">6-12 years of education</ion-select-option>
           <ion-select-option value="M12">more than 12 years of education</ion-select-option>
         </ion-select>
-    </ion-item>  
-    
-   
+    </ion-item>     
 
     <ion-item>
       <ion-label>Gender:</ion-label>
       <ion-select [(ngModel)]="gender">
         <ion-select-option value="F">Female</ion-select-option>
         <ion-select-option value="M">Male</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Menu Language:</ion-label>
+      <ion-select [(ngModel)]="menuLanguageId">
+        <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}} >{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
 

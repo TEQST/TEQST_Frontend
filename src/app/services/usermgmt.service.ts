@@ -21,12 +21,14 @@ export class UsermgmtService {
   
   private AUTH_TOKEN = new BehaviorSubject<string>("");
   constructor(public http: HttpClient, public navCtrl: NavController) {
+    //gets AuthToken after reload or on init
     this.getAuthToken();
     this.initHeaders();
    }
   
 
 
+   //login into Website, saving AuthToken local and in localStorage, redirect to speak tab
   login(dataToSend) {
     let url = this.SERVER_URL +  "/api/auth/login/";
        this.reset();
@@ -44,26 +46,24 @@ export class UsermgmtService {
       });
   }
 
+  //creates a new User with the sended Data
   register(dataToSend, logInData){
-    let url = this.SERVER_URL + "/api/auth/register/";
-      
+    let url = this.SERVER_URL + "/api/auth/register/";      
     this.http.post(url,dataToSend,this.httpOptions).subscribe(() => {
       this.login(logInData);
     });
   }
+
+  //notifys the Server about profile changes
   updateProfile(dataToSend){
     let url = this.SERVER_URL + "/api/user/";
-    // this.getAuthToken()
-    // this.initHeaders()
-    console.log(this.httpOptions)
-    return this.http.put(url, dataToSend, this.httpOptions)
-     
+    return this.http.put(url, dataToSend, this.httpOptions)     
   }
 
+  //redirect to login, and loging out
   logout(){
     let url = this.SERVER_URL + "/api/auth/logout/";   
-    this.navCtrl.navigateForward("login"); 
- 
+    this.navCtrl.navigateForward("login");  
     this.http.post(url, '', this.httpOptions).subscribe(() => {
       this.reset()
       localStorage.clear()   
@@ -71,19 +71,18 @@ export class UsermgmtService {
     });
   }
 
+  //gets all the information about the User who is currently logged in
   loadContent(){
     let url = this.SERVER_URL + "/api/user/"; 
-    console.log(this.AUTH_TOKEN.getValue())
-    console.log(this.httpOptions)
     return this.http.get(url, this.httpOptions);
   }
 
+  //returns all speakable Languages created by an admin
   getLangs(){
-    let url = this.SERVER_URL + "/api/langs/"; 
-    
+    let url = this.SERVER_URL + "/api/langs/";     
     return this.http.get(url, this.httpOptions);
   }
-  
+  //resets httpOptions -> no Authtoken after reset
   private reset(){
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -93,6 +92,7 @@ export class UsermgmtService {
     }; 
   }
 
+//add AuthToken to httpOptions
   private initHeaders(){
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -101,10 +101,11 @@ export class UsermgmtService {
       })
     }; 
   }
-
+  //returns boolean if a user is a Publisher
   getIsPublisher(){
     return this._is_publisher
   }
+  //gets the authToken.
   getAuthToken(){
     this.AUTH_TOKEN.next(localStorage.getItem('Token'));
     return this.AUTH_TOKEN.asObservable()
