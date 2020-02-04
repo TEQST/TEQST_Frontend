@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template" target-language="de">
+    <body>
+      <trans-unit id="speak" datatype="html">
+        <source>Speak</source><target state="translated">Einsprechen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/tabBar/tab-bar.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="publish" datatype="html">
+        <source>Publish</source><target state="translated">Veröffentlichen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/tabBar/tab-bar.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="settings" datatype="html">
+        <source>Settings</source><target state="translated">Einstellungen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/tabBar/tab-bar.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="select-a-publisher" datatype="html">
+        <source>Select a publisher</source><target state="translated">Wähle einen Publisher</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/speak/speak.page.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="folders-by" datatype="html">
+        <source>Folders by</source><target state="translated">Ordner von</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/speak/folder-list/folder-list.page.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="text-in" datatype="html">
+        <source>Texts in</source><target state="translated">Texte in</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/speak/folder-list/text-list/text-list.page.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="folder-modal-title" datatype="html">
+        <source>Create a new folder</source><target state="translated">Erstellen Sie einen neuen Ordner</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-folder/create-folder.page.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Create folder modal title</note>
+      </trans-unit>
+      <trans-unit id="title" datatype="html">
+        <source>Title</source><target state="translated">Titel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-folder/create-folder.page.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-text/create-text.page.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="create-folder-button" datatype="html">
+        <source>Create folder</source><target state="translated">Ordner erstellen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-folder/create-folder.page.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">Create folder button</note>
+      </trans-unit><trans-unit id="text-modal-title" datatype="html">
+        <source>Create a new text</source><target state="translated">Text erstellen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-text/create-text.page.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Create text modal title</note>
+      </trans-unit>
+      <trans-unit id="text-content" datatype="html">
+        <source>Text Content</source><target state="translated">Textinhalt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-text/create-text.page.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="create-text-button" datatype="html">
+        <source>Create text</source><target state="translated">Text erstellen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-text/create-text.page.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">Create text button</note>
+      </trans-unit><trans-unit id="share-modal-title" datatype="html">
+        <source>Select Speaker for <x id="INTERPOLATION" equiv-text="{{folderName}}"/></source><target state="translated">Wähle Einsprecher für <x id="INTERPOLATION" equiv-text="{{folderName}}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/share-folder/share-folder.page.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Share folder modal title</note>
+      </trans-unit><trans-unit id="added-speaker" datatype="html">
+        <source>Added Speaker</source><target state="translated">Bereits hinzugefügte Einsprecher</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/share-folder/share-folder.page.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit><trans-unit id="all-users" datatype="html">
+        <source>All Users</source><target state="translated">Alle Benutzer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/share-folder/share-folder.page.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile-settings" datatype="html">
+        <source>Profile-settings</source><target state="translated">Profil Einstellungen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.page.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout" datatype="html">
+        <source>Logout</source><target state="translated">Abmelden</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/settings/settings.page.html</context><context context-type="linenumber">16</context></context-group></trans-unit>
+      <trans-unit id="profile" datatype="html">
+        <source>Profile</source><target state="translated">Profil</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="username:" datatype="html">
+        <source>Username:</source><target state="translated">Benutzername:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="birthyear:" datatype="html">
+        <source>Birthyear:</source><target state="translated">Geburtsjahr:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country:" datatype="html">
+        <source>Country:</source><target state="translated">Land:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="languages:" datatype="html">
+        <source>Languages:</source><target state="translated">Sprachen:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="B6-years" datatype="html">
+        <source>0-6 years</source><target state="translated">0-6 Jahre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6T12-years" datatype="html">
+        <source>6-12 years</source><target state="translated">6-12 Jahre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="M12-years" datatype="html">
+        <source>more than 12 years</source><target state="translated">mehr als 12 Jahre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="gender:" datatype="html">
+        <source>Gender:</source><target state="translated">Geschlecht:</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/settings/profile/profile.page.html</context><context context-type="linenumber">45</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/register/register.page.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
+      <trans-unit id="female" datatype="html">
+        <source>Female</source><target state="translated">Frau</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/settings/profile/profile.page.html</context><context context-type="linenumber">47</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/register/register.page.html</context><context context-type="linenumber">62</context></context-group></trans-unit>
+      <trans-unit id="male" datatype="html">
+        <source>Male</source><target state="translated">Mann</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/settings/profile/profile.page.html</context><context context-type="linenumber">48</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/register/register.page.html</context><context context-type="linenumber">63</context></context-group></trans-unit>
+      <trans-unit id="save-changes" datatype="html">
+        <source>Save changes</source><target state="translated">Änderungen speichern</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/settings/profile/profile.page.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
+      <trans-unit id="username" datatype="html">
+        <source>Username</source><target state="translated">Benutzername</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.page.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password:" datatype="html">
+        <source>Password: </source><target state="translated">Passwort: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password" datatype="html">
+        <source>Password</source><target state="translated">Passwort</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.page.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="birthyear" datatype="html">
+        <source>Birthyear</source><target state="translated">Geburtsjahr</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country" datatype="html">
+        <source>Country</source><target state="translated">Land</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="language:" datatype="html">
+        <source>Language:<x id="START_TAG_ION-TEXT" ctype="x-ion-text" equiv-text="&lt;ion-text>"/>*<x id="CLOSE_TAG_ION-TEXT" ctype="x-ion-text" equiv-text="&lt;/ion-text>"/></source><target state="translated">Sprache:<x id="START_TAG_ION-TEXT" ctype="x-ion-text" equiv-text="&lt;ion-text>"/>*<x id="CLOSE_TAG_ION-TEXT" ctype="x-ion-text" equiv-text="&lt;/ion-text>"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="select-one" datatype="html">
+        <source>Select One</source><target state="translated">Auswählen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="education-level:" datatype="html">
+        <source>Education Level:</source><target state="translated">Bildungsstand:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="register" datatype="html">
+        <source>Register</source><target state="translated">Registrieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="69b944949a539da50c896291617feaafc31bbd5d" datatype="html">
+        <source>Already have an Account?</source><target state="translated">Sie haben ein Konto?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login-here" datatype="html">
+        <source>Login here</source><target state="translated">Hier anmelden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.page.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login" datatype="html">
+        <source>Login</source><target state="translated">Anmelden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.page.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f5d45e348f4e917b80aec67c36b410b668aefb8f" datatype="html">
+        <source>Don't have an Account yet?</source><target state="translated">Sie haben noch kein Konto?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.page.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="register-here" datatype="html">
+        <source>Register here</source><target state="translated">Hier registrieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.page.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

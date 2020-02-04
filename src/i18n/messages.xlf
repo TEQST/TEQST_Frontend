@@ -44,6 +44,14 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="folder-modal-title" datatype="html">
+        <source>Create a new folder</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-folder/create-folder.page.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Create folder modal title</note>
+      </trans-unit>
       <trans-unit id="title" datatype="html">
         <source>Title</source>
         <context-group purpose="location">
@@ -63,6 +71,14 @@
         </context-group>
         <note priority="1" from="description">Create folder button</note>
       </trans-unit>
+      <trans-unit id="text-modal-title" datatype="html">
+        <source>Create a new text</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/create-text/create-text.page.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Create text modal title</note>
+      </trans-unit>
       <trans-unit id="text-content" datatype="html">
         <source>Text Content</source>
         <context-group purpose="location">
@@ -78,6 +94,28 @@
         </context-group>
         <note priority="1" from="description">Create text button</note>
       </trans-unit>
+      <trans-unit id="share-modal-title" datatype="html">
+        <source>Select Speaker for <x id="INTERPOLATION" equiv-text="{{folderName}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/share-folder/share-folder.page.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Share folder modal title</note>
+      </trans-unit>
+      <trans-unit id="added-speaker" datatype="html">
+        <source>Added Speaker</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/share-folder/share-folder.page.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="all-users" datatype="html">
+        <source>All Users</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/manage/share-folder/share-folder.page.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="profile-settings" datatype="html">
         <source>Profile-settings</source>
         <context-group purpose="location">
@@ -89,7 +127,7 @@
         <source>Logout</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings.page.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="profile" datatype="html">
@@ -176,7 +214,7 @@
         <source>Gender:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.page.html</context>
@@ -187,7 +225,7 @@
         <source>Female</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.page.html</context>
@@ -198,7 +236,7 @@
         <source>Male</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.page.html</context>
@@ -209,7 +247,7 @@
         <source>Save changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="username" datatype="html">
