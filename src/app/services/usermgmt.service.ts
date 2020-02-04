@@ -63,10 +63,10 @@ export class UsermgmtService {
   logout(){
     let url = this.SERVER_URL + "/api/auth/logout/";   
     this.navCtrl.navigateForward("login"); 
-    this.reset()
-    localStorage.clear() 
+ 
     this.http.post(url, '', this.httpOptions).subscribe(() => {
-         
+      this.reset()
+      localStorage.clear()   
      
     });
   }
