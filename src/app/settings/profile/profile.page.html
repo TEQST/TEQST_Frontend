@@ -39,15 +39,21 @@
           <ion-select-option i18n="@@6T12-years" value="6T12">6-12 years</ion-select-option>
           <ion-select-option i18n="@@M12-years" value="M12">more than 12 years</ion-select-option>
         </ion-select>
-    </ion-item>  
-    
-   
+    </ion-item>     
 
     <ion-item>
       <ion-label i18n="@@gender:">Gender:</ion-label>
       <ion-select [(ngModel)]="gender">
         <ion-select-option i18n="@@female" value="F">Female</ion-select-option>
         <ion-select-option i18n="@@male" value="M">Male</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+   
+    <ion-item>
+      <ion-label>Menu Language:</ion-label>
+      <ion-select [(ngModel)]="menuLanguageId">
+        <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}} >{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
