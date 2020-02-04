@@ -20,7 +20,7 @@ import { AlertManagerService } from '../services/alert-manager.service';
 export class ManagePage implements OnInit {
 
   public currentFolder: Folder
-  public subfolders: object[]
+  public subfolders: Folder[]
   public texts: object
 
   constructor(private manageFolderService: ManageFolderService,

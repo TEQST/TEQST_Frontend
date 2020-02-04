@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create a new folder</ion-title>
+    <ion-title i18="Create folder modal title@@folder-modal-title">Create a new folder</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissForm()">
         <ion-icon name="close"></ion-icon>
@@ -12,11 +12,11 @@
 <ion-content>
   <form [formGroup]="folderInfo" (ngSubmit)="submitForm()">
     <ion-item>
-      <ion-label position="stacked">Title</ion-label>
+      <ion-label i18n="@@title" position="stacked">Title</ion-label>
       <ion-input #folderName formControlName="folderName" name="name" autofocus="true"></ion-input>
     </ion-item>
     <div class="ion-padding">
-      <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!folderInfo.valid">Create folder</ion-button>
+      <ion-button i18n="Create folder button@@create-folder-button" expand="block" type="submit" class="ion-no-margin" [disabled]="!folderInfo.valid">Create folder</ion-button>
     </div>
   </form>
 </ion-content>

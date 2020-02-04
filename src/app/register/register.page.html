@@ -14,60 +14,60 @@
         <ion-card class="max-height">
           <ion-list class="padding center">
             <ion-item >
-              <ion-label>Username: </ion-label>
-              <ion-input placeholder="Username" [(ngModel)]="username" required = true><ion-text color="danger">*</ion-text></ion-input>
+              <ion-label i18n="@@username:"> Username: </ion-label>
+              <ion-input i18n-placeholder=@@username placeholder="Username" [(ngModel)]="username" required = true><ion-text color="danger">*</ion-text></ion-input>
             </ion-item>
   
             <ion-item>
-              <ion-label>Password: </ion-label>
-              <ion-input placeholder="Password" [(ngModel)]="password" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
+              <ion-label i18n="@@password:">Password: </ion-label>
+              <ion-input i18n-placeholder="@@password" placeholder="Password" [(ngModel)]="password" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
             </ion-item>
   
             <ion-item>
-              <ion-label>Password: </ion-label>
-              <ion-input placeholder="repeat Password" [(ngModel)]="repassword" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
+              <ion-label i18n="@@password:">Password: </ion-label>
+              <ion-input i18n-placeholder="@@password" placeholder="repeat Password" [(ngModel)]="repassword" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
             </ion-item>
   
             <ion-item>
-              <ion-label>Birthyear: </ion-label>
-              <ion-input placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'"></ion-input>
+              <ion-label i18n="@@birthyear:">Birthyear: </ion-label>
+              <ion-input i18n-placeholder="@@birthyear" placeholder="Birthyear" [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'"></ion-input>
             </ion-item>
   
             <ion-item>
-              <ion-label>Country: </ion-label>
-              <ion-input placeholder="Country" [(ngModel)]="country" ></ion-input>
+              <ion-label i18n="@@country:">Country: </ion-label>
+              <ion-input i18n-placeholder="@@country" placeholder="Country" [(ngModel)]="country" ></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-label>Language:<ion-text color="danger">*</ion-text></ion-label>
+              <ion-label i18n="@@language:">Language:<ion-text color="danger">*</ion-text></ion-label>
               
-              <ion-select multiple="true" placeholder="Select One" [(ngModel)]="language" required="true" >
+              <ion-select i18n-placeholder="@@select-one" multiple="true" placeholder="Select One" [(ngModel)]="language" required="true" >
                 <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}} >{{lang.native_name}}</ion-select-option>
                 
               </ion-select>
             </ion-item>
 
             <ion-item>
-              <ion-label>Education Level:</ion-label>
-                <ion-select placeholder="Select One" [(ngModel)]="education">
-                  <ion-select-option value="B6">0-6 years</ion-select-option>
-                  <ion-select-option value="6T12">6-12 years</ion-select-option>
-                  <ion-select-option value="M12">more than 12 years</ion-select-option>
+              <ion-label i18n="@@education-level:">Education Level:</ion-label>
+                <ion-select i18n-placeholder="@@select-one" placeholder="Select One" [(ngModel)]="education">
+                  <ion-select-option i18n="@@B6-years" value="B6">0-6 years</ion-select-option>
+                  <ion-select-option i18n="@@6T12-years"value="6T12">6-12 years</ion-select-option>
+                  <ion-select-option i18n="@@M12-years" value="M12">more than 12 years</ion-select-option>
                 </ion-select>
             </ion-item>
   
             <ion-item>
-              <ion-label>Gender:</ion-label>
-              <ion-select placeholder="Select One" [(ngModel)]="gender">
-                <ion-select-option value="F">Female</ion-select-option>
-                <ion-select-option selected value="M">Male</ion-select-option>
+              <ion-label i18n="@@gender:">Gender:</ion-label>
+              <ion-select i18n-placeholder="@@select-one" placeholder="Select One" [(ngModel)]="gender">
+                <ion-select-option i18n="@@female" value="F">Female</ion-select-option>
+                <ion-select-option i18n="@@male" selected value="M">Male</ion-select-option>
               </ion-select>
             </ion-item>
   
           </ion-list>
-            <ion-button full (click)="registerUser()" expand="block">Register</ion-button>
+            <ion-button i18n="@@register" full (click)="registerUser()" expand="block">Register</ion-button>
             <ion-card-content>
-              Already have an Account?<button (click)="goLogin()" class="login-text-settings">Login</button>here
+              <ng-container i18n>Already have an Account?</ng-container><button i18n="@@login-here" (click)="goLogin()" class="login-text-settings">Login here</button>
             </ion-card-content>
         </ion-card>
       </ion-col>

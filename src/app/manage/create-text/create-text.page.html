@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create a new text</ion-title>
+    <ion-title i18="Create text modal title@@text-modal-title">Create a new text</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
@@ -13,16 +13,16 @@
   <form [formGroup]="createTextForm" (ngSubmit)="createText(createTextForm.value)">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
-        <ion-label position="stacked">Title</ion-label>
+        <ion-label i18n="@@title" position="stacked">Title</ion-label>
         <ion-input formControlName="title" name="name" autofocus="true"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Text Content</ion-label>
+        <ion-label i18n="@@text-content" position="stacked">Text Content</ion-label>
         <ion-input (change)="setFile($event.target.files.item(0))" ng-required="required" type="file" accept=".txt"></ion-input>
       </ion-item>
     </ion-list>
     <div class="ion-padding">
-      <ion-button [disabled]="!formValid" expand="block" type="submit" class="ion-no-margin" color="dark">Create text</ion-button>
+      <ion-button i18n="Create text button@@create-text-button" [disabled]="!formValid" expand="block" type="submit" class="ion-no-margin" color="dark">Create text</ion-button>
     </div>
   </form>
 </ion-content>
