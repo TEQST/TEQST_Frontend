@@ -23,7 +23,8 @@ export class ProfilePage implements OnInit {
   country:string="Germany";   
   allLangs:[];
   languageString:string="";
-   language_ids=[];
+  language_ids=[];
+  menuLanguageId:number;
   
   
 
@@ -63,8 +64,9 @@ export class ProfilePage implements OnInit {
   
 
   save(){
-    var dataToSend = {birth_year:this.birthyear,language_ids:this.language_ids, country:this.country,gender:this.gender, education:this.education}
+    var dataToSend = {birth_year:this.birthyear,language_ids:this.language_ids, country:this.country,gender:this.gender, education:this.education, menu_language_id:this.menuLanguageId}
     this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
+     
       this.loadContent();
     });
     

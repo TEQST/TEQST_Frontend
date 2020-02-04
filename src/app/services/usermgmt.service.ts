@@ -20,7 +20,11 @@ export class UsermgmtService {
   private _is_publisher:boolean; 
   
   private AUTH_TOKEN = new BehaviorSubject<string>("");
-  constructor(public http: HttpClient, public navCtrl: NavController) { } 
+  constructor(public http: HttpClient, public navCtrl: NavController) {
+    this.getAuthToken();
+    this.initHeaders();
+   }
+  
 
 
   login(dataToSend) {
@@ -33,7 +37,6 @@ export class UsermgmtService {
       this.AUTH_TOKEN.next("Token " + JSON.parse(this.dataFromServer).token);  
       this.initHeaders();
       localStorage.setItem('Token', this.AUTH_TOKEN.getValue())
- 
 
       this.navCtrl.navigateForward("speak");
       },(error: any) => {       
@@ -50,6 +53,9 @@ export class UsermgmtService {
   }
   updateProfile(dataToSend){
     let url = this.SERVER_URL + "/api/user/";
+    // this.getAuthToken()
+    // this.initHeaders()
+    console.log(this.httpOptions)
     return this.http.put(url, dataToSend, this.httpOptions)
      
   }
@@ -57,16 +63,18 @@ export class UsermgmtService {
   logout(){
     let url = this.SERVER_URL + "/api/auth/logout/";   
     this.navCtrl.navigateForward("login"); 
-    this.reset()   
+    this.reset()
     localStorage.clear() 
     this.http.post(url, '', this.httpOptions).subscribe(() => {
-          
+         
+     
     });
   }
 
   loadContent(){
-    let url = this.SERVER_URL + "/api/user/";     
-    
+    let url = this.SERVER_URL + "/api/user/"; 
+    console.log(this.AUTH_TOKEN.getValue())
+    console.log(this.httpOptions)
     return this.http.get(url, this.httpOptions);
   }
 
