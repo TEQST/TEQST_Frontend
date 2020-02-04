@@ -14,7 +14,7 @@ import { AlertManagerService } from 'src/app/services/alert-manager.service';
 
 export class TextDetailPage implements OnInit {
 
-  private text: Text
+  public text: Text
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,

@@ -19,9 +19,9 @@ import { AlertManagerService } from '../services/alert-manager.service';
 
 export class ManagePage implements OnInit {
 
-  private currentFolder: Folder
-  private subfolders: object
-  private texts: object
+  public currentFolder: Folder
+  public subfolders: object[]
+  public texts: object
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,

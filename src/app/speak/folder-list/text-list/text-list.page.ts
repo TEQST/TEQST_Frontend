@@ -13,9 +13,9 @@ import { AlertManagerService } from 'src/app/services/alert-manager.service';
 
 export class TextListPage implements OnInit {
 
-  private publisherId: string
-  private folderId: string
-  private texts: any
+  public publisherId: string
+  public folderId: string
+  public texts: any
   folderName: any;
 
   constructor(private navService : SpeakTabNavService,

@@ -12,7 +12,7 @@ import { AlertManagerService } from '../services/alert-manager.service';
 
 export class SpeakPage implements OnInit {
 
-  private publishers: any
+  public publishers: any
 
   constructor(private navService : SpeakTabNavService,
               private alertManager: AlertManagerService) { }

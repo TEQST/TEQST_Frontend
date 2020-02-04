@@ -15,7 +15,7 @@ export class CreateFolderPage implements OnInit {
   @ViewChild('folderName', {  static: false })  folderNameInput: IonInput
 
   private validatorPattern = '^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$'
-  private folderInfo : FormGroup;
+  public folderInfo : FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private manageFolderService: ManageFolderService,

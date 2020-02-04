@@ -9,8 +9,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CreateTextPage implements OnInit {
 
-  private createTextForm: FormGroup
-  private formValid: boolean
+  public createTextForm: FormGroup
+  public formValid: boolean
   private fileSelected: boolean
   private file: File
 

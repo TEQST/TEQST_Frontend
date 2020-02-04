@@ -14,8 +14,8 @@ import { AlertManagerService } from 'src/app/services/alert-manager.service';
 
 export class FolderListPage implements OnInit {
 
-  private publisherId: string
-  private folders: any
+  public publisherId: string
+  public folders: any
   publisherName: any;
 
   constructor(private navService : SpeakTabNavService,
