@@ -3,6 +3,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
 import { Constants } from '../constants';
 import { BehaviorSubject } from 'rxjs';
+import { AlertManagerService } from './alert-manager.service'
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UsermgmtService {
   private _is_publisher:boolean; 
   
   private AUTH_TOKEN = new BehaviorSubject<string>("");
-  constructor(public http: HttpClient, public navCtrl: NavController) {
+  constructor(public http: HttpClient, public navCtrl: NavController, private alertService: AlertManagerService) {
     //gets AuthToken after reload or on init
     this.getAuthToken();
     this.initHeaders();
@@ -42,7 +43,8 @@ export class UsermgmtService {
 
       this.navCtrl.navigateForward("speak");
       },(error: any) => {       
-        alert("invalid Password or Username")
+        //calls AlertService when server sends error code
+        this.alertService.showErrorAlertNoRedirection("Wrong Input","Invalid Password or Username")
       });
   }
 
