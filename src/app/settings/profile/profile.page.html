@@ -51,7 +51,7 @@
 
    
     <ion-item>
-      <ion-label>Menu Language:</ion-label>
+      <ion-label i18n="@@menu-language:">Menu Language:</ion-label>
       <ion-select [(ngModel)]="menuLanguageId">
         <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}} >{{lang.native_name}}</ion-select-option>
       </ion-select>

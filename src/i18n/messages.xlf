@@ -243,6 +243,13 @@
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="menu-language:" datatype="html">
+        <source>Menu Language:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/profile/profile.page.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="save-changes" datatype="html">
         <source>Save changes</source>
         <context-group purpose="location">
