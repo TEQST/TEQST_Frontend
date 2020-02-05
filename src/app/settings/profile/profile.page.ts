@@ -26,6 +26,7 @@ export class ProfilePage implements OnInit {
 
   constructor(public usermgmtService:UsermgmtService) { }
 
+  //loads everytime Page is loaded their content
   ngOnInit() {
     this.loadContent();
   }
@@ -53,7 +54,7 @@ export class ProfilePage implements OnInit {
    });     
   }
 
-  //loads all Languages which can be spoken
+  //loads all Languages which can be spoken (has to be created before by admin)
   getAllLangs(){
     this.usermgmtService.getLangs().subscribe((dataReturnFromServer: any) => {
       this.allLangs = dataReturnFromServer;
