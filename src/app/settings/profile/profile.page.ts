@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsermgmtService } from '../../services/usermgmt.service';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class ProfilePage implements OnInit {
   
   
 
-  constructor(public usermgmtService:UsermgmtService) { }
+  constructor(public usermgmtService:UsermgmtService, public navCtrl: NavController) { }
 
   //loads everytime Page is loaded their content
   ngOnInit() {
@@ -67,7 +68,8 @@ export class ProfilePage implements OnInit {
   save(){
     var dataToSend = {birth_year:this.birthyear,language_ids:this.language_ids, country:this.country,gender:this.gender, education:this.education, menu_language_id:this.menuLanguageId}
     this.usermgmtService.updateProfile(dataToSend).subscribe(() => {     
-      this.loadContent();
+      this.navCtrl.navigateBack("settings")
+     // this.loadContent();
     });
     
     
