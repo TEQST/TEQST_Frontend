@@ -12,8 +12,12 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {
   }
+
+  //calls logout Function of UsermgmtService
   logout(){
     this.usermgmtService.logout();
   }
+
+  
 
 }

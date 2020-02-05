@@ -89,4 +89,23 @@ export class AlertManagerService {
 
     await this.alert.present()
   }
+
+  async showErrorAlertNoRedirection(header, msg) {
+    if (this.alertActive) {
+      return;
+    }
+    this.alert = await this.alertController.create({
+      header: header,
+      message: msg,
+      buttons: [{
+        role: 'cancel',
+        text: 'OK',
+        handler: () => {
+          this.alertActive = false;
+        }
+      }]
+    });
+
+    await this.alert.present()
+  }
 }

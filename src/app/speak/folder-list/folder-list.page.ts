@@ -30,7 +30,7 @@ export class FolderListPage implements OnInit {
   }
   
   async ionViewWillEnter() {
-    await this.alertManager.hideLoadingSpinner()
+    await this.alertManager.showLoadingSpinner()
 
     this.navService.getInfoForPublisher(this.publisherId)
       .pipe(

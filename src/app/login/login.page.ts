@@ -23,12 +23,14 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  //gets Username and Password and calls with those login in UsermgmtService
   login(){    
     var dataToSend = {username:this.username, password:this.password};    
     this.usermgmtService.login(dataToSend);
   
   }  
 
+  //redirects to Register Page
   goRegister(){
     this.navCtrl.navigateForward("register");
    

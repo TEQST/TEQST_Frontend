@@ -23,6 +23,7 @@ export class TextListPage implements OnInit {
               private alertManager: AlertManagerService) {
 
     this.publisherId = ''
+    this.texts = []
   }
 
   ngOnInit() {
