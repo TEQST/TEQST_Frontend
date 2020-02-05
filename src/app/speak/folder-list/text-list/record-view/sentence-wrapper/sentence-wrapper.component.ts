@@ -9,36 +9,27 @@ import { AudioRecordingService } from '../audio-recording.service';
 })
 export class SentenceWrapperComponent implements OnInit {
 
-  sentences: String[];
-  activeSentence: number;
-  isRecording: boolean;
-  furthestSentence: number;
+  public sentences: String[];
+  public activeSentence: number;
+  public isRecording: boolean;
+  public furthestSentence: number;
 
-  constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) { }
+  constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) {
+    this.subscribeToServices()
+   }
 
-  ngOnInit() {
-    this.getSentences();
-    this.getActiveSentence();
-    this.getRecordingStatus();
-    this.getFurthestSentence();
-  }
+  ngOnInit() {}
 
-  getFurthestSentence(): void {
+  //subscribe to all needed variables from the services and update the locale ones on change
+  private subscribeToServices(): void {
     this.textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
-  }
-
-  getRecordingStatus(): void {
-    this.recordingService.getRecordingState().subscribe((state) => this.isRecording = state);
-  }
-
-  getSentences(): void {
     this.textService.getSentences().subscribe(sentences => this.sentences = sentences);
-  }
-
-  getActiveSentence(): void {
     this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
+    this.recordingService.getRecordingState().subscribe((state) => this.isRecording = state);
+
   }
 
+  // when clicking on a sentence set it to active
   onSelect(index: number): void {
     this.recordingService.stopAudioPlaying();
     this.textService.setActiveSentenceIndex(index)

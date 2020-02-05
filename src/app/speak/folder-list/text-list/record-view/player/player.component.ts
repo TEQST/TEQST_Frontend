@@ -8,15 +8,16 @@ import { AudioRecordingService } from '../audio-recording.service';
 })
 export class PlayerComponent implements OnInit {
 
-  isPlaying: boolean = false;
+  public isPlaying: boolean = false;
 
-  constructor(private recordingService: AudioRecordingService) { }
-
-  ngOnInit() {
+  constructor(private recordingService: AudioRecordingService) {
     this.getPlayerState();
-  }
+   }
+
+  ngOnInit() {}
 
   getPlayerState(): void {
+    //subscribe to the isPlaying observable and update the locale variable on change
     this.recordingService.getIsPlayingState().subscribe((state) => this.isPlaying = state);
   }
 

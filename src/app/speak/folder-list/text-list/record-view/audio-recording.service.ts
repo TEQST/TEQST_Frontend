@@ -11,6 +11,7 @@ import { UsermgmtService } from 'src/app/services/usermgmt.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AudioRecordingService {
 
   SERVER_URL = Constants.SERVER_URL
@@ -20,34 +21,37 @@ export class AudioRecordingService {
   private stream: MediaStream;
   private recorder;
   private recorded = new Map<number, Blob>()
+  private audio = new Audio();
+  private httpOptions;
+
   private recordingFailed$ = new Subject<string>();
   private state$ = new Subject<boolean>();
-  private recordingLength$ = new Subject<number>();
-  private recordingPosition$ = new Subject<number>();
   private isPlaying$ = new Subject<boolean>();
 
   private recordingId: number;
   private activeSentence: number;
   private furthestSentence: number;
   private sentenceHasRecording: boolean;
-  private audio = new Audio();
 
-  private sentenceRecordingUrl = this.SERVER_URL + "/api/sentencerecordings/";
 
-  private httpOptions;
 
   constructor(private textService: TextServiceService, private http: HttpClient, private usermgmtService: UsermgmtService) {
-    usermgmtService.getAuthToken().subscribe((token) => {
+    this.subscribeToServices()
+  }
+
+  //subscribe to all needed variables from the services and update the locale ones on change
+  private subscribeToServices(): void {
+    this.usermgmtService.getAuthToken().subscribe((token) => {
       this.AUTH_TOKEN = token;
       this.initHttpOptions();
     });
-    textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
-    textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
-    textService.getRecordingId().subscribe((id) => {
+    this.textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
+    this.textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
+    this.textService.getRecordingId().subscribe((id) => {
       this.recordingId = id;
       this.resetRecordingData();
     });
-    textService.getSentenceHasRecording().subscribe((value) => this.sentenceHasRecording = value);
+    this.textService.getSentenceHasRecording().subscribe((value) => this.sentenceHasRecording = value);
   }
 
   private initHttpOptions(): void {
@@ -59,8 +63,7 @@ export class AudioRecordingService {
   }
 
   resetRecordingData() {
-    this.recorded = new Map<number, Blob>()
-
+    this.recorded = new Map<number, Blob>(); //delete localy safed recordings
   }
 
   recordingFailed(): Observable<string> {
@@ -77,23 +80,25 @@ export class AudioRecordingService {
 
   startRecording() {
     if (this.recorder) {
-      // It means recording is already started or it is already recording something
+      // Recording is already running
       return;
     }
 
+    // get user permission for recording audio
     navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
       this.stream = s;
       this.record();
     }).catch(error => {
       this.recordingFailed$.next();
       this.state$.next(false);
-      console.log(error)
     });
 
   }
 
+  //start the actual recording
   private record() {
 
+    // set the quality properties of the recorder
     this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
       type: 'audio',
       mimeType: 'audio/wav',
@@ -107,30 +112,32 @@ export class AudioRecordingService {
 
   }
 
-  safeRecording(index: number, blob: Blob) {
-    this.recorded.set(index, blob)
+  private safeRecording(index: number, blob: Blob) {
+    this.recorded.set(index, blob); //safe localy
     this.uploadRecording(index, blob);
   }
 
-  uploadRecording(index: number, blob: Blob) {
+  private uploadRecording(index: number, blob: Blob) {
     let blobFile = new File([blob], "recording.wav");
 
     let formdata = new FormData();
     formdata.append("audiofile", blobFile);
+    let sentenceRecordingUrl = this.SERVER_URL + "/api/sentencerecordings/";
+
     //check if sentence has already been recorded
     if(!this.sentenceHasRecording) {
       formdata.append("recording", this.recordingId.toString());
       formdata.append("index", index.toString());
-      this.http.post(this.sentenceRecordingUrl, formdata, this.httpOptions).subscribe((response) => "");
+      this.http.post(sentenceRecordingUrl, formdata, this.httpOptions).subscribe((response) => "");
     } else {
       // replace existing sentence recording
-      this.http.put(this.sentenceRecordingUrl + `${this.recordingId}/?index=${this.activeSentence}`,
+      this.http.put(sentenceRecordingUrl + `${this.recordingId}/?index=${this.activeSentence}`,
        formdata, this.httpOptions).subscribe((response) => "");
     }
   }
 
   stopRecording() {
-
+    // check if recording is active if not do nothing
     if (this.recorder) {
       this.recorder.stop((blob) => {
         this.safeRecording(this.activeSentence, blob);
@@ -145,12 +152,12 @@ export class AudioRecordingService {
     }
 
   }
- // TODO: export safe into own function
+
+  // safe the current recording and start the next one
   nextRecording() {
     if (this.recorder) {
       this.recorder.stop((blob) => {
         this.safeRecording(this.activeSentence, blob);
-        //start next recording here because otherwise the functions would be run before the blob is safed
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
         }
@@ -169,6 +176,7 @@ export class AudioRecordingService {
     }
   }
 
+  // stop the recorder and free all open audio streams
   private stopMedia() {
     this.state$.next(false);
     if (this.recorder) {
@@ -180,11 +188,14 @@ export class AudioRecordingService {
     }
   }
 
+  //cancel current recording without safing
   abortRecording(): void {
     this.stopMedia();
   }
 
-  async fetchSentenceRecording() {
+  //get recordings of already recorded sentences from the server
+  private async fetchSentenceRecording() {
+
     //set blob as response type
     let audioHttpOptions = {
       headers: new HttpHeaders({
@@ -197,8 +208,12 @@ export class AudioRecordingService {
       audioHttpOptions).toPromise();
   }
 
+  //play a recorded sentence
   async playRecording() {
+
     let blob: Blob;
+
+    //if a localy safed recording is avaiable use it otherwise get the recording from server
     if (this.recorded.has(this.activeSentence)) {
       blob = this.recorded.get(this.activeSentence);
     } else {
@@ -208,6 +223,7 @@ export class AudioRecordingService {
     this.audio.load();
     this.audio.play();
 
+    //eventlistener to update ui during playback
     this.audio.addEventListener("play", () => {
       this.isPlaying$.next(true);
     })
@@ -217,6 +233,7 @@ export class AudioRecordingService {
 
   }
 
+  //stop audio playback
   stopAudioPlaying(): void {
     this.audio.pause();
     this.audio.currentTime = 0;
