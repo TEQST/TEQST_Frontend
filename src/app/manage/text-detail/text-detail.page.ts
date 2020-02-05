@@ -14,7 +14,8 @@ import { AlertManagerService } from 'src/app/services/alert-manager.service';
 
 export class TextDetailPage implements OnInit {
 
-  public text: Text
+  private text: Text
+  private textId: string;
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
@@ -23,9 +24,12 @@ export class TextDetailPage implements OnInit {
   }
 
   async ngOnInit() {
-    let textId = this.route.snapshot.paramMap.get('textId')
-    await this.alertManager.hideLoadingSpinner()
-    this.manageFolderService.getTextInfo(textId)
+    this.textId = this.route.snapshot.paramMap.get('textId')
+  }
+
+  async ionViewWillEnter() {
+    await this.alertManager.showLoadingSpinner()
+    this.manageFolderService.getTextInfo(this.textId)
     .pipe(
       finalize(async () => { await this.alertManager.hideLoadingSpinner() })
     )

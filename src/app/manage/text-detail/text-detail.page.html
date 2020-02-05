@@ -8,5 +8,5 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <p>{{text.content}}</p>
+    <p *ngFor="let sentence of text.content">{{sentence}}</p>
 </ion-content>
