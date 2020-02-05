@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import { RegisterPage } from '../register/register.page';
 import { UsermgmtService } from '../services/usermgmt.service';
+import { Constants } from '../constants';
 
 
 
@@ -12,6 +13,7 @@ import { UsermgmtService } from '../services/usermgmt.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  SERVER_URL = Constants.SERVER_URL
   username:string;
   password:string;
   
@@ -34,6 +36,11 @@ export class LoginPage implements OnInit {
   goRegister(){
     this.navCtrl.navigateForward("register");
    
+  }
+
+  redirect(){
+   
+    window.open(this.SERVER_URL + "/admin");
   }
 
 }

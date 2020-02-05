@@ -26,12 +26,20 @@
           </ion-button>            
         </form>
         <ion-card-content>
-          <ng-container i18n>Don't have an Account yet?</ng-container> <button i18n=@@register-here (click)="goRegister()" class="register-text-settings">Register here</button>
-          </ion-card-content>
+          <ng-container i18n>Don't have an Account yet?</ng-container> 
+          <button i18n=@@register-here (click)="goRegister()" class="register-text-settings">Register here</button>   
+            
+        </ion-card-content>
+        
+        <ng-container i18n></ng-container> 
+        <button i18n=@@admin-page (click)="redirect()" class="white-backround">Admin Page</button> 
+        
+
         </ion-card>
       </ion-col>
     </ion-row>   
 
   </ion-grid>
+  
  
 </ion-content>
