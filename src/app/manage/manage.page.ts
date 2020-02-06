@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, AlertController } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
 
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { CreateFolderPage } from './create-folder/create-folder.page';
@@ -22,6 +21,7 @@ export class ManagePage implements OnInit {
   public currentFolder: Folder
   public subfolders: Folder[]
   public texts: object
+
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
@@ -88,9 +88,7 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          await this.alertManager.showLoadingSpinner();
           this.currentFolder.createSubfolder(data.folderName)
-            .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
             .subscribe(
               data => this.getFolderInfo(),
               err  => this.alertManager.showErrorAlert(err.status, err.statusText)
@@ -112,9 +110,7 @@ export class ManagePage implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.alertManager.showLoadingSpinner();
             folder.delete()
-              .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
               .subscribe(
                 data => this.getFolderInfo(),
                 err  => this.alertManager.showErrorAlert(err.status, err.statusText)
@@ -166,10 +162,7 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          await this.alertManager.showLoadingSpinner();
-
           this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
-            .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
             .subscribe(
               data => {
                 if (!this.currentFolder.is_sharedfolder) {
@@ -196,9 +189,7 @@ export class ManagePage implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.alertManager.showLoadingSpinner();
             text.delete()
-              .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
               .subscribe(
                 data => this.initTextList(),
                 err  => this.alertManager.showErrorAlert(err.status, err.statusText)
