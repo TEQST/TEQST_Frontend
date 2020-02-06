@@ -1,0 +1,11 @@
+#tabbar ion-button {
+    padding: 0 20px;
+}
+
+#tabbar ion-icon {
+    color: var(--ion-color-dark);
+}
+
+#tabbar ion-button.active ion-icon {
+    color: var(--ion-color-primary);
+}

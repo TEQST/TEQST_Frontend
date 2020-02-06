@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {NavController} from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ElementRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-tabBar',
@@ -8,23 +11,47 @@ import {NavController} from '@ionic/angular';
 })
 export class TabBarComponent implements OnInit {
 
-  constructor(public navCtrl: NavController) { }
+  @ViewChild('speakTab', { static: false}) speakTab;
+  @ViewChild('manageTab', { static: false}) manageTab;
+  @ViewChild('settingsTab', { static: false}) settingsTab;
+
+  constructor(public navCtrl: NavController, private router: Router) { }
 
   ngOnInit() {}
 
+  ngAfterViewInit() {
+    let urlArr = this.router.url.split('/')
+    if (urlArr.length > 0) {
+      let tabName = urlArr[1] + 'Tab'
+      this.setTabButtonActive(tabName)
+    }
+  }
+
+  setTabButtonActive(tabName) {
+    this.speakTab.el.classList.remove('active')
+    this.manageTab.el.classList.remove('active')
+    this.settingsTab.el.classList.remove('active')
+    let tabElem
+    switch (tabName) {
+      case 'manageTab': tabElem = this.manageTab; break;
+      case 'settingsTab': tabElem = this.settingsTab; break;
+      default : tabElem = this.speakTab;
+    }
+    tabElem.el.classList.add('active')
+  }
+
   //redirect to Settings Page
-  navigateToSettings(){
-    this.navCtrl.navigateForward("settings");
+  navigateToSettings($event){
+    this.navCtrl.navigateForward("settings", { animated: false, });
   }
   //redirect to Publisher PAge
-  navigateToPublish(){
-    this.navCtrl.navigateForward("manage");
-    
+  navigateToManage($event){
+    this.navCtrl.navigateForward("manage", { animated: false, });
   }
 
   //redirect to Speak Page
-  navigateToSpeak(){
-    this.navCtrl.navigateForward("speak");
+  navigateToSpeak($event){
+    this.navCtrl.navigateForward("speak", { animated: false, });
   }
 
 }
