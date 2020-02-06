@@ -40,6 +40,7 @@ export class ManagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
+    // retrieve folder id from url
     let folderId = this.route.snapshot.paramMap.get('folderId')
     if (folderId != null) {
       this.currentFolder.id = folderId
@@ -54,8 +55,10 @@ export class ManagePage implements OnInit {
     .subscribe(
       data => {
         if (Array.isArray(data)) {
+          // on the topmost filesystem level only an array of folders exist
           this.initSubfolderList(data)
         } else {
+          // get information about the current folder
           this.currentFolder.name = data['name']
           this.currentFolder.is_sharedfolder = data['is_sharedfolder']
           let subfolderInfo = data['subfolder']
@@ -71,6 +74,7 @@ export class ManagePage implements OnInit {
     )
   }
 
+  // create folder objects from the given subfolderInfo data
   initSubfolderList(subfolderInfo) {
     let subfolders = []
     for (let folderInfo of subfolderInfo) {
@@ -99,6 +103,7 @@ export class ManagePage implements OnInit {
   }
 
   async openDeleteFolderAlert($event, folder) {
+    // cancel click event to prevent opening the folder
     $event.preventDefault()
     $event.stopPropagation()
 
@@ -126,6 +131,7 @@ export class ManagePage implements OnInit {
     const modal = await this.modalController.create({
       component: ShareFolderPage,
       componentProps: {
+        // pass variables to the modal
         folderId: this.currentFolder.id,
         folderName: this.currentFolder.name
       }
@@ -135,6 +141,7 @@ export class ManagePage implements OnInit {
 
   // ### texts ###
 
+  // create text objects from the retrieved array of texts
   async initTextList() {
     this.manageFolderService.getTextListFor(this.currentFolder.id)
       .subscribe(
@@ -165,9 +172,8 @@ export class ManagePage implements OnInit {
           this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
             .subscribe(
               data => {
-                if (!this.currentFolder.is_sharedfolder) {
-                  this.currentFolder.is_sharedfolder = true
-                }
+                this.currentFolder.is_sharedfolder = true
+                // reload text list
                 this.initTextList()
               },
               err  => this.alertManager.showErrorAlert(err.status, err.statusText)
@@ -178,6 +184,7 @@ export class ManagePage implements OnInit {
   }
 
   async openDeleteTextAlert($event, text) {
+    // cancel click event to prevent opening the text
     $event.preventDefault()
     $event.stopPropagation()
 

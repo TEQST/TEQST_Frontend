@@ -23,6 +23,7 @@ export class TextDetailPage implements OnInit {
   }
 
   async ngOnInit() {
+    // retrieve text id from url
     this.textId = this.route.snapshot.paramMap.get('textId')
   }
 
