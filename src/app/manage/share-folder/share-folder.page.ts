@@ -80,7 +80,7 @@ export class ShareFolderPage implements OnInit {
   }
 
   async addSpeaker(user: User) {
-    //create a new array just with the speaker ids
+    //create a new array with just the speaker ids
     let newSpeakers = this.speakers.map(speaker => speaker.id);
     newSpeakers.push(user.id)
     await this.folderService.setSpeakers(this.folderId, newSpeakers).toPromise().then((sharedfolder) => this.speakers = sharedfolder['speakers'])

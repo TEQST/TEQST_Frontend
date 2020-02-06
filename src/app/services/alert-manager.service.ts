@@ -46,8 +46,8 @@ export class AlertManagerService {
   }
 
   async presentNotLoggedInAlert() {
+    //not logged in alert is the most dominant alert so dismiss any other one
     if (this.alertActive) {
-      //TODO extra methode?
       this.alert.dismiss;
     }
     this.hideLoadingSpinner();

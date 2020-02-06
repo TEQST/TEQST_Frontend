@@ -17,7 +17,7 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {}
 
   getPlayerState(): void {
-    //subscribe to the isPlaying observable and update the locale variable on change
+    //subscribe to the isPlaying observable and update the local variable on change
     this.recordingService.getIsPlayingState().subscribe((state) => this.isPlaying = state);
   }
 

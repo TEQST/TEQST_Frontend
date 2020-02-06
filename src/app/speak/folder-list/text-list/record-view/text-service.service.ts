@@ -36,7 +36,7 @@ export class TextServiceService {
     })
   }
 
-  //intialise the header for the http requests
+  //initialize the header for the http requests
   private initHttpOptions(): void {
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -57,19 +57,19 @@ export class TextServiceService {
   }
 
 
-  //set the locale variables to the data from the server
+  //set the local variables to the data from the server
   private setRecordingInfo(recordingInfo: Object) {
     let index = recordingInfo['active_sentence']
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingInfo['id']);
 
     //when a text is finished the active_sentence on the backend is totalSentenceNumber + 1
-    //so for the ui we have to set the active sentence to the smaler of those two values
+    //so for the ui we have to set the active sentence to the smaller of those two values
     this.setActiveSentenceIndex(Math.min(index, this.totalSentenceNumber.getValue()));
   }
 
 
-  //Check if the user already has a recording information and if yes set the local recording info to the data from the server
+  //check if the user already has a recording information and if yes set the local recording info to the data from the server
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
     let getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
@@ -86,7 +86,7 @@ export class TextServiceService {
     return result
   }
 
-  //Create a textrecording with the given permissions for the current user
+  //Create a text recording with the given permissions for the current user
   givePermissions(textToSpeech: boolean, speechRecognition: boolean ): void {
     
     let recordingInfo = {
@@ -130,7 +130,7 @@ export class TextServiceService {
     return this.textTitle.asObservable();
   }
 
-  //Fetch a new text from the server based on the given id
+  //fetch a new text from the server based on the given id
   setTextId(id: number): void {
     this.textId = id;
     this.fetchText();
@@ -146,7 +146,7 @@ export class TextServiceService {
     }
   }
 
-  //Check if the current active sentence is already recorded
+  //check if the current active sentence is already recorded
   private checkRecordingStatus(): void {
     if (this.activeSentenceIndex.getValue() < this.furthestSentenceIndex.getValue()) {
       this.sentenceHasRecording.next(true)
@@ -155,7 +155,7 @@ export class TextServiceService {
     }
   }
 
-  setNextSenteceActive(): void {
+  setNextSentenceActive(): void {
     let next = this.activeSentenceIndex.getValue() + 1;
     this.setActiveSentenceIndex(next);
   }

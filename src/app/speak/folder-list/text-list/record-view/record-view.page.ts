@@ -35,19 +35,19 @@ export class RecordViewPage implements OnInit {
     }
     this.textId = textId;
     this.textService.setTextId(this.textId);
-    //if no recording info exists present an alert to give needed permissions
-    this.textService.checkIfRecordingInfoExists().then(result => {
+    //if no text recording info exists present an alert to give needed permissions
+    this.textService.checkIfRecordingInfoExists().then((result) => {
       result ? '' : this.presentPermissionsCheckbox()
     }, () => this.alertService.presentGoBackAlert("No Access"));
   }
 
-  //Present Alert to the user to give permissions for the text
+  //Present alert to the user to give permissions for the text
   //if its dismissed without any information entered go back
   async presentPermissionsCheckbox() {
     const alert = await this.alertController.create({
       header: 'Recording Permissions',
       backdropDismiss: false,
-      message: "You have to select atleast one",
+      message: "You have to select at least one",
       inputs: [
         {
           name: 'textToSpeech',
@@ -73,11 +73,11 @@ export class RecordViewPage implements OnInit {
         }, {
           text: 'Ok',
           handler: (permissions) => {
-            //check if atleast one option is selected
+            //check if at least one option is selected
             if(Object.keys(permissions).length === 0) {
               this.navCtrl.navigateBack("speak");
             } else {
-              // Check which of the options is selected
+              //check which of the options is selected
               let tts = Object.values(permissions).indexOf('TTS') > -1;
               let sr = Object.values(permissions).indexOf('SR') > -1;
               this.textService.givePermissions(tts, sr);

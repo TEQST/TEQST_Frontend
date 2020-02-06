@@ -28,8 +28,9 @@ export class RecorderComponent implements OnInit {
   }
 
   handleKeyboardInput($event: any) {
+    //check which key was pressed
     switch($event.keyCode) {
-      //spacebar
+      //spacebar will start or stop recording
        case 32:
           if (this.isRecording === true) {
             this.stopRecording();
@@ -65,7 +66,7 @@ export class RecorderComponent implements OnInit {
       // if currently recording start the recording of the next sentence
       this.recordingService.nextRecording();
     } else {
-      this.textService.setNextSenteceActive();
+      this.textService.setNextSentenceActive();
     }
   }
 

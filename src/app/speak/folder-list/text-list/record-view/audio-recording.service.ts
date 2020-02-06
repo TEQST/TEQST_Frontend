@@ -39,7 +39,7 @@ export class AudioRecordingService {
     this.subscribeToServices()
   }
 
-  //subscribe to all needed variables from the services and update the locale ones on change
+  //subscribe to all needed variables from the services and update the local ones on change
   private subscribeToServices(): void {
     this.usermgmtService.getAuthToken().subscribe((token) => {
       this.AUTH_TOKEN = token;
@@ -63,7 +63,7 @@ export class AudioRecordingService {
   }
 
   resetRecordingData() {
-    this.recorded = new Map<number, Blob>(); //delete localy safed recordings
+    this.recorded = new Map<number, Blob>(); //delete locally saved recordings
   }
 
   recordingFailed(): Observable<string> {
@@ -84,7 +84,7 @@ export class AudioRecordingService {
       return;
     }
 
-    // get user permission for recording audio
+    // get user permission for microphone access
     navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
       this.stream = s;
       this.record();
@@ -104,7 +104,7 @@ export class AudioRecordingService {
       mimeType: 'audio/wav',
       // audioBitsPerSecond: 16000,
       desiredSampRate: 16000,
-      numberOfAudioChannels: 1
+      numberOfAudioChannels: 1 //set mono recording
 
     });
     this.recorder.record();
@@ -112,8 +112,8 @@ export class AudioRecordingService {
 
   }
 
-  private safeRecording(index: number, blob: Blob) {
-    this.recorded.set(index, blob); //safe localy
+  private saveRecording(index: number, blob: Blob) {
+    this.recorded.set(index, blob); //save locally
     this.uploadRecording(index, blob);
   }
 
@@ -140,7 +140,7 @@ export class AudioRecordingService {
     // check if recording is active if not do nothing
     if (this.recorder) {
       this.recorder.stop((blob) => {
-        this.safeRecording(this.activeSentence, blob);
+        this.saveRecording(this.activeSentence, blob);
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
         }
@@ -153,21 +153,21 @@ export class AudioRecordingService {
 
   }
 
-  // safe the current recording and start the next one
+  // save the current recording and start the next one
   nextRecording() {
     if (this.recorder) {
       this.recorder.stop((blob) => {
-        this.safeRecording(this.activeSentence, blob);
+        this.saveRecording(this.activeSentence, blob);
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
         }
         // if the next sentence hasn't been recorded before start next recording otherwise just skip to next sentence
         if (this.activeSentence >= this.furthestSentence - 1) {
           this.record();
-          this.textService.setNextSenteceActive();
+          this.textService.setNextSentenceActive();
         } else {
           this.stopMedia();
-          this.textService.setNextSenteceActive();
+          this.textService.setNextSentenceActive();
         }
       }, () => {
         this.stopMedia();
@@ -188,7 +188,7 @@ export class AudioRecordingService {
     }
   }
 
-  //cancel current recording without safing
+  //cancel current recording without saving
   abortRecording(): void {
     this.stopMedia();
   }
@@ -213,7 +213,7 @@ export class AudioRecordingService {
 
     let blob: Blob;
 
-    //if a localy safed recording is avaiable use it otherwise get the recording from server
+    //if a locally saved recording is available use it otherwise get the recording from server
     if (this.recorded.has(this.activeSentence)) {
       blob = this.recorded.get(this.activeSentence);
     } else {
