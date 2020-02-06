@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ManagePage
   },
   {
-    path: ':folderInfo',
+    path: ':folderId',
     component: ManagePage
   },
   {

@@ -30,11 +30,13 @@ export class CreateTextPage implements OnInit {
   ngOnInit() { }
 
   dismiss() {
+    // close the modal without passing data
     this.viewCtrl.dismiss();
   }
 
   createText(formData) {
     let title = formData.title
+    // close the modal and pass its data back to the view
     this.viewCtrl.dismiss({
       title: title,
       file: this.file
@@ -48,6 +50,7 @@ export class CreateTextPage implements OnInit {
   }
 
   updateFormValidity() {
+    // angular cannot detect by itself whether a file is selected or not in its form validation
     this.formValid = (this.createTextForm.valid && this.fileSelected)
   }
 

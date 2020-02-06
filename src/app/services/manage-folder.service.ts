@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { Constants } from '../constants';
 import { UsermgmtService } from './usermgmt.service';
+import { timeout } from 'rxjs/operators';
 
 interface User {
   "id": number,
@@ -25,20 +27,22 @@ export class ManageFolderService {
   }
 
   SERVER_URL = Constants.SERVER_URL
+  REQUEST_TIMEOUT = Constants.REQUEST_TIMEOUT
   AUTH_TOKEN: string;
 
   getFolderInfoFor(folderId: string): Observable<object> {
-    let url = new URL(this.SERVER_URL + "/api/folders/" + folderId)
+    let url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`)
 
     return this.http.get(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
     })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getSubfolderListFor(folderId: string): Observable<object> {
-    let urlStr = this.SERVER_URL + "/api/folders/"
+    let urlStr = `${this.SERVER_URL}/api/folders/`
     if (folderId) {
       urlStr += folderId
     }
@@ -49,10 +53,11 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getTextListFor(folderId: string): Observable<object> {
-    let url = new URL(this.SERVER_URL + "/api/pub/texts")
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/`)
     url.searchParams.append('sharedfolder', folderId)
 
     return this.http.get(url.toString(), {
@@ -60,10 +65,11 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   createFolder(parentId: string, folderName: string) {
-    let url = new URL(this.SERVER_URL + "/api/folders/")
+    let url = new URL(`${this.SERVER_URL}/api/folders/`)
 
     return this.http.post(url.toString(),
       {
@@ -76,15 +82,17 @@ export class ManageFolderService {
         }
       }
     )
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   deleteFolder(folderId: string) {
-    let url = new URL(this.SERVER_URL + "/api/folders/" + folderId + "/")
+    let url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`)
     return this.http.delete(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   createText(folderId: string, title: string, textFile: File) {
@@ -93,7 +101,7 @@ export class ManageFolderService {
     formData.append('title', title); 
     formData.append('textfile', textFile, textFile.name); 
 
-    let url = new URL(this.SERVER_URL + "/api/pub/texts/")
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/`)
 
     return this.http.post(url.toString(),
       formData,
@@ -103,50 +111,56 @@ export class ManageFolderService {
         }
       }
     )
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   deleteText(textId: string) {
-    let url = new URL(this.SERVER_URL + "/api/pub/texts/" + textId + "/")
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`)
     return this.http.delete(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
-    });
+    })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getTextInfo(textId: string) {
-    let url = new URL(this.SERVER_URL + "/api/pub/texts/" + textId + "/")
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`)
     return this.http.get(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }
     })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getSpeakers(sharedfolderId: number) {
-    let url = new URL(this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`)
+    let url = new URL(`${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`)
     return this.http.get<JSON[]>(url.toString(), {
       headers: {
         "Authorization": this.AUTH_TOKEN
       }
     })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   setSpeakers(sharedfolderId: number, speakers: number[]) {
-    let url = new URL(this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`);
+    let url = new URL(`${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`);
     return this.http.put<JSON>(url.toString(), { speaker_ids: speakers }, {
       headers: {
         "Authorization": this.AUTH_TOKEN
       }
     })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getAllUsers() {
-    let url = new URL(this.SERVER_URL + "/api/users/")
+    let url = new URL(`${this.SERVER_URL}/api/users/`)
     return this.http.get<User[]>(url.toString(), {
       headers: {
         "Authorization": this.AUTH_TOKEN
       }
     })
+    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 }

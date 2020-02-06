@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, AlertController } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
 
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { CreateFolderPage } from './create-folder/create-folder.page';
@@ -23,6 +22,7 @@ export class ManagePage implements OnInit {
   public subfolders: Folder[]
   public texts: object
 
+
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
               private alertController: AlertController,
@@ -40,49 +40,48 @@ export class ManagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    await this.alertManager.showLoadingSpinner();
-
-    let urlParam = this.route.snapshot.paramMap.get('folderInfo')
-    if (urlParam != null) {
-      let is_sharedfolder = urlParam.charAt(0) == 's'
-      let folderId = urlParam.substring(1, urlParam.length)
-      this.currentFolder = new Folder(folderId, '', is_sharedfolder)
+    // retrieve folder id from url
+    let folderId = this.route.snapshot.paramMap.get('folderId')
+    if (folderId != null) {
+      this.currentFolder.id = folderId
     }
-
-    if (this.currentFolder.is_sharedfolder) {
-      this.initTextData()
-    } else {
-      this.initSubfolderList()
-    }
-
+    this.getFolderInfo()
   }
 
   // ### folders ###
 
-  initSubfolderList() {
+  async getFolderInfo() {
     this.currentFolder.getSubfolderList()
-    .pipe(
-      finalize(async () => { await this.alertManager.hideLoadingSpinner(); })
-    )
     .subscribe(
       data => {
-        let subfolderInfo = []
         if (Array.isArray(data)) {
-          subfolderInfo = data
+          // on the topmost filesystem level only an array of folders exist
+          this.initSubfolderList(data)
         } else {
+          // get information about the current folder
           this.currentFolder.name = data['name']
-          subfolderInfo = data['subfolder']
+          this.currentFolder.is_sharedfolder = data['is_sharedfolder']
+          let subfolderInfo = data['subfolder']
+  
+          if (this.currentFolder.is_sharedfolder) {
+            this.initTextList()
+          } else {
+            this.initSubfolderList(subfolderInfo)
+          }
         }
-
-        let subfolders = []
-        for (let folderInfo of subfolderInfo) {
-          let folder = new Folder(folderInfo.id, folderInfo.name, folderInfo.is_sharedfolder)
-          subfolders.push(folder)
-        }
-        this.subfolders = subfolders
       },
       err => this.alertManager.showErrorAlert(err.status, err.statusText)
     )
+  }
+
+  // create folder objects from the given subfolderInfo data
+  initSubfolderList(subfolderInfo) {
+    let subfolders = []
+    for (let folderInfo of subfolderInfo) {
+      let folder = new Folder(folderInfo.id, folderInfo.name, folderInfo.is_sharedfolder)
+      subfolders.push(folder)
+    }
+    this.subfolders = subfolders
   }
 
   async openCreateFolderModal() {
@@ -93,11 +92,9 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          await this.alertManager.showLoadingSpinner();
           this.currentFolder.createSubfolder(data.folderName)
-            .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
             .subscribe(
-              data => this.initSubfolderList(),
+              data => this.getFolderInfo(),
               err  => this.alertManager.showErrorAlert(err.status, err.statusText)
             )
         }
@@ -106,6 +103,7 @@ export class ManagePage implements OnInit {
   }
 
   async openDeleteFolderAlert($event, folder) {
+    // cancel click event to prevent opening the folder
     $event.preventDefault()
     $event.stopPropagation()
 
@@ -117,11 +115,9 @@ export class ManagePage implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.alertManager.showLoadingSpinner();
             folder.delete()
-              .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
               .subscribe(
-                data => this.initSubfolderList(),
+                data => this.getFolderInfo(),
                 err  => this.alertManager.showErrorAlert(err.status, err.statusText)
               )
           }
@@ -135,6 +131,7 @@ export class ManagePage implements OnInit {
     const modal = await this.modalController.create({
       component: ShareFolderPage,
       componentProps: {
+        // pass variables to the modal
         folderId: this.currentFolder.id,
         folderName: this.currentFolder.name
       }
@@ -144,26 +141,9 @@ export class ManagePage implements OnInit {
 
   // ### texts ###
 
-  async initTextData() {
-    await this.initFolderName().then(() => this.initTextList())
-  }
-
-  async initFolderName() {
-    this.manageFolderService.getFolderInfoFor(this.currentFolder.id)
-    .subscribe(
-      data => {
-        this.currentFolder.name = data['name']
-      },
-      async err => {
-        this.alertManager.showErrorAlert(err.status, err.statusText)
-        await this.alertManager.hideLoadingSpinner()
-      }
-    )
-  }
-
+  // create text objects from the retrieved array of texts
   async initTextList() {
     this.manageFolderService.getTextListFor(this.currentFolder.id)
-      .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
       .subscribe(
         data => {
           if (Array.isArray(data)) {
@@ -189,16 +169,11 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          await this.alertManager.showLoadingSpinner();
-
           this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
-            .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
             .subscribe(
               data => {
-                if (!this.currentFolder.is_sharedfolder) {
-                  this.currentFolder.is_sharedfolder = true
-                  history.replaceState('', 'manage', 'manage/s'+this.currentFolder.id)
-                }
+                this.currentFolder.is_sharedfolder = true
+                // reload text list
                 this.initTextList()
               },
               err  => this.alertManager.showErrorAlert(err.status, err.statusText)
@@ -209,6 +184,7 @@ export class ManagePage implements OnInit {
   }
 
   async openDeleteTextAlert($event, text) {
+    // cancel click event to prevent opening the text
     $event.preventDefault()
     $event.stopPropagation()
 
@@ -220,9 +196,7 @@ export class ManagePage implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.alertManager.showLoadingSpinner();
             text.delete()
-              .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
               .subscribe(
                 data => this.initTextList(),
                 err  => this.alertManager.showErrorAlert(err.status, err.statusText)
