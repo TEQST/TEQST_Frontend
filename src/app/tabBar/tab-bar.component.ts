@@ -41,16 +41,16 @@ export class TabBarComponent implements OnInit {
   }
 
   //redirect to Settings Page
-  navigateToSettings($event){
+  navigateToSettings(){
     this.navCtrl.navigateForward("settings", { animated: false, });
   }
   //redirect to Publisher PAge
-  navigateToManage($event){
+  navigateToManage(){
     this.navCtrl.navigateForward("manage", { animated: false, });
   }
 
   //redirect to Speak Page
-  navigateToSpeak($event){
+  navigateToSpeak(){
     this.navCtrl.navigateForward("speak", { animated: false, });
   }
 

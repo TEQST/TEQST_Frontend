@@ -1,14 +1,14 @@
 <ion-footer>
   <ion-toolbar>
-    <div id="tabbar" text-center align-items-center>
-      <ion-button #speakTab id="speakTab" (click)="navigateToSpeak($event)" fill="clear">
+    <div id="tabbar" class="ion-align-items-center ion-text-center">
+      <ion-button #speakTab id="speakTab" class="disable-ripple" ontouchdown="navigateToSpeak()" (click)="navigateToSpeak()" fill="clear">
         <ion-icon slot="start" name="mic"></ion-icon>
       </ion-button>
-      <ion-button #manageTab id="manageTab" (click)="navigateToManage($event)" fill="clear">
+      <ion-button #manageTab id="manageTab" class="disable-ripple" ontouchdown="navigateToManage()" (click)="navigateToManage()" fill="clear">
         <ion-icon slot="start" name="cloud-upload"></ion-icon>
       </ion-button>
-      <ion-button #settingsTab id="settingsTab" (click)="navigateToSettings($event)" fill="clear">
-        <ion-icon slot="start" name="settings"></ion-icon>        
+      <ion-button #settingsTab id="settingsTab" class="disable-ripple" ontouchdown="navigateToSettings()" (click)="navigateToSettings()" fill="clear">
+        <ion-icon slot="start" name="settings"></ion-icon>
       </ion-button>
     </div>
   </ion-toolbar>

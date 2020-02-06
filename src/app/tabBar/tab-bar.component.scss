@@ -6,6 +6,14 @@
     color: var(--ion-color-dark);
 }
 
+#tabbar ion-button {
+    min-height: 50px;
+}
+
 #tabbar ion-button.active ion-icon {
     color: var(--ion-color-primary);
+}
+
+.disable-ripple {
+  --ripple-color: transparent;
 }
