@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
@@ -28,11 +27,7 @@ export class TextDetailPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    await this.alertManager.showLoadingSpinner()
     this.manageFolderService.getTextInfo(this.textId)
-    .pipe(
-      finalize(async () => { await this.alertManager.hideLoadingSpinner() })
-    )
     .subscribe(
       data => {
         this.text = new Text(data['id'], data['title'], data['content'])
