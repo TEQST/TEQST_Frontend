@@ -6,6 +6,7 @@ import { AudioRecordingService } from '../audio-recording.service';
   selector: 'app-recorder',
   templateUrl: './recorder.component.html',
   styleUrls: ['./recorder.component.scss'],
+  host: { '(window:keydown)': 'handleKeyboardInput($event)' },
 })
 export class RecorderComponent implements OnInit {
 
@@ -24,6 +25,33 @@ export class RecorderComponent implements OnInit {
     this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
     this.textService.getTotalSentenceNumber().subscribe(totalNumber => this.totalSentenceNumber = totalNumber);
     this.recordingService.getRecordingState().subscribe((status) => this.isRecording = status);
+  }
+
+  handleKeyboardInput($event: any) {
+    switch($event.keyCode) {
+      //spacebar
+       case 32:
+          if (this.isRecording === true) {
+            this.stopRecording();
+          } else {
+            this.startRecording();
+          }
+          break;
+
+        //down & right arrow key set next sentence active
+        case 40:
+        case 39:
+          this.nextSentence()
+          break;
+        
+        //up & left arrow key set the previous sentence active
+        case 38:
+        case 37:
+          if (!this.isRecording) {
+            this.previousSentence();
+          }
+      
+    }
   }
 
   previousSentence(): void {
