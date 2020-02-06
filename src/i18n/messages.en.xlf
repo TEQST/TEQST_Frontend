@@ -2,27 +2,9 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template" target-language="en">
     <body>
-      <trans-unit id="speak" datatype="html">
-        <source>Speak</source><target state="final">Speak</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/tabBar/tab-bar.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="publish" datatype="html">
-        <source>Publish</source><target state="final">Publish</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/tabBar/tab-bar.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="settings" datatype="html">
-        <source>Settings</source><target state="final">Settings</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/tabBar/tab-bar.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
+      
+      
+      
       <trans-unit id="select-a-publisher" datatype="html">
         <source>Select a publisher</source><target state="final">Select a publisher</target>
         <context-group purpose="location">
@@ -110,9 +92,15 @@
           <context context-type="sourcefile">src/app/manage/share-folder/share-folder.page.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
+      </trans-unit><trans-unit id="settings" datatype="html">
+        <source>Settings</source><target state="final">Settings</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.page.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="profile-settings" datatype="html">
-        <source>Profile-settings</source><target state="final">Profile-settings</target>
+        <source>Profile Settings</source><target state="final">Profile Settings</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings.page.html</context>
           <context context-type="linenumber">10</context>
@@ -344,9 +332,12 @@
       </trans-unit>
       <trans-unit id="register-here" datatype="html">
         <source>Register here</source><target state="final">Register here</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/login/login.page.html</context><context context-type="linenumber">30</context></context-group></trans-unit><trans-unit id="admin-page" datatype="html">
+        <source>Admin Page</source><target state="final">Admin Page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.page.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
     </body>
