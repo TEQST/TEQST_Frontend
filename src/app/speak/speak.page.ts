@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
 
 import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 import { AlertManagerService } from '../services/alert-manager.service';
@@ -20,12 +19,7 @@ export class SpeakPage implements OnInit {
   ngOnInit() { }
 
   async ionViewWillEnter() {
-    await this.alertManager.showLoadingSpinner()
-
     this.navService.getPublisherList()
-      .pipe(
-        finalize(async () => { await this.alertManager.hideLoadingSpinner() })
-      )
       .subscribe(
         data => {
           this.publishers = data

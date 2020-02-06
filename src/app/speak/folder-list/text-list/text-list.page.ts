@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs/operators';
 
 import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
@@ -32,12 +31,7 @@ export class TextListPage implements OnInit {
   }
   
   async ionViewWillEnter() {
-    await this.alertManager.showLoadingSpinner()
-
     this.navService.getInfoForSharedfolder(this.folderId)
-      .pipe(
-        finalize(async () => { await this.alertManager.hideLoadingSpinner() })
-      )
       .subscribe(
         data => {
           this.folderName = data['name']

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs/operators';
 
 import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
@@ -30,12 +29,7 @@ export class FolderListPage implements OnInit {
   }
   
   async ionViewWillEnter() {
-    await this.alertManager.showLoadingSpinner()
-
     this.navService.getInfoForPublisher(this.publisherId)
-      .pipe(
-        finalize(async () => { await this.alertManager.hideLoadingSpinner() })
-      )
       .subscribe(
         data => {
           this.publisherName = data['username']
