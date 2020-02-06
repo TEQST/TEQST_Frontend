@@ -40,49 +40,44 @@ export class ManagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    await this.alertManager.showLoadingSpinner();
-
-    let urlParam = this.route.snapshot.paramMap.get('folderInfo')
-    if (urlParam != null) {
-      let is_sharedfolder = urlParam.charAt(0) == 's'
-      let folderId = urlParam.substring(1, urlParam.length)
-      this.currentFolder = new Folder(folderId, '', is_sharedfolder)
+    let folderId = this.route.snapshot.paramMap.get('folderId')
+    if (folderId != null) {
+      this.currentFolder.id = folderId
     }
-
-    if (this.currentFolder.is_sharedfolder) {
-      this.initTextData()
-    } else {
-      this.initSubfolderList()
-    }
-
+    this.getFolderInfo()
   }
 
   // ### folders ###
 
-  initSubfolderList() {
+  async getFolderInfo() {
     this.currentFolder.getSubfolderList()
-    .pipe(
-      finalize(async () => { await this.alertManager.hideLoadingSpinner(); })
-    )
     .subscribe(
       data => {
-        let subfolderInfo = []
         if (Array.isArray(data)) {
-          subfolderInfo = data
+          this.initSubfolderList(data)
         } else {
           this.currentFolder.name = data['name']
-          subfolderInfo = data['subfolder']
+          this.currentFolder.is_sharedfolder = data['is_sharedfolder']
+          let subfolderInfo = data['subfolder']
+  
+          if (this.currentFolder.is_sharedfolder) {
+            this.initTextList()
+          } else {
+            this.initSubfolderList(subfolderInfo)
+          }
         }
-
-        let subfolders = []
-        for (let folderInfo of subfolderInfo) {
-          let folder = new Folder(folderInfo.id, folderInfo.name, folderInfo.is_sharedfolder)
-          subfolders.push(folder)
-        }
-        this.subfolders = subfolders
       },
       err => this.alertManager.showErrorAlert(err.status, err.statusText)
     )
+  }
+
+  initSubfolderList(subfolderInfo) {
+    let subfolders = []
+    for (let folderInfo of subfolderInfo) {
+      let folder = new Folder(folderInfo.id, folderInfo.name, folderInfo.is_sharedfolder)
+      subfolders.push(folder)
+    }
+    this.subfolders = subfolders
   }
 
   async openCreateFolderModal() {
@@ -97,7 +92,7 @@ export class ManagePage implements OnInit {
           this.currentFolder.createSubfolder(data.folderName)
             .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
             .subscribe(
-              data => this.initSubfolderList(),
+              data => this.getFolderInfo(),
               err  => this.alertManager.showErrorAlert(err.status, err.statusText)
             )
         }
@@ -121,7 +116,7 @@ export class ManagePage implements OnInit {
             folder.delete()
               .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
               .subscribe(
-                data => this.initSubfolderList(),
+                data => this.getFolderInfo(),
                 err  => this.alertManager.showErrorAlert(err.status, err.statusText)
               )
           }
@@ -144,26 +139,8 @@ export class ManagePage implements OnInit {
 
   // ### texts ###
 
-  async initTextData() {
-    await this.initFolderName().then(() => this.initTextList())
-  }
-
-  async initFolderName() {
-    this.manageFolderService.getFolderInfoFor(this.currentFolder.id)
-    .subscribe(
-      data => {
-        this.currentFolder.name = data['name']
-      },
-      async err => {
-        this.alertManager.showErrorAlert(err.status, err.statusText)
-        await this.alertManager.hideLoadingSpinner()
-      }
-    )
-  }
-
   async initTextList() {
     this.manageFolderService.getTextListFor(this.currentFolder.id)
-      .pipe( finalize(async () => { await this.alertManager.hideLoadingSpinner() }) )
       .subscribe(
         data => {
           if (Array.isArray(data)) {
@@ -197,7 +174,6 @@ export class ManagePage implements OnInit {
               data => {
                 if (!this.currentFolder.is_sharedfolder) {
                   this.currentFolder.is_sharedfolder = true
-                  history.replaceState('', 'manage', 'manage/s'+this.currentFolder.id)
                 }
                 this.initTextList()
               },

@@ -28,7 +28,7 @@ export class ManageFolderService {
   AUTH_TOKEN: string;
 
   getFolderInfoFor(folderId: string): Observable<object> {
-    let url = new URL(this.SERVER_URL + "/api/folders/" + folderId)
+    let url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`)
 
     return this.http.get(url.toString(), {
       headers:  {
@@ -38,7 +38,7 @@ export class ManageFolderService {
   }
 
   getSubfolderListFor(folderId: string): Observable<object> {
-    let urlStr = this.SERVER_URL + "/api/folders/"
+    let urlStr = `${this.SERVER_URL}/api/folders/`
     if (folderId) {
       urlStr += folderId
     }
@@ -52,7 +52,7 @@ export class ManageFolderService {
   }
 
   getTextListFor(folderId: string): Observable<object> {
-    let url = new URL(this.SERVER_URL + "/api/pub/texts")
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/`)
     url.searchParams.append('sharedfolder', folderId)
 
     return this.http.get(url.toString(), {
@@ -63,7 +63,7 @@ export class ManageFolderService {
   }
 
   createFolder(parentId: string, folderName: string) {
-    let url = new URL(this.SERVER_URL + "/api/folders/")
+    let url = new URL(`${this.SERVER_URL}/api/folders/`)
 
     return this.http.post(url.toString(),
       {
@@ -79,7 +79,7 @@ export class ManageFolderService {
   }
 
   deleteFolder(folderId: string) {
-    let url = new URL(this.SERVER_URL + "/api/folders/" + folderId + "/")
+    let url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`)
     return this.http.delete(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
@@ -93,7 +93,7 @@ export class ManageFolderService {
     formData.append('title', title); 
     formData.append('textfile', textFile, textFile.name); 
 
-    let url = new URL(this.SERVER_URL + "/api/pub/texts/")
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/`)
 
     return this.http.post(url.toString(),
       formData,
@@ -106,7 +106,7 @@ export class ManageFolderService {
   }
 
   deleteText(textId: string) {
-    let url = new URL(this.SERVER_URL + "/api/pub/texts/" + textId + "/")
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`)
     return this.http.delete(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
@@ -115,7 +115,7 @@ export class ManageFolderService {
   }
 
   getTextInfo(textId: string) {
-    let url = new URL(this.SERVER_URL + "/api/pub/texts/" + textId + "/")
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`)
     return this.http.get(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
@@ -124,7 +124,7 @@ export class ManageFolderService {
   }
 
   getSpeakers(sharedfolderId: number) {
-    let url = new URL(this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`)
+    let url = new URL(`${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`)
     return this.http.get<JSON[]>(url.toString(), {
       headers: {
         "Authorization": this.AUTH_TOKEN
@@ -133,7 +133,7 @@ export class ManageFolderService {
   }
 
   setSpeakers(sharedfolderId: number, speakers: number[]) {
-    let url = new URL(this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`);
+    let url = new URL(`${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`);
     return this.http.put<JSON>(url.toString(), { speaker_ids: speakers }, {
       headers: {
         "Authorization": this.AUTH_TOKEN
@@ -142,7 +142,7 @@ export class ManageFolderService {
   }
 
   getAllUsers() {
-    let url = new URL(this.SERVER_URL + "/api/users/")
+    let url = new URL(`${this.SERVER_URL}/api/users/`)
     return this.http.get<User[]>(url.toString(), {
       headers: {
         "Authorization": this.AUTH_TOKEN

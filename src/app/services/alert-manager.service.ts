@@ -14,14 +14,14 @@ export class AlertManagerService {
   constructor(public alertController: AlertController,private loadingController: LoadingController, private navCtrl: NavController) { }
 
   async showLoadingSpinner() {
-    this.loadingSpinner = await this.loadingController.create({
+    /*this.loadingSpinner = await this.loadingController.create({
       message: 'Loading...'
     })
-    await this.loadingSpinner.present()
+    await this.loadingSpinner.present()*/
   }
 
   async hideLoadingSpinner() {
-    await this.loadingSpinner.dismiss()
+    //await this.loadingSpinner.dismiss()
   }
 
   async presentGoBackAlert(header: string) {
