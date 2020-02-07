@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import { Router } from '@angular/router';
+import { UsermgmtService } from '../services/usermgmt.service';
 import { ElementRef } from '@angular/core';
+
 
 
 @Component({
@@ -15,9 +17,16 @@ export class TabBarComponent implements OnInit {
   @ViewChild('manageTab', { static: false}) manageTab;
   @ViewChild('settingsTab', { static: false}) settingsTab;
 
-  constructor(public navCtrl: NavController, private router: Router) { }
+  public is_Publisher: boolean;
 
-  ngOnInit() {}
+  constructor(public navCtrl: NavController, private router: Router,public usermgmtService:UsermgmtService) { 
+    
+    
+  }
+
+  ngOnInit() {
+    this.is_Publisher = this.usermgmtService.getIsPublisher();
+  }
 
   ngAfterViewInit() {
     let urlArr = this.router.url.split('/')
@@ -29,7 +38,9 @@ export class TabBarComponent implements OnInit {
 
   setTabButtonActive(tabName) {
     this.speakTab.el.classList.remove('active')
-    this.manageTab.el.classList.remove('active')
+    if (typeof this.manageTab != 'undefined') {
+      this.manageTab.el.classList.remove('active')
+    }
     this.settingsTab.el.classList.remove('active')
     let tabElem
     switch (tabName) {
@@ -51,6 +62,7 @@ export class TabBarComponent implements OnInit {
 
   //redirect to Speak Page
   navigateToSpeak(){
+    
     this.navCtrl.navigateForward("speak", { animated: false, });
   }
 

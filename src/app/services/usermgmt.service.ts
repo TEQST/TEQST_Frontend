@@ -17,11 +17,12 @@ export class UsermgmtService {
 
   private dataFromServer:any="";
   
-  private baseUrl = "http://127.0.0.1:8000";
+  
   private httpOptions; 
   private _is_publisher:boolean; 
   
   private AUTH_TOKEN = new BehaviorSubject<string>("");
+  
   constructor(public http: HttpClient, public navCtrl: NavController, private alertService: AlertManagerService) {
     //gets AuthToken after reload or on init
     this.getAuthToken();
@@ -41,7 +42,8 @@ export class UsermgmtService {
       this.AUTH_TOKEN.next("Token " + JSON.parse(this.dataFromServer).token);  
       this.initHeaders();
       localStorage.setItem('Token', this.AUTH_TOKEN.getValue())
-
+      localStorage.setItem('is_Publisher', JSON.stringify(this._is_publisher))
+      
       this.navCtrl.navigateForward("speak");
       },(error: any) => {       
         //calls AlertService when server sends error code
@@ -106,6 +108,7 @@ export class UsermgmtService {
   }
   //returns boolean if a user is a Publisher
   getIsPublisher(){
+    this._is_publisher = JSON.parse(localStorage.getItem('is_Publisher'));    
     return this._is_publisher
   }
   //gets the authToken.

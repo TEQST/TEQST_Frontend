@@ -43,7 +43,7 @@ export class RegisterPage implements OnInit {
   //LoginData is data which is saved, to call instant Login after Registration without User Interaction
   //throws Error if a required Field is empty or repeated Password is diffrent
   registerUser(){
-    console.log(this.language)
+    
     var dataToSend = {username:this.username, password:this.password,language_ids:this.language,birth_year: this.birthyear,gender:this.gender,education:this.education,country:this.country};
     var logInData = {username:this.username, password:this.password}
     
