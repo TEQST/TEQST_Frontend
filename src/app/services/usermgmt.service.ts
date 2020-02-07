@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Constants } from '../constants';
 import { BehaviorSubject } from 'rxjs';
 import { AlertManagerService } from './alert-manager.service'
+import { ConditionalExpr } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,7 @@ export class UsermgmtService {
   //creates a new User with the sended Data
   register(dataToSend, logInData){
     let url = this.SERVER_URL + "/api/auth/register/";      
-    this.http.post(url,dataToSend,this.httpOptions).subscribe(() => {
+    this.http.post(url,dataToSend).subscribe(() => {
       this.login(logInData);
     });
   }
@@ -81,8 +82,8 @@ export class UsermgmtService {
 
   //returns all speakable Languages created by an admin
   getLangs(){
-    let url = this.SERVER_URL + "/api/langs/";     
-    return this.http.get(url, this.httpOptions);
+    let url = this.SERVER_URL + "/api/langs/";   
+    return this.http.get(url);
   }
   //resets httpOptions -> no Authtoken after reset
   private reset(){
