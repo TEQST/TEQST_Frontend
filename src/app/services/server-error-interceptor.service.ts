@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor, HttpRequest,
-  HttpHandler, HttpEvent, HttpErrorResponse
+  HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, tap } from 'rxjs/operators';
 import { AlertManagerService } from './alert-manager.service';
 
 @Injectable({
@@ -15,8 +15,16 @@ export class ServerErrorInterceptorService implements HttpInterceptor {
   constructor(private alertService: AlertManagerService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+    console.log(request);
     return next.handle(request).pipe(
+      tap(event => {
+        if (event instanceof HttpResponse) {
+
+          console.log(" all looks good");
+          // http response status code
+          console.log(event);
+        }
+      }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           this.alertService.presentNotLoggedInAlert();
