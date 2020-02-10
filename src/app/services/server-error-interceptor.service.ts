@@ -17,14 +17,6 @@ export class ServerErrorInterceptorService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log(request);
     return next.handle(request).pipe(
-      tap(event => {
-        if (event instanceof HttpResponse) {
-
-          console.log(" all looks good");
-          // http response status code
-          console.log(event);
-        }
-      }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           this.alertService.presentNotLoggedInAlert();
