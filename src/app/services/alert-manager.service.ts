@@ -28,6 +28,7 @@ export class AlertManagerService {
     if(this.alertActive) {
       return;
     }
+    this.alertActive = true;
     this.alert = await this.alertController.create({
       header: header,
       subHeader: 'Press OK to go back',
@@ -49,6 +50,7 @@ export class AlertManagerService {
     //not logged in alert is the most dominant alert so dismiss any other one
     if (this.alertActive) {
       this.alert.dismiss;
+      this.alertActive = false;
     }
     this.hideLoadingSpinner();
     this.alertActive = true;
@@ -67,12 +69,14 @@ export class AlertManagerService {
         }]
     });
     await this.alert.present();
+    console.log("test")
   }
 
   async showErrorAlert(status, msg) {
     if (this.alertActive) {
       return;
     }
+    this.alertActive = true;
     this.alert = await this.alertController.create({
       header: 'Error ' + status,
       message: msg,
@@ -94,6 +98,7 @@ export class AlertManagerService {
     if (this.alertActive) {
       return;
     }
+    this.alertActive = true;
     this.alert = await this.alertController.create({
       header: header,
       message: msg,
