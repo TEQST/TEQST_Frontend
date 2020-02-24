@@ -31,12 +31,6 @@ export class LoginPage implements OnInit {
   
   }  
 
-  //redirects to Register Page
-  goRegister(){
-    this.navCtrl.navigateForward("register");
-   
-  }
-
   redirect(){
    
     window.open(this.SERVER_URL + "/admin");

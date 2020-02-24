@@ -26,9 +26,7 @@
           </ion-button>            
         </form>
         <ion-card-content>
-          <ng-container>{{"Don't have an Account yet?" | translate }}</ng-container> 
-          <button (click)="goRegister()" class="register-text-settings">{{'Register here' | translate }}</button>   
-            
+          <a routerLink="/register" class="register-text-settings">{{'Register here' | translate }}</a>
         </ion-card-content>
         <button (click)="redirect()" class="white-backround">{{'Admin Page' | translate }}</button> 
         
