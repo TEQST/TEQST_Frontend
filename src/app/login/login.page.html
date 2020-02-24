@@ -26,16 +26,25 @@
           </ion-button>            
         </form>
         <ion-card-content>
+          <ng-container>{{"Don't have an Account yet?" | translate }} </ng-container> 
           <a routerLink="/register" class="register-text-settings">{{'Register here' | translate }}</a>
         </ion-card-content>
-        <button (click)="redirect()" class="white-backround">{{'Admin Page' | translate }}</button> 
-        
-
         </ion-card>
       </ion-col>
     </ion-row>   
-
+    
   </ion-grid>
   
- 
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="redirect()">{{'Admin Page' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button>
+          <ion-icon slot="start" name="globe"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
