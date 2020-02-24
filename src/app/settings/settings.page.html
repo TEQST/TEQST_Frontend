@@ -1,19 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title i18n="@@settings">Settings</ion-title>
+    <ion-title>{{'Settings' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <ion-item [routerLink]="'/settings/profile/'">
-        <ion-label i18n="@@profile-settings">Profile Settings</ion-label>
+        <ion-label>{{'Profile Settings' | translate}}</ion-label>
     </ion-item>
 
     
 
   </ion-list>
-  <ion-button i18n=@@logout class=" ion-align-items-center" (click)="logout()">Logout</ion-button>
+  <ion-button class=" ion-align-items-center" (click)="logout()">{{'Logout' | translate}}</ion-button>
 </ion-content>
 <app-tabBar></app-tabBar>
 
