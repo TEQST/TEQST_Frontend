@@ -9,6 +9,8 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +19,10 @@ import { TranslateModule } from '@ngx-translate/core';
     LoginPageRoutingModule,
     TranslateModule
   ],
-  declarations: [LoginPage]
+  declarations: [
+    LoginPage,
+    MenuLanguageSelectorComponent
+  ],
+  entryComponents: [MenuLanguageSelectorComponent]
 })
 export class LoginPageModule {}
