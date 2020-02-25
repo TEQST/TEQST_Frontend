@@ -5,6 +5,7 @@ import { Constants } from '../constants';
 import { BehaviorSubject } from 'rxjs';
 import { AlertManagerService } from './alert-manager.service'
 import { ConditionalExpr } from '@angular/compiler';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,12 @@ export class UsermgmtService {
   
   private AUTH_TOKEN = new BehaviorSubject<string>("");
   
-  constructor(public http: HttpClient, public navCtrl: NavController, private alertService: AlertManagerService) {
+  constructor(
+    public http: HttpClient,
+    public navCtrl: NavController,
+    private alertService: AlertManagerService,
+    private translate: TranslateService) {
+
     //gets AuthToken after reload or on init
     this.getAuthToken();
     this.initHeaders();
@@ -116,5 +122,8 @@ export class UsermgmtService {
     this.AUTH_TOKEN.next(localStorage.getItem('Token'));
     return this.AUTH_TOKEN.asObservable()
   }
-  
+
+  setMenuLanguage(lang: string): void {
+    this.translate.use(lang);
+  }
 }

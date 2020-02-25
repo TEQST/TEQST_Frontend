@@ -1,0 +1,13 @@
+<ion-list color="dark">
+  <ion-radio-group (ionChange)="selectLanguage()" [(ngModel)]="language" >
+    <ion-item>
+      <ion-label>Deutsch</ion-label>
+      <ion-radio mode="ios" color="dark" slot="end" value="de"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>English</ion-label>
+      <ion-radio mode="ios" color="dark" slot="end" value="en"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>
