@@ -20,7 +20,8 @@ export class UsermgmtService {
   
   
   private httpOptions; 
-  private _is_publisher:boolean; 
+  private _is_publisher:boolean;
+  private menuLanguage = 'de'; // TODO: fetch menu language from server
   
   private AUTH_TOKEN = new BehaviorSubject<string>("");
   
@@ -124,6 +125,11 @@ export class UsermgmtService {
   }
 
   setMenuLanguage(lang: string): void {
+    this.menuLanguage = lang;
     this.translate.use(lang);
+  }
+
+  getMenuLanguage(): string {
+    return this.menuLanguage;
   }
 }

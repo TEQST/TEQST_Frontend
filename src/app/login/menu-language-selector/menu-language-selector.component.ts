@@ -8,13 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuLanguageSelectorComponent implements OnInit {
 
-  language = 'de';
+  language: string;
 
   constructor(private userService: UsermgmtService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.language = this.userService.getMenuLanguage();
+  }
 
-  selectLanguage(): void {
+  changeLanguage(): void {
     this.userService.setMenuLanguage(this.language);
   }
 
