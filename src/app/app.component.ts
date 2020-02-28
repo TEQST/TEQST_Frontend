@@ -22,7 +22,7 @@ export class AppComponent {
   }
 
   initializeApp() {
-    this.translate.setDefaultLang('de');
+    this.translate.setDefaultLang('en');
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();

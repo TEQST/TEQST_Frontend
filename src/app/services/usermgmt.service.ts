@@ -21,7 +21,7 @@ export class UsermgmtService {
   
   private httpOptions; 
   private _is_publisher:boolean;
-  private menuLanguage = 'de'; // TODO: fetch menu language from server
+  private menuLanguage = 'en'; // TODO: fetch menu language from server
   
   private AUTH_TOKEN = new BehaviorSubject<string>("");
   
