@@ -1,0 +1,137 @@
+msgid ""
+msgstr ""
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de\n"
+
+msgid "0-6 years"
+msgstr "0-6 Jahre"
+
+msgid "6-12 years"
+msgstr "6-12 Jahre"
+
+msgid "Added Speaker"
+msgstr "Hinzugefügte Einsprecher"
+
+msgid "Admin Page"
+msgstr "Admin-Seite"
+
+msgid "All Users"
+msgstr "Alle Nutzer"
+
+msgid "Already have an Account?"
+msgstr "Sie haben bereits ein Konto?"
+
+msgid "Birthyear"
+msgstr "Geburtsjahr"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "Create a new folder"
+msgstr "Neuer Ordner erstellen"
+
+msgid "Create a new text"
+msgstr "Neuen Text erstellen"
+
+msgid "Create folder"
+msgstr "Ordner erstellen"
+
+msgid "Create text"
+msgstr "Text erstellen"
+
+msgid "Don't have an Account yet?"
+msgstr "Sie haben noch kein Konto?"
+
+msgid "Education Level"
+msgstr "Bildungsgrad"
+
+msgid "Female"
+msgstr "Weiblich"
+
+msgid "Folders by"
+msgstr "Ordner von"
+
+msgid "Gender"
+msgstr "Geschlecht"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Languages"
+msgstr "Sprachen"
+
+msgid "Login"
+msgstr "Anmelden"
+
+msgid "Login here"
+msgstr "Hier anmelden"
+
+msgid "Logout"
+msgstr "Abmelden"
+
+msgid "Male"
+msgstr "Männlich"
+
+msgid "Menu Language"
+msgstr "Menüsprache"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Profile Settings"
+msgstr "Profil Einstellungen"
+
+msgid "Register"
+msgstr "Registrieren"
+
+msgid "Register here"
+msgstr "Hier registrieren"
+
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+msgid "Search for User"
+msgstr "Nach Nutzer suchen"
+
+msgid "Select One"
+msgstr "Auswählen"
+
+msgid "Select Speaker for"
+msgstr "Wähle Einsprecher für"
+
+msgid "Select a publisher"
+msgstr "Wähle einen Publisher"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Text Content"
+msgstr "Text Inhalt"
+
+msgid "Texts in"
+msgstr "Texte in"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Username"
+msgstr "Benutzername"
+
+msgid "more than 12 years"
+msgstr "mehr als 12 Jahre"
+
+msgid "repeat Password"
+msgstr "Passwort wiederholen"

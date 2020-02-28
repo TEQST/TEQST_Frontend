@@ -9,7 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslatePoHttpLoader } from '@fjnr/ngx-translate-po-http-loader';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +22,7 @@ import { ServerErrorInterceptorService } from './services/server-error-intercept
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule, 
+    AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -35,7 +35,7 @@ import { ServerErrorInterceptorService } from './services/server-error-intercept
   ],
   providers: [
     StatusBar,
-    SplashScreen,    
+    SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },
     {
       provide: HTTP_INTERCEPTORS,
@@ -48,5 +48,5 @@ import { ServerErrorInterceptorService } from './services/server-error-intercept
 export class AppModule {}
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslatePoHttpLoader(http, 'assets/i18n', '.po');
 }
