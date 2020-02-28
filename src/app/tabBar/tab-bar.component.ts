@@ -17,53 +17,53 @@ export class TabBarComponent implements OnInit {
   @ViewChild('manageTab', { static: false}) manageTab;
   @ViewChild('settingsTab', { static: false}) settingsTab;
 
-  public is_Publisher: boolean;
+  public isPublisher: boolean;
 
-  constructor(public navCtrl: NavController, private router: Router,public usermgmtService:UsermgmtService) { 
-    
-    
+  constructor(public navCtrl: NavController, private router: Router, public usermgmtService: UsermgmtService) {
+
+
   }
 
   ngOnInit() {
-    this.is_Publisher = this.usermgmtService.getIsPublisher();
+    this.isPublisher = this.usermgmtService.getIsPublisher();
   }
 
   ngAfterViewInit() {
-    let urlArr = this.router.url.split('/')
+    let urlArr = this.router.url.split('/');
     if (urlArr.length > 0) {
-      let tabName = urlArr[1] + 'Tab'
-      this.setTabButtonActive(tabName)
+      let tabName = urlArr[1] + 'Tab';
+      this.setTabButtonActive(tabName);
     }
   }
 
   setTabButtonActive(tabName) {
-    this.speakTab.el.classList.remove('active')
-    if (typeof this.manageTab != 'undefined') {
-      this.manageTab.el.classList.remove('active')
+    this.speakTab.el.classList.remove('active');
+    if (typeof this.manageTab !== 'undefined') {
+      this.manageTab.el.classList.remove('active');
     }
-    this.settingsTab.el.classList.remove('active')
-    let tabElem
+    this.settingsTab.el.classList.remove('active');
+    let tabElem;
     switch (tabName) {
       case 'manageTab': tabElem = this.manageTab; break;
       case 'settingsTab': tabElem = this.settingsTab; break;
       default : tabElem = this.speakTab;
     }
-    tabElem.el.classList.add('active')
+    tabElem.el.classList.add('active');
   }
 
-  //redirect to Settings Page
-  navigateToSettings(){
-    this.navCtrl.navigateForward("settings", { animated: false, });
+  // redirect to Settings Page
+  navigateToSettings() {
+    this.navCtrl.navigateForward('settings', { animated: false, });
   }
-  //redirect to Publisher PAge
-  navigateToManage(){
-    this.navCtrl.navigateForward("manage", { animated: false, });
+  // redirect to Publisher PAge
+  navigateToManage() {
+    this.navCtrl.navigateForward('manage', { animated: false, });
   }
 
-  //redirect to Speak Page
-  navigateToSpeak(){
-    
-    this.navCtrl.navigateForward("speak", { animated: false, });
+  // redirect to Speak Page
+  navigateToSpeak() {
+
+    this.navCtrl.navigateForward('speak', { animated: false, });
   }
 
 }
