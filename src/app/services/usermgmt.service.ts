@@ -89,6 +89,8 @@ export class UsermgmtService {
   }
   //resets httpOptions -> no Authtoken after reset
   private reset(){
+    // reset the auth token manually because on back button press page isn't refreshed
+    this.AUTH_TOKEN.next(null);
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -115,6 +117,11 @@ export class UsermgmtService {
   getAuthToken(){
     this.AUTH_TOKEN.next(localStorage.getItem('Token'));
     return this.AUTH_TOKEN.asObservable()
+  }
+  
+  isLoggedIn(): boolean {
+    // if no auth token is found in local storage AUTH_TOKEN = null
+    return !(this.AUTH_TOKEN.getValue() === null);
   }
   
 }

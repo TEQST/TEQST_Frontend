@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
-import { UsermgmtService } from '../services/usermgmt.service';
-import { Constants } from '../constants';
+import { UsermgmtService } from '../../services/usermgmt.service';
+import { Constants } from '../../constants';
 
 
 

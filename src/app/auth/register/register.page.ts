@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { UsermgmtService } from '../services/usermgmt.service';
-import { AlertManagerService } from '../services/alert-manager.service'
+import { UsermgmtService } from '../../services/usermgmt.service';
+import { AlertManagerService } from '../../services/alert-manager.service'
 
 @Component({
   selector: 'app-register',
