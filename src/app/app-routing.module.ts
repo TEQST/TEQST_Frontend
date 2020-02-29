@@ -25,10 +25,14 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule),
+    data: { redirectIfLoggedIn: true },
+    canActivate: [ AccessGuard ]
   },
   {
     path: 'register',
-    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule),
+    data: { redirectIfLoggedIn: true },
+    canActivate: [ AccessGuard ]
   },
 
 ];
