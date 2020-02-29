@@ -14,9 +14,16 @@ export class AccessGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const requiresLogin = next.data.requiresLogin || false;
+      const requiredRole = next.data.requiredRole;
       if (requiresLogin) {
         if (!this.userService.isLoggedIn()) {
           this.router.navigate(['/login']);
+          return false;
+        }
+      }
+      if (requiredRole === 'publisher') {
+        if (!this.userService.getIsPublisher()) {
+          this.router.navigate(['/speak']);
           return false;
         }
       }

@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: 'manage',
     loadChildren: () => import('./manage/manage.module').then( m => m.ManagePageModule),
-    data: { requiresLogin: true },
+    data: { requiresLogin: true, requiredRole: 'publisher' },
     canActivate: [ AccessGuard ]
   },
   {
