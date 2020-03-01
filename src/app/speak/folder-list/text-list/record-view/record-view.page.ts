@@ -16,9 +16,9 @@ export class RecordViewPage implements OnInit {
   public hasRecording: boolean;
   private textId: number;
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
               private textService: TextServiceService,
-              private alertController: AlertController, 
+              private alertController: AlertController,
               private navCtrl: NavController,
               private alertService: AlertManagerService) {
     textService.getSentenceHasRecording().subscribe((status) => this.hasRecording = status);
@@ -26,28 +26,30 @@ export class RecordViewPage implements OnInit {
    }
 
   ngOnInit() {
-    //get text id based on the current url
-    let textId = parseInt(this.route.snapshot.paramMap.get('textId')) ; 
-    //check if its a number
-    if(isNaN(textId)) {
-      this.alertService.presentGoBackAlert("Invalid Text ID")
-      return
+    // get text id based on the current url
+    const textId = parseInt(this.route.snapshot.paramMap.get('textId'), 10) ;
+    // check if its a number
+    if (isNaN(textId)) {
+      this.alertService.presentGoBackAlert('Invalid Text ID');
+      return;
     }
     this.textId = textId;
     this.textService.setTextId(this.textId);
-    //if no text recording info exists present an alert to give needed permissions
+    // if no text recording info exists present an alert to give needed permissions
     this.textService.checkIfRecordingInfoExists().then((result) => {
-      result ? '' : this.presentPermissionsCheckbox()
-    }, () => this.alertService.presentGoBackAlert("No Access"));
+      if (!result) {
+        this.presentPermissionsCheckbox();
+      }
+    }, () => this.alertService.presentGoBackAlert('No Access'));
   }
 
-  //Present alert to the user to give permissions for the text
-  //if its dismissed without any information entered go back
+  // Present alert to the user to give permissions for the text
+  // if its dismissed without any information entered go back
   async presentPermissionsCheckbox() {
     const alert = await this.alertController.create({
       header: 'Recording Permissions',
       backdropDismiss: false,
-      message: "You have to select at least one",
+      message: 'You have to select at least one',
       inputs: [
         {
           name: 'textToSpeech',
@@ -68,18 +70,18 @@ export class RecordViewPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            this.navCtrl.navigateBack("speak");
+            this.navCtrl.navigateBack('speak');
           }
         }, {
           text: 'Ok',
           handler: (permissions) => {
-            //check if at least one option is selected
-            if(Object.keys(permissions).length === 0) {
-              this.navCtrl.navigateBack("speak");
+            // check if at least one option is selected
+            if (Object.keys(permissions).length === 0) {
+              this.navCtrl.navigateBack('speak');
             } else {
-              //check which of the options is selected
-              let tts = Object.values(permissions).indexOf('TTS') > -1;
-              let sr = Object.values(permissions).indexOf('SR') > -1;
+              // check which of the options is selected
+              const tts = Object.values(permissions).indexOf('TTS') > -1;
+              const sr = Object.values(permissions).indexOf('SR') > -1;
               this.textService.givePermissions(tts, sr);
             }
           }

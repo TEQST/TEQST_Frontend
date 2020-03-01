@@ -12,42 +12,42 @@ import { UsermgmtService } from 'src/app/services/usermgmt.service';
 
 export class TextServiceService {
 
-  SERVER_URL = Constants.SERVER_URL
-  AUTH_TOKEN: string; 
+  SERVER_URL = Constants.SERVER_URL;
+  AUTH_TOKEN: string;
 
 
   // instantiate BehaviorSubjekts with 1 because every text has at least 1 sentence
-  private sentences = new ReplaySubject<String[]>(1);
+  private sentences = new ReplaySubject<string[]>(1);
   private activeSentenceIndex = new BehaviorSubject<number>(1);
   private totalSentenceNumber = new BehaviorSubject<number>(1);
   private furthestSentenceIndex = new BehaviorSubject<number>(1);
   private sentenceHasRecording = new BehaviorSubject<boolean>(false);
   private recordingId = new Subject<number>();
-  private textTitle = new BehaviorSubject<string>("");
+  private textTitle = new BehaviorSubject<string>('');
 
-  //Url Information
-  private textId : number;
+  // Url Information
+  private textId: number;
   private httpOptions;
 
   constructor(private http: HttpClient, private usermgmtService: UsermgmtService) {
     usermgmtService.getAuthToken().subscribe((token) => {
       this.AUTH_TOKEN = token;
       this.initHttpOptions();
-    })
+    });
   }
 
-  //initialize the header for the http requests
+  // initialize the header for the http requests
   private initHttpOptions(): void {
     this.httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.AUTH_TOKEN
+        Authorization: this.AUTH_TOKEN
       })
     };
   }
 
   private fetchText(): void {
-    //fetch TextData from Server
-    let textUrl = this.SERVER_URL + `/api/spk/texts/${this.textId}/`;
+    // fetch TextData from Server
+    const textUrl = this.SERVER_URL + `/api/spk/texts/${this.textId}/`;
 
     this.http.get(textUrl, this.httpOptions).subscribe(text => {
       this.textTitle.next(text['title']);
@@ -57,49 +57,49 @@ export class TextServiceService {
   }
 
 
-  //set the local variables to the data from the server
-  private setRecordingInfo(recordingInfo: Object) {
-    let index = recordingInfo['active_sentence']
+  // set the local variables to the data from the server
+  private setRecordingInfo(recordingInfo: object) {
+    const index = recordingInfo['active_sentence'];
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingInfo['id']);
 
-    //when a text is finished the active_sentence on the backend is totalSentenceNumber + 1
-    //so for the ui we have to set the active sentence to the smaller of those two values
+    // when a text is finished the active_sentence on the backend is totalSentenceNumber + 1
+    // so for the ui we have to set the active sentence to the smaller of those two values
     this.setActiveSentenceIndex(Math.min(index, this.totalSentenceNumber.getValue()));
   }
 
 
-  //check if the user already has a recording information and if yes set the local recording info to the data from the server
+  // check if the user already has a recording information and if yes set the local recording info to the data from the server
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
-    let getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
+    const getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
 
     await this.http.get(getRecordingInfoUrl, this.httpOptions).toPromise()
     .then(info => {
-      if(info === null) {
+      if (info === null) {
         result = false;
       } else {
         this.setRecordingInfo(info[0]);
         result = true;
       }
     });
-    return result
+    return result;
   }
 
-  //Create a text recording with the given permissions for the current user
+  // Create a text recording with the given permissions for the current user
   givePermissions(textToSpeech: boolean, speechRecognition: boolean ): void {
-    
-    let recordingInfo = {
-      "text" : this.textId,
-      "TTS_permission": textToSpeech,
-      "SR_permission": speechRecognition
-    }
 
-    let postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
+    const recordingInfo = {
+      text : this.textId,
+      TTS_permission: textToSpeech,
+      SR_permission: speechRecognition
+    };
+
+    const postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
 
     this.http.post(postRecordingInfoUrl, recordingInfo, this.httpOptions).subscribe(info => {
       this.setRecordingInfo(info);
-    })
+    });
   }
 
   getSentenceHasRecording(): Observable<boolean> {
@@ -114,7 +114,7 @@ export class TextServiceService {
     return this.furthestSentenceIndex.asObservable();
   }
 
-  getSentences(): Observable<String[]> {
+  getSentences(): Observable<string[]> {
     return this.sentences.asObservable();
   }
 
@@ -130,45 +130,45 @@ export class TextServiceService {
     return this.textTitle.asObservable();
   }
 
-  //fetch a new text from the server based on the given id
+  // fetch a new text from the server based on the given id
   setTextId(id: number): void {
     this.textId = id;
     this.fetchText();
   }
 
   setActiveSentenceIndex(index: number): void {
-    //check if the given index is within bounds
-    if(index > 0 && index <= this.totalSentenceNumber.getValue() && index <= this.furthestSentenceIndex.getValue()) {
+    // check if the given index is within bounds
+    if (index > 0 && index <= this.totalSentenceNumber.getValue() && index <= this.furthestSentenceIndex.getValue()) {
       this.activeSentenceIndex.next(index);
 
       // check if sentence has recording
-      this.checkRecordingStatus()
+      this.checkRecordingStatus();
     }
   }
 
-  //check if the current active sentence is already recorded
+  // check if the current active sentence is already recorded
   private checkRecordingStatus(): void {
     if (this.activeSentenceIndex.getValue() < this.furthestSentenceIndex.getValue()) {
-      this.sentenceHasRecording.next(true)
+      this.sentenceHasRecording.next(true);
     } else {
-      this.sentenceHasRecording.next(false)
+      this.sentenceHasRecording.next(false);
     }
   }
 
   setNextSentenceActive(): void {
-    let next = this.activeSentenceIndex.getValue() + 1;
+    const next = this.activeSentenceIndex.getValue() + 1;
     this.setActiveSentenceIndex(next);
   }
 
   setPreviousSentenceActive(): void {
-    let previous = this.activeSentenceIndex.getValue() - 1;
+    const previous = this.activeSentenceIndex.getValue() - 1;
     this.setActiveSentenceIndex(previous);
   }
 
   increaseFurthestSentence(): void {
-    if(this.furthestSentenceIndex.getValue() <= this.totalSentenceNumber.getValue() + 1) {
+    if (this.furthestSentenceIndex.getValue() <= this.totalSentenceNumber.getValue() + 1) {
       this.furthestSentenceIndex.next(this.furthestSentenceIndex.getValue() + 1);
-      this.checkRecordingStatus()
+      this.checkRecordingStatus();
     }
   }
 }
