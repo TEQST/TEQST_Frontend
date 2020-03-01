@@ -76,10 +76,10 @@ export class UsermgmtService {
   // redirect to login, and loging out
   logout() {
     const url = this.SERVER_URL + '/api/auth/logout/';
-    this.navCtrl.navigateForward('login');
     this.http.post(url, '', this.httpOptions).subscribe(() => {
       this.reset();
       localStorage.clear();
+      this.navCtrl.navigateForward('login');
 
     });
   }
