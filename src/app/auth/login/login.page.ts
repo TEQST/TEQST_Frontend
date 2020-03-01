@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { UsermgmtService } from '../../services/usermgmt.service';
 import { Constants } from '../../constants';
-import { MenuLanguageSelectorComponent } from '../../login/menu-language-selector/menu-language-selector.component';
+import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
 
 
 @Component({
