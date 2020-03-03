@@ -84,6 +84,11 @@ export class UsermgmtService {
     });
   }
 
+  deleteAuthToken(): void {
+    localStorage.clear();
+    this.AUTH_TOKEN.next(null);
+  }
+
   // gets all the information about the User who is currently logged in
   loadContent() {
     const url = this.SERVER_URL + '/api/user/';
@@ -98,7 +103,7 @@ export class UsermgmtService {
   // resets httpOptions -> no Authtoken after reset
   private reset() {
     // reset the auth token manually because on back button press page isn't refreshed
-    this.AUTH_TOKEN.next(null);
+    this.deleteAuthToken();
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',

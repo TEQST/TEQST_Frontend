@@ -69,7 +69,6 @@ export class AlertManagerService {
         }]
     });
     await this.alert.present();
-    console.log('test');
   }
 
   async showErrorAlert(status, msg): Promise<void>  {
