@@ -139,6 +139,16 @@ export class ManagePage implements OnInit {
     return await modal.present()
   }
 
+  downloadFolder() {
+    this.manageFolderService.downloadFolder(parseInt(this.currentFolder.id, 10)).subscribe(zipData => {
+      const blob = new Blob([zipData], {
+        type: 'application/zip'
+      });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
   // ### texts ###
 
   // create text objects from the retrieved array of texts
