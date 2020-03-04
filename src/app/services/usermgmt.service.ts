@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
 import { Constants } from '../constants';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertManagerService } from './alert-manager.service';
 import { ConditionalExpr } from '@angular/compiler';
 import { TranslateService } from '@ngx-translate/core';
@@ -38,13 +38,11 @@ export class UsermgmtService {
 
 
    // login into Website, saving AuthToken local and in localStorage, redirect to speak tab
-  login(dataToSend) {
+  login(dataToSend): void {
     const url = this.SERVER_URL +  '/api/auth/login/';
-    const user = 'user';
-    const isPublissherServerAnswer = 'is_publisher';
     this.reset();
     this.http.post(url, dataToSend, this.httpOptions).subscribe((dataReturnFromServer: object) => {
-      this.ispublisher = dataReturnFromServer[user][isPublissherServerAnswer];
+      this.ispublisher = dataReturnFromServer['user']['is_publisher'];
       this.dataFromServer = JSON.stringify(dataReturnFromServer);
 
       this.AUTH_TOKEN.next('Token ' + JSON.parse(this.dataFromServer).token);
@@ -60,7 +58,7 @@ export class UsermgmtService {
   }
 
   // creates a new User with the sended Data
-  register(dataToSend, logInData) {
+  register(dataToSend, logInData): void {
     const url = this.SERVER_URL + '/api/auth/register/';
     this.http.post(url, dataToSend).subscribe(() => {
       this.login(logInData);
@@ -74,7 +72,7 @@ export class UsermgmtService {
   }
 
   // redirect to login, and loging out
-  logout() {
+  logout(): void {
     const url = this.SERVER_URL + '/api/auth/logout/';
     this.http.post(url, '', this.httpOptions).subscribe(() => {
       this.reset();
@@ -90,18 +88,18 @@ export class UsermgmtService {
   }
 
   // gets all the information about the User who is currently logged in
-  loadContent() {
+  loadContent(): Observable<ArrayBuffer> {
     const url = this.SERVER_URL + '/api/user/';
     return this.http.get(url, this.httpOptions);
   }
 
   // returns all speakable Languages created by an admin
-  getLangs() {
+  getLangs(): Observable<object> {
     const url = this.SERVER_URL + '/api/langs/';
     return this.http.get(url);
   }
   // resets httpOptions -> no Authtoken after reset
-  private reset() {
+  private reset(): void {
     // reset the auth token manually because on back button press page isn't refreshed
     this.deleteAuthToken();
     this.httpOptions = {
@@ -113,7 +111,7 @@ export class UsermgmtService {
   }
 
 // add AuthToken to httpOptions
-  private initHeaders() {
+  private initHeaders(): void {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -122,12 +120,12 @@ export class UsermgmtService {
     };
   }
   // returns boolean if a user is a Publisher
-  getIsPublisher() {
+  getIsPublisher(): boolean {
     this.ispublisher = JSON.parse(localStorage.getItem('is_Publisher'));
     return this.ispublisher;
   }
   // gets the authToken.
-  getAuthToken() {
+  getAuthToken(): Observable<string> {
     this.AUTH_TOKEN.next(localStorage.getItem('Token'));
     return this.AUTH_TOKEN.asObservable();
   }
