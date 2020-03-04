@@ -163,4 +163,15 @@ export class ManageFolderService {
     })
     .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
+
+  downloadFolder(folderId: number): Observable<ArrayBuffer> {
+    const url = new URL(`${this.SERVER_URL}/api/download/${folderId}/`);
+    return this.http.get<ArrayBuffer>(url.toString(), {
+      headers:  {
+        Authorization: this.AUTH_TOKEN
+      },
+      responseType: 'arraybuffer' as 'json'
+    });
+  }
 }
+

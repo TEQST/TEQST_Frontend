@@ -9,6 +9,7 @@ import { ShareFolderPage } from './share-folder/share-folder.page';
 import { Folder } from './manage.folder'
 import { Text } from './manage.text'
 import { AlertManagerService } from '../services/alert-manager.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-manage',
@@ -137,6 +138,20 @@ export class ManagePage implements OnInit {
       }
     })
     return await modal.present()
+  }
+
+  downloadFolder() {
+    this.manageFolderService.downloadFolder(parseInt(this.currentFolder.id, 10)).subscribe(zipData => {
+      const blob = new Blob([zipData], {
+        type: 'application/zip'
+      });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    },
+    (error: HttpErrorResponse) => {
+      this.alertManager.showErrorAlertNoRedirection('No download available', 'No Speaker has finished a text of the current folder yet. Please try again later.')
+    }
+    );
   }
 
   // ### texts ###
