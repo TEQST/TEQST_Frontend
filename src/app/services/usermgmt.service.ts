@@ -40,7 +40,7 @@ export class UsermgmtService {
    // login into Website, saving AuthToken local and in localStorage, redirect to speak tab
   login(dataToSend): void {
     const url = this.SERVER_URL +  '/api/auth/login/';
-    this.reset();
+    this.resetHttpOptions();
     this.http.post(url, dataToSend, this.httpOptions).subscribe((dataReturnFromServer: object) => {
       this.isPublisher = dataReturnFromServer['user']['is_publisher'];
       this.dataFromServer = JSON.stringify(dataReturnFromServer);
@@ -75,13 +75,15 @@ export class UsermgmtService {
   logout(): void {
     const url = this.SERVER_URL + '/api/auth/logout/';
     this.http.post(url, '', this.httpOptions).subscribe(() => {
-      this.reset();
-      localStorage.clear();
-      this.navCtrl.navigateForward('login');
+      this.resetHttpOptions();
+      // reset the auth token manually because on back button press page isn't refreshed
+      this.deleteAuthToken();
+      this.navCtrl.navigateForward('/login');
 
     });
   }
 
+  // deletes Authtoken and clears localStorage
   deleteAuthToken(): void {
     localStorage.clear();
     this.AUTH_TOKEN.next(null);
@@ -99,9 +101,7 @@ export class UsermgmtService {
     return this.http.get(url);
   }
   // resets httpOptions -> no Authtoken after reset
-  private reset(): void {
-    // reset the auth token manually because on back button press page isn't refreshed
-    this.deleteAuthToken();
+  private resetHttpOptions(): void {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',

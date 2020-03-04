@@ -20,12 +20,12 @@ export class ServerErrorInterceptorService implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          this.alertService.presentNotLoggedInAlert();
           // If the client uses an invalid token delete the locally stored one
           // TODO: improve api error for easier checking
           if (error.error.detail === 'Invalid token.') {
             this.userService.deleteAuthToken();
           }
+          this.alertService.presentNotLoggedInAlert();
         } else {
           return throwError(error);
         }

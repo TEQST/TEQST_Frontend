@@ -63,7 +63,7 @@ export class AlertManagerService {
           role: 'cancel',
           handler: () => {
             // Navigate back to the login page
-            this.navCtrl.navigateBack('/login');
+            this.navCtrl.navigateForward('/login');
             this.alertActive = false;
           }
         }]
