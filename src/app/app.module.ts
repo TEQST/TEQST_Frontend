@@ -14,6 +14,7 @@ import { TranslatePoHttpLoader } from '@fjnr/ngx-translate-po-http-loader';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServerErrorInterceptorService } from './services/server-error-interceptor.service'
+import { Constants } from './constants';
 
 
 @NgModule({
@@ -48,5 +49,5 @@ import { ServerErrorInterceptorService } from './services/server-error-intercept
 export class AppModule {}
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslatePoHttpLoader(http, 'assets/i18n', '.po');
+  return new TranslatePoHttpLoader(http, `${Constants.SERVER_URL}/api/locale`, '.po');
 }
