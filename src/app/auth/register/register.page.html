@@ -42,7 +42,7 @@
               <ion-label>{{'Language' | translate}}:<ion-text color="danger">*</ion-text></ion-label>
               
               <ion-select multiple="true" placeholder="{{'Select One' | translate}}" [(ngModel)]="language" required="true" >
-                <ion-select-option *ngFor="let lang of allLangs" value={{lang.id}} >{{lang.native_name}}</ion-select-option>
+                <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}} >{{lang.native_name}}</ion-select-option>
                 
               </ion-select>
             </ion-item>
