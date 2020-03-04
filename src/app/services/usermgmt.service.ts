@@ -19,7 +19,7 @@ export class UsermgmtService {
   private dataFromServer: any = '';
 
   private httpOptions;
-  private ispublisher: boolean;
+  private isPublisher: boolean;
   private menuLanguage = 'en'; // TODO: fetch menu language from server
 
   private AUTH_TOKEN = new BehaviorSubject<string>('');
@@ -42,13 +42,13 @@ export class UsermgmtService {
     const url = this.SERVER_URL +  '/api/auth/login/';
     this.reset();
     this.http.post(url, dataToSend, this.httpOptions).subscribe((dataReturnFromServer: object) => {
-      this.ispublisher = dataReturnFromServer['user']['is_publisher'];
+      this.isPublisher = dataReturnFromServer['user']['is_publisher'];
       this.dataFromServer = JSON.stringify(dataReturnFromServer);
 
       this.AUTH_TOKEN.next('Token ' + JSON.parse(this.dataFromServer).token);
       this.initHeaders();
       localStorage.setItem('Token', this.AUTH_TOKEN.getValue());
-      localStorage.setItem('is_Publisher', JSON.stringify(this.ispublisher));
+      localStorage.setItem('isPublisher', JSON.stringify(this.isPublisher));
 
       this.navCtrl.navigateForward('speak');
       }, (error: any) => {
@@ -121,8 +121,8 @@ export class UsermgmtService {
   }
   // returns boolean if a user is a Publisher
   getIsPublisher(): boolean {
-    this.ispublisher = JSON.parse(localStorage.getItem('is_Publisher'));
-    return this.ispublisher;
+    this.isPublisher = JSON.parse(localStorage.getItem('isPublisher'));
+    return this.isPublisher;
   }
   // gets the authToken.
   getAuthToken(): Observable<string> {

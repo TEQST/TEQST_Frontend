@@ -41,7 +41,7 @@ export class ProfilePage implements OnInit {
       this.language = dataReturnFromServer.languages;
       for (let i = 0; i < this.language.length; i++) {
         this.languageString += dataReturnFromServer.languages[i].native_name + ', ';
-        tempLangIds .push(JSON.stringify(dataReturnFromServer.languages[i].id));
+        tempLangIds.push(dataReturnFromServer.languages[i].short);
       }
       this.languageIds = tempLangIds;
 
