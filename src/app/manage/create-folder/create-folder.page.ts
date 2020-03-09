@@ -12,9 +12,10 @@ export class CreateFolderPage implements OnInit {
   @Input() parentId: any
   @ViewChild('folderName', {  static: false })  folderNameInput: IonInput
 
-  // allow only letters of the english alphabet and one whitespace between words
-  private validatorPattern = '^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$'
   public folderInfo : FormGroup;
+  /* allow any characters except \,/,:,*,<,>,|
+     but not filenames starting with white-spaces or the character . */
+  private validatorPattern = '^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$'
 
   constructor(private formBuilder: FormBuilder,
               public viewCtrl: ModalController) {

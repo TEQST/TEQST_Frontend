@@ -11,6 +11,9 @@ export class CreateTextPage implements OnInit {
 
   public createTextForm: FormGroup
   public formValid: boolean
+  /* allow any characters except \,/,:,*,<,>,|
+     but not filenames starting with white-spaces or the character . */
+  private validatorPattern = '^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$'
   private fileSelected: boolean
   private file: File
 
@@ -18,7 +21,7 @@ export class CreateTextPage implements OnInit {
               private viewCtrl: ModalController) {
 
     this.createTextForm = this.formBuilder.group({
-      title: ['', Validators.required]
+      title: ['', Validators.pattern(this.validatorPattern)]
     });
 
     this.createTextForm.valueChanges.subscribe(form => { this.updateFormValidity() })
