@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController, NavController, LoadingController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -8,21 +8,8 @@ export class AlertManagerService {
 
   private alertActive: boolean;
   private alert: HTMLIonAlertElement;
-  private loadingSpinner: HTMLIonLoadingElement;
 
-
-  constructor(public alertController: AlertController, private loadingController: LoadingController, private navCtrl: NavController) { }
-
-  async showLoadingSpinner(): Promise<void>  {
-    this.loadingSpinner = await this.loadingController.create({
-      message: 'Loading...'
-    });
-    await this.loadingSpinner.present();
-  }
-
-  async hideLoadingSpinner(): Promise<void>  {
-    await this.loadingSpinner.dismiss();
-  }
+  constructor(public alertController: AlertController, private navCtrl: NavController) { }
 
   async presentGoBackAlert(header: string): Promise<void>  {
     if (this.alertActive) {
@@ -52,7 +39,6 @@ export class AlertManagerService {
       this.alert.dismiss();
       this.alertActive = false;
     }
-    this.hideLoadingSpinner();
     this.alertActive = true;
     this.alert = await this.alertController.create({
       header: 'Unauthorized',
