@@ -71,7 +71,7 @@ export class ManagePage implements OnInit {
           }
         }
       },
-      err => this.alertManager.showErrorAlert(err.status, err.statusText)
+      err => this.alertManager.showErrorAlert(err.status, err.statusText, '/manage')
     )
   }
 
@@ -96,7 +96,7 @@ export class ManagePage implements OnInit {
           this.currentFolder.createSubfolder(data.folderName)
             .subscribe(
               data => this.getFolderInfo(),
-              err  => this.alertManager.showErrorAlert(err.status, err.statusText)
+              err  => this.alertManager.showErrorAlertNoRedirection(err.status, err.statusText)
             )
         }
       })
@@ -119,7 +119,7 @@ export class ManagePage implements OnInit {
             folder.delete()
               .subscribe(
                 data => this.getFolderInfo(),
-                err  => this.alertManager.showErrorAlert(err.status, err.statusText)
+                err  => this.alertManager.showErrorAlertNoRedirection(err.status, err.statusText)
               )
           }
         }
@@ -172,7 +172,7 @@ export class ManagePage implements OnInit {
             this.alertManager.showErrorAlert('', 'received invalid data from server!')
           }
         },
-        err => this.alertManager.showErrorAlert(err.status, err.statusText)
+        err => this.alertManager.showErrorAlert(err.status, err.statusText, '/manage')
       )
   }
 
@@ -191,7 +191,7 @@ export class ManagePage implements OnInit {
                 // reload text list
                 this.initTextList()
               },
-              err  => this.alertManager.showErrorAlert(err.status, err.statusText)
+              err  => this.alertManager.showErrorAlertNoRedirection(err.status, err.statusText)
             )
         }
       })
@@ -214,7 +214,7 @@ export class ManagePage implements OnInit {
             text.delete()
               .subscribe(
                 data => this.initTextList(),
-                err  => this.alertManager.showErrorAlert(err.status, err.statusText)
+                err  => this.alertManager.showErrorAlertNoRedirection(err.status, err.statusText)
               )
           }
         }

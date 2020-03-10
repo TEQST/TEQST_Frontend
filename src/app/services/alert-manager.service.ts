@@ -11,7 +11,7 @@ export class AlertManagerService {
 
   constructor(public alertController: AlertController, private navCtrl: NavController) { }
 
-  async presentGoBackAlert(header: string): Promise<void>  {
+  async presentGoBackAlert(header: string, redirectURL: string = '/speak'): Promise<void>  {
     if (this.alertActive) {
       return;
     }
@@ -25,7 +25,7 @@ export class AlertManagerService {
           role: 'cancel',
           handler: () => {
             // Navigate back to speak tab
-            this.navCtrl.navigateBack('/speak');
+            this.navCtrl.navigateBack(redirectURL);
         }
       }]
     });
@@ -57,7 +57,7 @@ export class AlertManagerService {
     await this.alert.present();
   }
 
-  async showErrorAlert(status, msg): Promise<void>  {
+  async showErrorAlert(status, msg, redirectURL: string = '/speak'): Promise<void>  {
     if (this.alertActive) {
       return;
     }
@@ -69,8 +69,7 @@ export class AlertManagerService {
         role: 'cancel',
         text: 'Go back',
         handler: () => {
-          // navigate to speak since every user has access to this one
-          this.navCtrl.navigateBack('/speak');
+          this.navCtrl.navigateBack(redirectURL);
           this.alertActive = false;
         }
       }]
