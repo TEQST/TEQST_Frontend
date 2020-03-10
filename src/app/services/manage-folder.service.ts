@@ -44,7 +44,7 @@ export class ManageFolderService {
   getSubfolderListFor(folderId: string): Observable<object> {
     let urlStr = `${this.SERVER_URL}/api/folders/`
     if (folderId) {
-      urlStr += folderId
+      urlStr += folderId + '/';
     }
     let url = new URL(urlStr)
     
