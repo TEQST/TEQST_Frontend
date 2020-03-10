@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TextServiceService} from '../text-service.service'
+import {TextServiceService} from '../text-service.service';
 import { AudioRecordingService } from '../audio-recording.service';
 
 @Component({
@@ -9,18 +9,18 @@ import { AudioRecordingService } from '../audio-recording.service';
 })
 export class SentenceWrapperComponent implements OnInit {
 
-  public sentences: String[];
+  public sentences: string[];
   public activeSentence: number;
   public isRecording: boolean;
   public furthestSentence: number;
 
   constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) {
-    this.subscribeToServices()
+    this.subscribeToServices();
    }
 
   ngOnInit() {}
 
-  //subscribe to all needed variables from the services and update the locale ones on change
+  // subscribe to all needed variables from the services and update the locale ones on change
   private subscribeToServices(): void {
     this.textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
     this.textService.getSentences().subscribe(sentences => this.sentences = sentences);
@@ -32,7 +32,7 @@ export class SentenceWrapperComponent implements OnInit {
   // when clicking on a sentence set it to active
   onSelect(index: number): void {
     this.recordingService.stopAudioPlaying();
-    this.textService.setActiveSentenceIndex(index)
+    this.textService.setActiveSentenceIndex(index);
   }
 
 }

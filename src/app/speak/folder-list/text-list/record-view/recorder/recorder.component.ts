@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import {TextServiceService} from '../text-service.service'
+import { Component, OnInit, HostListener } from '@angular/core';
+import {TextServiceService} from '../text-service.service';
 import { AudioRecordingService } from '../audio-recording.service';
 
 @Component({
   selector: 'app-recorder',
   templateUrl: './recorder.component.html',
   styleUrls: ['./recorder.component.scss'],
-  host: { '(window:keydown)': 'handleKeyboardInput($event)' },
+  // host: { '(window:keydown)': 'handleKeyboardInput($event)' },
 })
 export class RecorderComponent implements OnInit {
 
   public activeSentence: number;
   public totalSentenceNumber: number;
-  public isRecording: boolean = false;
+  public isRecording = false;
 
   constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) {
     this.subscribeToServices();
@@ -20,17 +20,18 @@ export class RecorderComponent implements OnInit {
 
   ngOnInit() {}
 
-  //subscribe to all needed variables from the services and update the locale ones on change
+  // subscribe to all needed variables from the services and update the locale ones on change
   private subscribeToServices(): void {
     this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
     this.textService.getTotalSentenceNumber().subscribe(totalNumber => this.totalSentenceNumber = totalNumber);
     this.recordingService.getRecordingState().subscribe((status) => this.isRecording = status);
   }
 
+  @HostListener('window:keydown', ['$event'])
   handleKeyboardInput($event: any) {
-    //check which key was pressed
-    switch($event.keyCode) {
-      //spacebar will start or stop recording
+    // check which key was pressed
+    switch ($event.keyCode) {
+      // spacebar will start or stop recording
        case 32:
           if (this.isRecording === true) {
             this.stopRecording();
@@ -39,19 +40,19 @@ export class RecorderComponent implements OnInit {
           }
           break;
 
-        //down & right arrow key set next sentence active
+        // down & right arrow key set next sentence active
         case 40:
         case 39:
-          this.nextSentence()
+          this.nextSentence();
           break;
-        
-        //up & left arrow key set the previous sentence active
+
+        // up & left arrow key set the previous sentence active
         case 38:
         case 37:
           if (!this.isRecording) {
             this.previousSentence();
           }
-      
+
     }
   }
 
@@ -62,7 +63,7 @@ export class RecorderComponent implements OnInit {
 
   nextSentence(): void {
     this.recordingService.stopAudioPlaying();
-    if(this.isRecording === true) {
+    if (this.isRecording === true) {
       // if currently recording start the recording of the next sentence
       this.recordingService.nextRecording();
     } else {

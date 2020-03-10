@@ -8,7 +8,7 @@ import { AudioRecordingService } from '../audio-recording.service';
 })
 export class PlayerComponent implements OnInit {
 
-  public isPlaying: boolean = false;
+  public isPlaying = false;
 
   constructor(private recordingService: AudioRecordingService) {
     this.getPlayerState();
@@ -17,7 +17,7 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {}
 
   getPlayerState(): void {
-    //subscribe to the isPlaying observable and update the local variable on change
+    // subscribe to the isPlaying observable and update the local variable on change
     this.recordingService.getIsPlayingState().subscribe((state) => this.isPlaying = state);
   }
 

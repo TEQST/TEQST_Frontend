@@ -1,0 +1,128 @@
+msgid ""
+msgstr ""
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "0-6 years"
+msgstr ""
+
+msgid "6-12 years"
+msgstr ""
+
+msgid "Added Speaker"
+msgstr ""
+
+msgid "Admin Page"
+msgstr ""
+
+msgid "All Users"
+msgstr ""
+
+msgid "Already have an Account?"
+msgstr ""
+
+msgid "Birthyear"
+msgstr ""
+
+msgid "Country"
+msgstr ""
+
+msgid "Create a new folder"
+msgstr ""
+
+msgid "Create a new text"
+msgstr ""
+
+msgid "Create folder"
+msgstr ""
+
+msgid "Create text"
+msgstr ""
+
+msgid "Don't have an Account yet?"
+msgstr ""
+
+msgid "Education Level"
+msgstr ""
+
+msgid "Female"
+msgstr ""
+
+msgid "Folders by"
+msgstr ""
+
+msgid "Gender"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Languages"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Login here"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+msgid "Male"
+msgstr ""
+
+msgid "Menu Language"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Profile"
+msgstr ""
+
+msgid "Profile Settings"
+msgstr ""
+
+msgid "Register"
+msgstr ""
+
+msgid "Register here"
+msgstr ""
+
+msgid "Save changes"
+msgstr ""
+
+msgid "Search for User"
+msgstr ""
+
+msgid "Select One"
+msgstr ""
+
+msgid "Select Speaker for"
+msgstr ""
+
+msgid "Select a publisher"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Text Content"
+msgstr ""
+
+msgid "Texts in"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "more than 12 years"
+msgstr ""
+
+msgid "repeat Password"
+msgstr ""

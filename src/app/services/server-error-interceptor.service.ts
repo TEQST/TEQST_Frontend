@@ -1,3 +1,4 @@
+import { UsermgmtService } from 'src/app/services/usermgmt.service';
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor, HttpRequest,
@@ -12,13 +13,18 @@ import { AlertManagerService } from './alert-manager.service';
 })
 export class ServerErrorInterceptorService implements HttpInterceptor {
 
-  constructor(private alertService: AlertManagerService) { }
+  constructor(private alertService: AlertManagerService, private userService: UsermgmtService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(request);
+
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
+          // If the client uses an invalid token delete the locally stored one
+          // TODO: improve api error for easier checking
+          if (error.error.detail === 'Invalid token.') {
+            this.userService.deleteAuthToken();
+          }
           this.alertService.presentNotLoggedInAlert();
         } else {
           return throwError(error);

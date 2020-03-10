@@ -8,16 +8,16 @@ import { UsermgmtService } from '../services/usermgmt.service';
 })
 export class SettingsPage implements OnInit {
 
-  constructor(public usermgmtService:UsermgmtService) { }
+  constructor(public usermgmtService: UsermgmtService) { }
 
   ngOnInit() {
   }
 
-  //calls logout Function of UsermgmtService
-  logout(){
+  // calls logout Function of UsermgmtService
+  logout() {
     this.usermgmtService.logout();
   }
 
-  
+
 
 }

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 import { IonicModule } from '@ionic/angular';
 
 import { ProfilePageRoutingModule } from './profile-routing.module';
@@ -16,7 +18,8 @@ import { ComponentsModule } from '../../tabBar/tab-bar.modules';
     FormsModule,
     IonicModule,
     ComponentsModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    TranslateModule
   ],
   declarations: [ProfilePage, ]
 })

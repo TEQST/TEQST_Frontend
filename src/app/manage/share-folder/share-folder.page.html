@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title i18n="Share folder modal title@@share-modal-title">Select Speaker for {{folderName}}</ion-title>
+    <ion-title>{{'Select Speaker for' | translate}} {{folderName}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
@@ -8,14 +8,14 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar i18-placeholder="Text that is displayed in the user searchbar@@user-searchbar" (ionChange)="onSearchTerm($event)" animated placeholder="Search for User"></ion-searchbar>
+    <ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'Search for User' | translate}}"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <ion-list-header>
-      <ion-label i18n="@@added-speaker">Added Speaker</ion-label>
+      <ion-label>{{'Added Speaker' | translate}}</ion-label>
     </ion-list-header>
     <ion-item *ngFor="let speaker of filteredSpeakers">
       <ion-label>{{speaker.username}}</ion-label>
@@ -26,7 +26,7 @@
   </ion-list>
   <ion-list>
     <ion-list-header>
-      <ion-label i18n="@@all-users">All Users</ion-label>
+      <ion-label>{{'All Users' | translate}}</ion-label>
     </ion-list-header>
     <ion-item *ngFor="let user of filteredUsers">
       <ion-label>{{user.username}}</ion-label>
