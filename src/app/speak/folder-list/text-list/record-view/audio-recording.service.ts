@@ -1,6 +1,6 @@
 import { Injectable, ModuleWithComponentFactories } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 import * as RecordRTC from 'recordrtc';
 import { TextServiceService } from './text-service.service';
@@ -25,8 +25,8 @@ export class AudioRecordingService {
   private httpOptions;
 
   private recordingFailed$ = new Subject<string>();
-  private state$ = new Subject<boolean>();
-  private isPlaying$ = new Subject<boolean>();
+  private isRecording$ = new BehaviorSubject<boolean>(false);
+  private isPlaying$ = new BehaviorSubject<boolean>(false);
 
   private recordingId: number;
   private activeSentence: number;
@@ -71,7 +71,7 @@ export class AudioRecordingService {
   }
 
   getRecordingState(): Observable<boolean> {
-    return this.state$.asObservable();
+    return this.isRecording$.asObservable();
   }
 
   getIsPlayingState(): Observable<boolean> {
@@ -82,6 +82,8 @@ export class AudioRecordingService {
     if (this.recorder) {
       // Recording is already running
       return;
+    } else if (this.isPlaying$.getValue() === true) {
+      this.stopAudioPlaying();
     }
 
     // get user permission for microphone access
@@ -90,7 +92,7 @@ export class AudioRecordingService {
       this.record();
     }).catch(error => {
       this.recordingFailed$.next();
-      this.state$.next(false);
+      this.isRecording$.next(false);
     });
 
   }
@@ -108,7 +110,7 @@ export class AudioRecordingService {
 
     });
     this.recorder.record();
-    this.state$.next(true);
+    this.isRecording$.next(true);
 
   }
 
@@ -178,7 +180,7 @@ export class AudioRecordingService {
 
   // stop the recorder and free all open audio streams
   private stopMedia(): void {
-    this.state$.next(false);
+    this.isRecording$.next(false);
     if (this.recorder) {
       this.recorder = null;
       if (this.stream) {
@@ -210,7 +212,9 @@ export class AudioRecordingService {
 
   // play a recorded sentence
   async playRecording(): Promise<void> {
-
+    if(this.isRecording$.getValue() === true) {
+      return;
+    }
     let blob: Blob;
 
     // if a locally saved recording is available use it otherwise get the recording from server
