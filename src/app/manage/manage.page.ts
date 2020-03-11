@@ -21,7 +21,7 @@ export class ManagePage implements OnInit {
 
   public currentFolder: Folder
   public subfolders: Folder[]
-  public texts: object
+  public texts: Text[]
 
 
   constructor(private manageFolderService: ManageFolderService,
@@ -71,7 +71,7 @@ export class ManagePage implements OnInit {
           }
         }
       },
-      err => this.alertManager.showErrorAlert(err.status, err.statusText)
+      err => this.alertManager.showErrorAlert(err.status, err.statusText, '/manage')
     )
   }
 
@@ -87,7 +87,10 @@ export class ManagePage implements OnInit {
 
   async openCreateFolderModal() {
     const modal = await this.modalController.create({
-      component: CreateFolderPage
+      component: CreateFolderPage,
+      componentProps: { 
+        existingFolderNames: this.subfolders.map(folder => folder.name)
+      }
     })
     modal.onDidDismiss()
       .then(async (returnData) => {
@@ -95,8 +98,8 @@ export class ManagePage implements OnInit {
         if (data) {
           this.currentFolder.createSubfolder(data.folderName)
             .subscribe(
-              data => this.getFolderInfo(),
-              err  => this.alertManager.showErrorAlert(err.status, err.statusText)
+              () => this.getFolderInfo(),
+              err  => this.alertManager.showErrorAlertNoRedirection(err.status, err.statusText)
             )
         }
       })
@@ -118,8 +121,8 @@ export class ManagePage implements OnInit {
           handler: async () => {
             folder.delete()
               .subscribe(
-                data => this.getFolderInfo(),
-                err  => this.alertManager.showErrorAlert(err.status, err.statusText)
+                () => this.getFolderInfo(),
+                err  => this.alertManager.showErrorAlertNoRedirection(err.status, err.statusText)
               )
           }
         }
@@ -172,13 +175,16 @@ export class ManagePage implements OnInit {
             this.alertManager.showErrorAlert('', 'received invalid data from server!')
           }
         },
-        err => this.alertManager.showErrorAlert(err.status, err.statusText)
+        err => this.alertManager.showErrorAlert(err.status, err.statusText, '/manage')
       )
   }
 
   async openCreateTextModal() {
     const modal = await this.modalController.create({
-      component: CreateTextPage
+      component: CreateTextPage,
+      componentProps: { 
+        existingTextNames: this.texts.map(text => text.title)
+      }
     })
     modal.onDidDismiss()
       .then(async (returnData) => {
@@ -186,12 +192,12 @@ export class ManagePage implements OnInit {
         if (data) {
           this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
             .subscribe(
-              data => {
+              () => {
                 this.currentFolder.is_sharedfolder = true
                 // reload text list
                 this.initTextList()
               },
-              err  => this.alertManager.showErrorAlert(err.status, err.statusText)
+              err  => this.alertManager.showErrorAlertNoRedirection(err.status, err.statusText)
             )
         }
       })
@@ -213,8 +219,8 @@ export class ManagePage implements OnInit {
           handler: async () => {
             text.delete()
               .subscribe(
-                data => this.initTextList(),
-                err  => this.alertManager.showErrorAlert(err.status, err.statusText)
+                () => this.initTextList(),
+                err  => this.alertManager.showErrorAlertNoRedirection(err.status, err.statusText)
               )
           }
         }

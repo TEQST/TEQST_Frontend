@@ -10,13 +10,13 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="folderInfo" (ngSubmit)="submitForm()">
+  <form [formGroup]="createFolderForm" (ngSubmit)="submitForm()">
     <ion-item>
       <ion-label position="stacked">{{'Title' | translate}}</ion-label>
       <ion-input #folderName formControlName="folderName" name="name" autofocus="true"></ion-input>
     </ion-item>
     <div class="ion-padding">
-      <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!folderInfo.valid">{{'Create folder' | translate}}</ion-button>
+      <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!formValid">{{'Create folder' | translate}}</ion-button>
     </div>
   </form>
 </ion-content>
