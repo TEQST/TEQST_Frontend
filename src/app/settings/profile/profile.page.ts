@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsermgmtService } from '../../services/usermgmt.service';
 import { NavController } from '@ionic/angular';
-
+import { AlertManagerService } from 'src/app/services/alert-manager.service';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,10 @@ export class ProfilePage implements OnInit {
 
 
 
-  constructor(public usermgmtService: UsermgmtService, public navCtrl: NavController) { }
+  constructor(
+    public usermgmtService: UsermgmtService,
+    public navCtrl: NavController,
+    private alertService: AlertManagerService) { }
 
   // loads everytime Page is loaded their content
   ngOnInit() {
@@ -38,6 +42,7 @@ export class ProfilePage implements OnInit {
     const tempLangIds = [];
     this.usermgmtService.loadContent().subscribe((dataReturnFromServer: any) => {
       this.dataFromServer = JSON.stringify(dataReturnFromServer);
+
       this.language = dataReturnFromServer.languages;
       for (let i = 0; i < this.language.length; i++) {
         this.languageString += dataReturnFromServer.languages[i].native_name + ', ';
@@ -66,17 +71,28 @@ export class ProfilePage implements OnInit {
   // saves Profile information
   // dataToSend is the User Information which is sent to the server
   save() {
-    const dataToSend = {
-      birth_year: this.birthyear,
-      language_ids: this.languageIds,
-      country: this.country,
-      gender: this.gender,
-      education: this.education,
-      menu_language_id: this.menuLanguageId};
-    this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
+    // only save when at least one Language is selected and a Birthyear within the last 100 years
+    if ( this.languageIds.length !== 0 && this.birthyear >= moment().year() - 100 && this.birthyear <= moment().year()) {
+      // set data to send
+      const dataToSend = {
+        birth_year: this.birthyear,
+        language_ids: this.languageIds,
+        country: this.country,
+        gender: this.gender,
+        education: this.education,
+        menu_language_id: this.menuLanguageId};
 
-    this.navCtrl.navigateBack('settings');
-     // this.loadContent();
-    });
+      this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
+      this.navCtrl.navigateBack('settings');
+      });
+
+    } else {
+      const currentYear = moment().year();
+      const minimumYear = currentYear - 100;
+      // call alertMessage Service
+      this.alertService.showErrorAlertNoRedirection(
+        'Invalid Input',
+        'You have to set at least one Language and a Birthyear between ' + minimumYear + ' and ' +  currentYear);
+    }
   }
 }

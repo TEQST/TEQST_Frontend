@@ -25,7 +25,6 @@ export class TabBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.isPublisher = this.usermgmtService.getIsPublisher();
     this.usermgmtService.getIsPublisher().subscribe((tempIsPublisher: boolean) => {
     this.isPublisher = tempIsPublisher;
     });
