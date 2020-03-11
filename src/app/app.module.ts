@@ -15,10 +15,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServerErrorInterceptorService } from './services/server-error-interceptor.service'
 import { Constants } from './constants';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    PageNotFoundComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,

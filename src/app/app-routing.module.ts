@@ -1,6 +1,7 @@
 import { AccessGuard } from './auth/access.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'speak', pathMatch: 'full' },
@@ -34,6 +35,12 @@ const routes: Routes = [
     data: { redirectIfLoggedIn: true },
     canActivate: [ AccessGuard ]
   },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+    data: { requiresLogin: true},
+    canActivate: [ AccessGuard ]
+  }
 
 ];
 
