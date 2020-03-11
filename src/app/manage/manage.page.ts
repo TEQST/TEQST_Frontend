@@ -11,6 +11,9 @@ import { Text } from './manage.text'
 import { AlertManagerService } from '../services/alert-manager.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { saveAs } from 'file-saver';
+
+
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.page.html',
@@ -148,8 +151,8 @@ export class ManagePage implements OnInit {
       const blob = new Blob([zipData], {
         type: 'application/zip'
       });
-      const url = window.URL.createObjectURL(blob);
-      window.open(url);
+      // save file locally
+      saveAs(blob, `${this.currentFolder.name}_${this.currentFolder.id}`);
     },
     (error: HttpErrorResponse) => {
       this.alertManager.showErrorAlertNoRedirection('No download available', 'No Speaker has finished a text of the current folder yet. Please try again later.')
