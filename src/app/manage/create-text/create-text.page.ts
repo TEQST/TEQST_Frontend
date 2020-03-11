@@ -9,13 +9,14 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CreateTextPage implements OnInit {
 
-  public createTextForm: FormGroup
   public formValid: boolean
   /* allow any characters except \,/,:,*,<,>,|
      but not filenames starting with white-spaces or the character . */
   private validatorPattern = '^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$'
+  private createTextForm: FormGroup
   private fileSelected: boolean
   private file: File
+  private existingTextNames: string[]
 
   constructor(private formBuilder: FormBuilder,
               private viewCtrl: ModalController) {
@@ -24,7 +25,7 @@ export class CreateTextPage implements OnInit {
       title: ['', Validators.pattern(this.validatorPattern)]
     });
 
-    this.createTextForm.valueChanges.subscribe(form => { this.updateFormValidity() })
+    this.createTextForm.valueChanges.subscribe(() => { this.updateFormValidity() })
 
     this.formValid = false
     this.fileSelected = false
@@ -54,7 +55,9 @@ export class CreateTextPage implements OnInit {
 
   updateFormValidity() {
     // angular cannot detect by itself whether a file is selected or not in its form validation
-    this.formValid = (this.createTextForm.valid && this.fileSelected)
+    this.formValid = (this.createTextForm.valid &&
+                      this.fileSelected &&
+                      !this.existingTextNames.includes(this.createTextForm.value.title))
   }
 
 }

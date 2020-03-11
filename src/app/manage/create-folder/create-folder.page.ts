@@ -12,21 +12,28 @@ export class CreateFolderPage implements OnInit {
   @Input() parentId: any
   @ViewChild('folderName', {  static: false })  folderNameInput: IonInput
 
-  public folderInfo : FormGroup;
+  public formValid: boolean;
+
+  private createFolderForm : FormGroup;
   /* allow any characters except \,/,:,*,<,>,|
      but not filenames starting with white-spaces or the character . */
   private validatorPattern = '^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$'
+  private existingFolderNames: string[]
 
   constructor(private formBuilder: FormBuilder,
               public viewCtrl: ModalController) {
 
-    this.folderInfo = this.formBuilder.group({
+    this.createFolderForm = this.formBuilder.group({
       folderName: ['', Validators.pattern(this.validatorPattern)],
     })
 
+    this.createFolderForm.valueChanges.subscribe(() => { this.updateFormValidity() })
+
+    this.formValid = false
+
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -35,8 +42,14 @@ export class CreateFolderPage implements OnInit {
     }, 100)
   }
 
+  updateFormValidity() {
+    let formData = this.createFolderForm.value
+    this.formValid = (this.createFolderForm.valid &&
+                     !this.existingFolderNames.includes(formData.folderName))
+  }
+
   submitForm(){
-    let formData = this.folderInfo.value
+    let formData = this.createFolderForm.value
     // close the modal passing its data
     this.viewCtrl.dismiss({
       folderName: formData.folderName
