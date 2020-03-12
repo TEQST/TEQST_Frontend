@@ -3,6 +3,7 @@ import {NavController} from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsermgmtService } from '../../services/usermgmt.service';
 import { AlertManagerService } from '../../services/alert-manager.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-register',
@@ -59,11 +60,17 @@ export class RegisterPage implements OnInit {
     const logInData = {
       username: this.username,
       password: this.password};
+    const currentYear = moment().year();
+    const minimumYear = currentYear - 100;
 
     if (this.username === '' || this.password === '' || this.repassword === '' || this.language === undefined) {
          this.alertService.showErrorAlertNoRedirection('Required Fields empty', 'Please fill out all fields');
        } else if (this.password !== this.repassword) {
          this.alertService.showErrorAlertNoRedirection('Diffrent Passwords', 'The repeated password doesnt match the original password');
+       } else if (this.birthyear < minimumYear || this.birthyear > currentYear) {
+         this.alertService.showErrorAlertNoRedirection(
+           'Invalid Birthyear',
+            'Set a Birthyear between ' + minimumYear + ' and ' +  currentYear);
        } else {
          this.usermgmtService.register(dataToSend, logInData);
        }
