@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsermgmtService } from '../../services/usermgmt.service';
 import { NavController } from '@ionic/angular';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
-import * as moment from 'moment'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profile',
@@ -20,9 +20,11 @@ export class ProfilePage implements OnInit {
   education: string;
   country = '';
   allLangs: [];
+  allMenuLangs: string[] = [];
   languageString = '';
   languageIds = [];
-  menuLanguageId: number;
+  menuLanguageShort = 'en';
+  menuLanguageNative: string;
 
 
 
@@ -49,7 +51,8 @@ export class ProfilePage implements OnInit {
         tempLangIds.push(dataReturnFromServer.languages[i].short);
       }
       this.languageIds = tempLangIds;
-
+      this.menuLanguageShort = JSON.parse(this.dataFromServer).menu_language.short;
+      this.menuLanguageNative = JSON.parse(this.dataFromServer).menu_language.native_name;
       this.languageString = this.languageString.substr(0, this.languageString.length - 2);
       this.username = JSON.parse(this.dataFromServer).username;
       this.birthyear = JSON.parse(this.dataFromServer).birth_year;
@@ -64,6 +67,11 @@ export class ProfilePage implements OnInit {
   getAllLangs() {
     this.usermgmtService.getLangs().subscribe((dataReturnFromServer: any) => {
       this.allLangs = dataReturnFromServer;
+      for (const singleLanguage of this.allLangs) {
+        if (singleLanguage['is_menu_language'] === true) {
+          this.allMenuLangs.push(singleLanguage);
+        }
+      }
     });
   }
 
@@ -80,10 +88,11 @@ export class ProfilePage implements OnInit {
         country: this.country,
         gender: this.gender,
         education: this.education,
-        menu_language_id: this.menuLanguageId};
+        menu_language_id: this.menuLanguageShort};
 
       this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
       this.navCtrl.navigateBack('settings');
+      this.usermgmtService.setMenuLanguage(this.menuLanguageShort);
       });
 
     } else {
