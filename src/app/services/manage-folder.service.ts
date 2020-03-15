@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { Constants } from '../constants';
 import { UsermgmtService } from './usermgmt.service';
-import { timeout } from 'rxjs/operators';
 
 interface User {
   "id": number,
@@ -27,7 +26,6 @@ export class ManageFolderService {
   }
 
   SERVER_URL = Constants.SERVER_URL
-  REQUEST_TIMEOUT = Constants.REQUEST_TIMEOUT
   AUTH_TOKEN: string;
 
   getFolderInfoFor(folderId: string): Observable<object> {
@@ -38,7 +36,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getSubfolderListFor(folderId: string): Observable<object> {
@@ -53,7 +50,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getTextListFor(folderId: string): Observable<object> {
@@ -65,7 +61,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   createFolder(parentId: string, folderName: string) {
@@ -82,7 +77,6 @@ export class ManageFolderService {
         }
       }
     )
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   deleteFolder(folderId: string) {
@@ -92,7 +86,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   createText(folderId: string, title: string, textFile: File) {
@@ -111,7 +104,6 @@ export class ManageFolderService {
         }
       }
     )
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   deleteText(textId: string) {
@@ -121,7 +113,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getTextInfo(textId: string) {
@@ -131,7 +122,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getSpeakers(sharedfolderId: number) {
@@ -141,7 +131,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   setSpeakers(sharedfolderId: number, speakers: number[]) {
@@ -151,7 +140,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getAllUsers() {
@@ -161,7 +149,6 @@ export class ManageFolderService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   downloadFolder(folderId: number): Observable<ArrayBuffer> {
