@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Constants } from '../constants';
 import { UsermgmtService } from './usermgmt.service';
-import { timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,6 @@ export class SpeakTabNavService {
 
   
   SERVER_URL = Constants.SERVER_URL;
-  REQUEST_TIMEOUT = Constants.REQUEST_TIMEOUT
   AUTH_TOKEN: string;
 
   getPublisherList() {
@@ -28,7 +26,6 @@ export class SpeakTabNavService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getInfoForPublisher(publisherId: string) {
@@ -39,7 +36,6 @@ export class SpeakTabNavService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 
   getInfoForSharedfolder(folderId: string) {
@@ -50,6 +46,5 @@ export class SpeakTabNavService {
         "Authorization": this.AUTH_TOKEN
       }
     })
-    .pipe( timeout(this.REQUEST_TIMEOUT) )
   }
 }
