@@ -16,7 +16,7 @@
       <ion-input #folderName formControlName="folderName" name="name" autofocus="true"></ion-input>
     </ion-item>
     <div class="ion-padding">
-      <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!formValid">{{'Create folder' | translate}}</ion-button>
+      <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!folderNameValid">{{'Create folder' | translate}}</ion-button>
     </div>
   </form>
 </ion-content>

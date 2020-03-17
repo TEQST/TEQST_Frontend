@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModalController, IonInput } from '@ionic/angular';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-create-folder',
@@ -12,25 +12,21 @@ export class CreateFolderPage implements OnInit {
   @Input() parentId: any
   @ViewChild('folderName', {  static: false })  folderNameInput: IonInput
 
-  public formValid: boolean;
-
   public createFolderForm : FormGroup;
+  public folderNameValid: boolean;
   /* allow any characters except \,/,:,*,<,>,|
      but not filenames starting with white-spaces or the character . */
-  private validatorPattern = '^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$'
+  private validatorPattern = new RegExp('^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$')
   private existingFolderNames: string[]
 
   constructor(private formBuilder: FormBuilder,
               public viewCtrl: ModalController) {
 
     this.createFolderForm = this.formBuilder.group({
-      folderName: ['', Validators.pattern(this.validatorPattern)],
+      folderName: ['', control => { return this.folderNameValidator(control)} ]
     })
 
-    this.createFolderForm.valueChanges.subscribe(() => { this.updateFormValidity() })
-
-    this.formValid = false
-
+    this.folderNameValid = false
   }
 
   ngOnInit() { }
@@ -42,10 +38,16 @@ export class CreateFolderPage implements OnInit {
     }, 100)
   }
 
-  updateFormValidity() {
-    let formData = this.createFolderForm.value
-    this.formValid = (this.createFolderForm.valid &&
-                     !this.existingFolderNames.includes(formData.folderName))
+  folderNameValidator(control: FormControl) {
+    let folderName = control.value
+    this.folderNameValid = (this.validatorPattern.test(folderName) &&
+                            folderName.trim() != '' &&   // folder name not empty
+                           !folderName.includes('__') && // and does not contain double underscore
+                           !this.existingFolderNames.includes(folderName))
+    if (this.folderNameValid) return null
+    else {
+      return { 'folderName': true };
+    }
   }
 
   submitForm(){
