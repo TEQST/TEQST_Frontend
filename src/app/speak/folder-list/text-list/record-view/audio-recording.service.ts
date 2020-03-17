@@ -1,3 +1,4 @@
+import { AlertManagerService } from 'src/app/services/alert-manager.service';
 import { Injectable, ModuleWithComponentFactories } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
@@ -35,7 +36,10 @@ export class AudioRecordingService {
 
 
 
-  constructor(private textService: TextServiceService, private http: HttpClient, private usermgmtService: UsermgmtService) {
+  constructor(private textService: TextServiceService,
+              private http: HttpClient,
+              private usermgmtService: UsermgmtService,
+              private alertService: AlertManagerService) {
     this.subscribeToServices();
   }
 
@@ -91,7 +95,7 @@ export class AudioRecordingService {
       this.stream = s;
       this.record();
     }).catch(error => {
-      this.recordingFailed$.next();
+      this.alertService.showErrorAlertNoRedirection('No microphone access', 'Please allow access to your microphone to be able to start a recording')
       this.isRecording$.next(false);
     });
 
