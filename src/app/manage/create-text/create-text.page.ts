@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ModalController, IonInput } from '@ionic/angular';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -9,13 +9,15 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class CreateTextPage implements OnInit {
 
+  @ViewChild('selectFileWrapper', {  static: false })  selectFileWrapper: object
+
   public formValid: boolean
   public titleValid: boolean
+  public fileSelected: boolean
   /* allow any characters except \,/,:,*,<,>,| and whitespaces
      but not filenames starting with the character . */
   private validatorPattern = new RegExp('^(?!\\.)[^\\\\\/:\\*"<>\\| ]+$')
   public createTextForm: FormGroup
-  private fileSelected: boolean
   private file: File
   private existingTextNames: string[]
 
@@ -60,10 +62,9 @@ export class CreateTextPage implements OnInit {
     this.titleValid = (this.validatorPattern.test(title) &&
                        title.trim() != '' &&  // title not empty
                       !this.existingTextNames.includes(title))
+                      
     if (this.titleValid) return null
-    else {
-      return { 'textTitle': true };
-    }
+    else return { 'textTitle': true }
   }
 
   updateFormValidity() {    
