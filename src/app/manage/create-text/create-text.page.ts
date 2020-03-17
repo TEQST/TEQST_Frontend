@@ -13,7 +13,7 @@ export class CreateTextPage implements OnInit {
   /* allow any characters except \,/,:,*,<,>,|
      but not filenames starting with white-spaces or the character . */
   private validatorPattern = '^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$'
-  private createTextForm: FormGroup
+  public createTextForm: FormGroup
   private fileSelected: boolean
   private file: File
   private existingTextNames: string[]

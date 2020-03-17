@@ -14,7 +14,7 @@ export class CreateFolderPage implements OnInit {
 
   public formValid: boolean;
 
-  private createFolderForm : FormGroup;
+  public createFolderForm : FormGroup;
   /* allow any characters except \,/,:,*,<,>,|
      but not filenames starting with white-spaces or the character . */
   private validatorPattern = '^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$'
