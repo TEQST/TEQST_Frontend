@@ -1,3 +1,4 @@
+import { AudioRecordingService } from './audio-recording.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -18,6 +19,7 @@ export class RecordViewPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private textService: TextServiceService,
+              private audioService: AudioRecordingService,
               private alertController: AlertController,
               private navCtrl: NavController,
               private alertService: AlertManagerService) {
@@ -41,6 +43,11 @@ export class RecordViewPage implements OnInit {
         this.presentPermissionsCheckbox();
       }
     }, () => this.alertService.presentGoBackAlert('No Access'));
+  }
+
+  public stopAll(): void {
+    this.audioService.stopAudioPlaying();
+    this.audioService.abortRecording();
   }
 
   // Present alert to the user to give permissions for the text

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="speak"></ion-back-button>
+      <ion-back-button (click)="stopAll()" defaultHref="speak"></ion-back-button>
     </ion-buttons>
     <ion-title>{{textTitle}}</ion-title>
   </ion-toolbar>
