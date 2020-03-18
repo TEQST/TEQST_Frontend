@@ -152,7 +152,7 @@ export class ManagePage implements OnInit {
         type: 'application/zip'
       });
       // save file locally
-      saveAs(blob, `${this.currentFolder.name}_${this.currentFolder.id}`);
+      saveAs(blob, `${this.currentFolder.name}_${this.currentFolder.id}.zip`);
     },
     (error: HttpErrorResponse) => {
       this.alertManager.showErrorAlertNoRedirection('No download available', 'No Speaker has finished a text of the current folder yet. Please try again later.')
