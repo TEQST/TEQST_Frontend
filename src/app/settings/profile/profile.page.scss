@@ -1,10 +1,12 @@
-ion-label{
-    -webkit-flex: none!important; 
-    flex: none!important; 
+ion-input, ion-select {
+    text-align: right;
 }
-.sel{
-    min-width: 200px;
+#username span {
+    float: right;
 }
-.button{
-    margin-left: 16px;
+
+#save {
+    display: block;
+    height: 40px;
+    margin: 30px 14px;
 }

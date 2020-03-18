@@ -10,7 +10,7 @@
 <ion-content>  
   <ion-list>
     <ion-item >
-      <ion-label>{{'Username' | translate}}: {{username}} </ion-label>      
+      <ion-label id="username">{{'Username' | translate}}: <span>{{username}}</span></ion-label>      
     </ion-item>
 
     <ion-item>
@@ -57,7 +57,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-button (click)="save()">{{'Save changes' | translate}}</ion-button>
+    <ion-button id="save" (click)="save()">{{'Save changes' | translate}}</ion-button>
 
    
   </ion-list>
