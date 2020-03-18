@@ -199,6 +199,12 @@ export class AudioRecordingService {
     this.stopMedia();
   }
 
+  // abort the current recording and start a new one
+  restartRecording(): void {
+    this.recorder.stop();
+    this.recorder.record();
+  }
+
   // get recordings of already recorded sentences from the server
   private async fetchSentenceRecording(): Promise<Blob> {
 

@@ -47,9 +47,12 @@ export class RecorderComponent implements OnInit {
           break;
 
         // up & left arrow key set the previous sentence active
+        // if a recording is ongoing restart the recording
         case 38:
         case 37:
-          if (!this.isRecording) {
+          if (this.isRecording) {
+            this.recordingService.restartRecording();
+          } else {
             this.previousSentence();
           }
 
