@@ -26,11 +26,11 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 /* fix input validation hints not visible on ios */
-ion-item.ion-invalid, ion-item.ion-valid {
-    --highlight-background: transparent;
+ion-item.ion-invalid.ion-touched, ion-item.ion-invalid.item-has-focus {
+    --border-color: var(--ion-color-danger);
 }
 
-ion-item.ion-invalid {
-    --border-color: var(--ion-color-danger);
+ion-item.ion-valid.item-has-focus {
+    --border-color: var(--ion-color-success);
 }
 /* end fix */
