@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ModalController, IonInput } from '@ionic/angular';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-create-text',
@@ -9,12 +9,15 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CreateTextPage implements OnInit {
 
+  @ViewChild('selectFileWrapper', {  static: false })  selectFileWrapper: object
+
   public formValid: boolean
-  /* allow any characters except \,/,:,*,<,>,|
-     but not filenames starting with white-spaces or the character . */
-  private validatorPattern = '^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$'
+  public titleValid: boolean
+  public fileSelected: boolean
+  /* allow any characters except \,/,:,*,<,>,| and whitespaces
+     but not filenames starting with the character . */
+  private validatorPattern = new RegExp('^(?!\\.)[^\\\\\/:\\*"<>\\| ]+$')
   public createTextForm: FormGroup
-  private fileSelected: boolean
   private file: File
   private existingTextNames: string[]
 
@@ -22,12 +25,13 @@ export class CreateTextPage implements OnInit {
               private viewCtrl: ModalController) {
 
     this.createTextForm = this.formBuilder.group({
-      title: ['', Validators.pattern(this.validatorPattern)]
+      title: ['', control => { return this.textTitleValidator(control)} ]
     });
 
     this.createTextForm.valueChanges.subscribe(() => { this.updateFormValidity() })
 
     this.formValid = false
+    this.titleValid = false
     this.fileSelected = false
   }
 
@@ -53,11 +57,17 @@ export class CreateTextPage implements OnInit {
     this.updateFormValidity()
   }
 
-  updateFormValidity() {
-    // angular cannot detect by itself whether a file is selected or not in its form validation
-    this.formValid = (this.createTextForm.valid &&
-                      this.fileSelected &&
-                      !this.existingTextNames.includes(this.createTextForm.value.title))
+  textTitleValidator(control: FormControl) {
+    let title = control.value
+    this.titleValid = (this.validatorPattern.test(title) &&
+                       title.trim() != '' &&  // title not empty
+                      !this.existingTextNames.includes(title))
+                      
+    if (this.titleValid) return null
+    else return { 'textTitle': true }
   }
 
+  updateFormValidity() {    
+    this.formValid = this.titleValid && this.fileSelected
+  }
 }

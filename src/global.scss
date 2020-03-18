@@ -24,3 +24,17 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+/* fix input validation hints not visible on ios */
+ion-item.ion-invalid, ion-item.ion-valid {
+    --highlight-background: transparent!important;
+}
+
+ion-item.ion-invalid {
+    border-bottom: 2px solid var(--ion-color-danger) !important;
+}
+
+ion-item.ion-valid {
+    border-bottom: 2px solid var(--ion-color-success) !important;
+}
+/* end fix */
