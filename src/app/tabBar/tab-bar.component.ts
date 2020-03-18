@@ -21,7 +21,6 @@ export class TabBarComponent implements OnInit {
 
   constructor(public navCtrl: NavController, private router: Router, public usermgmtService: UsermgmtService) {
 
-
   }
 
   ngOnInit() {

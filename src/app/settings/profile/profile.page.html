@@ -15,7 +15,7 @@
 
     <ion-item>
       <ion-label>{{'Birthyear' | translate}}:</ion-label>
-        <ion-input placeholder={{birthyear}} [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'"></ion-input>   
+        <ion-input placeholder={{birthyear}} [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'" required="true"></ion-input>   
       </ion-item>
 
     <ion-item>
