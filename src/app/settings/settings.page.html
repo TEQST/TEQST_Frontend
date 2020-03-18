@@ -1,6 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{'Settings' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="logout-btn" color="primary" (click)="logout()">
+        {{'Logout' | translate}} 
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -9,11 +15,7 @@
     <ion-item [routerLink]="'/settings/profile/'">
         <ion-label>{{'Profile Settings' | translate}}</ion-label>
     </ion-item>
-
-    
-
   </ion-list>
-  <ion-button class=" ion-align-items-center" (click)="logout()">{{'Logout' | translate}}</ion-button>
 </ion-content>
 <app-tabBar></app-tabBar>
 

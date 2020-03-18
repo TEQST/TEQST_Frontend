@@ -3,37 +3,37 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-        <ion-title>{{'Profile' | translate}}</ion-title>
+    <ion-title>{{'Profile' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>  
   <ion-list>
     <ion-item >
-      <ion-label id="username">{{'Username' | translate}}: <span>{{username}}</span></ion-label>      
+      <ion-label id="username" position="stacked">{{'Username' | translate}}:</ion-label>
+      <ion-input value="{{username}}" readonly></ion-input>       
     </ion-item>
 
     <ion-item>
-      <ion-label>{{'Birthyear' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'Birthyear' | translate}}:</ion-label>
         <ion-input placeholder={{birthyear}} [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'" required="true"></ion-input>   
       </ion-item>
 
     <ion-item>
-      <ion-label>{{'Country' | translate}}:</ion-label>   
+      <ion-label position="stacked">{{'Country' | translate}}:</ion-label>   
       <ion-input placeholder={{country}} [(ngModel)]="country"></ion-input>   
-      
     </ion-item>
     
     
     <ion-item>
-      <ion-label>{{'Languages' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'Languages' | translate}}:</ion-label>
       <ion-select multiple="true" [(ngModel)]="languageIds" [selectedText]="languageString" class="sel">
         <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}} >{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label>{{'Education Level' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'Education Level' | translate}}:</ion-label>
         <ion-select [(ngModel)]="education">
           <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
           <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
@@ -42,7 +42,7 @@
     </ion-item>     
 
     <ion-item>
-      <ion-label>{{'Gender' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'Gender' | translate}}:</ion-label>
       <ion-select [(ngModel)]="gender">
         <ion-select-option value="F">{{'Female' | translate}}</ion-select-option>
         <ion-select-option value="M">{{'Male' | translate}}</ion-select-option>
@@ -51,13 +51,13 @@
 
    
     <ion-item>
-      <ion-label>{{'Menu Language' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'Menu Language' | translate}}:</ion-label>
       <ion-select [(ngModel)]=menuLanguageShort [selectedText]="menuLanguageNative">
         <ion-select-option *ngFor="let lang of allMenuLangs" value="{{lang.short}}">{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
-    <ion-button id="save" (click)="save()">{{'Save changes' | translate}}</ion-button>
+    <ion-button expand="block" id="save" (click)="save()">{{'Save changes' | translate}}</ion-button>
 
    
   </ion-list>
