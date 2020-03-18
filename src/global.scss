@@ -27,14 +27,10 @@
 
 /* fix input validation hints not visible on ios */
 ion-item.ion-invalid, ion-item.ion-valid {
-    --highlight-background: transparent!important;
+    --highlight-background: transparent;
 }
 
 ion-item.ion-invalid {
-    border-bottom: 2px solid var(--ion-color-danger) !important;
-}
-
-ion-item.ion-valid {
-    border-bottom: 2px solid var(--ion-color-success) !important;
+    --border-color: var(--ion-color-danger);
 }
 /* end fix */
