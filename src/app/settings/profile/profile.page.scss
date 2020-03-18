@@ -1,6 +1,11 @@
 ion-input, ion-select {
     text-align: right;
 }
+
+ion-list {
+    max-width: 500px;
+}
+
 #username span {
     float: right;
 }
