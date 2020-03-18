@@ -7,4 +7,12 @@
     display: block;
     height: 40px;
     margin: 20px 14px;
+    max-width: 200px;
+}
+
+
+@media only screen and (max-width: 800px) {
+    #save {
+        max-width: none;
+    }
 }
