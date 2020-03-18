@@ -39,11 +39,6 @@ export class RegisterPage implements OnInit {
     this.getAllLangs();
   }
 
-  // redirects to Login Page
-  goLogin() {
-    this.navCtrl.navigateForward('login');
-  }
-
   // sends Data to UsermgmtService to create a new User
   // LoginData is data which is saved, to call instant Login after Registration without User Interaction
   // throws Error if a required Field is empty or repeated Password is diffrent

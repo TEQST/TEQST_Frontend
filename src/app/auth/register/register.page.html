@@ -68,7 +68,7 @@
             <ion-button full (click)="registerUser()" expand="block">{{'Register' | translate}}</ion-button>
             <ion-card-content>
               <ng-container>{{'Already have an Account?' | translate}}</ng-container>
-              <button (click)="goLogin()" class="login-text-settings">{{'Login here' | translate}}</button>
+              <p><a routerLink="/login" class="login-text-settings">{{'Login here' | translate }}</a></p>
             </ion-card-content>
         </ion-card>
       </ion-col>

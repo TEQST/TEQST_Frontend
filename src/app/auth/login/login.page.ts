@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, PopoverController, IonInput } from '@ionic/angular';
 import { UsermgmtService } from '../../services/usermgmt.service';
 import { Constants } from '../../constants';
 import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
@@ -17,9 +17,7 @@ export class LoginPage implements OnInit {
 
   constructor(public navCtrl: NavController, public usermgmtService: UsermgmtService, public popoverController: PopoverController) { }
 
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   async presentMenuLanguages(ev: any) {
     const popover = await this.popoverController.create({

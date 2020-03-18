@@ -13,7 +13,7 @@
           <form (ngSubmit)="login()">
           <ion-list>
             <ion-item>
-              <ion-input placeholder= "{{ 'Username' | translate }}" [(ngModel)]="username" [ngModelOptions]="{standalone: true}"> </ion-input>
+              <ion-input placeholder= "{{ 'Username' | translate }}" [(ngModel)]="username" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
 
             <ion-item>
@@ -26,8 +26,8 @@
           </ion-button>            
         </form>
         <ion-card-content>
-          <ng-container>{{"Don't have an Account yet?" | translate }} </ng-container> 
-          <a routerLink="/register" class="register-text-settings">{{'Register here' | translate }}</a>
+          <ng-container>{{"Don't have an Account yet?" | translate }} </ng-container>
+          <p><a routerLink="/register" class="register-text-settings">{{'Register here' | translate }}</a></p>
         </ion-card-content>
         </ion-card>
       </ion-col>
