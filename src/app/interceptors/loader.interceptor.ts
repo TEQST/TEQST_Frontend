@@ -13,8 +13,12 @@ export class LoaderInterceptor implements HttpInterceptor {
     constructor(public loaderService: LoaderService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.loaderService.show();
         this.count++;
+        setTimeout(() => {
+            if (this.count > 0) {
+                this.loaderService.show();
+            }
+        }, 1000);
         return next.handle(request).pipe(
             finalize(() => {
                 this.count--;
