@@ -47,6 +47,7 @@ export class RecordViewPage implements OnInit {
     }, () => this.alertService.presentGoBackAlert('No Access'));
   }
 
+  // listen for the browser back button press
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
     this.stopAllMedia();
