@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsermgmtService } from '../services/usermgmt.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,7 +9,12 @@ import { UsermgmtService } from '../services/usermgmt.service';
 })
 export class SettingsPage implements OnInit {
 
-  constructor(public usermgmtService: UsermgmtService) { }
+  public isLoading = false;
+
+  constructor(public usermgmtService: UsermgmtService,
+              private loaderService: LoaderService) {
+    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
+  }
 
   ngOnInit() {
   }

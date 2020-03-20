@@ -4,6 +4,7 @@
       <ion-back-button (click)="stopAllMedia()" defaultHref="speak"></ion-back-button>
     </ion-buttons>
     <ion-title>{{textTitle}}</ion-title>
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 

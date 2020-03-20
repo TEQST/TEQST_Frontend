@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
 import { Text } from '../manage.text'
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-text-detail',
@@ -15,10 +16,13 @@ export class TextDetailPage implements OnInit {
 
   public text: Text
   private textId: string;
+  public isLoading = false;
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
-              private alertManager: AlertManagerService) {
+              private alertManager: AlertManagerService,
+              private loaderService: LoaderService) {
+    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
     this.text = new Text('', '')
   }
 

@@ -16,6 +16,7 @@ import { ServerErrorInterceptorService } from './interceptors/server-error-inter
 import { TimeoutInterceptor } from './interceptors/timeout-interceptor';
 import { Constants } from './constants';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 
 
 
@@ -51,6 +52,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TimeoutInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
       multi: true
     }
   ],

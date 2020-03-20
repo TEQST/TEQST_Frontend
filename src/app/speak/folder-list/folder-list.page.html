@@ -4,6 +4,7 @@
       <ion-back-button defaultHref="speak"></ion-back-button>
     </ion-buttons>
     <ion-title><ng-container>{{'Folders by' | translate}}</ng-container> {{publisherName}}</ion-title>
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 

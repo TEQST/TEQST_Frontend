@@ -3,6 +3,7 @@ import { UsermgmtService } from '../../services/usermgmt.service';
 import { NavController } from '@ionic/angular';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
 import * as moment from 'moment';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,12 +27,16 @@ export class ProfilePage implements OnInit {
   menuLanguageShort = 'en';
   menuLanguageNative: string;
 
+  public isLoading = false;
 
 
-  constructor(
-    public usermgmtService: UsermgmtService,
-    public navCtrl: NavController,
-    private alertService: AlertManagerService) { }
+
+  constructor(public usermgmtService: UsermgmtService,
+              public navCtrl: NavController,
+              private alertService: AlertManagerService,
+              private loaderService: LoaderService) {
+    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
+              }
 
   // loads everytime Page is loaded their content
   ngOnInit() {

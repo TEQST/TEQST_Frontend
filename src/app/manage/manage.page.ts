@@ -1,3 +1,4 @@
+import { LoaderService } from './../services/loader.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, AlertController } from '@ionic/angular';
@@ -25,20 +26,22 @@ export class ManagePage implements OnInit {
   public currentFolder: Folder
   public subfolders: Folder[]
   public texts: Text[]
+  public isLoading = false;
 
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
               private alertController: AlertController,
               private modalController: ModalController,
-              private alertManager: AlertManagerService) {
-      
+              private alertManager: AlertManagerService,
+              private loaderService: LoaderService) {
     Folder.setServiceProvider(manageFolderService)
     Text.setServiceProvider(manageFolderService)
 
     this.currentFolder = new Folder(null, '/', false)
     this.subfolders = []
     this.texts = []
+    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
   }
 
   ngOnInit() {}

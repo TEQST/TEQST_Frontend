@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { TextServiceService } from './text-service.service';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-record-view',
@@ -18,15 +19,18 @@ export class RecordViewPage implements OnInit {
   public textTitle: string;
   public hasRecording: boolean;
   private textId: number;
+  public isLoading = false;
 
   constructor(private route: ActivatedRoute,
               private textService: TextServiceService,
               private audioService: AudioRecordingService,
               private alertController: AlertController,
               private navCtrl: NavController,
-              private alertService: AlertManagerService) {
-    textService.getSentenceHasRecording().subscribe((status) => this.hasRecording = status);
-    textService.getTextTitle().subscribe((title) => this.textTitle = title);
+              private alertService: AlertManagerService,
+              private loaderService: LoaderService) {
+    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
+    this.textService.getSentenceHasRecording().subscribe((status) => this.hasRecording = status);
+    this.textService.getTextTitle().subscribe((title) => this.textTitle = title);
    }
 
   ngOnInit() {
