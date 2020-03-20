@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
-import { AlertManagerService } from './alert-manager.service';
+import { AlertManagerService } from '../services/alert-manager.service';
 
 @Injectable({
   providedIn: 'root'

@@ -12,7 +12,7 @@ import { TranslatePoHttpLoader } from '@fjnr/ngx-translate-po-http-loader';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ServerErrorInterceptorService } from './services/server-error-interceptor.service'
+import { ServerErrorInterceptorService } from './interceptors/server-error-interceptor.service'
 import { TimeoutInterceptor } from './interceptors/timeout-interceptor';
 import { Constants } from './constants';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
