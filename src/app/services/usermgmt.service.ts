@@ -20,7 +20,7 @@ export class UsermgmtService {
 
   private httpOptions;
   private isPublisher = new BehaviorSubject<boolean>(undefined);
-  private menuLanguage = 'en'; // TODO: fetch menu language from server
+  private menuLanguage; // TODO: fetch menu language from server
 
   private AUTH_TOKEN = new BehaviorSubject<string>('');
 
@@ -33,6 +33,8 @@ export class UsermgmtService {
     // gets AuthToken after reload or on init
     this.getAuthToken();
     this.initHeaders();
+    this.menuLanguage = localStorage.getItem('MenuLanguage');
+
    }
 
 
@@ -40,19 +42,26 @@ export class UsermgmtService {
    // login into Website, saving AuthToken local and in localStorage, redirect to speak tab
   login(dataToSend): void {
     const url = this.SERVER_URL +  '/api/auth/login/';
+    let temporalMenuLanguage;
     this.resetHttpOptions();
     this.http.post(url, dataToSend, this.httpOptions).subscribe((dataReturnFromServer: object) => {
 
       this.isPublisher.next(dataReturnFromServer['user']['is_publisher']);
+      temporalMenuLanguage = dataReturnFromServer['user']['menu_language']['short']
+
+      if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') || localStorage.getItem('MenuLanguage') === null) {
+        this.menuLanguage = temporalMenuLanguage;
+      } else {
+        this.menuLanguage = localStorage.getItem('MenuLanguage');
+      }
 
       this.dataFromServer = JSON.stringify(dataReturnFromServer);
-
       this.AUTH_TOKEN.next('Token ' + JSON.parse(this.dataFromServer).token);
       this.initHeaders();
       localStorage.setItem('Token', this.AUTH_TOKEN.getValue());
-
+      localStorage.setItem('MenuLanguage', this.menuLanguage);
       localStorage.setItem('isPublisher', JSON.stringify(this.isPublisher.getValue()));
-
+      this.setMenuLanguage(this.menuLanguage);
       this.navCtrl.navigateForward('speak');
       }, (error: any) => {
         // calls AlertService when server sends error code
@@ -74,6 +83,11 @@ export class UsermgmtService {
     return this.http.put(url, dataToSend, this.httpOptions);
   }
 
+  patchProfile(dataToSend) {
+    const url = this.SERVER_URL + '/api/user/';
+    return this.http.patch(url, dataToSend, this.httpOptions);
+  }
+
   // redirect to login, and loging out
   logout(): void {
     const url = this.SERVER_URL + '/api/auth/logout/';
@@ -88,8 +102,10 @@ export class UsermgmtService {
 
   // deletes Authtoken and clears localStorage
   deleteAuthToken(): void {
-    localStorage.clear();
-    this.AUTH_TOKEN.next(null);
+   // localStorage.clear();
+   localStorage.removeItem('Token');
+   localStorage.removeItem('isPublisher');
+   this.AUTH_TOKEN.next(null);
   }
 
   // gets all the information about the User who is currently logged in
@@ -135,6 +151,7 @@ export class UsermgmtService {
 
   setMenuLanguage(lang: string): void {
     this.menuLanguage = lang;
+    localStorage.setItem('MenuLanguage', lang);
     this.translate.use(lang);
   }
 

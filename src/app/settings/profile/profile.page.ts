@@ -47,6 +47,10 @@ export class ProfilePage implements OnInit {
   // fills the variables in this class with the given information
   loadContent() {
     const tempLangIds = [];
+    const dataToSend = {
+      menu_language_id: localStorage.getItem('MenuLanguage')
+    };
+    this.usermgmtService.patchProfile(dataToSend).subscribe(() => {});
     this.usermgmtService.loadContent().subscribe((dataReturnFromServer: any) => {
       this.dataFromServer = JSON.stringify(dataReturnFromServer);
 
