@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, IonInput } from '@ionic/angular';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class CreateTextPage implements OnInit {
 
+  @ViewChild('titleInput', {  static: false })  titleInput: IonInput
   @ViewChild('selectFileWrapper', {  static: false })  selectFileWrapper: object
 
   public formValid: boolean
@@ -36,6 +37,13 @@ export class CreateTextPage implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+        // setting the focus only works in most webbrowsers after a small timeout
+        this.titleInput.setFocus()
+    }, 100)
+  }
 
   dismiss() {
     // close the modal without passing data

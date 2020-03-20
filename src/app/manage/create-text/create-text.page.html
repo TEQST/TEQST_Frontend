@@ -13,7 +13,7 @@
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
         <ion-label position="stacked">{{'Title' | translate}}</ion-label>
-        <ion-input formControlName="title" name="name" autofocus="true"></ion-input>
+        <ion-input #titleInput formControlName="title" name="name"></ion-input>
       </ion-item>
       <ion-item #selectFileWrapper [ngClass]="fileSelected ? 'ion-valid' : 'ion-invalid'">
         <ion-label position="stacked">{{'Text Content' | translate}}</ion-label>

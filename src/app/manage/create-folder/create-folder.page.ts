@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModalController, IonInput } from '@ionic/angular';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-create-folder',
@@ -10,7 +10,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 export class CreateFolderPage implements OnInit {
 
   @Input() parentId: any
-  @ViewChild('folderName', {  static: false })  folderNameInput: IonInput
+  @ViewChild('folderNameInput', {  static: false })  folderNameInput: IonInput
 
   public createFolderForm : FormGroup;
   public folderNameValid: boolean;
