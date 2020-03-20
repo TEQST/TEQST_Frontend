@@ -1,5 +1,5 @@
 import { AudioRecordingService } from './audio-recording.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
@@ -11,6 +11,8 @@ import { AlertManagerService } from 'src/app/services/alert-manager.service';
   templateUrl: './record-view.page.html',
   styleUrls: ['./record-view.page.scss'],
 })
+
+
 export class RecordViewPage implements OnInit {
 
   public textTitle: string;
@@ -45,7 +47,12 @@ export class RecordViewPage implements OnInit {
     }, () => this.alertService.presentGoBackAlert('No Access'));
   }
 
-  public stopAll(): void {
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+    this.stopAllMedia();
+  }
+
+  public stopAllMedia(): void {
     this.audioService.stopAudioPlaying();
     this.audioService.abortRecording();
   }
