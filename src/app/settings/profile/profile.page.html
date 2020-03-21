@@ -28,7 +28,7 @@
     
     <ion-item>
       <ion-label position="stacked">{{'Languages' | translate}}:</ion-label>
-      <ion-select multiple="true" [(ngModel)]="languageIds" [selectedText]="languageString" class="sel">
+      <ion-select multiple="true" [(ngModel)]="languageIds" [selectedText]="languageString" class="sel" (ngModelChange)="updateLanguageString()">
         <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}} >{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -53,7 +53,7 @@
    
     <ion-item>
       <ion-label position="stacked">{{'Menu Language' | translate}}:</ion-label>
-      <ion-select [(ngModel)]=menuLanguageShort [selectedText]="menuLanguageNative">
+      <ion-select [(ngModel)]=menuLanguageShort [selectedText]="menuLanguageNative" (ngModelChange)="updateMenuLanguageString()">
         <ion-select-option *ngFor="let lang of allMenuLangs" value="{{lang.short}}">{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>

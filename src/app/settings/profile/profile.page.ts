@@ -83,7 +83,24 @@ export class ProfilePage implements OnInit {
       }
     });
   }
-
+  updateMenuLanguageString() {
+    for (const singleLanguage of this.allMenuLangs) {
+      if ( singleLanguage['short'] === this.menuLanguageShort) {
+        this.menuLanguageNative = singleLanguage['native_name']
+      }
+    }
+  }
+  updateLanguageString() {
+    this.languageString = '';
+    for (const singleLanguage of this.allLangs) {
+      for (const oneItem of this.languageIds) {
+        if (oneItem === singleLanguage['short']) {
+          this.languageString += singleLanguage['native_name'] + ', ';
+        }
+      }
+    }
+    this.languageString = this.languageString.substr(0, this.languageString.length - 2);
+  }
 
   // saves Profile information
   // dataToSend is the User Information which is sent to the server
