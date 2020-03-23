@@ -4,6 +4,10 @@
       <ion-back-button (click)="stopAllMedia()" defaultHref="speak"></ion-back-button>
     </ion-buttons>
     <ion-title>{{textTitle}}</ion-title>
+    <ion-item lines="none" slot="end" *ngIf="isUploadActive" >
+      <ion-label>Uploading... &nbsp;</ion-label>
+      <ion-spinner color="primary"></ion-spinner>
+    </ion-item>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>

@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SentenceRecordingModel } from './../models/sentence-recording.model';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -15,7 +15,7 @@ export class RecordingUploadService {
   private httpOptions;
 
   private uploadQueue: [SentenceRecordingModel, boolean][] = []; // array of tuple [sentenceRecording, isReUpload]
-  private uploadActive = new BehaviorSubject<boolean>(false);
+  private isUploadActive = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, private usermgmtService: UsermgmtService) {
     usermgmtService.getAuthToken().subscribe((token) => {
@@ -35,7 +35,7 @@ export class RecordingUploadService {
 
   public uploadRecording(sentenceRecording: SentenceRecordingModel, isReUpload: boolean): void {
     this.uploadQueue.push([sentenceRecording, isReUpload]);
-    if (!this.uploadActive.getValue()) {
+    if (!this.isUploadActive.getValue()) {
       this.uploadNextElement();
     }
 
@@ -43,7 +43,7 @@ export class RecordingUploadService {
   }
 
   private uploadNextElement() {
-    this.uploadActive.next(true);
+    this.isUploadActive.next(true);
     console.log('upload started')
     const queueElement = this.uploadQueue.shift();
     const isReUpload = queueElement[1];
@@ -77,9 +77,13 @@ export class RecordingUploadService {
     if (this.uploadQueue.length > 0) {
       this.uploadNextElement();
     } else {
-      this.uploadActive.next(false);
+      this.isUploadActive.next(false);
       console.log('upload finished')
     }
+  }
+
+  public getIsUploadActive(): Observable<boolean> {
+    return this.isUploadActive.asObservable();
   }
 
 

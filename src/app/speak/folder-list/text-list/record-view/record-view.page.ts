@@ -1,3 +1,4 @@
+import { RecordingUploadService } from './../../../../services/recording-upload.service';
 import { AudioRecordingService } from './audio-recording.service';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +21,7 @@ export class RecordViewPage implements OnInit {
   public hasRecording: boolean;
   private textId: number;
   public isLoading = false;
+  public isUploadActive = false;
 
   constructor(private route: ActivatedRoute,
               private textService: TextServiceService,
@@ -27,10 +29,12 @@ export class RecordViewPage implements OnInit {
               private alertController: AlertController,
               private navCtrl: NavController,
               private alertService: AlertManagerService,
-              private loaderService: LoaderService) {
+              private loaderService: LoaderService,
+              private recordingUploadService: RecordingUploadService) {
     this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
     this.textService.getSentenceHasRecording().subscribe((status) => this.hasRecording = status);
     this.textService.getTextTitle().subscribe((title) => this.textTitle = title);
+    this.recordingUploadService.getIsUploadActive().subscribe((isUploadActive) => this.isUploadActive = isUploadActive);
    }
 
   ngOnInit() {
