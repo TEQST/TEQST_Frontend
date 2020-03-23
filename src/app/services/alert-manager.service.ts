@@ -78,7 +78,7 @@ export class AlertManagerService {
     await this.alert.present();
   }
 
-  async showErrorAlertNoRedirection(header, msg): Promise<void> {
+  async showErrorAlertNoRedirection(header, msg, reload: boolean = false): Promise<void> {
     if (this.alertActive) {
       return;
     }
@@ -91,6 +91,9 @@ export class AlertManagerService {
         text: 'OK',
         handler: () => {
           this.alertActive = false;
+          if (reload === true) {
+            window.location.reload();
+          }
         }
       }]
     });

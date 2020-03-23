@@ -1,3 +1,4 @@
+import { AlertManagerService } from './alert-manager.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SentenceRecordingModel } from './../models/sentence-recording.model';
 import { Injectable } from '@angular/core';
@@ -17,8 +18,8 @@ export class RecordingUploadService {
   private uploadQueue: [SentenceRecordingModel, boolean][] = []; // array of tuple [sentenceRecording, isReUpload]
   private isUploadActive = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private usermgmtService: UsermgmtService) {
-    usermgmtService.getAuthToken().subscribe((token) => {
+  constructor(private http: HttpClient, private usermgmtService: UsermgmtService, private alertService: AlertManagerService) {
+    this.usermgmtService.getAuthToken().subscribe((token) => {
       this.AUTH_TOKEN = token;
       this.initHttpOptions();
     });
@@ -44,7 +45,6 @@ export class RecordingUploadService {
 
   private uploadNextElement() {
     this.isUploadActive.next(true);
-    console.log('upload started')
     const queueElement = this.uploadQueue.shift();
     const isReUpload = queueElement[1];
     const sentenceRecording = queueElement[0];
@@ -58,16 +58,16 @@ export class RecordingUploadService {
     if (isReUpload) {
       // replace existing sentence recording
       this.http.put(sentenceRecordingUrl + `${sentenceRecording.recordingId}/?index=${sentenceRecording.sentenceNumber}`,
-        formData, this.httpOptions).subscribe(_ => {
+        formData, this.httpOptions).subscribe( () => {
           this.checkIfQueueIsFinished();
-        });
+        }, () => this.uploadFailed());
     } else {
       // create a new sentence recording
       formData.append('recording', sentenceRecording.recordingId.toString());
       formData.append('index', sentenceRecording.sentenceNumber.toString());
-      this.http.post(sentenceRecordingUrl, formData, this.httpOptions).subscribe(_ => {
+      this.http.post(sentenceRecordingUrl, formData, this.httpOptions).subscribe( () => {
         this.checkIfQueueIsFinished();
-      });
+      }, () => this.uploadFailed());
     }
 
 
@@ -78,8 +78,11 @@ export class RecordingUploadService {
       this.uploadNextElement();
     } else {
       this.isUploadActive.next(false);
-      console.log('upload finished')
     }
+  }
+
+  private uploadFailed(): void {
+    this.alertService.showErrorAlertNoRedirection('Upload failed', 'Please reload the page', true);
   }
 
   public getIsUploadActive(): Observable<boolean> {
