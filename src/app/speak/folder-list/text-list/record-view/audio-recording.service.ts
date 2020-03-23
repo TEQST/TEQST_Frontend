@@ -1,3 +1,5 @@
+import { RecordingUploadService } from './../../../../services/recording-upload.service';
+import { SentenceRecordingModel } from './../../../../models/sentence-recording.model';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
 import { Injectable, ModuleWithComponentFactories } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -39,7 +41,8 @@ export class AudioRecordingService {
   constructor(private textService: TextServiceService,
               private http: HttpClient,
               private usermgmtService: UsermgmtService,
-              private alertService: AlertManagerService) {
+              private alertService: AlertManagerService,
+              private recordingUploadService: RecordingUploadService) {
     this.subscribeToServices();
   }
 
@@ -124,22 +127,8 @@ export class AudioRecordingService {
   }
 
   private uploadRecording(index: number, blob: Blob): void {
-    const blobFile = new File([blob], 'recording.wav');
-
-    const formdata = new FormData();
-    formdata.append('audiofile', blobFile);
-    const sentenceRecordingUrl = this.SERVER_URL + '/api/sentencerecordings/';
-
-    // check if sentence has already been recorded
-    if (!this.sentenceHasRecording) {
-      formdata.append('recording', this.recordingId.toString());
-      formdata.append('index', index.toString());
-      this.http.post(sentenceRecordingUrl, formdata, this.httpOptions).subscribe((response) => '');
-    } else {
-      // replace existing sentence recording
-      this.http.put(sentenceRecordingUrl + `${this.recordingId}/?index=${this.activeSentence}`,
-       formdata, this.httpOptions).subscribe((response) => '');
-    }
+    const sentenceRecoding = new SentenceRecordingModel(this.recordingId, index, blob);
+    this.recordingUploadService.uploadRecording(sentenceRecoding, this.sentenceHasRecording);
   }
 
   stopRecording(): void {
