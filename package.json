@@ -26,6 +26,7 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
+    "@angular/service-worker": "~8.1.2",
     "@fjnr/ngx-translate-po-http-loader": "^3.1.2",
     "@ionic-native/core": "^5.21.6",
     "@ionic-native/splash-screen": "^5.21.6",

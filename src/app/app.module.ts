@@ -17,6 +17,8 @@ import { TimeoutInterceptor } from './interceptors/timeout-interceptor';
 import { Constants } from './constants';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 
@@ -38,7 +40,8 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     StatusBar,
