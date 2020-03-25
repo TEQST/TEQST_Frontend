@@ -83,6 +83,7 @@ export class RecordingUploadService {
 
   private uploadFailed(): void {
     this.alertService.showErrorAlertNoRedirection('Upload failed', 'Please reload the page', true);
+    this.isUploadActive.next(false);
   }
 
   public getIsUploadActive(): Observable<boolean> {
