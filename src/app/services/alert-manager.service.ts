@@ -9,7 +9,9 @@ export class AlertManagerService {
   private alertActive: boolean;
   private alert: HTMLIonAlertElement;
 
-  constructor(public alertController: AlertController, private navCtrl: NavController) { }
+  constructor(public alertController: AlertController, private navCtrl: NavController) {
+    this.alertController.create({ animated: false }).then(t => { t.present(); t.dismiss(); });
+   }
 
   async presentGoBackAlert(header: string, redirectURL: string = '/speak'): Promise<void>  {
     if (this.alertActive) {
