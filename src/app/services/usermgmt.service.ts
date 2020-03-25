@@ -40,6 +40,7 @@ export class UsermgmtService {
 
 
    // login into Website, saving AuthToken local and in localStorage, redirect to speak tab
+   // and fetching userdata from server
   login(dataToSend): void {
     const url = this.SERVER_URL +  '/api/auth/login/';
     let temporalMenuLanguage;

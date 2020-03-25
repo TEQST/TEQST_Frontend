@@ -19,6 +19,7 @@ export class RegisterPage implements OnInit {
   education = 'N';
   birthyear: number;
   country: string;
+  accent: string;
   gender = 'N';
   language: [];
   allLangs: [];
@@ -51,7 +52,9 @@ export class RegisterPage implements OnInit {
       birth_year: this.birthyear,
       gender: this.gender,
       education: this.education,
-      country: this.country};
+      country: this.country,
+      accent: this.accent
+    };
     const logInData = {
       username: this.username,
       password: this.password};

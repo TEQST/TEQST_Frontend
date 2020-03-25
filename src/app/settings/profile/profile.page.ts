@@ -26,6 +26,7 @@ export class ProfilePage implements OnInit {
   languageIds = [];
   menuLanguageShort = 'en';
   menuLanguageNative: string;
+  accent = '';
 
   public isLoading = false;
 
@@ -68,6 +69,7 @@ export class ProfilePage implements OnInit {
       this.gender = JSON.parse(this.dataFromServer).gender;
       this.education = JSON.parse(this.dataFromServer).education;
       this.country = JSON.parse(this.dataFromServer).country;
+      this.accent = JSON.parse(this.dataFromServer).accent;
       this.getAllLangs();
    });
   }
@@ -114,7 +116,9 @@ export class ProfilePage implements OnInit {
         country: this.country,
         gender: this.gender,
         education: this.education,
-        menu_language_id: this.menuLanguageShort};
+        menu_language_id: this.menuLanguageShort,
+        accent: this.accent
+      };
 
       this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
       this.navCtrl.navigateBack('settings');
