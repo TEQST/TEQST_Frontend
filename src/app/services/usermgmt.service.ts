@@ -1,11 +1,12 @@
 import { User } from './../interfaces/user';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
 import { Constants } from '../constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertManagerService } from './alert-manager.service';
-import { ConditionalExpr } from '@angular/compiler';
 import { TranslateService } from '@ngx-translate/core';
+import { RollbarService } from '../app.module';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,8 @@ export class UsermgmtService {
     public http: HttpClient,
     public navCtrl: NavController,
     private alertService: AlertManagerService,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private injector: Injector) {
 
     // gets AuthToken after reload or on init
     this.getAuthToken();
@@ -49,6 +51,7 @@ export class UsermgmtService {
 
       const userData = loginResponse['user'] as User;
 
+      this.initLoggingData(userData.id, userData.username);
       this.isPublisher.next(userData.is_publisher);
       temporalMenuLanguage = userData.menu_language.short;
 
@@ -96,6 +99,7 @@ export class UsermgmtService {
       this.resetHttpOptions();
       // reset the auth token manually because on back button press page isn't refreshed
       this.deleteStoredUserData();
+      this.clearLoggingData();
       this.navCtrl.navigateForward('/login');
 
     });
@@ -104,10 +108,10 @@ export class UsermgmtService {
   // deletes Authtoken and clears localStorage
   deleteStoredUserData(): void {
     // keep menu language in local storage
-   const temp = localStorage.getItem('MenuLanguage');
-   localStorage.clear();
-   localStorage.setItem('MenuLanguage', temp);
-   this.AUTH_TOKEN.next(null);
+    const temp = localStorage.getItem('MenuLanguage');
+    localStorage.clear();
+    localStorage.setItem('MenuLanguage', temp);
+    this.AUTH_TOKEN.next(null);
   }
 
   // gets all the information about the User who is currently logged in
@@ -145,6 +149,8 @@ export class UsermgmtService {
     localStorage.setItem('Token', this.AUTH_TOKEN.getValue());
     localStorage.setItem('MenuLanguage', this.menuLanguage);
     localStorage.setItem('isPublisher', JSON.stringify(this.isPublisher.getValue()));
+    localStorage.setItem('userId', userData.id.toString());
+    localStorage.setItem('username', userData.username);
   }
   // returns boolean if a user is a Publisher
   getIsPublisher(): Observable<boolean> {
@@ -172,4 +178,28 @@ export class UsermgmtService {
     return !(this.AUTH_TOKEN.getValue() === null);
   }
 
+  //add user id and username to the error logging
+  private initLoggingData(id: number, username: string): void {
+    const rollbar = this.injector.get(RollbarService);
+    rollbar.configure({
+      payload: {
+        person: {
+          id,
+          username
+        }
+      }
+    });
+  }
+
+  private clearLoggingData(): void {
+    const rollbar = this.injector.get(RollbarService);
+    rollbar.configure({
+      payload: {
+        person: {
+          id: null,
+          username: null
+        }
+      }
+    });
+  }
 }

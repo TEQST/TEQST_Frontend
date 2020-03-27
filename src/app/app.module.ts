@@ -26,6 +26,12 @@ const rollbarConfig = {
   accessToken: '64537dc9312241e085f9fed70fb182c3',
   captureUncaught: true,
   captureUnhandledRejections: true,
+  payload: {
+    person: {
+      id: localStorage.getItem('userId'),
+      username: localStorage.getItem('username')
+    }
+  }
 };
 
 

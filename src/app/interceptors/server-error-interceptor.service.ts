@@ -34,7 +34,7 @@ export class ServerErrorInterceptorService implements HttpInterceptor {
             // If the client uses an invalid token delete the locally stored one
             // TODO: improve api error for easier checking
             if (error.error.detail === 'Invalid token.') {
-              this.userService.deleteAuthToken();
+              this.userService.deleteStoredUserData();
             }
             this.alertService.presentNotLoggedInAlert();
             return;
