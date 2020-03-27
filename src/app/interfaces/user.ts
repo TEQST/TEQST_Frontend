@@ -12,4 +12,4 @@ export interface User {
     country: string;
     is_publisher: boolean;
 }
-}
+
