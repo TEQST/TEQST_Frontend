@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
@@ -10,6 +10,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslatePoHttpLoader } from '@fjnr/ngx-translate-po-http-loader';
 
+import * as Rollbar from 'rollbar';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServerErrorInterceptorService } from './interceptors/server-error-interceptor.service'
@@ -20,7 +22,21 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+const rollbarConfig = {
+  accessToken: '64537dc9312241e085f9fed70fb182c3',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+};
 
+
+
+export function rollbarFactory() {
+  return new Rollbar(rollbarConfig)
+}
+
+
+
+export const RollbarService = new InjectionToken<Rollbar>('rollbar');
 
 @NgModule({
   declarations: [
@@ -46,6 +62,12 @@ import { environment } from '../environments/environment';
   providers: [
     StatusBar,
     SplashScreen,
+    {
+
+      provide: RollbarService,
+      useFactory: rollbarFactory
+
+    },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },
     {
       provide: HTTP_INTERCEPTORS,
@@ -70,3 +92,5 @@ export class AppModule {}
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslatePoHttpLoader(http, `${Constants.SERVER_URL}/api/locale`, '.po');
 }
+
+
