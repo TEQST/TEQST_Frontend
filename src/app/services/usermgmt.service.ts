@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { User } from './../interfaces/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
 import { Constants } from '../constants';
@@ -45,10 +45,12 @@ export class UsermgmtService {
     const url = this.SERVER_URL +  '/api/auth/login/';
     let temporalMenuLanguage;
     this.resetHttpOptions();
-    this.http.post(url, dataToSend, this.httpOptions).subscribe((dataReturnFromServer: object) => {
+    this.http.post(url, dataToSend, this.httpOptions).subscribe((loginResponse: object) => {
 
-      this.isPublisher.next(dataReturnFromServer['user']['is_publisher']);
-      temporalMenuLanguage = dataReturnFromServer['user']['menu_language']['short']
+      const userData = loginResponse['user'] as User;
+
+      this.isPublisher.next(userData.is_publisher);
+      temporalMenuLanguage = userData.menu_language.short;
 
       if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') || localStorage.getItem('MenuLanguage') === null) {
         this.menuLanguage = temporalMenuLanguage;
@@ -56,12 +58,10 @@ export class UsermgmtService {
         this.menuLanguage = localStorage.getItem('MenuLanguage');
       }
 
-      this.dataFromServer = JSON.stringify(dataReturnFromServer);
+      this.dataFromServer = JSON.stringify(loginResponse);
       this.AUTH_TOKEN.next('Token ' + JSON.parse(this.dataFromServer).token);
       this.initHeaders();
-      localStorage.setItem('Token', this.AUTH_TOKEN.getValue());
-      localStorage.setItem('MenuLanguage', this.menuLanguage);
-      localStorage.setItem('isPublisher', JSON.stringify(this.isPublisher.getValue()));
+      this.storeUserData(userData);
       this.setMenuLanguage(this.menuLanguage);
       this.navCtrl.navigateForward('speak');
       }, (error: any) => {
@@ -95,17 +95,18 @@ export class UsermgmtService {
     this.http.post(url, '', this.httpOptions).subscribe(() => {
       this.resetHttpOptions();
       // reset the auth token manually because on back button press page isn't refreshed
-      this.deleteAuthToken();
+      this.deleteStoredUserData();
       this.navCtrl.navigateForward('/login');
 
     });
   }
 
   // deletes Authtoken and clears localStorage
-  deleteAuthToken(): void {
-   // localStorage.clear();
-   localStorage.removeItem('Token');
-   localStorage.removeItem('isPublisher');
+  deleteStoredUserData(): void {
+    // keep menu language in local storage
+   const temp = localStorage.getItem('MenuLanguage');
+   localStorage.clear();
+   localStorage.setItem('MenuLanguage', temp);
    this.AUTH_TOKEN.next(null);
   }
 
@@ -138,6 +139,12 @@ export class UsermgmtService {
         Authorization: this.AUTH_TOKEN.getValue(),
       })
     };
+  }
+
+  storeUserData(userData: User): void {
+    localStorage.setItem('Token', this.AUTH_TOKEN.getValue());
+    localStorage.setItem('MenuLanguage', this.menuLanguage);
+    localStorage.setItem('isPublisher', JSON.stringify(this.isPublisher.getValue()));
   }
   // returns boolean if a user is a Publisher
   getIsPublisher(): Observable<boolean> {
