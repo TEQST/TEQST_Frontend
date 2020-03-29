@@ -78,6 +78,9 @@ export class UsermgmtService {
     const url = this.SERVER_URL + '/api/auth/register/';
     this.http.post(url, dataToSend).subscribe(() => {
       this.login(logInData);
+    }, (error: any) => {
+      this.alertService.showErrorAlertNoRedirection('Username already eists',
+       'A user with that username already exists, please choose another username');
     });
   }
 
@@ -178,7 +181,7 @@ export class UsermgmtService {
     return !(this.AUTH_TOKEN.getValue() === null);
   }
 
-  //add user id and username to the error logging
+  // add user id and username to the error logging
   private initLoggingData(id: number, username: string): void {
     const rollbar = this.injector.get(RollbarService);
     rollbar.configure({
