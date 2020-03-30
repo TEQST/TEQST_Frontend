@@ -113,7 +113,9 @@ export class UsermgmtService {
     // keep menu language in local storage
     const temp = localStorage.getItem('MenuLanguage');
     localStorage.clear();
-    localStorage.setItem('MenuLanguage', temp);
+    if ( temp != null) {
+      localStorage.setItem('MenuLanguage', temp);
+    }
     this.AUTH_TOKEN.next(null);
   }
 
