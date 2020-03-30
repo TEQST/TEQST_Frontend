@@ -8,6 +8,7 @@ export class AlertManagerService {
 
   private alertActive: boolean;
   private alert: HTMLIonAlertElement;
+  private noInternetAlert: HTMLIonAlertElement;
 
   constructor(public alertController: AlertController, private navCtrl: NavController) {
     this.alertController.create({ animated: false }).then(t => { t.present(); t.dismiss(); });
@@ -101,5 +102,21 @@ export class AlertManagerService {
     });
 
     await this.alert.present();
+  }
+
+  async presentNoInternetAlert(): Promise<void> {
+    this.noInternetAlert = await this.alertController.create({
+      header: 'No Internet',
+      message: 'Please restore the connection to the internet',
+      backdropDismiss: false,
+    });
+
+    await this.noInternetAlert.present();
+  }
+
+  dismissNoInternetAlert(): void {
+    if (this.noInternetAlert != null) {
+      this.noInternetAlert.dismiss();
+    }
   }
 }
