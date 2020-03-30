@@ -10,7 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslatePoHttpLoader } from '@fjnr/ngx-translate-po-http-loader';
 
-import * as Rollbar from 'rollbar';
+import { RollbarService, rollbarFactory, RollbarErrorHandler } from './rollbar';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,28 +21,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
-const rollbarConfig = {
-  accessToken: '64537dc9312241e085f9fed70fb182c3',
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  payload: {
-    person: {
-      id: localStorage.getItem('userId'),
-      username: localStorage.getItem('username')
-    }
-  }
-};
-
-
-
-export function rollbarFactory() {
-  return new Rollbar(rollbarConfig)
-}
-
-
-
-export const RollbarService = new InjectionToken<Rollbar>('rollbar');
 
 @NgModule({
   declarations: [
@@ -69,10 +47,8 @@ export const RollbarService = new InjectionToken<Rollbar>('rollbar');
     StatusBar,
     SplashScreen,
     {
-
       provide: RollbarService,
       useFactory: rollbarFactory
-
     },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },
     {

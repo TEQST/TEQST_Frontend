@@ -7,7 +7,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
 import { AlertManagerService } from '../services/alert-manager.service';
-import { RollbarService } from '../app.module';
+import { RollbarService } from '../rollbar';
 
 @Injectable({
   providedIn: 'root'

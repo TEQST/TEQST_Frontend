@@ -6,7 +6,7 @@ import { Constants } from '../constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertManagerService } from './alert-manager.service';
 import { TranslateService } from '@ngx-translate/core';
-import { RollbarService } from '../app.module';
+import { RollbarService } from '../rollbar';
 
 @Injectable({
   providedIn: 'root'
