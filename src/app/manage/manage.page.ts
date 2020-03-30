@@ -196,7 +196,7 @@ export class ManagePage implements OnInit {
       .then(async (returnData) => {
         let data = returnData.data
         if (data) {
-          this.manageFolderService.createText(this.currentFolder.id, data.title, data.file)
+          this.manageFolderService.createText(this.currentFolder.id, data.title, data.file, data.language)
             .subscribe(
               () => {
                 this.currentFolder.is_sharedfolder = true

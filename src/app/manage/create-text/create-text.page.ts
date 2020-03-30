@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, IonInput } from '@ionic/angular';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { ModalController, IonInput, IonSelect } from '@ionic/angular';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsermgmtService } from 'src/app/services/usermgmt.service';
 
 @Component({
   selector: 'app-create-text',
@@ -15,6 +16,9 @@ export class CreateTextPage implements OnInit {
   public formValid: boolean
   public titleValid: boolean
   public fileSelected: boolean
+  public availableLanguages: any
+  public language: string
+  public languageNative: string
   /* allow any characters except \,/,:,*,<,>,| and whitespaces
      but not filenames starting with the character . */
   private validatorPattern = new RegExp('^(?!\\.)[^\\\\\/:\\*"<>\\| ]+$')
@@ -23,10 +27,13 @@ export class CreateTextPage implements OnInit {
   private existingTextNames: string[]
 
   constructor(private formBuilder: FormBuilder,
-              private viewCtrl: ModalController) {
+              private viewCtrl: ModalController,
+              public usermgmtService: UsermgmtService) {
 
+    
     this.createTextForm = this.formBuilder.group({
-      title: ['', control => { return this.textTitleValidator(control)} ]
+      title: ['', control => { return this.textTitleValidator(control)} ],
+      language: ['', Validators.required]
     });
 
     this.createTextForm.valueChanges.subscribe(() => { this.updateFormValidity() })
@@ -36,7 +43,11 @@ export class CreateTextPage implements OnInit {
     this.fileSelected = false
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.usermgmtService.getLangs().subscribe((data: any) => {
+      this.availableLanguages = data
+    })
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -51,11 +62,11 @@ export class CreateTextPage implements OnInit {
   }
 
   createText(formData) {
-    let title = formData.title
     // close the modal and pass its data back to the view
     this.viewCtrl.dismiss({
-      title: title,
-      file: this.file
+      title: formData.title,
+      file: this.file,
+      language: formData.language
     })
   }
 
@@ -76,6 +87,6 @@ export class CreateTextPage implements OnInit {
   }
 
   updateFormValidity() {    
-    this.formValid = this.titleValid && this.fileSelected
+    this.formValid = this.createTextForm.valid && this.titleValid && this.fileSelected
   }
 }
