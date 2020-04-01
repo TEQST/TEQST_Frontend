@@ -37,7 +37,8 @@ export class RecorderComponent implements OnInit {
   }
 
   private updateProgressBar(): void {
-    this.recordingProgress = (this.furthestSentenceIndex - 1) / this.totalSentenceNumber;
+    const indexOffset = 1;
+    this.recordingProgress = (this.furthestSentenceIndex - indexOffset) / this.totalSentenceNumber;
   }
 
   @HostListener('window:keydown', ['$event'])
