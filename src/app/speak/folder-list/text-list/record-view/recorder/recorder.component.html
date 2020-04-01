@@ -1,3 +1,6 @@
+
+    <ion-progress-bar class="progress-bar" value="{{recordingProgress}}"></ion-progress-bar>
+
     <!-- left button -->
     <ion-button *ngIf="!isRecording" class="btn" [disabled]="activeSentence === 1 ? 'true' : 'false'" color="primary" shape="round" (click)=previousSentence()>
       <ion-icon slot="icon-only" name="skip-backward"></ion-icon>

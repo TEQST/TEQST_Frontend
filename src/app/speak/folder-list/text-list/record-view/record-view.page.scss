@@ -12,18 +12,18 @@ ion-content div {
 
 ion-content div.noRecording {
     .recordSentences {
-        height: calc(100% - 120px);
+        height: calc(100% - 123px);
     }
     .recordFooter {
-        height: 120px;
+        height: 123px;
     }
 }
 
 ion-content div.hasRecording {
     .recordSentences {
-        height: calc(100% - 180px);
+        height: calc(100% - 183px);
     }
     .recordFooter {
-        height: 180px;
+        height: 183px; // 120px record buttons + 60px play bar + 3px progress bar
     }
 }

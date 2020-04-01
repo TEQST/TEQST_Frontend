@@ -6,12 +6,14 @@ import { AudioRecordingService } from '../audio-recording.service';
   selector: 'app-recorder',
   templateUrl: './recorder.component.html',
   styleUrls: ['./recorder.component.scss'],
-  // host: { '(window:keydown)': 'handleKeyboardInput($event)' },
 })
+
 export class RecorderComponent implements OnInit {
 
   public activeSentence: number;
   public totalSentenceNumber: number;
+  private furthestSentenceIndex: number;
+  public recordingProgress: number;
   public isRecording = false;
 
   constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) {
@@ -23,8 +25,19 @@ export class RecorderComponent implements OnInit {
   // subscribe to all needed variables from the services and update the locale ones on change
   private subscribeToServices(): void {
     this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
-    this.textService.getTotalSentenceNumber().subscribe(totalNumber => this.totalSentenceNumber = totalNumber);
+    this.textService.getTotalSentenceNumber().subscribe(totalNumber => {
+      this.totalSentenceNumber = totalNumber;
+      this.updateProgressBar();
+    });
+    this.textService.getFurthestSentenceIndex().subscribe(index => {
+      this.furthestSentenceIndex = index;
+      this.updateProgressBar();
+    });
     this.recordingService.getRecordingState().subscribe((status) => this.isRecording = status);
+  }
+
+  private updateProgressBar(): void {
+    this.recordingProgress = (this.furthestSentenceIndex - 1) / this.totalSentenceNumber;
   }
 
   @HostListener('window:keydown', ['$event'])
