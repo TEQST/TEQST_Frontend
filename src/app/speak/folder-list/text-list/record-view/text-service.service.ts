@@ -24,6 +24,7 @@ export class TextServiceService {
   private sentenceHasRecording = new BehaviorSubject<boolean>(false);
   private recordingId = new Subject<number>();
   private textTitle = new BehaviorSubject<string>('');
+  private isRightToLeft = new BehaviorSubject<boolean>(false);
 
   // Url Information
   private textId: number;
@@ -53,6 +54,7 @@ export class TextServiceService {
       this.textTitle.next(text['title']);
       this.totalSentenceNumber.next(text['content'].length);
       this.sentences.next(text['content']);
+      this.isRightToLeft.next(text['is_right_to_left']);
     });
   }
 
@@ -128,6 +130,10 @@ export class TextServiceService {
 
   getTextTitle(): Observable<string> {
     return this.textTitle.asObservable();
+  }
+
+  getIsRightToLeft(): Observable<boolean> {
+    return this.isRightToLeft.asObservable();
   }
 
   // fetch a new text from the server based on the given id

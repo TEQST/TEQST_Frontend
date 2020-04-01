@@ -22,6 +22,7 @@ export class RecordViewPage implements OnInit {
   private textId: number;
   public isLoading = false;
   public isUploadActive = false;
+  public isRightToLeft: boolean;
 
   constructor(private route: ActivatedRoute,
               private textService: TextServiceService,
@@ -34,6 +35,7 @@ export class RecordViewPage implements OnInit {
     this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
     this.textService.getSentenceHasRecording().subscribe((status) => this.hasRecording = status);
     this.textService.getTextTitle().subscribe((title) => this.textTitle = title);
+    this.textService.getIsRightToLeft().subscribe((isRightToLeft) => this.isRightToLeft = isRightToLeft);
     this.recordingUploadService.getIsUploadActive().subscribe((isUploadActive) => this.isUploadActive = isUploadActive);
    }
 
