@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsermgmtService } from '../../services/usermgmt.service';
 import { AlertManagerService } from '../../services/alert-manager.service';
 import * as moment from 'moment';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-register',
@@ -30,10 +31,12 @@ export class RegisterPage implements OnInit {
       Authorization: 'authToken'
     })
   };
+
   constructor(
     public navCtrl: NavController,
     public http: HttpClient,
     public usermgmtService: UsermgmtService,
+    public languageService: LanguageService,
     private alertService: AlertManagerService) { }
 
   ngOnInit() {
@@ -77,7 +80,7 @@ export class RegisterPage implements OnInit {
   // sets allLAngs[] to all Languages ever created by an Admin
   getAllLangs() {
 
-    this.usermgmtService.getLangs().subscribe((dataReturnFromServer: any) => {
+    this.languageService.getLangs().subscribe((dataReturnFromServer: any) => {
       this.allLangs = dataReturnFromServer;
     });
   }

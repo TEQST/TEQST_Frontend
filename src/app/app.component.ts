@@ -5,7 +5,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
-import { UsermgmtService } from './services/usermgmt.service';
+import { LanguageService } from './services/language.service';
 
 
 
@@ -20,14 +20,14 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private translate: TranslateService,
-    private usermgmtService: UsermgmtService,
+    private languageService: LanguageService,
     private connectionService: InternetConnectionService
   ) {
     this.initializeApp();
   }
   ngOnInit() {
     if (localStorage.getItem('MenuLanguage') != null) {
-      this.usermgmtService.setMenuLanguage(localStorage.getItem('MenuLanguage'));
+      this.languageService.setMenuLanguage(localStorage.getItem('MenuLanguage'));
      }
   }
 

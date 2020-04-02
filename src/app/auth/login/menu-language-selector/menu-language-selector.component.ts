@@ -1,5 +1,6 @@
 import { UsermgmtService } from 'src/app/services/usermgmt.service';
 import { Component, OnInit } from '@angular/core';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-menu-language-selector',
@@ -10,14 +11,14 @@ export class MenuLanguageSelectorComponent implements OnInit {
 
   language: string;
 
-  constructor(private userService: UsermgmtService) { }
+  constructor(private userService: UsermgmtService, private languageService: LanguageService) { }
 
   ngOnInit() {
-    this.language = this.userService.getMenuLanguage();
+    this.language = this.languageService.getMenuLanguage();
   }
 
   changeLanguage(): void {
-    this.userService.setMenuLanguage(this.language);
+    this.languageService.setMenuLanguage(this.language);
   }
 
 }

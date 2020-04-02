@@ -5,8 +5,8 @@ import { NavController } from '@ionic/angular';
 import { Constants } from '../constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertManagerService } from './alert-manager.service';
-import { TranslateService } from '@ngx-translate/core';
 import { RollbarService } from '../rollbar';
+import { LanguageService } from './language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,51 +21,39 @@ export class UsermgmtService {
 
   private httpOptions;
   private isPublisher = new BehaviorSubject<boolean>(undefined);
-  private menuLanguage; // TODO: fetch menu language from server
-
   private AUTH_TOKEN = new BehaviorSubject<string>('');
+  // tslint:disable: no-string-literal
 
   constructor(
     public http: HttpClient,
     public navCtrl: NavController,
     private alertService: AlertManagerService,
-    private translate: TranslateService,
+    public languageService: LanguageService,
     private injector: Injector) {
 
     // gets AuthToken after reload or on init
     this.getAuthToken();
     this.initHeaders();
-    this.menuLanguage = localStorage.getItem('MenuLanguage');
 
    }
 
-
-
-   // login into Website, saving AuthToken local and in localStorage, redirect to speak tab
+   // login into Website, saving userdata in localStorage, redirect to speak tab
    // and fetching userdata from server
   login(dataToSend): void {
     const url = this.SERVER_URL +  '/api/auth/login/';
-    let temporalMenuLanguage;
+    let menuLanguage;
     this.resetHttpOptions();
     this.http.post(url, dataToSend, this.httpOptions).subscribe((loginResponse: object) => {
-
       const userData = loginResponse['user'] as User;
-
       this.initLoggingData(userData.id, userData.username);
       this.isPublisher.next(userData.is_publisher);
-      temporalMenuLanguage = userData.menu_language.short;
-
-      if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') || localStorage.getItem('MenuLanguage') === null) {
-        this.menuLanguage = temporalMenuLanguage;
-      } else {
-        this.menuLanguage = localStorage.getItem('MenuLanguage');
-      }
-
+      menuLanguage = userData.menu_language.short;
+      this.languageService.updateMenuLanguage(menuLanguage);
       this.dataFromServer = JSON.stringify(loginResponse);
       this.AUTH_TOKEN.next('Token ' + JSON.parse(this.dataFromServer).token);
       this.initHeaders();
       this.storeUserData(userData);
-      this.setMenuLanguage(this.menuLanguage);
+      this.languageService.setMenuLanguage(this.languageService.menuLanguage);
       this.navCtrl.navigateForward('speak');
       }, (error: any) => {
         // calls AlertService when server sends error code
@@ -111,10 +99,11 @@ export class UsermgmtService {
   // deletes Authtoken and clears localStorage
   deleteStoredUserData(): void {
     // keep menu language in local storage
-    const temp = localStorage.getItem('MenuLanguage');
+    const tempLanguage = localStorage.getItem('MenuLanguage');
     localStorage.clear();
-    if ( temp != null) {
-      localStorage.setItem('MenuLanguage', temp);
+    if ( tempLanguage != null) {
+      // localStorage.setItem('MenuLanguage', temp);
+      this.languageService.putMenuLanguageLocalStorageWithParam(tempLanguage);
     }
     this.AUTH_TOKEN.next(null);
   }
@@ -125,11 +114,6 @@ export class UsermgmtService {
     return this.http.get(url, this.httpOptions);
   }
 
-  // returns all speakable Languages created by an admin
-  getLangs(): Observable<object> {
-    const url = this.SERVER_URL + '/api/langs/';
-    return this.http.get(url);
-  }
   // resets httpOptions -> no Authtoken after reset
   private resetHttpOptions(): void {
     this.httpOptions = {
@@ -152,7 +136,7 @@ export class UsermgmtService {
 
   storeUserData(userData: User): void {
     localStorage.setItem('Token', this.AUTH_TOKEN.getValue());
-    localStorage.setItem('MenuLanguage', this.menuLanguage);
+    this.languageService.putMenuLanguageLocalStorage(),
     localStorage.setItem('isPublisher', JSON.stringify(this.isPublisher.getValue()));
     localStorage.setItem('userId', userData.id.toString());
     localStorage.setItem('username', userData.username);
@@ -166,16 +150,6 @@ export class UsermgmtService {
   getAuthToken(): Observable<string> {
     this.AUTH_TOKEN.next(localStorage.getItem('Token'));
     return this.AUTH_TOKEN.asObservable();
-  }
-
-  setMenuLanguage(lang: string): void {
-    this.menuLanguage = lang;
-    localStorage.setItem('MenuLanguage', lang);
-    this.translate.use(lang);
-  }
-
-  getMenuLanguage(): string {
-    return this.menuLanguage;
   }
 
   isLoggedIn(): boolean {

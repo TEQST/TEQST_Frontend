@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
 import * as moment from 'moment';
 import { LoaderService } from 'src/app/services/loader.service';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-profile',
@@ -33,11 +34,13 @@ export class ProfilePage implements OnInit {
 
 
   constructor(public usermgmtService: UsermgmtService,
+              public languageService: LanguageService,
               public navCtrl: NavController,
               private alertService: AlertManagerService,
               private loaderService: LoaderService) {
     this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
               }
+  // tslint:disable: no-string-literal
 
   // loads everytime Page is loaded their content
   ngOnInit() {
@@ -76,7 +79,7 @@ export class ProfilePage implements OnInit {
 
   // loads all Languages which can be spoken (has to be created before by admin)
   getAllLangs() {
-    this.usermgmtService.getLangs().subscribe((dataReturnFromServer: any) => {
+    this.languageService.getLangs().subscribe((dataReturnFromServer: any) => {
       this.allLangs = dataReturnFromServer;
       for (const singleLanguage of this.allLangs) {
         if (singleLanguage['is_menu_language'] === true) {
@@ -88,7 +91,7 @@ export class ProfilePage implements OnInit {
   updateMenuLanguageString() {
     for (const singleLanguage of this.allMenuLangs) {
       if ( singleLanguage['short'] === this.menuLanguageShort) {
-        this.menuLanguageNative = singleLanguage['native_name']
+        this.menuLanguageNative = singleLanguage['native_name'];
       }
     }
   }
@@ -97,6 +100,7 @@ export class ProfilePage implements OnInit {
     for (const singleLanguage of this.allLangs) {
       for (const oneItem of this.languageIds) {
         if (oneItem === singleLanguage['short']) {
+
           this.languageString += singleLanguage['native_name'] + ', ';
         }
       }
@@ -122,7 +126,7 @@ export class ProfilePage implements OnInit {
 
       this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
       this.navCtrl.navigateBack('settings');
-      this.usermgmtService.setMenuLanguage(this.menuLanguageShort);
+      this.languageService.setMenuLanguage(this.menuLanguageShort);
       });
 
     } else {
