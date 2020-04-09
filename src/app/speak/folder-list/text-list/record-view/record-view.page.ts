@@ -1,9 +1,8 @@
 import { RecordingUploadService } from './../../../../services/recording-upload.service';
 import { AudioRecordingService } from './audio-recording.service';
 import { Component, OnInit, HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
 import { TextServiceService } from './text-service.service';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -28,7 +27,7 @@ export class RecordViewPage implements OnInit {
               private textService: TextServiceService,
               private audioService: AudioRecordingService,
               private alertController: AlertController,
-              private navCtrl: NavController,
+              private router: Router,
               private alertService: AlertManagerService,
               private loaderService: LoaderService,
               private recordingUploadService: RecordingUploadService) {
@@ -71,6 +70,10 @@ export class RecordViewPage implements OnInit {
   // Present alert to the user to give permissions for the text
   // if its dismissed without any information entered go back
   async presentPermissionsCheckbox() {
+    // get the current router url
+    const url = this.router.url;
+    // remove the textId param
+    const goBackUrl = url.slice(0, url.lastIndexOf('/'));
     const alert = await this.alertController.create({
       header: 'Recording Permissions',
       backdropDismiss: false,
@@ -95,14 +98,14 @@ export class RecordViewPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            this.navCtrl.navigateBack('speak');
+            this.router.navigate([goBackUrl]);
           }
         }, {
           text: 'Ok',
           handler: (permissions) => {
             // check if at least one option is selected
             if (Object.keys(permissions).length === 0) {
-              this.navCtrl.navigateBack('speak');
+              this.router.navigate([goBackUrl]);
             } else {
               // check which of the options is selected
               const tts = Object.values(permissions).indexOf('TTS') > -1;
