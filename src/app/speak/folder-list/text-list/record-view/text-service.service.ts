@@ -22,7 +22,7 @@ export class TextServiceService {
   private totalSentenceNumber = new BehaviorSubject<number>(1);
   private furthestSentenceIndex = new BehaviorSubject<number>(1);
   private sentenceHasRecording = new BehaviorSubject<boolean>(false);
-  private recordingId = new Subject<number>();
+  private recordingId = new ReplaySubject<number>(1);
   private textTitle = new BehaviorSubject<string>('');
   private isRightToLeft = new BehaviorSubject<boolean>(false);
 
