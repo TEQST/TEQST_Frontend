@@ -14,8 +14,10 @@ export class PlayerComponent implements OnInit {
   private recordingId: number;
   private activeSentence: number;
 
-  constructor(private recordingService: AudioRecordingService, private playbackService: RecordingPlaybackService, private textService: TextServiceService) {
-   }
+  constructor(
+    private recordingService: AudioRecordingService,
+    private playbackService: RecordingPlaybackService,
+    private textService: TextServiceService) {}
 
   ngOnInit() {
     this.subscribeToServices();
