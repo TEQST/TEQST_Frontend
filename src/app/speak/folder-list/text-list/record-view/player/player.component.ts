@@ -1,7 +1,7 @@
+import { AudioRecordingService } from './../audio-recording.service';
 import { TextServiceService } from './../text-service.service';
 import { RecordingPlaybackService } from './../../../../../services/recording-playback.service';
 import { Component, OnInit } from '@angular/core';
-import { AudioRecordingService } from '../audio-recording.service';
 
 @Component({
   selector: 'app-player',
@@ -11,12 +11,14 @@ import { AudioRecordingService } from '../audio-recording.service';
 export class PlayerComponent implements OnInit {
 
   public isPlaying = false;
+  public isRecording = false;
   private recordingId: number;
   private activeSentence: number;
 
   constructor(
     private playbackService: RecordingPlaybackService,
-    private textService: TextServiceService) {}
+    private textService: TextServiceService,
+    private recordingService: AudioRecordingService) {}
 
   ngOnInit() {
     this.subscribeToServices();
@@ -27,11 +29,14 @@ export class PlayerComponent implements OnInit {
     this.playbackService.getIsPlaying().subscribe((state) => this.isPlaying = state);
     this.textService.getRecordingId().subscribe((id) => this.recordingId = id);
     this.textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
+    this.recordingService.getRecordingState().subscribe((state) => this.isRecording = state);
   }
 
   playRecording(): void {
-    // TODO: When recording is active disable playback
-    this.playbackService.playSentenceRecording(this.recordingId, this.activeSentence);
+    // Only allow playback when no recording is active
+    if (this.isRecording === false) {
+      this.playbackService.playSentenceRecording(this.recordingId, this.activeSentence);
+    }
   }
 
   stopRecording(): void {
