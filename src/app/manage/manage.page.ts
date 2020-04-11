@@ -1,3 +1,4 @@
+import { FolderStatsPage } from './folder-stats/folder-stats.page';
 import { LoaderService } from './../services/loader.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -146,7 +147,19 @@ export class ManagePage implements OnInit {
         folderName: this.currentFolder.name
       }
     })
-    return await modal.present()
+    return await modal.present();
+  }
+
+  async openFolderStatsModal() {
+    const modal = await this.modalController.create({
+      component: FolderStatsPage,
+      componentProps: {
+        // pass variables to the modal
+        folderId: this.currentFolder.id,
+        folderName: this.currentFolder.name
+      }
+    })
+    return await modal.present();
   }
 
   downloadFolder() {

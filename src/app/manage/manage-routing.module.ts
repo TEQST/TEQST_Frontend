@@ -15,7 +15,11 @@ const routes: Routes = [
   {
     path: 'text/:textId',
     loadChildren: () => import('./text-detail/text-detail.module').then( m => m.TextDetailPageModule)
+  },  {
+    path: 'folder-stats',
+    loadChildren: () => import('./folder-stats/folder-stats.module').then( m => m.FolderStatsPageModule)
   }
+
 
 ];
 
