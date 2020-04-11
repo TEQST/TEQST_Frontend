@@ -15,7 +15,6 @@ export class PlayerComponent implements OnInit {
   private activeSentence: number;
 
   constructor(
-    private recordingService: AudioRecordingService,
     private playbackService: RecordingPlaybackService,
     private textService: TextServiceService) {}
 

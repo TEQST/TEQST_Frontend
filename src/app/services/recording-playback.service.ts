@@ -26,8 +26,6 @@ export class RecordingPlaybackService {
    }
 
   public async playSentenceRecording(recordingId: number, sentenceNumber: number): Promise<void> {
-    console.log(sentenceNumber);
-    console.log(recordingId);
     const cacheIndex = this.findCacheIndex(recordingId, sentenceNumber);
     let audioBlob: Blob;
     if (cacheIndex > -1) {

@@ -1,3 +1,4 @@
+import { RecordingPlaybackService } from './../../../../../services/recording-playback.service';
 import { Component, OnInit, ElementRef, QueryList, ViewChildren, AfterViewChecked } from '@angular/core';
 import {TextServiceService} from '../text-service.service';
 import { AudioRecordingService } from '../audio-recording.service';
@@ -15,7 +16,8 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private textService: TextServiceService,
-    private recordingService: AudioRecordingService
+    private recordingService: AudioRecordingService,
+    private playbackService: RecordingPlaybackService
   ) {
     this.subscribeToServices();
    }
@@ -38,7 +40,7 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
 
   // when clicking on a sentence set it to active
   onSelect(index: number): void {
-    this.recordingService.stopAudioPlaying();
+    this.playbackService.stopAudioPlayback();
     this.textService.setActiveSentenceIndex(index);
   }
 

@@ -1,3 +1,4 @@
+import { RecordingPlaybackService } from './../../../../services/recording-playback.service';
 import { RecordingUploadService } from './../../../../services/recording-upload.service';
 import { AudioRecordingService } from './audio-recording.service';
 import { Component, OnInit, HostListener } from '@angular/core';
@@ -30,7 +31,8 @@ export class RecordViewPage implements OnInit {
               private router: Router,
               private alertService: AlertManagerService,
               private loaderService: LoaderService,
-              private recordingUploadService: RecordingUploadService) {
+              private recordingUploadService: RecordingUploadService,
+              private playbackService: RecordingPlaybackService) {
     this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
     this.textService.getSentenceHasRecording().subscribe((status) => this.hasRecording = status);
     this.textService.getTextTitle().subscribe((title) => this.textTitle = title);
@@ -63,7 +65,7 @@ export class RecordViewPage implements OnInit {
   }
 
   public stopAllMedia(): void {
-    this.audioService.stopAudioPlaying();
+    this.playbackService.stopAudioPlayback();
     this.audioService.abortRecording();
   }
 
