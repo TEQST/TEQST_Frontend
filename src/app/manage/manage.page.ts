@@ -207,9 +207,10 @@ export class ManagePage implements OnInit {
     })
     modal.onDidDismiss()
       .then(async (returnData) => {
-        let data = returnData.data
-        if (data) {
-          this.manageFolderService.createText(this.currentFolder.id, data.title, data.file, data.language)
+        let params = returnData.data
+        if (params) {
+          params['shared_folder'] = this.currentFolder.id
+          this.manageFolderService.createText(params)
             .subscribe(
               () => {
                 this.currentFolder.is_sharedfolder = true

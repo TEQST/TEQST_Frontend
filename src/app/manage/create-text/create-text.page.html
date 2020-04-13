@@ -25,6 +25,14 @@
           <ion-select-option *ngFor="let lang of availableLanguages" value="{{lang.short}}">{{lang.native_name}}</ion-select-option>
         </ion-select>
       </ion-item>
+        <ion-item id="text-split-toggle-item" lines="none">
+          <ion-label>Split into multiple texts</ion-label>
+          <ion-toggle (ionChange)="textSplitToggleChanged($event)"></ion-toggle>
+        </ion-item>
+        <ion-item id="text-split-detail" lines="none" [ngClass]="{'visible': enableTextSplit}">
+          <ion-label>Maximum lines per text</ion-label>
+          <ion-input formControlName="splitLines" type="number" inputmode="numeric"></ion-input>
+        </ion-item>
     </ion-list>
     <div class="ion-padding">
       <ion-button [disabled]="!formValid" expand="block" type="submit" class="ion-no-margin" color="dark">{{'Create text' | translate}}</ion-button>
