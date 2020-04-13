@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="folderStats">
+  <div *ngIf="folderStats" style="height: 100%;">
     <ion-list *ngFor="let speaker of folderStats.speakers">
       <ion-list-header>{{speaker.name}}</ion-list-header>
       <ion-item *ngFor="let text of speaker.texts">
@@ -21,6 +21,11 @@
         <ion-icon [ngClass]="{'hidden' : !(text.finished === text.total)}" class="ion-float-right" color="success" name="checkmark-circle" ></ion-icon>
       </ion-item>
     </ion-list>
+    <div *ngIf="folderStats.speakers.length === 0" class="vertical-center-container">
+      <ion-text class="vertical-center-content" color="medium">
+        <span >{{"No statistics to display. Please share the folder to a speaker." | translate}}</span>
+      </ion-text>
+    </div>
   </div>
 
   <!-- Skeleton Text displayed during Loading -->
