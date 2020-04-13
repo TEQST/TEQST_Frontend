@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, IonInput, IonSelect } from '@ionic/angular';
+import { ModalController, IonInput } from '@ionic/angular';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsermgmtService } from 'src/app/services/usermgmt.service';
 import { LanguageService } from 'src/app/services/language.service';
@@ -16,16 +16,23 @@ export class CreateTextPage implements OnInit {
 
   public formValid: boolean;
   public titleValid: boolean;
+  public languageSelected: boolean;
   public fileSelected: boolean;
+  public enableTextSplit: boolean;
+  public splitLinesValid: boolean;
   public availableLanguages: any;
   public language: string;
   public languageNative: string;
+  public createTextForm: FormGroup;
+
   /* allow any characters except \,/,:,*,<,>,| and whitespaces
      but not filenames starting with the character . */
   private validatorPattern = new RegExp('^(?!\\.)[^\\\\\/:\\*"<>\\| ]+$');
-  public createTextForm: FormGroup;
   private file: File;
   private existingTextNames: string[];
+  private textSplitLinesMin = 5;
+  private textSplitLinesMax = 100;
+  private textSplitLinesDefault = 30;
 
   constructor(private formBuilder: FormBuilder,
               private viewCtrl: ModalController,
@@ -34,15 +41,13 @@ export class CreateTextPage implements OnInit {
 
 
     this.createTextForm = this.formBuilder.group({
-      title: ['', control => { return this.textTitleValidator(control); } ],
-      language: ['', Validators.required]
-    });
+      title: ['', control => { return this.textTitleValidator(control) } ],
+      language: ['', control => { return this.languageValidator(control) }],
+      splitLines: [this.textSplitLinesDefault, control => { return this.splitLinesValidator(control) }]
+    })
 
-    this.createTextForm.valueChanges.subscribe(() => { this.updateFormValidity(); });
-
-    this.formValid = false;
-    this.titleValid = false;
-    this.fileSelected = false;
+    this.createTextForm.valueChanges.subscribe(() => { this.updateFormValidity() });
+    this.splitLinesValid = true;
   }
 
   ngOnInit() {
@@ -65,11 +70,16 @@ export class CreateTextPage implements OnInit {
 
   createText(formData) {
     // close the modal and pass its data back to the view
-    this.viewCtrl.dismiss({
+    let returnData = {
       title: formData.title,
-      file: this.file,
-      language: formData.language
-    });
+      textfile: this.file,
+      language: formData.language }
+
+    if (this.enableTextSplit) {
+      returnData['max_lines'] = formData.splitLines
+    }
+    
+    this.viewCtrl.dismiss(returnData);
   }
 
   setFile(file) {
@@ -79,17 +89,46 @@ export class CreateTextPage implements OnInit {
   }
 
   textTitleValidator(control: FormControl) {
-    const title = control.value;
+    const title = control.value
     this.titleValid = (this.validatorPattern.test(title) &&
                        title.trim() !== '' &&  // title not empty
-                      !this.existingTextNames.includes(title));
+                      !this.existingTextNames.includes(title))
 
-    if (this.titleValid) {return null;
-    } else {return { textTitle: true };
+    if (!this.titleValid) {
+      return { textTitle: true }
     }
+    return null
+  }
+
+  languageValidator(control: FormControl) {
+    const language = control.value
+    this.languageSelected = (language != '')
+    
+    if (!this.languageSelected) {
+      return { textTitle: true }
+    }
+    return null
+  }
+
+  splitLinesValidator(control: FormControl) {
+    const lines = control.value
+    this.splitLinesValid = lines >= this.textSplitLinesMin && lines <= this.textSplitLinesMax
+    
+    if (!this.splitLinesValid) {
+      return { textSplitLines: true }
+    }
+    return null
   }
 
   updateFormValidity() {
-    this.formValid = this.createTextForm.valid && this.titleValid && this.fileSelected;
+    this.formValid = this.titleValid &&
+                     this.fileSelected &&
+                     this.languageSelected &&
+                     (!this.enableTextSplit || this.splitLinesValid)
+  }
+
+  textSplitToggleChanged($event) {
+    this.enableTextSplit = $event.detail.checked
+    this.updateFormValidity();
   }
 }

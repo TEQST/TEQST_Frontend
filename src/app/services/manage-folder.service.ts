@@ -88,12 +88,16 @@ export class ManageFolderService {
     })
   }
 
-  createText(folderId: string, title: string, textFile: File, language: string) {
-    let formData = new FormData(); 
-    formData.append('shared_folder', folderId); 
-    formData.append('title', title); 
-    formData.append('textfile', textFile, textFile.name); 
-    formData.append('language', language); 
+  createText(params: any[]) {
+    let formData = new FormData();
+    for (let param in params) {
+      let paramValue = params[param]
+      if (param == 'textfile') {
+        formData.append('textfile', paramValue, paramValue.name); 
+      } else {
+        formData.append(param, paramValue)
+      }
+    }
 
     let url = new URL(`${this.SERVER_URL}/api/pub/texts/`)
 
