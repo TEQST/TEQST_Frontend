@@ -1,3 +1,4 @@
+import { FolderStatsPageModule } from './folder-stats/folder-stats.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +24,8 @@ import { TextDetailPageModule } from './text-detail/text-detail.module';
     CreateFolderPageModule,
     CreateTextPageModule,
     ShareFolderPageModule,
-    TextDetailPageModule
+    TextDetailPageModule,
+    FolderStatsPageModule
   ],
   declarations: [ManagePage],
 })

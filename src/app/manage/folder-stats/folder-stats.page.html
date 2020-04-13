@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'Statistics for' | translate}} {{folderName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let speaker of folderStats.speakers">
+    <ion-list-header>{{speaker.name}}</ion-list-header>
+    <ion-item *ngFor="let text of speaker.texts">
+      <ion-label>
+        <h2>{{text.title}}</h2>
+      </ion-label>
+      <span class="progress-text ion-float-right">{{text.finished}} out of {{text.total}} Sentences</span>
+      <ion-icon [ngClass]="{'hidden' : !(text.finished === text.total)}" class="ion-float-right" color="success" name="checkmark-circle" ></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

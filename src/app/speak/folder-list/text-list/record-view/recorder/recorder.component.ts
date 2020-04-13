@@ -1,3 +1,4 @@
+import { RecordingPlaybackService } from './../../../../../services/recording-playback.service';
 import { Component, OnInit, HostListener } from '@angular/core';
 import {TextServiceService} from '../text-service.service';
 import { AudioRecordingService } from '../audio-recording.service';
@@ -16,7 +17,9 @@ export class RecorderComponent implements OnInit {
   public recordingProgress: number;
   public isRecording = false;
 
-  constructor(private textService: TextServiceService, private recordingService: AudioRecordingService) {
+  constructor(private textService: TextServiceService,
+              private recordingService: AudioRecordingService,
+              private playbackService: RecordingPlaybackService) {
     this.subscribeToServices();
   }
 
@@ -74,12 +77,12 @@ export class RecorderComponent implements OnInit {
   }
 
   previousSentence(): void {
-    this.recordingService.stopAudioPlaying();
+    this.playbackService.stopAudioPlayback();
     this.textService.setPreviousSentenceActive();
   }
 
   nextSentence(): void {
-    this.recordingService.stopAudioPlaying();
+    this.playbackService.stopAudioPlayback();
     if (this.isRecording === true) {
       // if currently recording start the recording of the next sentence
       this.recordingService.nextRecording();
