@@ -1,12 +1,12 @@
 export interface TextStats {
     id: number;
-    title: String;
+    title: string;
     total: number;
-    speakers: statsPerSpeaker[];
+    speakers: StatsPerSpeaker[];
 }
 
-interface statsPerSpeaker {
-    name: String;
+interface StatsPerSpeaker {
+    name: string;
     finished: number;
     textrecording_id: number;
 }
