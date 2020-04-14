@@ -13,11 +13,7 @@ export class FolderStatsPage implements OnInit {
   @Input() folderId: number;
   @Input() folderName: string;
 
-  public folderStats: FolderStats = {
-    id: 0,
-    name: 'Loading',
-    speakers: []
-  };
+  public folderStats: FolderStats;
 
   constructor(private statsServices: StatisticsService, private viewCtrl: ModalController) { }
 

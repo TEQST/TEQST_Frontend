@@ -6,3 +6,15 @@
     color: var(--ion-color-medium);
     padding-right: 5px;
 }
+
+.vertical-center-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vertical-center-content{
+    padding: 0 20px;
+}
