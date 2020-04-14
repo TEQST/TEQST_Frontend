@@ -1,3 +1,4 @@
+import { TextWrapperComponent } from './text-wrapper/text-wrapper.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,9 @@ import { TextDetailPage } from './text-detail.page';
     IonicModule,
     TextDetailPageRoutingModule
   ],
-  declarations: [TextDetailPage]
+  declarations: [
+    TextDetailPage,
+    TextWrapperComponent
+  ]
 })
 export class TextDetailPageModule {}

@@ -1,3 +1,4 @@
+import { TextStats } from './../interfaces/text-stats';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -21,6 +22,15 @@ export class StatisticsService {
   public getSharedFolderStats(sharedFolderId: number): Observable<FolderStats> {
     const url = new URL(`${this.SERVER_URL}/api/pub/sharedfolders/${sharedFolderId}/stats/`);
     return this.http.get<FolderStats>(url.toString(), {
+      headers: {
+        Authorization: this.AUTH_TOKEN
+      }
+    });
+  }
+
+  public getTextStats(textId: number): Observable<TextStats> {
+    const url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/stats/`);
+    return this.http.get<TextStats>(url.toString(), {
       headers: {
         Authorization: this.AUTH_TOKEN
       }
