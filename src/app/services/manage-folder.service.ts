@@ -1,3 +1,4 @@
+import { TextObject } from './../interfaces/text-object';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -120,9 +121,9 @@ export class ManageFolderService {
     })
   }
 
-  getTextInfo(textId: string) {
+  getTextInfo(textId: string): Observable<TextObject> {
     let url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`)
-    return this.http.get(url.toString(), {
+    return this.http.get<TextObject>(url.toString(), {
       headers:  {
         "Authorization": this.AUTH_TOKEN
       }

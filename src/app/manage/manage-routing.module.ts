@@ -15,13 +15,7 @@ const routes: Routes = [
   {
     path: 'text/:textId',
     loadChildren: () => import('./text-detail/text-detail.module').then( m => m.TextDetailPageModule)
-  },
-  {
-    path: 'text/:textId/:speaker',
-    loadChildren: () => import('./text-detail/text-detail.module').then(m => m.TextDetailPageModule)
   }
-
-
 ];
 
 @NgModule({
