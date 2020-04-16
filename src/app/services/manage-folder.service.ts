@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Constants } from '../constants';
 import { UsermgmtService } from './usermgmt.service';
+import { AuthenticationService } from './authentication.service';
 
 interface User {
   "id": number,
@@ -21,8 +22,8 @@ interface User {
 
 export class ManageFolderService {
 
-  constructor(private http: HttpClient, private usermgmtService: UsermgmtService) { 
-    usermgmtService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token)
+  constructor(private http: HttpClient, public authenticationService: AuthenticationService) { 
+    this.authenticationService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token)
   }
 
   SERVER_URL = Constants.SERVER_URL

@@ -5,6 +5,7 @@ import { UsermgmtService } from '../../services/usermgmt.service';
 import { AlertManagerService } from '../../services/alert-manager.service';
 import * as moment from 'moment';
 import { LanguageService } from 'src/app/services/language.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +36,7 @@ export class RegisterPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public http: HttpClient,
-    public usermgmtService: UsermgmtService,
+    public authenticationService: AuthenticationService,
     public languageService: LanguageService,
     private alertService: AlertManagerService) { }
 
@@ -73,7 +74,7 @@ export class RegisterPage implements OnInit {
            'Invalid Birthyear',
             'Set a Birthyear between ' + minimumYear + ' and ' +  currentYear);
        } else {
-         this.usermgmtService.register(dataToSend, logInData);
+         this.authenticationService.register(dataToSend, logInData);
        }
   }
 

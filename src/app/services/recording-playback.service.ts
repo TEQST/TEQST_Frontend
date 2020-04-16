@@ -4,6 +4,7 @@ import { SentenceRecordingModel } from './../models/sentence-recording.model';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Constants } from '../constants';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class RecordingPlaybackService {
   private audio = new Audio();
   private isPlaying = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private usermgmtService: UsermgmtService) {
-    this.usermgmtService.getAuthToken().subscribe((token) => {
+  constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
+    this.authenticationService.getAuthToken().subscribe((token) => {
       this.AUTH_TOKEN = token;
     });
    }
