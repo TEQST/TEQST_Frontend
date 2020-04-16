@@ -10,9 +10,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let text of texts" routerLink="/speak/{{publisherId}}/{{folderId}}/{{text.id}}">
+    <ion-item button *ngFor="let text of texts" routerLink="/tabs/speak/{{publisherId}}/{{folderId}}/{{text.id}}">
       <ion-icon name="paper" class="textIcon"></ion-icon> {{ text.title }}
     </ion-item>
   </ion-list>
 </ion-content>
-<app-tabBar></app-tabBar>

@@ -4,7 +4,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'speak', pathMatch: 'full' },
+  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
+  { path: 'speak', redirectTo: '/tabs/speak', pathMatch: 'full' },
+  { path: 'manage', redirectTo: '/tabs/manage', pathMatch: 'full' },
+  { path: 'settings', redirectTo: '/tabs/settings', pathMatch: 'full' },
+  /*{ path: '', redirectTo: 'speak', pathMatch: 'full' },
   {
     path: 'speak',
     loadChildren: () => import('./speak/speak.module').then( m => m.SpeakPageModule),
@@ -40,7 +44,11 @@ const routes: Routes = [
     component: PageNotFoundComponent,
     data: { requiresLogin: true},
     canActivate: [ AccessGuard ]
-  }
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  }*/
 
 ];
 

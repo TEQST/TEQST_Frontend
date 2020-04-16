@@ -9,7 +9,6 @@ import { IonicModule } from '@ionic/angular';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
-import { ComponentsModule } from '../tabBar/tab-bar.modules';
 
 @NgModule({
   imports: [
@@ -17,7 +16,6 @@ import { ComponentsModule } from '../tabBar/tab-bar.modules';
     FormsModule,
     IonicModule,
     SettingsPageRoutingModule,
-    ComponentsModule,
     TranslateModule
   ],
   declarations: [SettingsPage]

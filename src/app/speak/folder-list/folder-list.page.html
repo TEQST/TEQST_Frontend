@@ -10,9 +10,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let folder of folders" routerLink="/speak/{{publisherId}}/{{folder.id}}">
+    <ion-item button *ngFor="let folder of folders" routerLink="/tabs/speak/{{publisherId}}/{{folder.id}}">
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
     </ion-item>
   </ion-list>
 </ion-content>
-<app-tabBar></app-tabBar>
