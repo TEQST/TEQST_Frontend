@@ -71,7 +71,6 @@ export class TextDetailPage implements OnInit {
       }
       );
       this.selectedSpeaker.subscribe((speaker) => {
-        console.log(speaker);
         this.switchSpeaker(speaker);
       });
     });
