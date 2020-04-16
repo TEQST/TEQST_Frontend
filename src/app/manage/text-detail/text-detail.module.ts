@@ -1,3 +1,4 @@
+import { BasicTextViewComponent } from './basic-text-view/basic-text-view.component';
 import { SpeakerSelectPopoverComponent } from './speaker-select-popover/speaker-select-popover.component';
 import { TextWrapperComponent } from './text-wrapper/text-wrapper.component';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ import { TextDetailPage } from './text-detail.page';
   declarations: [
     TextDetailPage,
     TextWrapperComponent,
+    BasicTextViewComponent,
     SpeakerSelectPopoverComponent
   ],
   entryComponents: [SpeakerSelectPopoverComponent]
