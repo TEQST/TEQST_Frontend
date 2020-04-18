@@ -8,23 +8,21 @@ const routes: Routes = [
     path: '',
     loadChildren: './tabs/tabs.module#TabsPageModule'
   },
-  { path: 'speak',
-    redirectTo: '/tabs/speak',
-    pathMatch: 'full',
+  {
+    path: 'speak',
+    loadChildren: '../speak/speak.module#SpeakPageModule',
     data: { requiresLogin: true },
     canActivate: [ AccessGuard ]
   },
   {
     path: 'manage',
-    redirectTo: '/tabs/manage',
-    pathMatch: 'full',
+    loadChildren: '../manage/manage.module#ManagePageModule',
     data: { requiresLogin: true, requiredRole: 'publisher' },
     canActivate: [ AccessGuard ]
   },
   {
     path: 'settings',
-    redirectTo: '/tabs/settings',
-    pathMatch: 'full',
+    loadChildren: '../settings/settings.module#SettingsPageModule',
     data: { requiresLogin: true },
     canActivate: [ AccessGuard ]
   },

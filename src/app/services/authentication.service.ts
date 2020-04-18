@@ -49,7 +49,7 @@ export class AuthenticationService {
         this.initHeadersCollection();
         this.usermgmtService.storeUserData(userData);
         this.languageService.setMenuLanguage(this.languageService.menuLanguage);
-        this.navCtrl.navigateForward('speak');
+        this.navCtrl.navigateForward('/tabs/speak');
       },  (error: any) => {
         // calls AlertService when server sends error code
         this.alertService.showErrorAlertNoRedirection('Wrong Input', 'Invalid Password or Username');
