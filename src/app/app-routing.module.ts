@@ -10,19 +10,19 @@ const routes: Routes = [
   },
   {
     path: 'speak',
-    loadChildren: '../speak/speak.module#SpeakPageModule',
+    loadChildren: './speak/speak.module#SpeakPageModule',
     data: { requiresLogin: true },
     canActivate: [ AccessGuard ]
   },
   {
     path: 'manage',
-    loadChildren: '../manage/manage.module#ManagePageModule',
+    loadChildren: './manage/manage.module#ManagePageModule',
     data: { requiresLogin: true, requiredRole: 'publisher' },
     canActivate: [ AccessGuard ]
   },
   {
     path: 'settings',
-    loadChildren: '../settings/settings.module#SettingsPageModule',
+    loadChildren: './settings/settings.module#SettingsPageModule',
     data: { requiresLogin: true },
     canActivate: [ AccessGuard ]
   },
