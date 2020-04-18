@@ -4,26 +4,27 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
-  { path: 'speak', redirectTo: '/tabs/speak', pathMatch: 'full' },
-  { path: 'manage', redirectTo: '/tabs/manage', pathMatch: 'full' },
-  { path: 'settings', redirectTo: '/tabs/settings', pathMatch: 'full' },
-  /*{ path: '', redirectTo: 'speak', pathMatch: 'full' },
   {
-    path: 'speak',
-    loadChildren: () => import('./speak/speak.module').then( m => m.SpeakPageModule),
+    path: '',
+    loadChildren: './tabs/tabs.module#TabsPageModule'
+  },
+  { path: 'speak',
+    redirectTo: '/tabs/speak',
+    pathMatch: 'full',
     data: { requiresLogin: true },
     canActivate: [ AccessGuard ]
   },
   {
     path: 'manage',
-    loadChildren: () => import('./manage/manage.module').then( m => m.ManagePageModule),
+    redirectTo: '/tabs/manage',
+    pathMatch: 'full',
     data: { requiresLogin: true, requiredRole: 'publisher' },
     canActivate: [ AccessGuard ]
   },
   {
     path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule),
+    redirectTo: '/tabs/settings',
+    pathMatch: 'full',
     data: { requiresLogin: true },
     canActivate: [ AccessGuard ]
   },
@@ -45,11 +46,6 @@ const routes: Routes = [
     data: { requiresLogin: true},
     canActivate: [ AccessGuard ]
   },
-  {
-    path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
-  }*/
-
 ];
 
 @NgModule({

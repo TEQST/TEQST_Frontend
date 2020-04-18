@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsermgmtService } from '../services/usermgmt.service';
 
 @Component({
   selector: 'app-tabs',
@@ -6,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
+  public isPublisher: boolean;
 
-  constructor() { }
+  constructor(public usermgmtService: UsermgmtService) { }
 
   ngOnInit() {
-    this.updateURL()
+    this.usermgmtService.getIsPublisher().subscribe((isPublisher: boolean) => {
+      this.isPublisher = isPublisher
+    });
+    //this.updateURL()
   }
 
   updateURL() {
