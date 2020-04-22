@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-speaker-select-popover',
@@ -13,7 +13,7 @@ export class SpeakerSelectPopoverComponent implements OnInit {
   public selectedSpeaker: string;
   private speakerSelected: boolean;
 
-  constructor(private navParams: NavParams, private router: Router, private route: ActivatedRoute) { }
+  constructor(private navParams: NavParams, private router: Router, private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.speakers = this.navParams.data.speakers;
@@ -30,6 +30,11 @@ export class SpeakerSelectPopoverComponent implements OnInit {
     // if a speaker is selected remove the speaker from the url
     const urlNoSpeaker = this.speakerSelected ? url.slice(0, lastParamStartIndex) : url;
     this.router.navigate([urlNoSpeaker, speaker]);
+    this.dismissPopover();
   }
+
+  async dismissPopover() {
+    await this.popoverController.dismiss();
+      }
 
 }
