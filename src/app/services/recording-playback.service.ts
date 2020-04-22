@@ -103,7 +103,7 @@ export class RecordingPlaybackService {
       responseType: 'blob' as 'json'
     };
     // TODO: Switch to new sentencerecording URL as soon as its active
-    return await this.http.get<Blob>(this.SERVER_URL + `/api/sentencerecordings/${recordingId}/?index=${sentenceNumber}`,
+    return await this.http.get<Blob>(this.SERVER_URL + `/api/sentencerecordings/${recordingId}/${sentenceNumber}/`,
       audioHttpOptions).toPromise();
   }
 
