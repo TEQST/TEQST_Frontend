@@ -8,14 +8,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { TextListPageRoutingModule } from './text-list-routing.module';
 import { TextListPage } from './text-list.page';
-import { ComponentsModule } from '../../../tabBar/tab-bar.modules';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ComponentsModule,
     TextListPageRoutingModule,
     TranslateModule
   ],

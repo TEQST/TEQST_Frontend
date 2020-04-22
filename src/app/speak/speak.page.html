@@ -7,9 +7,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let pub of publishers" routerLink="/speak/{{pub.id}}">
+    <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}">
       <ion-icon name="person" class="personIcon"></ion-icon> {{ pub.username }}
     </ion-item>
   </ion-list>
 </ion-content>
-<app-tabBar></app-tabBar>

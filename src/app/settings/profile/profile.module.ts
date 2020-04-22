@@ -10,14 +10,12 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
 
-import { ComponentsModule } from '../../tabBar/tab-bar.modules';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ComponentsModule,
     ProfilePageRoutingModule,
     TranslateModule
   ],

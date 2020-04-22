@@ -4,22 +4,25 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'speak', pathMatch: 'full' },
+  {
+    path: '',
+    loadChildren: './tabs/tabs.module#TabsPageModule'
+  },
   {
     path: 'speak',
-    loadChildren: () => import('./speak/speak.module').then( m => m.SpeakPageModule),
+    loadChildren: './speak/speak.module#SpeakPageModule',
     data: { requiresLogin: true },
     canActivate: [ AccessGuard ]
   },
   {
     path: 'manage',
-    loadChildren: () => import('./manage/manage.module').then( m => m.ManagePageModule),
+    loadChildren: './manage/manage.module#ManagePageModule',
     data: { requiresLogin: true, requiredRole: 'publisher' },
     canActivate: [ AccessGuard ]
   },
   {
     path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule),
+    loadChildren: './settings/settings.module#SettingsPageModule',
     data: { requiresLogin: true },
     canActivate: [ AccessGuard ]
   },
@@ -40,8 +43,7 @@ const routes: Routes = [
     component: PageNotFoundComponent,
     data: { requiresLogin: true},
     canActivate: [ AccessGuard ]
-  }
-
+  },
 ];
 
 @NgModule({

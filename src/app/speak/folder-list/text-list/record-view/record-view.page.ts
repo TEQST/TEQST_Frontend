@@ -75,7 +75,7 @@ export class RecordViewPage implements OnInit {
     // get the current router url
     const url = this.router.url;
     // remove the textId param
-    const goBackUrl = url.slice(0, url.lastIndexOf('/'));
+    const goBackUrl = '/tabs' + url.slice(0, url.lastIndexOf('/'));
     const alert = await this.alertController.create({
       header: 'Recording Permissions',
       backdropDismiss: false,

@@ -10,6 +10,7 @@ import * as RecordRTC from 'recordrtc';
 import { TextServiceService } from './text-service.service';
 import { Constants } from 'src/app/constants';
 import { UsermgmtService } from 'src/app/services/usermgmt.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Injectable({
@@ -40,7 +41,7 @@ export class AudioRecordingService {
 
 
   constructor(private textService: TextServiceService,
-              private usermgmtService: UsermgmtService,
+              public authenticationService: AuthenticationService,
               private alertService: AlertManagerService,
               private recordingUploadService: RecordingUploadService,
               private playbackService: RecordingPlaybackService) {
@@ -49,7 +50,7 @@ export class AudioRecordingService {
 
   // subscribe to all needed variables from the services and update the local ones on change
   private subscribeToServices(): void {
-    this.usermgmtService.getAuthToken().subscribe((token) => {
+    this.authenticationService.getAuthToken().subscribe((token) => {
       this.AUTH_TOKEN = token;
       this.initHttpOptions();
     });

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, PopoverController, IonInput } from '@ionic/angular';
-import { UsermgmtService } from '../../services/usermgmt.service';
 import { Constants } from '../../constants';
 import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Component({
@@ -15,7 +15,10 @@ export class LoginPage implements OnInit {
   username: string;
   password: string;
 
-  constructor(public navCtrl: NavController, public usermgmtService: UsermgmtService, public popoverController: PopoverController) { }
+  constructor(
+    public navCtrl: NavController,
+    public authenticationService: AuthenticationService,
+    public popoverController: PopoverController) { }
 
   ngOnInit() {}
 
@@ -32,7 +35,7 @@ export class LoginPage implements OnInit {
   // gets Username and Password and calls with those login in UsermgmtService
   login() {
     const dataToSend = {username: this.username, password: this.password};
-    this.usermgmtService.login(dataToSend);
+    this.authenticationService.login(dataToSend);
   }
 
   redirect() {

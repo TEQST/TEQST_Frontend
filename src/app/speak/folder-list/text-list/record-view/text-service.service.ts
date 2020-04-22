@@ -3,6 +3,7 @@ import { BehaviorSubject, ReplaySubject, Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Constants } from 'src/app/constants';
 import { UsermgmtService } from 'src/app/services/usermgmt.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 
@@ -30,8 +31,8 @@ export class TextServiceService {
   private textId: number;
   private httpOptions;
 
-  constructor(private http: HttpClient, private usermgmtService: UsermgmtService) {
-    usermgmtService.getAuthToken().subscribe((token) => {
+  constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
+    this.authenticationService.getAuthToken().subscribe((token) => {
       this.AUTH_TOKEN = token;
       this.initHttpOptions();
     });

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { UsermgmtService } from './usermgmt.service';
 import { Constants } from '../constants';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class RecordingUploadService {
   private uploadQueue: [SentenceRecordingModel, boolean][] = []; // array of tuple [sentenceRecording, isReUpload]
   private isUploadActive = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private usermgmtService: UsermgmtService, private alertService: AlertManagerService) {
-    this.usermgmtService.getAuthToken().subscribe((token) => {
+  constructor(private http: HttpClient, public authenticationService: AuthenticationService, private alertService: AlertManagerService) {
+    this.authenticationService.getAuthToken().subscribe((token) => {
       this.AUTH_TOKEN = token;
       this.initHttpOptions();
     });
