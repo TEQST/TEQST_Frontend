@@ -1,7 +1,7 @@
-import { PlaybarComponent } from './playbar/playbar.component';
+import { PlaybarComponent } from './speaker-progress-text-view/playbar/playbar.component';
 import { BasicTextViewComponent } from './basic-text-view/basic-text-view.component';
 import { SpeakerSelectPopoverComponent } from './speaker-select-popover/speaker-select-popover.component';
-import { TextWrapperComponent } from './text-wrapper/text-wrapper.component';
+import { TextWrapperComponent } from './speaker-progress-text-view/text-wrapper/text-wrapper.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
