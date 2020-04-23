@@ -27,7 +27,7 @@ export class TextStateService {
   public setRecordingState(recordingState: RecordingStateModel) {
     const index = recordingState.activeSentence;
     this.furthestSentenceIndex.next(index);
-    this.recordingId.next(recordingState.activeSentence);
+    this.recordingId.next(recordingState.recordingId);
 
     // when a text is finished the active_sentence on the backend is totalSentenceNumber + 1
     // so for the ui we have to set the active sentence to the smaller of those two values
@@ -79,6 +79,10 @@ export class TextStateService {
 
   public getIsRightToLeft(): Observable<boolean> {
     return this.isRightToLeft.asObservable();
+  }
+
+  public getRecordingId(): Observable<number> {
+    return this.recordingId.asObservable();
   }
 }
 
