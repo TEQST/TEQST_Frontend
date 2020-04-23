@@ -81,11 +81,6 @@ export class UsermgmtService {
     return this.isPublisher.asObservable();
   }
 
-  isLoggedIn(): boolean {
-    // if no auth token is found in local storage AUTH_TOKEN = null
-    return !(this.AUTH_TOKEN.getValue() === null);
-  }
-
   setAuthToken(authToken) {
     this.AUTH_TOKEN.next(authToken);
   }

@@ -2,13 +2,14 @@ import { UsermgmtService } from 'src/app/services/usermgmt.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccessGuard implements CanActivate {
 
-  constructor(private userService: UsermgmtService, private router: Router) {}
+  constructor(private userService: UsermgmtService, private router: Router, private authService: AuthenticationService) {}
 
   // Check if a user is allowed to navigate to a specific route based on the set flag in the router
   // If he is not allowed redirect him to an allowed url
@@ -21,7 +22,7 @@ export class AccessGuard implements CanActivate {
       // If the requiresLogin flag is set the user has to be authenticated to navigate to the specified route
       // Otherwise just redirect him to the login page
       if (requiresLogin) {
-        if (!this.userService.isLoggedIn()) {
+        if (!this.authService.isLoggedIn()) {
           this.router.navigate(['/login']);
           return false;
         }
@@ -35,7 +36,7 @@ export class AccessGuard implements CanActivate {
       }
       // If the redirectIfLoggedIn flag is set the user is redirected to the speak tab if he is already authenticated
       if (redirectIfLoggedIn) {
-        if (this.userService.isLoggedIn()) {
+        if (this.authService.isLoggedIn()) {
           this.router.navigate(['/speak']);
           return false;
         }

@@ -109,4 +109,9 @@ export class AuthenticationService {
     });
   }
 
+  isLoggedIn(): boolean {
+    // if no auth token is found in local storage AUTH_TOKEN = null
+    return !(localStorage.getItem('Token') === null);
+  }
+
 }

@@ -38,7 +38,6 @@ export class LanguageService {
     this.translate.use(lang);
   }
   updateMenuLanguage(temporalMenuLanguage) {
-    console.log(localStorage.getItem('MenuLanguage'));
     if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') || localStorage.getItem('MenuLanguage') === null) {
       this.menuLanguage = temporalMenuLanguage;
     } else {
