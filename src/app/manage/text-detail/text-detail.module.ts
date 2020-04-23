@@ -1,3 +1,4 @@
+import { PlaybarComponent } from './playbar/playbar.component';
 import { BasicTextViewComponent } from './basic-text-view/basic-text-view.component';
 import { SpeakerSelectPopoverComponent } from './speaker-select-popover/speaker-select-popover.component';
 import { TextWrapperComponent } from './text-wrapper/text-wrapper.component';
@@ -22,7 +23,8 @@ import { TextDetailPage } from './text-detail.page';
     TextDetailPage,
     TextWrapperComponent,
     BasicTextViewComponent,
-    SpeakerSelectPopoverComponent
+    SpeakerSelectPopoverComponent,
+    PlaybarComponent
   ],
   entryComponents: [SpeakerSelectPopoverComponent]
 })
