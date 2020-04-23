@@ -12,7 +12,7 @@ const routes: Routes = [
     component: TextDetailPage,
     children: [{
       path: ':speaker',
-      component: TextWrapperComponent
+      component: SpeakerProgressTextViewComponent
     },
     {
       path: '',

@@ -1,3 +1,4 @@
+import { SpeakerProgressTextViewComponent } from './speaker-progress-text-view/speaker-progress-text-view.component';
 import { PlaybarComponent } from './speaker-progress-text-view/playbar/playbar.component';
 import { BasicTextViewComponent } from './basic-text-view/basic-text-view.component';
 import { SpeakerSelectPopoverComponent } from './speaker-select-popover/speaker-select-popover.component';
@@ -24,7 +25,8 @@ import { TextDetailPage } from './text-detail.page';
     TextWrapperComponent,
     BasicTextViewComponent,
     SpeakerSelectPopoverComponent,
-    PlaybarComponent
+    PlaybarComponent,
+    SpeakerProgressTextViewComponent
   ],
   entryComponents: [SpeakerSelectPopoverComponent]
 })
