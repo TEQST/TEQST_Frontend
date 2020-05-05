@@ -9,22 +9,8 @@ const routes: Routes = [
     loadChildren: './tabs/tabs.module#TabsPageModule'
   },
   {
-    path: 'speak',
-    loadChildren: './speak/speak.module#SpeakPageModule',
-    data: { requiresLogin: true },
-    canActivate: [ AccessGuard ]
-  },
-  {
-    path: 'manage',
-    loadChildren: './manage/manage.module#ManagePageModule',
-    data: { requiresLogin: true, requiredRole: 'publisher' },
-    canActivate: [ AccessGuard ]
-  },
-  {
-    path: 'settings',
-    loadChildren: './settings/settings.module#SettingsPageModule',
-    data: { requiresLogin: true },
-    canActivate: [ AccessGuard ]
+    path: 'speak/:publisherId/:folderId/:textId',
+    loadChildren: () => import('./speak/folder-list/text-list/record-view/record-view.module').then( m => m.RecordViewPageModule)
   },
   {
     path: 'login',

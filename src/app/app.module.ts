@@ -58,11 +58,6 @@ import { environment } from '../environments/environment';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TimeoutInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
       multi: true
     }

@@ -30,14 +30,14 @@ export class AccessGuard implements CanActivate {
       // Only allow access to the route if the user is publisher
       if (requiredRole === 'publisher') {
         if (!this.userService.getIsPublisher()) {
-          this.router.navigate(['/speak']);
+          this.router.navigate(['/tabs/speak']);
           return false;
         }
       }
       // If the redirectIfLoggedIn flag is set the user is redirected to the speak tab if he is already authenticated
       if (redirectIfLoggedIn) {
         if (this.authService.isLoggedIn()) {
-          this.router.navigate(['/speak']);
+          this.router.navigate(['/tabs/speak']);
           return false;
         }
       }

@@ -15,6 +15,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: '',
+        redirectTo: '/tabs/speak',
+        pathMatch: 'full',
+      },
+      {
         path: 'speak',
         loadChildren: '../speak/speak.module#SpeakPageModule',
         data: { requiresLogin: true },
