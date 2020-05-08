@@ -8,7 +8,7 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.3\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: ja\n"
@@ -18,6 +18,9 @@ msgstr "0-6年間"
 
 msgid "6-12 years"
 msgstr "6-12年間"
+
+msgid "Accent"
+msgstr "訛り"
 
 msgid "Added Speaker"
 msgstr "追加されたスピーカー"
@@ -50,7 +53,7 @@ msgid "Create text"
 msgstr "作成"
 
 msgid "Don't have an Account yet?"
-msgstr "アカウントを持っていませんか？"
+msgstr "アカウントはまだありませんか?"
 
 msgid "Education Level"
 msgstr "教育レベル"
@@ -82,6 +85,9 @@ msgstr "サインアウト"
 msgid "Male"
 msgstr "男"
 
+msgid "Maximum lines per text"
+msgstr "各テキストの行数"
+
 msgid "Menu Language"
 msgstr "UI言語"
 
@@ -110,13 +116,22 @@ msgid "Select One"
 msgstr "選択"
 
 msgid "Select Speaker for"
-msgstr "スピーカーを選択してください"
+msgstr "スピーカーを選択してください:"
 
 msgid "Select a publisher"
 msgstr "出版社を選択してください"
 
+msgid "sentences"
+msgstr "文章"
+
 msgid "Settings"
 msgstr "設定"
+
+msgid "Split into multiple texts"
+msgstr "テキストを分割する"
+
+msgid "Statistics for"
+msgstr "スタッツ:"
 
 msgid "Text Content"
 msgstr "テキストコンテンツ"

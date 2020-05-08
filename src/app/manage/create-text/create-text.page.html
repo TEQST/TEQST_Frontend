@@ -26,11 +26,11 @@
         </ion-select>
       </ion-item>
         <ion-item id="text-split-toggle-item" lines="none">
-          <ion-label>Split into multiple texts</ion-label>
+          <ion-label>{{'Split into multiple texts' | translate}}</ion-label>
           <ion-toggle (ionChange)="textSplitToggleChanged($event)"></ion-toggle>
         </ion-item>
         <ion-item id="text-split-detail" lines="none" [ngClass]="{'visible': enableTextSplit}">
-          <ion-label>Maximum lines per text</ion-label>
+          <ion-label>{{'Maximum lines per text' | translate}}</ion-label>
           <ion-input formControlName="splitLines" type="number" inputmode="numeric"></ion-input>
         </ion-item>
     </ion-list>
