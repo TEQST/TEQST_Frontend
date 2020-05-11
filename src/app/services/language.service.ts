@@ -33,9 +33,11 @@ export class LanguageService {
     return this.menuLanguage;
   }
   setMenuLanguage(lang: string): void {
+    if (lang !== null && lang !== undefined) {
     this.menuLanguage = lang;
     this.putMenuLanguageLocalStorageWithParam(lang);
     this.translate.use(lang);
+    }
   }
   updateMenuLanguage(temporalMenuLanguage) {
     if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') || localStorage.getItem('MenuLanguage') === null) {
