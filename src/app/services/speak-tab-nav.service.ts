@@ -12,6 +12,7 @@ export class SpeakTabNavService {
 
   constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
     this.authenticationService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token);
+    this.AUTH_TOKEN = localStorage.getItem('Token');
   }
 
   SERVER_URL = Constants.SERVER_URL;

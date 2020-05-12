@@ -101,15 +101,16 @@ export class ManageFolderService {
       }
     }
 
+
     let url = new URL(`${this.SERVER_URL}/api/pub/texts/`)
 
     return this.http.post(url.toString(),
       formData,
       {
         headers:  {
-          "Authorization": this.AUTH_TOKEN
+          "Authorization": this.AUTH_TOKEN,
         }
-      }
+      } 
     )
   }
 
