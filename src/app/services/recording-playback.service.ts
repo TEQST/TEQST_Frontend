@@ -12,7 +12,6 @@ import { AuthenticationService } from './authentication.service';
 export class RecordingPlaybackService {
 
   private SERVER_URL = Constants.SERVER_URL;
-  private AUTH_TOKEN: string;
 
   private cacheSize = 10;
   private cache: SentenceRecordingModel[] = [];
@@ -21,9 +20,6 @@ export class RecordingPlaybackService {
   private isPlaying = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
-    this.authenticationService.getAuthToken().subscribe((token) => {
-      this.AUTH_TOKEN = token;
-    });
    }
 
   public async playSentenceRecording(recordingId: number, sentenceNumber: number): Promise<void> {
@@ -97,9 +93,6 @@ export class RecordingPlaybackService {
 
     // set blob as response type
     const audioHttpOptions = {
-      headers: new HttpHeaders({
-        Authorization: this.AUTH_TOKEN
-      }),
       responseType: 'blob' as 'json'
     };
     // TODO: Switch to new sentencerecording URL as soon as its active

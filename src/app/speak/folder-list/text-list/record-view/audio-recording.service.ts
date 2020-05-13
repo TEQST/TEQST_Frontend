@@ -20,14 +20,11 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class AudioRecordingService {
 
   SERVER_URL = Constants.SERVER_URL;
-  AUTH_TOKEN: string;
-
 
   private stream: MediaStream;
   private recorder;
   private recorded = new Map<number, Blob>();
   private audio = new Audio();
-  private httpOptions;
 
   private recordingFailed$ = new Subject<string>();
   private isRecording$ = new BehaviorSubject<boolean>(false);
@@ -50,10 +47,6 @@ export class AudioRecordingService {
 
   // subscribe to all needed variables from the services and update the local ones on change
   private subscribeToServices(): void {
-    this.authenticationService.getAuthToken().subscribe((token) => {
-      this.AUTH_TOKEN = token;
-      this.initHttpOptions();
-    });
     this.textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
     this.textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
     this.textService.getRecordingId().subscribe((id) => {
@@ -62,14 +55,6 @@ export class AudioRecordingService {
     });
     this.textService.getSentenceHasRecording().subscribe((value) => this.sentenceHasRecording = value);
     this.playbackService.getIsPlaying().subscribe((state) => this.isPlaying = state);
-  }
-
-  private initHttpOptions(): void {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: this.AUTH_TOKEN
-      })
-    };
   }
 
   resetRecordingData(): void {
@@ -97,7 +82,8 @@ export class AudioRecordingService {
       this.stream = s;
       this.record();
     }).catch(error => {
-      this.alertService.showErrorAlertNoRedirection('No microphone access', 'Please allow access to your microphone to be able to start a recording')
+      this.alertService.showErrorAlertNoRedirection(
+        'No microphone access', 'Please allow access to your microphone to be able to start a recording');
       this.isRecording$.next(false);
     });
 

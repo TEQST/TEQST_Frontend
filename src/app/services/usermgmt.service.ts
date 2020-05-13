@@ -18,7 +18,6 @@ export class UsermgmtService {
   SERVER_URL = Constants.SERVER_URL;
    private httpOptions;
    public isPublisher = new BehaviorSubject<boolean>(undefined);
-  
   // tslint:disable: no-string-literal
 
   constructor(
@@ -52,9 +51,9 @@ export class UsermgmtService {
   }
 
   // gets all the information about the User who is currently logged in
-  loadContent(): Observable<ArrayBuffer> {
+  loadContent(): Observable<any> {
     const url = this.SERVER_URL + '/api/user/';
-    return this.http.get(url, this.httpOptions);
+    return this.http.get(url);
   }
 
   storeUserData(userData: User): void {

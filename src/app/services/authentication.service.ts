@@ -16,7 +16,6 @@ export class AuthenticationService {
   SERVER_URL = Constants.SERVER_URL;
   private httpOptions;
   private dataFromServer: any = '';
-  private AUTH_TOKEN = new BehaviorSubject<string>('');
 
   constructor(
     public http: HttpClient,
@@ -24,8 +23,6 @@ export class AuthenticationService {
     private alertService: AlertManagerService,
     public languageService: LanguageService,
     public usermgmtService: UsermgmtService) {
-      // gets AuthToken after reload or on init
-      this.getAuthToken();
 
     }
 
@@ -42,7 +39,6 @@ export class AuthenticationService {
         menuLanguage = userData.menu_language.short;
         this.languageService.updateMenuLanguage(menuLanguage);
         this.dataFromServer = JSON.stringify(loginResponse);
-        this.AUTH_TOKEN.next('Token ' + JSON.parse(this.dataFromServer).token);
         localStorage.setItem('Token', 'Token ' + JSON.parse(this.dataFromServer).token);
         this.usermgmtService.storeUserData(userData);
         this.languageService.setMenuLanguage(this.languageService.menuLanguage);
@@ -64,11 +60,6 @@ export class AuthenticationService {
     });
   }
 
-  // gets the authToken.
-  getAuthToken(): Observable<string> {
-    this.AUTH_TOKEN.next(localStorage.getItem('Token'));
-    return this.AUTH_TOKEN.asObservable();
-  }
 
   // redirect to login, and loging out
   logout(): void {

@@ -14,7 +14,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class TextServiceService {
 
   SERVER_URL = Constants.SERVER_URL;
-  AUTH_TOKEN: string;
 
 
   // instantiate BehaviorSubjekts with 1 because every text has at least 1 sentence
@@ -29,29 +28,16 @@ export class TextServiceService {
 
   // Url Information
   private textId: number;
-  private httpOptions;
+ 
 
   constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
-    this.authenticationService.getAuthToken().subscribe((token) => {
-      this.AUTH_TOKEN = token;
-      this.initHttpOptions();
-    });
-  }
-
-  // initialize the header for the http requests
-  private initHttpOptions(): void {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: this.AUTH_TOKEN
-      })
-    };
   }
 
   private fetchText(): void {
     // fetch TextData from Server
     const textUrl = this.SERVER_URL + `/api/spk/texts/${this.textId}/`;
 
-    this.http.get(textUrl, this.httpOptions).subscribe(text => {
+    this.http.get(textUrl, {}).subscribe(text => {
       this.textTitle.next(text['title']);
       this.totalSentenceNumber.next(text['content'].length);
       this.sentences.next(text['content']);
@@ -77,7 +63,7 @@ export class TextServiceService {
     let result = false;
     const getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
 
-    await this.http.get(getRecordingInfoUrl, this.httpOptions).toPromise()
+    await this.http.get(getRecordingInfoUrl).toPromise()
     .then(info => {
       if (info === null) {
         result = false;
@@ -100,7 +86,7 @@ export class TextServiceService {
 
     const postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
 
-    this.http.post(postRecordingInfoUrl, recordingInfo, this.httpOptions).subscribe(info => {
+    this.http.post(postRecordingInfoUrl, recordingInfo).subscribe(info => {
       this.setRecordingInfo(info);
     });
   }
