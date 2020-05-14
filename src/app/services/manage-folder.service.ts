@@ -23,46 +23,33 @@ interface User {
 
 export class ManageFolderService {
 
-  constructor(private http: HttpClient, public authenticationService: AuthenticationService) { 
-    this.authenticationService.getAuthToken().subscribe((token) => this.AUTH_TOKEN = token)
+  constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
+
   }
 
-  SERVER_URL = Constants.SERVER_URL
-  AUTH_TOKEN: string;
+  SERVER_URL = Constants.SERVER_URL;
+
 
   getFolderInfoFor(folderId: string): Observable<object> {
-    let url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`)
+    const url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`)
 
-    return this.http.get(url.toString(), {
-      headers:  {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
+    return this.http.get(url.toString());
   }
 
   getSubfolderListFor(folderId: string): Observable<object> {
-    let urlStr = `${this.SERVER_URL}/api/folders/`
+    let urlStr = `${this.SERVER_URL}/api/folders/`;
     if (folderId) {
       urlStr += folderId + '/';
     }
-    let url = new URL(urlStr)
-    
-    return this.http.get(url.toString(), {
-      headers:  {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
+    const url = new URL(urlStr);
+    return this.http.get(url.toString());
   }
 
   getTextListFor(folderId: string): Observable<object> {
-    let url = new URL(`${this.SERVER_URL}/api/pub/texts/`)
-    url.searchParams.append('sharedfolder', folderId)
+    let url = new URL(`${this.SERVER_URL}/api/pub/texts/`);
+    url.searchParams.append('sharedfolder', folderId);
 
-    return this.http.get(url.toString(), {
-      headers:  {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
+    return this.http.get(url.toString());
   }
 
   createFolder(parentId: string, folderName: string) {
@@ -72,23 +59,14 @@ export class ManageFolderService {
       {
         parent: parentId,
         name: folderName
-      },
-      {
-        headers:  {
-          "Authorization": this.AUTH_TOKEN
-        }
       }
     )
   }
 
   deleteFolder(folderId: string) {
     let url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`)
-    return this.http.delete(url.toString(), {
-      headers:  {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
-  }
+    return this.http.delete(url.toString());
+    }
 
   createText(params: any[]) {
     let formData = new FormData();
@@ -101,69 +79,40 @@ export class ManageFolderService {
       }
     }
 
+
     let url = new URL(`${this.SERVER_URL}/api/pub/texts/`)
 
-    return this.http.post(url.toString(),
-      formData,
-      {
-        headers:  {
-          "Authorization": this.AUTH_TOKEN
-        }
-      }
-    )
+    return this.http.post(url.toString(), formData);
   }
 
   deleteText(textId: string) {
     let url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`)
-    return this.http.delete(url.toString(), {
-      headers:  {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
+    return this.http.delete(url.toString(), { })
   }
 
   getTextInfo(textId: string): Observable<TextObject> {
     let url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`)
-    return this.http.get<TextObject>(url.toString(), {
-      headers:  {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
+    return this.http.get<TextObject>(url.toString(), { })
   }
 
   getSpeakers(sharedfolderId: number) {
-    let url = new URL(`${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`)
-    return this.http.get<JSON[]>(url.toString(), {
-      headers: {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
+    let url = new URL(`${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`);
+    return this.http.get<JSON[]>(url.toString(), { });
   }
 
   setSpeakers(sharedfolderId: number, speakers: number[]) {
     let url = new URL(`${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`);
-    return this.http.put<JSON>(url.toString(), { speaker_ids: speakers }, {
-      headers: {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
+    return this.http.put<JSON>(url.toString(), { speaker_ids: speakers }, { });
   }
 
   getAllUsers() {
-    let url = new URL(`${this.SERVER_URL}/api/users/`)
-    return this.http.get<User[]>(url.toString(), {
-      headers: {
-        "Authorization": this.AUTH_TOKEN
-      }
-    })
+    let url = new URL(`${this.SERVER_URL}/api/users/`);
+    return this.http.get<User[]>(url.toString(), { });
   }
 
   downloadFolder(folderId: number): Observable<ArrayBuffer> {
     const url = new URL(`${this.SERVER_URL}/api/download/${folderId}/`);
     return this.http.get<ArrayBuffer>(url.toString(), {
-      headers:  {
-        Authorization: this.AUTH_TOKEN
-      },
       responseType: 'arraybuffer' as 'json'
     });
   }

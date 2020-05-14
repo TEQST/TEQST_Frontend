@@ -26,12 +26,6 @@ export class RegisterPage implements OnInit {
   language: [];
   allLangs: [];
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      Authorization: 'authToken'
-    })
-  };
 
   constructor(
     public navCtrl: NavController,

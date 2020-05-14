@@ -13,27 +13,12 @@ import { AuthenticationService } from './authentication.service';
 export class RecordingUploadService {
 
   private SERVER_URL = Constants.SERVER_URL;
-  private AUTH_TOKEN: string;
   private httpOptions;
 
   private uploadQueue: [SentenceRecordingModel, boolean][] = []; // array of tuple [sentenceRecording, isReUpload]
   private isUploadActive = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, public authenticationService: AuthenticationService, private alertService: AlertManagerService) {
-    this.authenticationService.getAuthToken().subscribe((token) => {
-      this.AUTH_TOKEN = token;
-      this.initHttpOptions();
-    });
-  }
-
-  // initialize the header for the http requests
-  private initHttpOptions(): void {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: this.AUTH_TOKEN
-      })
-    };
-  }
+  constructor(private http: HttpClient, public authenticationService: AuthenticationService, private alertService: AlertManagerService) { }
 
   public uploadRecording(sentenceRecording: SentenceRecordingModel, isReUpload: boolean): void {
     this.uploadQueue.push([sentenceRecording, isReUpload]);

@@ -16,7 +16,6 @@ export class AuthenticationService {
   SERVER_URL = Constants.SERVER_URL;
   private httpOptions;
   private dataFromServer: any = '';
-  private AUTH_TOKEN = new BehaviorSubject<string>('');
 
   constructor(
     public http: HttpClient,
@@ -24,10 +23,7 @@ export class AuthenticationService {
     private alertService: AlertManagerService,
     public languageService: LanguageService,
     public usermgmtService: UsermgmtService) {
-      // gets AuthToken after reload or on init
-      this.getAuthToken();
-      this.usermgmtService.setAuthToken(this.AUTH_TOKEN.getValue());
-      this.initHeadersCollection();
+
     }
 
    // login into Website, saving userdata in localStorage, redirect to speak tab
@@ -36,7 +32,6 @@ export class AuthenticationService {
     login(dataToSend): void {
       const url = this.SERVER_URL +  '/api/auth/login/';
       let menuLanguage;
-      this.resetHttpOptions();
       this.http.post(url, dataToSend, this.httpOptions).subscribe((loginResponse: object) => {
         const userData = loginResponse['user'] as User;
         this.usermgmtService.initLoggingData(userData.id, userData.username);
@@ -44,9 +39,7 @@ export class AuthenticationService {
         menuLanguage = userData.menu_language.short;
         this.languageService.updateMenuLanguage(menuLanguage);
         this.dataFromServer = JSON.stringify(loginResponse);
-        this.AUTH_TOKEN.next('Token ' + JSON.parse(this.dataFromServer).token);
-        this.usermgmtService.setAuthToken(this.AUTH_TOKEN.getValue());
-        this.initHeadersCollection();
+        localStorage.setItem('Token', 'Token ' + JSON.parse(this.dataFromServer).token);
         this.usermgmtService.storeUserData(userData);
         this.languageService.setMenuLanguage(this.languageService.menuLanguage);
         this.navCtrl.navigateForward('/tabs/speak');
@@ -54,10 +47,6 @@ export class AuthenticationService {
         // calls AlertService when server sends error code
         this.alertService.showErrorAlertNoRedirection('Wrong Input', 'Invalid Password or Username');
       });
-    }
-    private initHeadersCollection() {
-      this.initHeaders();
-      this.usermgmtService.initHeaders();
     }
 
    // creates a new User with the sended Data
@@ -71,37 +60,11 @@ export class AuthenticationService {
     });
   }
 
-     // resets httpOptions -> no Authtoken after reset
-  private resetHttpOptions(): void {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        Authorization: 'authtoken'
-      })
-    };
-  }
-
-  // add AuthToken to httpOptions
-  private initHeaders(): void {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        Authorization: this.AUTH_TOKEN.getValue(),
-      })
-    };
-  }
-
-  // gets the authToken.
-  getAuthToken(): Observable<string> {
-    this.AUTH_TOKEN.next(localStorage.getItem('Token'));
-    return this.AUTH_TOKEN.asObservable();
-  }
 
   // redirect to login, and loging out
   logout(): void {
     const url = this.SERVER_URL + '/api/auth/logout/';
     this.http.post(url, '', this.httpOptions).subscribe(() => {
-      this.resetHttpOptions();
       // reset the auth token manually because on back button press page isn't refreshed
       this.usermgmtService.deleteStoredUserData();
       this.usermgmtService.clearLoggingData();
