@@ -17,7 +17,6 @@ export class TimeStatsComponent implements OnInit {
   ngOnInit() {
     this.timeStats = this.navParams.data.timestats;
     this.folderName =  this.navParams.data.folderName;
-    console.log(this.timeStats.rec_time_with_rep)
   }
 
   dismiss() {

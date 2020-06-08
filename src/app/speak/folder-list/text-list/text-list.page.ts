@@ -43,7 +43,6 @@ export class TextListPage implements OnInit {
       .subscribe(
         data => {
           this.sharedFolderData = data;
-          console.log(this.sharedFolderData.timestats);
           this.folderName = data.name;
           this.texts = data.texts;
         },
