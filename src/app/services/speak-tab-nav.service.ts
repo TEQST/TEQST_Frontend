@@ -1,8 +1,10 @@
+import { SharedFolder } from './../interfaces/shared-folder';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Constants } from '../constants';
 import { UsermgmtService } from './usermgmt.service';
 import { AuthenticationService } from './authentication.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +33,6 @@ export class SpeakTabNavService {
   getInfoForSharedfolder(folderId: string) {
     const url = new URL(this.SERVER_URL + '/api/spk/sharedfolders/' + folderId + '/');
 
-    return this.http.get(url.toString());
+    return this.http.get<SharedFolder>(url.toString());
   }
 }
