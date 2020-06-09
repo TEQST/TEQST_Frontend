@@ -5,7 +5,7 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "./",
-  "start_url": "./speak",
+  "start_url": "./tabs/speak",
   "icons": [
     {
       "src": "assets/icons/192_maskable.png",

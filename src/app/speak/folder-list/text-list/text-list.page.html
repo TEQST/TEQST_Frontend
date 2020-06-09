@@ -1,9 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="speak"></ion-back-button>
+      <ion-back-button defaultHref="tabs/speak"></ion-back-button>
     </ion-buttons>
     <ion-title><ng-container>{{'Texts in' | translate}}</ng-container> {{folderName}}</ion-title>
+    <ion-buttons *ngIf="sharedFolderData" slot="end">
+      <ion-button color="primary" (click)="presentTimeStats()">
+        <ion-icon name="alarm"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>

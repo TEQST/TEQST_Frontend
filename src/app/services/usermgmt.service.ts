@@ -18,7 +18,6 @@ export class UsermgmtService {
   SERVER_URL = Constants.SERVER_URL;
    private httpOptions;
    public isPublisher = new BehaviorSubject<boolean>(undefined);
-   private AUTH_TOKEN = new BehaviorSubject<string>('');
   // tslint:disable: no-string-literal
 
   constructor(
@@ -32,12 +31,12 @@ export class UsermgmtService {
   // notifys the Server about profile changes
   updateProfile(dataToSend) {
     const url = this.SERVER_URL + '/api/user/';
-    return this.http.put(url, dataToSend, this.httpOptions);
+    return this.http.put(url, dataToSend);
   }
 
   patchProfile(dataToSend) {
     const url = this.SERVER_URL + '/api/user/';
-    return this.http.patch(url, dataToSend, this.httpOptions);
+    return this.http.patch(url, dataToSend);
   }
 
   // deletes Authtoken and clears localStorage
@@ -49,27 +48,15 @@ export class UsermgmtService {
       // localStorage.setItem('MenuLanguage', temp);
       this.languageService.putMenuLanguageLocalStorageWithParam(tempLanguage);
     }
-    this.AUTH_TOKEN.next(null);
   }
 
   // gets all the information about the User who is currently logged in
-  loadContent(): Observable<ArrayBuffer> {
+  loadContent(): Observable<any> {
     const url = this.SERVER_URL + '/api/user/';
-    return this.http.get(url, this.httpOptions);
-  }
-
-// add AuthToken to httpOptions
-  public initHeaders(): void {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        Authorization: this.AUTH_TOKEN.getValue(),
-      })
-    };
+    return this.http.get(url);
   }
 
   storeUserData(userData: User): void {
-    localStorage.setItem('Token', this.AUTH_TOKEN.getValue());
     this.languageService.putMenuLanguageLocalStorage(),
     localStorage.setItem('isPublisher', JSON.stringify(this.isPublisher.getValue()));
     localStorage.setItem('userId', userData.id.toString());
@@ -81,14 +68,6 @@ export class UsermgmtService {
     return this.isPublisher.asObservable();
   }
 
-  isLoggedIn(): boolean {
-    // if no auth token is found in local storage AUTH_TOKEN = null
-    return !(this.AUTH_TOKEN.getValue() === null);
-  }
-
-  setAuthToken(authToken) {
-    this.AUTH_TOKEN.next(authToken);
-  }
   // add user id and username to the error logging
   public initLoggingData(id: number, username: string): void {
     const rollbar = this.injector.get(RollbarService);

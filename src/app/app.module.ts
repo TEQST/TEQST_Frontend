@@ -14,13 +14,14 @@ import { RollbarService, rollbarFactory, RollbarErrorHandler } from './rollbar';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ServerErrorInterceptorService } from './interceptors/server-error-interceptor.service'
+import { ServerErrorInterceptorService } from './interceptors/server-error-interceptor.service';
 import { TimeoutInterceptor } from './interceptors/timeout-interceptor';
 import { Constants } from './constants';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ServerAuthtokenInterceptorService} from './interceptors/server-authtoken-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -58,12 +59,12 @@ import { environment } from '../environments/environment';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TimeoutInterceptor,
+      useClass: LoaderInterceptor,
       multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: LoaderInterceptor,
+      useClass: ServerAuthtokenInterceptorService,
       multi: true
     }
   ],

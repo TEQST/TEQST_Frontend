@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button *ngIf="currentFolder.id" defaultHref="manage"></ion-back-button>
+      <ion-back-button *ngIf="currentFolder.id" defaultHref="tabs/manage"></ion-back-button>
     </ion-buttons>
     <ion-title>{{currentFolder.name}}</ion-title>
     <ion-buttons *ngIf="currentFolder.is_sharedfolder" slot="end">

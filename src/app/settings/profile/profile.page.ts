@@ -125,7 +125,7 @@ export class ProfilePage implements OnInit {
       };
 
       this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
-      this.navCtrl.navigateBack('settings');
+      this.navCtrl.navigateBack('tabs/settings');
       this.languageService.setMenuLanguage(this.menuLanguageShort);
       });
 

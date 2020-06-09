@@ -10,6 +10,9 @@ msgstr ""
 msgid "6-12 years"
 msgstr ""
 
+msgid "Accent"
+msgstr ""
+
 msgid "Added Speaker"
 msgstr ""
 
@@ -73,6 +76,9 @@ msgstr ""
 msgid "Male"
 msgstr ""
 
+msgid "Maximum lines per text"
+msgstr ""
+
 msgid "Menu Language"
 msgstr ""
 
@@ -106,7 +112,16 @@ msgstr ""
 msgid "Select a publisher"
 msgstr ""
 
+msgid "sentences"
+msgstr ""
+
 msgid "Settings"
+msgstr ""
+
+msgid "Split into multiple texts"
+msgstr ""
+
+msgid "Statistics for"
 msgstr ""
 
 msgid "Text Content"

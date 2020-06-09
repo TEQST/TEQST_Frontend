@@ -14,7 +14,7 @@ export class AlertManagerService {
     this.alertController.create({ animated: false }).then(t => { t.present(); t.dismiss(); });
    }
 
-  async presentGoBackAlert(header: string, redirectURL: string = '/speak'): Promise<void>  {
+  async presentGoBackAlert(header: string, redirectURL: string = '/tabs/speak'): Promise<void>  {
     if (this.alertActive) {
       return;
     }
@@ -60,7 +60,7 @@ export class AlertManagerService {
     await this.alert.present();
   }
 
-  async showErrorAlert(status, msg, redirectURL: string = '/speak'): Promise<void>  {
+  async showErrorAlert(status, msg, redirectURL: string = '/tabs/speak'): Promise<void>  {
     if (this.alertActive) {
       return;
     }
