@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constants } from '../constants';
 import { FolderStats } from '../interfaces/folder-stats';
-import { UsermgmtService } from './usermgmt.service';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({

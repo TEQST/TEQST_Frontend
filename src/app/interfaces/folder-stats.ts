@@ -8,6 +8,7 @@ export interface FolderStats {
 // sub interfaces for cleaner formatting
 interface StatsPerSpeaker {
     name: string;
+    completedTextsCount?: number
     texts: StatsPerText[];
 }
 

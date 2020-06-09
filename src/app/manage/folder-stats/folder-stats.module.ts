@@ -8,6 +8,8 @@ import { IonicModule } from '@ionic/angular';
 import { FolderStatsPageRoutingModule } from './folder-stats-routing.module';
 
 import { FolderStatsPage } from './folder-stats.page';
+import { SpeakerListPage } from './speaker-list/speaker-list.page';
+import { SpeakerDetailPage } from './speaker-detail/speaker-detail.page';
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ import { FolderStatsPage } from './folder-stats.page';
     FolderStatsPageRoutingModule,
     TranslateModule
   ],
-  declarations: [FolderStatsPage]
+  declarations: [FolderStatsPage, SpeakerListPage, SpeakerDetailPage],
+  entryComponents: [SpeakerListPage, SpeakerDetailPage]
 })
 export class FolderStatsPageModule {}

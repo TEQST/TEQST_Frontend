@@ -2,6 +2,19 @@
   <ion-toolbar>
     <ion-title>{{'Statistics for' | translate}} {{folderName}}</ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="this.viewCtrl.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-nav #navComponent></ion-nav>
+
+<!--
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'Statistics for' | translate}} {{folderName}}</ion-title>
+    <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
       </ion-button>
@@ -10,7 +23,20 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="folderStats" style="height: 100%;">
+  <ion-nav root="nav-home"></ion-nav>
+  <ion-list>
+    <ion-item button *ngFor="let speaker of folderStats.speakers"  onclick="showDetail()">
+      <ion-label>
+        <h2>{{speaker.name}}</h2>
+      </ion-label>
+      <span class="progress-text ion-float-right">3 out of 8 Sentences</span>
+    </ion-item>
+  </ion-list>
+</ion-content>
+-->
+
+
+  <!--<div *ngIf="folderStats" style="height: 100%;">
     <ion-list *ngFor="let speaker of folderStats.speakers">
       <ion-list-header>{{speaker.name}}</ion-list-header>
       <ion-item *ngFor="let text of speaker.texts">
@@ -26,10 +52,10 @@
         <span >{{"No statistics to display. Please share the folder to a speaker." | translate}}</span>
       </ion-text>
     </div>
-  </div>
+  </div>-->
 
   <!-- Skeleton Text displayed during Loading -->
-  <div *ngIf="!folderStats">
+  <!---<div *ngIf="!folderStats">
     <ion-list *ngFor="let i of [1, 2]">
       <ion-list-header>
         <ion-skeleton-text animated style="width: 15%;"></ion-skeleton-text>
@@ -41,5 +67,4 @@
         <ion-skeleton-text class="ion-float-right" animated style="width: 30%"></ion-skeleton-text>
       </ion-item>      
     </ion-list>
-  </div>
-</ion-content>
+  </div>-->

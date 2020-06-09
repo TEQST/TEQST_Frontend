@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: FolderStatsPage
-  }
+  },
+  {
+    path: 'speaker-detail',
+    loadChildren: () => import('./speaker-detail/speaker-detail.module').then( m => m.SpeakerDetailPageModule)
+  },
 ];
 
 @NgModule({

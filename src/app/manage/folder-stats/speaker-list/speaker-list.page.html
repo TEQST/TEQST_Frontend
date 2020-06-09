@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>speaker-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button *ngFor="let speaker of folderStats.speakers"  (tap)="showDetail(speaker)">
+      <ion-label>
+        <h2>{{speaker.name}}</h2>
+      </ion-label>
+      <span class="progress-text ion-float-right">
+        {{speaker.completedTextsCount}} out of {{speaker.texts.length}} Sentences
+      </span>
+      <ion-icon [ngClass]="{'hidden' : !(speaker.completedTextsCount === speaker.texts.length)}"
+                 class="ion-float-right" color="success" name="checkmark-circle" ></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>
