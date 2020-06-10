@@ -22,7 +22,11 @@ export class SpeakerListPage implements OnInit {
   ngOnInit() {}
 
   showDetail(speaker) {
-    //this.navComponent.push(SpeakerDetailPage, { speaker })
+    this.navComponent.push(SpeakerDetailPage, {
+      folderName: this.folderStats.name,
+      folderId: this.folderStats.id,
+      speaker
+    })
   }
 
 }

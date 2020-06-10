@@ -6,14 +6,18 @@ export interface FolderStats {
 }
 
 // sub interfaces for cleaner formatting
-interface StatsPerSpeaker {
+export interface StatsPerSpeaker {
     name: string;
-    completedTextsCount?: number
+    completedTextsCount?: number,
+    rec_time_without_rep: number,
+    rec_time_with_rep: number,
     texts: StatsPerText[];
 }
 
-interface StatsPerText {
+export interface StatsPerText {
     title: string;
     finished: number;
     total: number;
+    rec_time_without_rep: number,
+    rec_time_with_rep: number
 }

@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>speaker-list</ion-title>
+    <ion-title>{{'Statistics for' | translate}} {{folderStats.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="this.viewCtrl.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +16,7 @@
         <h2>{{speaker.name}}</h2>
       </ion-label>
       <span class="progress-text ion-float-right">
-        {{speaker.completedTextsCount}} out of {{speaker.texts.length}} Sentences
+        {{speaker.completedTextsCount}} out of {{speaker.texts.length}} texts
       </span>
       <ion-icon [ngClass]="{'hidden' : !(speaker.completedTextsCount === speaker.texts.length)}"
                  class="ion-float-right" color="success" name="checkmark-circle" ></ion-icon>

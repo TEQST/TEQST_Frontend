@@ -24,8 +24,8 @@ export class FolderStatsPage implements OnInit {
       this.addCompletedCountToSpeakers(folderStats)
       this.folderStats = folderStats;
       this.navComponent.push(SpeakerListPage, {
+        folderStats,
         navComponent: this.navComponent,
-        folderStats
       })
     });
   }
