@@ -16,10 +16,30 @@
         <h2>{{speaker.name}}</h2>
       </ion-label>
       <span class="progress-text ion-float-right">
-        {{speaker.completedTextsCount}} out of {{speaker.texts.length}} texts
+        {{speaker.completedTextsCount}} / {{speaker.texts.length}} {{"texts" | translate}}
       </span>
       <ion-icon [ngClass]="{'hidden' : !(speaker.completedTextsCount === speaker.texts.length)}"
                  class="ion-float-right" color="success" name="checkmark-circle" ></ion-icon>
     </ion-item>
   </ion-list>
+  <!-- Message shown, when folder has not been shared -->
+  <div *ngIf="folderStats.speakers.length === 0" class="vertical-center-container">
+    <ion-text class="vertical-center-content" color="medium">
+      <span >{{"No statistics to display. Please share the folder to a speaker." | translate}}</span>
+    </ion-text>
+  </div>
+  <!-- Skeleton Text displayed during Loading -->
+  <div *ngIf="!folderStats">
+    <ion-list *ngFor="let i of [1, 2]">
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 15%;"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item *ngFor="let i of [1, 2, 3]">
+        <ion-label>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </ion-label>
+        <ion-skeleton-text class="ion-float-right" animated style="width: 30%"></ion-skeleton-text>
+      </ion-item>      
+    </ion-list>
+  </div>
 </ion-content>

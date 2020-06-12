@@ -26,6 +26,7 @@ export class FolderStatsPage implements OnInit {
       this.navComponent.push(SpeakerListPage, {
         folderStats,
         navComponent: this.navComponent,
+        viewCtrl: this.viewCtrl
       })
     });
   }

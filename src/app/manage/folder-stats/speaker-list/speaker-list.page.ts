@@ -25,7 +25,7 @@ export class SpeakerListPage implements OnInit {
     this.navComponent.push(SpeakerDetailPage, {
       folderName: this.folderStats.name,
       folderId: this.folderStats.id,
-      speaker
+      speaker,
     })
   }
 

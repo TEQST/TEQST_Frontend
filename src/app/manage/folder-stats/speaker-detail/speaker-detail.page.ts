@@ -40,12 +40,7 @@ export class SpeakerDetailPage implements OnInit {
   }
 
   getPrettyFormatedRecordTime(time) {
-    return this.floor(time, 2)
-  }
-
-  floor(n, decimals) {
-    const multiplier = Math.pow(10, decimals)
-    return Math.floor(n * multiplier) / multiplier
+    return Math.round(time)
   }
 
 }
