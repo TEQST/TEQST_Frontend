@@ -28,6 +28,9 @@ msgstr ""
 msgid "Birthyear"
 msgstr ""
 
+msgid "Completed texts"
+msgstr ""
+
 msgid "Country"
 msgstr ""
 
@@ -43,6 +46,9 @@ msgstr ""
 msgid "Create text"
 msgstr ""
 
+msgid "Detailed statistics for"
+msgstr ""
+
 msgid "Don't have an Account yet?"
 msgstr ""
 
@@ -50,6 +56,9 @@ msgid "Education Level"
 msgstr ""
 
 msgid "Female"
+msgstr ""
+
+msgid "Finished Sentences"
 msgstr ""
 
 msgid "Folders by"
@@ -82,6 +91,9 @@ msgstr ""
 msgid "Menu Language"
 msgstr ""
 
+msgid "No statistics to display. Please share the folder to a speaker."
+msgstr ""
+
 msgid "Password"
 msgstr ""
 
@@ -89,6 +101,15 @@ msgid "Profile"
 msgstr ""
 
 msgid "Profile Settings"
+msgstr ""
+
+msgid "Recording time"
+msgstr ""
+
+msgid "Recording time by text"
+msgstr ""
+
+msgid "Recording time for"
 msgstr ""
 
 msgid "Register"
@@ -112,9 +133,6 @@ msgstr ""
 msgid "Select a publisher"
 msgstr ""
 
-msgid "sentences"
-msgstr ""
-
 msgid "Settings"
 msgstr ""
 
@@ -133,11 +151,26 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+msgid "Total recording time"
+msgstr ""
+
 msgid "Username"
+msgstr ""
+
+msgid "including re-recordings"
+msgstr ""
+
+msgid "min"
 msgstr ""
 
 msgid "more than 12 years"
 msgstr ""
 
 msgid "repeat Password"
+msgstr ""
+
+msgid "texts"
+msgstr ""
+
+msgid "without re-recordings"
 msgstr ""

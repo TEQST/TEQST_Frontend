@@ -1,17 +1,16 @@
 msgid ""
 msgstr ""
 "mime-version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 2.3\n"
-"Last-Translator: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: en\n"
+"X-Generator: Poedit 2.3.1\n"
 
 msgid "0-6 years"
 msgstr "0-6 years"
@@ -37,6 +36,9 @@ msgstr "Already have an Account?"
 msgid "Birthyear"
 msgstr "Birthyear"
 
+msgid "Completed texts"
+msgstr "Completed texts"
+
 msgid "Country"
 msgstr "Country"
 
@@ -52,6 +54,9 @@ msgstr "Create folder"
 msgid "Create text"
 msgstr "Create text"
 
+msgid "Detailed statistics for"
+msgstr "Detailed statistics for"
+
 msgid "Don't have an Account yet?"
 msgstr "Don't have an Account yet?"
 
@@ -60,6 +65,9 @@ msgstr "Education Level"
 
 msgid "Female"
 msgstr "Female"
+
+msgid "Finished Sentences"
+msgstr "Finished Sentences"
 
 msgid "Folders by"
 msgstr "Folders by"
@@ -91,6 +99,9 @@ msgstr "Maximum lines per text"
 msgid "Menu Language"
 msgstr "Menu Language"
 
+msgid "No statistics to display. Please share the folder to a speaker."
+msgstr "No statistics to display. Please share the folder to a speaker."
+
 msgid "Password"
 msgstr "Password"
 
@@ -99,6 +110,15 @@ msgstr "Profile"
 
 msgid "Profile Settings"
 msgstr "Profile Settings"
+
+msgid "Recording time"
+msgstr "Recording time"
+
+msgid "Recording time by text"
+msgstr "Recording time by text"
+
+msgid "Recording time for"
+msgstr "Recording time for"
 
 msgid "Register"
 msgstr "Register"
@@ -121,9 +141,6 @@ msgstr "Select Speaker for"
 msgid "Select a publisher"
 msgstr "Select a publisher"
 
-msgid "sentences"
-msgstr "sentences"
-
 msgid "Settings"
 msgstr "Settings"
 
@@ -131,7 +148,7 @@ msgid "Split into multiple texts"
 msgstr "Split into multiple texts"
 
 msgid "Statistics for"
-msgstr "Statistiken für"
+msgstr "Statistics for"
 
 msgid "Text Content"
 msgstr "Text Content"
@@ -142,11 +159,26 @@ msgstr "Texts in"
 msgid "Title"
 msgstr "Title"
 
+msgid "Total recording time"
+msgstr "Total recording time"
+
 msgid "Username"
 msgstr "Username"
+
+msgid "including re-recordings"
+msgstr "including re-recordings"
+
+msgid "min"
+msgstr "min"
 
 msgid "more than 12 years"
 msgstr "more than 12 years"
 
 msgid "repeat Password"
 msgstr "repeat Password"
+
+msgid "texts"
+msgstr "texts"
+
+msgid "without re-recordings"
+msgstr "without re-recordings"

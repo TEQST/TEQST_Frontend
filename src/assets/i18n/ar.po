@@ -10,7 +10,7 @@ msgstr ""
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Language: ar\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 
 msgid "0-6 years"
 msgstr "0-6 سنة"
@@ -36,6 +36,9 @@ msgstr "هل لديك حساب بالفعل؟"
 msgid "Birthyear"
 msgstr "سنة الميلاد"
 
+msgid "Completed texts"
+msgstr "النصوص المكتملة"
+
 msgid "Country"
 msgstr "الدولة"
 
@@ -51,6 +54,9 @@ msgstr "أنشئ مجلد"
 msgid "Create text"
 msgstr "إنشاء نص"
 
+msgid "Detailed statistics for"
+msgstr "إحصائيات مفصلة لـ"
+
 msgid "Don't have an Account yet?"
 msgstr "ليس لديك حساب حتى الآن؟"
 
@@ -59,6 +65,9 @@ msgstr "مستوى التعليم"
 
 msgid "Female"
 msgstr "أنثى"
+
+msgid "Finished Sentences"
+msgstr "الجمل المنتهية"
 
 msgid "Folders by"
 msgstr "المجلدات حسب"
@@ -90,6 +99,9 @@ msgstr "الحد الأقصى للأسطر لكل نص"
 msgid "Menu Language"
 msgstr "لغة القائمة"
 
+msgid "No statistics to display. Please share the folder to a speaker."
+msgstr "لا توجد إحصائيات لعرضها. الرجاء مشاركة المجلد إلى مكبر الصوت."
+
 msgid "Password"
 msgstr "كلمة المرور"
 
@@ -98,6 +110,15 @@ msgstr "الملف الشخصي"
 
 msgid "Profile Settings"
 msgstr "إعدادات الملف الشخصي"
+
+msgid "Recording time"
+msgstr "تسجيل الوقت"
+
+msgid "Recording time by text"
+msgstr "تسجيل الوقت بواسطة النص"
+
+msgid "Recording time for"
+msgstr "وقت التسجيل لـ"
 
 msgid "Register"
 msgstr "تسجيل"
@@ -120,9 +141,6 @@ msgstr "حدد مكبر الصوت"
 msgid "Select a publisher"
 msgstr "تحديد ناشر"
 
-msgid "sentences"
-msgstr "الجمل"
-
 msgid "Settings"
 msgstr "الملف الشخصي"
 
@@ -141,11 +159,26 @@ msgstr "النصوص في"
 msgid "Title"
 msgstr "عنوان"
 
+msgid "Total recording time"
+msgstr "إجمالي وقت التسجيل"
+
 msgid "Username"
 msgstr "المستخدم"
+
+msgid "including re-recordings"
+msgstr "بدون تسجيلات جديدة"
+
+msgid "min"
+msgstr "دقيقة"
 
 msgid "more than 12 years"
 msgstr "أكثر من 12 سنة"
 
 msgid "repeat Password"
 msgstr "كلمة المرور"
+
+msgid "texts"
+msgstr "النصوص في"
+
+msgid "without re-recordings"
+msgstr "بدون تسجيلات جديدة"
