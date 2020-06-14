@@ -23,13 +23,13 @@
     <ion-item>
       <ion-label>{{'including re-recordings' | translate}}</ion-label>
       <span class="ion-float-right">
-        {{speaker.rec_time_with_rep}} {{"min" | translate}}
+        {{timeFormat.getTimeString(speaker.rec_time_with_rep)}}
       </span>
     </ion-item>
     <ion-item>
       <ion-label>{{'without re-recordings' | translate}}</ion-label>
       <span class="ion-float-right">
-        {{speaker.rec_time_without_rep}} {{"min" | translate}}
+        {{timeFormat.getTimeString(speaker.rec_time_without_rep)}}
       </span>
     </ion-item>
   </ion-list>
@@ -52,13 +52,13 @@
         <ion-item>
           <ion-label>{{'including re-recordings' | translate}}</ion-label>
           <span class="ion-float-right">
-            {{text.rec_time_with_rep}} {{"min" | translate}}
+            {{timeFormat.getTimeString(text.rec_time_with_rep)}}
           </span>
         </ion-item>
         <ion-item>
           <ion-label>{{'without re-recordings' | translate}}</ion-label>
           <span class="ion-float-right">
-            {{text.rec_time_without_rep}} {{"min" | translate}}
+            {{timeFormat.getTimeString(text.rec_time_without_rep)}}
           </span>
         </ion-item>
       </ion-list>
