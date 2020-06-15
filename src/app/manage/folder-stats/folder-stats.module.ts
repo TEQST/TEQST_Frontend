@@ -1,3 +1,5 @@
+import { SpeakerListPageModule } from './speaker-list/speaker-list.module';
+import { SpeakerDetailPageModule } from './speaker-detail/speaker-detail.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +11,6 @@ import { FolderStatsPageRoutingModule } from './folder-stats-routing.module';
 
 import { FolderStatsPage } from './folder-stats.page';
 import { SpeakerListPage } from './speaker-list/speaker-list.page';
-import { SpeakerDetailPage } from './speaker-detail/speaker-detail.page';
 
 @NgModule({
   imports: [
@@ -17,9 +18,10 @@ import { SpeakerDetailPage } from './speaker-detail/speaker-detail.page';
     FormsModule,
     IonicModule,
     FolderStatsPageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    SpeakerDetailPageModule,
+    SpeakerListPageModule
   ],
-  declarations: [FolderStatsPage, SpeakerListPage, SpeakerDetailPage],
-  entryComponents: [SpeakerListPage, SpeakerDetailPage]
+  declarations: [FolderStatsPage],
 })
 export class FolderStatsPageModule {}
