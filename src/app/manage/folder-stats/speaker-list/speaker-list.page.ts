@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, IonNav } from '@ionic/angular';
+import { NavParams, IonNav, ModalController } from '@ionic/angular';
 import { FolderStats } from 'src/app/interfaces/folder-stats';
 import { SpeakerDetailPage } from '../speaker-detail/speaker-detail.page';
 
@@ -14,7 +14,7 @@ export class SpeakerListPage implements OnInit {
   public folderStats: FolderStats
   public navComponent: IonNav
 
-  constructor(public navParams: NavParams) {
+  constructor(public navParams: NavParams, private viewCtrl: ModalController) {
     this.folderStats = navParams.get('folderStats')
     this.navComponent = navParams.get('navComponent')
   }
@@ -27,6 +27,11 @@ export class SpeakerListPage implements OnInit {
       folderId: this.folderStats.id,
       speaker,
     })
+  }
+
+  dismiss() {
+    // close the modal without passing data
+    this.viewCtrl.dismiss();
   }
 
 }
