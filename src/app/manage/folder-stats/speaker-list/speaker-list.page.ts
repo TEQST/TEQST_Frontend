@@ -30,7 +30,6 @@ export class SpeakerListPage implements OnInit {
   }
 
   dismiss() {
-    // close the modal without passing data
     this.viewCtrl.dismiss();
   }
 
