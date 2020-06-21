@@ -10,7 +10,7 @@
     <ion-row class="ion-align-items-center content-row ion-justify-content-center">
       <ion-col class="inner2">
         <ion-card class="max">
-          <form (ngSubmit)="login()">
+          <form (keydown.enter)="login()" (ngSubmit)="login()">
           <ion-list>
             <ion-item>
               <ion-input placeholder= "{{ 'Username' | translate }}" [(ngModel)]="username" [ngModelOptions]="{standalone: true}"></ion-input>
@@ -21,8 +21,8 @@
             </ion-item>
           </ion-list>
 
-          <ion-button  type="submit"  expand="block">
-            <button type="submit" class="test">{{'Login' | translate}}</button>
+          <ion-button  type="submit" expand="block">
+            {{'Login' | translate}}
           </ion-button>            
         </form>
         <ion-card-content>
