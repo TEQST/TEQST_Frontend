@@ -3,7 +3,7 @@ import { RecordingUploadService } from './../../../../services/recording-upload.
 import { AudioRecordingService } from './audio-recording.service';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { TextServiceService } from './text-service.service';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -29,6 +29,7 @@ export class RecordViewPage implements OnInit {
               private audioService: AudioRecordingService,
               private alertController: AlertController,
               private router: Router,
+              public navCtrl: NavController,
               private alertService: AlertManagerService,
               private loaderService: LoaderService,
               private recordingUploadService: RecordingUploadService,
@@ -100,7 +101,7 @@ export class RecordViewPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            this.router.navigate([goBackUrl]);
+            this.navCtrl.navigateBack(goBackUrl)
           }
         }, {
           text: 'Ok',
