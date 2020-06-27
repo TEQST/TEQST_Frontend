@@ -28,7 +28,7 @@
       </ion-button>
     </ion-item>
     <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/manage/text', text.id]">
-      <ion-icon name="reader" class="textIcon"></ion-icon>{{ text.title }}
+      <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}
       <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
@@ -40,10 +40,10 @@
     </ion-fab-button>
     <ion-fab-list side="top">
       <ion-fab-button *ngIf="!currentFolder.is_sharedfolder" (click)="openCreateFolderModal()">
-        <ion-icon name="folder"></ion-icon>
+        <ion-icon name="folder" color="primary"></ion-icon>
       </ion-fab-button>
       <ion-fab-button *ngIf="currentFolder.id != null && (currentFolder.is_sharedfolder || subfolders.length == 0)" (click)="openCreateTextModal()">
-        <ion-icon name="reader"></ion-icon>
+        <ion-icon name="reader" color="dark"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
