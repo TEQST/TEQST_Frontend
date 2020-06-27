@@ -9,7 +9,7 @@
         <ion-icon name="cloudy"></ion-icon>
       </ion-button>
       <ion-button color="primary" (click)="openFolderStatsModal()">
-        <ion-icon name="stats"></ion-icon>
+        <ion-icon name="stats-chart"></ion-icon>
       </ion-button>
       <ion-button color="primary" (click)="downloadFolder()">
         <ion-icon name="download"></ion-icon>
@@ -28,7 +28,7 @@
       </ion-button>
     </ion-item>
     <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/manage/text', text.id]">
-      <ion-icon name="paper" class="textIcon"></ion-icon>{{ text.title }}
+      <ion-icon name="reader" class="textIcon"></ion-icon>{{ text.title }}
       <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
@@ -43,7 +43,7 @@
         <ion-icon name="folder"></ion-icon>
       </ion-fab-button>
       <ion-fab-button *ngIf="currentFolder.id != null && (currentFolder.is_sharedfolder || subfolders.length == 0)" (click)="openCreateTextModal()">
-        <ion-icon name="paper"></ion-icon>
+        <ion-icon name="reader"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
