@@ -34,3 +34,8 @@ ion-item.ion-valid.item-has-focus {
     --border-color: var(--ion-color-success);
 }
 /* end fix */
+
+ion-item {
+    --padding-top: 10px;
+    --inner-padding-bottom: 10px;
+}
