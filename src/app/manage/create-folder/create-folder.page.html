@@ -11,7 +11,7 @@
 
 <ion-content>
   <form [formGroup]="createFolderForm" (ngSubmit)="submitForm()">
-    <ion-item>
+    <ion-item id="titleInputItem">
       <ion-label position="stacked">{{'Title' | translate}}</ion-label>
       <ion-input #folderNameInput formControlName="folderName" name="name"></ion-input>
     </ion-item>

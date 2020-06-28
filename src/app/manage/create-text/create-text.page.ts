@@ -56,13 +56,6 @@ export class CreateTextPage implements OnInit {
     });
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-        // setting the focus only works in most webbrowsers after a small timeout
-        this.titleInput.setFocus();
-    }, 100);
-  }
-
   dismiss() {
     // close the modal without passing data
     this.viewCtrl.dismiss();
