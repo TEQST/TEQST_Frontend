@@ -1,12 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{'Select a publisher' | translate}}</ion-title>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+    <ion-img src="../../assets/img/logo.png"></ion-img>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
+    <ion-list-header>
+      <ion-label>{{'Select a publisher' | translate}}</ion-label>
+    </ion-list-header>
     <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}">
       <ion-icon name="person" class="personIcon"></ion-icon> {{ pub.username }}
     </ion-item>

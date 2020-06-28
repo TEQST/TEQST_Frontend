@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{'Settings' | translate}}</ion-title>
+    <ion-img src="../../assets/img/logo.png"></ion-img>
     <ion-buttons slot="end">
       <ion-button id="logout-btn" color="primary" (click)="logout()">
         {{'Logout' | translate}} 
@@ -13,6 +13,9 @@
 
 <ion-content>
   <ion-list>
+    <ion-list-header>
+      <ion-label>{{'Settings' | translate}}</ion-label>
+    </ion-list-header>
     <ion-item [routerLink]="'/tabs/settings/profile/'">
         <ion-icon name="person-circle"></ion-icon>
         <ion-label>{{'Profile Settings' | translate}}</ion-label>

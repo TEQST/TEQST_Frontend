@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button *ngIf="currentFolder.id" defaultHref="tabs/manage"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{currentFolder.name}}</ion-title>
+    <ion-img *ngIf="currentFolder.name == '/'" src="../../assets/img/logo.png"></ion-img>
     <ion-buttons *ngIf="currentFolder.is_sharedfolder" slot="end">
       <ion-button color="primary" (click)="openShareFolderModal()">
         <ion-icon name="cloudy"></ion-icon>
@@ -21,6 +21,9 @@
 
 <ion-content>
   <ion-list id="contentsList">
+    <ion-list-header>
+      <ion-label>{{currentFolder.name}}</ion-label>
+    </ion-list-header>
     <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/manage', folder.id]">
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
       <ion-button color="danger" slot="end" (click)="openDeleteFolderAlert($event, folder)">
