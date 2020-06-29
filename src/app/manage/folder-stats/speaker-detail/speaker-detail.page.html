@@ -37,14 +37,17 @@
   <ion-list>
     <ion-card *ngFor="let text of speaker.texts">
       <ion-card-header>
-        <ion-card-title>{{text.title}}</ion-card-title>
+        <span class="card-title">{{text.title}}</span>
+        <span [ngClass]="{'hidden' : !(text.finished === text.total)}">
+          <ion-icon class="header-icon ion-float-right" color="success" name="checkmark-circle" ></ion-icon>
+        </span>
       </ion-card-header>
       <ion-list>
         <ion-item>
           <ion-label>{{"Finished Sentences" | translate}}</ion-label>
           <span class="ion-float-right">
             {{text.finished}} / {{text.total}}
-          </span>
+          </span>       
         </ion-item>
       </ion-list>
       <h4>{{"Recording time" | translate}}</h4>

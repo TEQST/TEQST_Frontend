@@ -22,8 +22,15 @@ ion-card-header {
     background-color: #eee;
 }
 
-ion-card-title {
+.card-title {
     font-size: 1.3em;
+    font-weight: 500;
+    color: var(--ion-color-dark);
+}
+
+.header-icon {
+    height: 24px;
+    width: 24px;
 }
 
 .textRecordingStats {
