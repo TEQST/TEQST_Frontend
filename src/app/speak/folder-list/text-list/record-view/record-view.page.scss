@@ -1,29 +1,54 @@
+ion-tabs {
+    display: none;
+}
+
 .recordSentences {
+    position: relative;
+    margin-top: 70px;
+    box-sizing: border-box;
     overflow-y: auto;
 }
 
 .recordFooter {
     text-align: center;
+    background: var(--ion-color-primary-contrast);
+}
+
+ion-content h1 {
+    position: fixed;
+    display: block;
+    background: var(--ion-color-light);
+    margin-top: 0;
+    margin-bottom: 0px;
+    margin-left: 0;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    line-height: 30px;
+    height: 70px;
+    border-bottom: 2px solid #ccc;
 }
 
 ion-content div {
-    height: 100%;
-}
+    &.noRecording {
+        height: calc(100% - 70px);
 
-ion-content div.noRecording {
-    .recordSentences {
-        height: calc(100% - 123px);
+        .recordSentences {
+            height: calc(100% - 123px);
+        }
+        .recordFooter {
+            height: 123px;
+        }
     }
-    .recordFooter {
-        height: 123px;
-    }
-}
+    &.hasRecording {
+        height: calc(100% - 70px);
 
-ion-content div.hasRecording {
-    .recordSentences {
-        height: calc(100% - 183px);
-    }
-    .recordFooter {
-        height: 183px; // 120px record buttons + 60px play bar + 3px progress bar
+        .recordSentences {
+            height: calc(100% - 183px);
+        }
+        .recordFooter {
+            height: 183px; // 120px record buttons + 60px play bar + 3px progress bar
+        }
     }
 }

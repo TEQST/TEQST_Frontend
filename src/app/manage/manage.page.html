@@ -20,10 +20,8 @@
 </ion-header>
 
 <ion-content>
+  <h1>{{currentFolder.name}}</h1>
   <ion-list id="contentsList">
-    <ion-list-header>
-      <ion-label>{{currentFolder.name}}</ion-label>
-    </ion-list-header>
     <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/manage', folder.id]">
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
       <ion-button color="danger" slot="end" (click)="openDeleteFolderAlert($event, folder)">

@@ -13,10 +13,8 @@
 </ion-header>
 
 <ion-content>
+  <h1>{{'Texts in' | translate}} {{folderName}}</h1>
   <ion-list>
-    <ion-list-header>
-      <ion-label>{{'Texts in' | translate}} {{folderName}}</ion-label>
-    </ion-list-header>
     <ion-item button *ngFor="let text of texts" routerLink="/speak/{{publisherId}}/{{folderId}}/{{text.id}}">
       <ion-icon name="reader" color="dark" class="textIcon"></ion-icon> {{ text.title }}
     </ion-item>

@@ -39,7 +39,7 @@ export class ManagePage implements OnInit {
     Folder.setServiceProvider(manageFolderService)
     Text.setServiceProvider(manageFolderService)
 
-    this.currentFolder = new Folder(null, '/', false)
+    this.currentFolder = new Folder(null, '', false)
     this.subfolders = []
     this.texts = []
     this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
@@ -50,7 +50,10 @@ export class ManagePage implements OnInit {
   async ionViewWillEnter() {
     // retrieve folder id from url
     let folderId = this.route.snapshot.paramMap.get('folderId')
-    if (folderId != null) {
+    if (folderId == null) {
+      this.currentFolder.id = ''
+      this.currentFolder.name = '/'
+    } else {
       this.currentFolder.id = folderId
     }
     this.getFolderInfo()
