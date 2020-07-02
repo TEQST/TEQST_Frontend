@@ -1,3 +1,7 @@
 div {
     padding-top: 5px;
+
+    p:first-child {
+        margin-top: 5px;
+    }
 }

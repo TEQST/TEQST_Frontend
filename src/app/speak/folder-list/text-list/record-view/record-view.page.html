@@ -12,9 +12,9 @@
 </ion-header>
 
 <ion-content>
-  <h1>{{textTitle}}</h1>
   <div [class]="hasRecording ? 'hasRecording' : 'noRecording'">
     <div class="recordSentences">
+      <h1>{{textTitle}}</h1>
       <app-sentence-wrapper [dir]="isRightToLeft ? 'rtl' : 'ltr'" ></app-sentence-wrapper>
     </div>
     <div class="recordFooter">

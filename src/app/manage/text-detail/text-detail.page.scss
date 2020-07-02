@@ -1,20 +1,6 @@
 ion-content h1 {
-    position: fixed;
-    display: block;
-    background: var(--ion-color-light);
-    margin-top: 0;
-    margin-bottom: 0px;
-    margin-left: 0;
-    padding-left: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    width: 100%;
-    line-height: 30px;
-    height: 70px;
-    border-bottom: 2px solid #ccc;
+	margin-bottom: 15px;
 }
-
-router-outlet {
-    display: block;
-    margin-top: 70px;
+app-basic-text-view p:first-child {
+    padding-top: 0;
 }

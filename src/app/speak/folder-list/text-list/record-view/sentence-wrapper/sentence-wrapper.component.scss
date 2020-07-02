@@ -4,11 +4,15 @@ div {
 	font-size: large;
 }
 
-.active {
-	opacity: 1;
-	padding: 15px;
-	font-size: larger;
-  	font-weight: bold;
+.verticalLine, .verticalLineDone {
+	padding: 5px 10px;
+
+	&.active {
+		opacity: 1;
+		padding: 15px;
+		font-size: larger;
+		font-weight: bold;
+	}
 }
 
 .verticalLine {
