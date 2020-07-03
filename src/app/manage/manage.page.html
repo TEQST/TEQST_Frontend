@@ -24,13 +24,13 @@
   <ion-list id="contentsList">
     <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/manage', folder.id]">
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
-      <ion-button color="danger" slot="end" (click)="openDeleteFolderAlert($event, folder)">
+      <ion-button class="delete" color="danger" slot="end" (click)="openDeleteFolderAlert($event, folder)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-item>
     <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/manage/text', text.id]">
       <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}
-      <ion-button color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
+      <ion-button class="delete" color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-item>

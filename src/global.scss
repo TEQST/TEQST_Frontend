@@ -35,6 +35,10 @@ ion-item.ion-valid.item-has-focus {
 }
 /* end fix */
 
+ion-button {
+    height: 40px;
+}
+
 ion-item {
     --padding-top: 6px;
     --inner-padding-bottom: 6px;
