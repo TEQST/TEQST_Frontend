@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let speaker of folderStats.speakers"  (tap)="showDetail(speaker)">
+    <ion-item button *ngFor="let speaker of folderStats.speakers" (click)="showDetail(speaker)">
       <ion-label>
         <h2>{{speaker.name}}</h2>
       </ion-label>

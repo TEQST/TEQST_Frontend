@@ -31,13 +31,6 @@ export class CreateFolderPage implements OnInit {
 
   ngOnInit() { }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-        // setting the focus only works in most webbrowsers after a small timeout
-        this.folderNameInput.setFocus()
-    }, 100)
-  }
-
   folderNameValidator(control: FormControl) {
     let folderName = control.value
     this.folderNameValid = (this.validatorPattern.test(folderName) &&

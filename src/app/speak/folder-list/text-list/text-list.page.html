@@ -3,7 +3,6 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/speak"></ion-back-button>
     </ion-buttons>
-    <ion-title><ng-container>{{'Texts in' | translate}}</ng-container> {{folderName}}</ion-title>
     <ion-buttons *ngIf="sharedFolderData" slot="end">
       <ion-button color="primary" (click)="presentTimeStats()">
         <ion-icon name="alarm"></ion-icon>
@@ -14,9 +13,10 @@
 </ion-header>
 
 <ion-content>
+  <h1>{{'Texts in' | translate}} {{folderName}}</h1>
   <ion-list>
     <ion-item button *ngFor="let text of texts" routerLink="/speak/{{publisherId}}/{{folderId}}/{{text.id}}">
-      <ion-icon name="paper" class="textIcon"></ion-icon> {{ text.title }}
+      <ion-icon name="reader" color="dark" class="textIcon"></ion-icon> {{ text.title }}
     </ion-item>
   </ion-list>
 </ion-content>

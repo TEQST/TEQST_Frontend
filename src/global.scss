@@ -48,3 +48,32 @@ ion-item.ion-valid.item-has-focus {
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 }
+
+ion-button {
+    height: 40px;
+}
+
+ion-item {
+    --padding-top: 6px;
+    --inner-padding-bottom: 6px;
+}
+
+ion-content h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 20px 20px 10px;
+}
+
+ion-header ion-img {
+    width: 60px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+ion-icon {
+    min-width: 1em;
+}

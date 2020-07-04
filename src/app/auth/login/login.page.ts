@@ -12,8 +12,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginPage implements OnInit {
   SERVER_URL = Constants.SERVER_URL;
-  username: string;
-  password: string;
+  public showPassword = false;
 
   constructor(
     public navCtrl: NavController,
@@ -33,9 +32,8 @@ export class LoginPage implements OnInit {
   }
 
   // gets Username and Password and calls with those login in UsermgmtService
-  login() {
-    const dataToSend = {username: this.username, password: this.password};
-    this.authenticationService.login(dataToSend);
+  performLogin(form) {
+    this.authenticationService.login(form.value);
   }
 
   redirect() {

@@ -1,29 +1,39 @@
+ion-tabs {
+    display: none;
+}
+
+ion-content h1 {
+	margin-bottom: 15px;
+}
+
 .recordSentences {
     overflow-y: auto;
 }
 
 .recordFooter {
     text-align: center;
+    background: var(--ion-color-primary-contrast);
 }
 
 ion-content div {
-    height: 100%;
-}
+    &.noRecording {
+        height: calc(100% - 70px);
 
-ion-content div.noRecording {
-    .recordSentences {
-        height: calc(100% - 123px);
+        .recordSentences {
+            height: calc(100% - 83px);
+        }
+        .recordFooter {
+            height: 143px;
+        }
     }
-    .recordFooter {
-        height: 123px;
-    }
-}
+    &.hasRecording {
+        height: calc(100% - 70px);
 
-ion-content div.hasRecording {
-    .recordSentences {
-        height: calc(100% - 183px);
-    }
-    .recordFooter {
-        height: 183px; // 120px record buttons + 60px play bar + 3px progress bar
+        .recordSentences {
+            height: calc(100% - 143px);
+        }
+        .recordFooter {
+            height: 203px; // 140px record buttons + 60px play bar + 3px progress bar
+        }
     }
 }

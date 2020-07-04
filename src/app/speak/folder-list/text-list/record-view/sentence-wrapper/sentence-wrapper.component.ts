@@ -52,10 +52,6 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     if (sentenceRef === undefined) {
       return;
     }
-    sentenceRef.nativeElement.scrollIntoView(
-      {
-        behavior: 'smooth',
-      }
-    );
+    sentenceRef.nativeElement.parentNode.parentNode.scrollTop = sentenceRef.nativeElement.offsetTop;
   }
 }

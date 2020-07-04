@@ -3,17 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/manage"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="text">{{text.title}}</ion-title>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
     <ion-buttons slot="end">
       <ion-button (click)="presentSpeakerSelect($event)">
         <ion-label>Speaker: {{selectedSpeaker | async}}</ion-label>
-        <ion-icon name="arrow-dropdown"></ion-icon>
+        <ion-icon name="caret-down-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <h1 *ngIf="text">{{text.title}}</h1>
     <router-outlet></router-outlet>
 </ion-content>

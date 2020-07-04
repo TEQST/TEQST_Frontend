@@ -10,23 +10,22 @@
     <ion-row class="ion-align-items-center content-row ion-justify-content-center">
       <ion-col class="inner2">
         <ion-card class="max">
-          <form (ngSubmit)="login()">
-          <ion-list>
-            <ion-item>
-              <ion-input placeholder= "{{ 'Username' | translate }}" [(ngModel)]="username" [ngModelOptions]="{standalone: true}"></ion-input>
+          <form #form="ngForm" (ngSubmit)="performLogin(form)" (keyup.enter)="form.valid ? performLogin(form) : undefined">
+            <ion-item lines="full">
+              <ion-label position="floating" for="username">{{ 'Username' | translate }}</ion-label>
+              <ion-input name="username" type="text" autofocus autocomplete="username" id="username"  ngModel required ></ion-input>
             </ion-item>
-
-            <ion-item>
-              <ion-input placeholder= "{{ 'Password' | translate }}" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"></ion-input>
+            <ion-item id="password-item" lines="full">
+              <ion-label position="floating" for="password">{{ 'Password' | translate }}</ion-label>
+              <ion-button id="toggle-password" fill=clear slot="end" (click)="showPassword = !showPassword">
+                <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+              </ion-button>
+              <ion-input name="password" [type]="showPassword ? 'text' : 'password'" autofocus="true" autocomplete="current-password" id="password" ngModel required ></ion-input>
             </ion-item>
-          </ion-list>
-
-          <ion-button  type="submit"  expand="block">
-            <button type="submit" class="test">{{'Login' | translate}}</button>
-          </ion-button>            
+            <ion-button class="button-submit" type="submit" [disabled]="form.invalid" expand="block">{{'Login' | translate}}</ion-button>
         </form>
         <ion-card-content>
-          <ng-container>{{"Don't have an Account yet?" | translate }} </ng-container>
+          {{"Don't have an Account yet?" | translate }}
           <p><a routerLink="/register" class="register-text-settings">{{'Register here' | translate }}</a></p>
         </ion-card-content>
         </ion-card>

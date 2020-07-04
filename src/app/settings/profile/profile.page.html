@@ -3,12 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/settings"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{'Profile' | translate}}</ion-title>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>  
+<ion-content>
+  <h1>{{'Profile' | translate}}</h1>
   <ion-list>
     <ion-item >
       <ion-label id="username" position="stacked">{{'Username' | translate}}:</ion-label>
