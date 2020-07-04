@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, PopoverController, IonInput } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, PopoverController } from '@ionic/angular';
 import { Constants } from '../../constants';
 import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';

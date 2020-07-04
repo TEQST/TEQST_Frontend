@@ -16,10 +16,21 @@ h4 {
 
 ion-card {
     margin: 15px 15px;
-}
+    border: 2px solid #eee;
+    box-shadow: none;
 
-ion-card-header {
-    background-color: #eee;
+    ion-card-header {
+        background-color: #eee;
+    }
+    ion-card-title {
+        font-size: 1.3em;
+    }
+    ion-list.textRecordingStats {
+        padding-top: 2px;
+    }
+    ion-item:last-child {
+        --border-color: transparent;
+    }
 }
 
 .card-title {
@@ -33,10 +44,16 @@ ion-card-header {
     width: 24px;
 }
 
-.textRecordingStats {
-    padding-top: 2px;
-}
-
 .hidden {
     visibility: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+    ion-card {
+        border-color: #444;
+
+        ion-card-header {
+            background-color: #444;
+        }
+    }
 }

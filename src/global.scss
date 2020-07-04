@@ -25,6 +25,8 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import "globalDarkMode.scss";
+
 /* fix input validation hints not visible on ios */
 ion-item.ion-invalid.ion-touched, ion-item.ion-invalid.item-has-focus {
     --border-color: var(--ion-color-danger);
