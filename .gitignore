@@ -30,4 +30,3 @@ npm-debug.log*
 /plugins
 /www
 typings/cordova-typings.d.ts
-package-lock.json
