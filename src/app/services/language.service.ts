@@ -3,6 +3,7 @@ import { Constants } from '../constants';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
+import { Language } from '../interfaces/language';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class LanguageService {
   // returns all speakable Languages created by an admin
   getLangs(): Observable<object> {
     const url = this.SERVER_URL + '/api/langs/';
-    return this.http.get(url);
+    return this.http.get<Language[]>(url);
   }
 
 
@@ -29,6 +30,18 @@ export class LanguageService {
   putMenuLanguageLocalStorageWithParam(lang: string) {
     localStorage.setItem('MenuLanguage', lang);
   }
+  async getAllMenuLanguages(){
+    let allMenuLangs: Language[] = [];
+    await this.getLangs().toPromise().then((dataReturnFromServer: any) => {
+      for (const singleLanguage of dataReturnFromServer) {
+        if (singleLanguage['is_menu_language'] === true) {
+          allMenuLangs.push(singleLanguage);          
+        }
+      }
+    });
+    return allMenuLangs
+  }
+
   getMenuLanguage(): string {
     return this.menuLanguage;
   }

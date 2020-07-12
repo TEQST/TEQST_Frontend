@@ -1,20 +1,11 @@
-<ion-list color="dark">
+<ion-list color="dark" >
   <ion-radio-group (ionChange)="changeLanguage()" [(ngModel)]="language" >
-    <ion-item>
-      <ion-label>Deutsch</ion-label>
-      <ion-radio mode="ios" color="dark" slot="end" value="de"></ion-radio>
+   
+    <ion-item *ngFor="let lang of navParams.get('menuLanguages')">
+      <ion-label >{{lang.native_name}}</ion-label>
+      <ion-radio slot="end" mode="ios" color="dark" value='{{lang.short}}'> </ion-radio>      
     </ion-item>
-    <ion-item>
-      <ion-label>English</ion-label>
-      <ion-radio mode="ios" color="dark" slot="end" value="en"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>日本語</ion-label>
-      <ion-radio mode="ios" color="dark" slot="end" value="ja"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>العربية</ion-label>
-      <ion-radio mode="ios" color="dark" slot="end" value="ar"></ion-radio>
-    </ion-item>
+    
   </ion-radio-group>
+  
 </ion-list>
