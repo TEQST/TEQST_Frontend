@@ -47,4 +47,8 @@ export class LoginPage implements OnInit {
     window.open(this.SERVER_URL + '/admin');
   }
 
+  redirectToHelp(){
+   
+  }
+
 }
