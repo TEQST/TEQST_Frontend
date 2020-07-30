@@ -16,26 +16,3 @@ ion-button {
     font-size: 2em;
     text-align: center;
 }
-
-.blink_me {
-    -webkit-animation-name: redBlink;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-
-    -moz-animation-name: redBlink;
-    -moz-animation-duration: 1s;
-    -moz-animation-timing-function: linear;
-    -moz-animation-iteration-count: infinite;
-
-    animation-name: redBlink;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-@keyframes redBlink {
-    0%     { color:red; }
-    50%    { color:white; }
-    100%   { color:red; }
-}

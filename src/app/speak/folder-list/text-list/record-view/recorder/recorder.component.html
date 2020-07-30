@@ -13,7 +13,7 @@
       <ion-icon slot="icon-only" name="mic"></ion-icon>
     </ion-button>
     <ion-button *ngIf="isRecording" class="btn-mic" color="primary" shape="round" (click)=stopRecording()>
-      <ion-icon class="blink_me" slot="icon-only" name="square"></ion-icon>
+      <ion-icon src="./assets/icons/blinking_record_icon.svg" slot="icon-only"></ion-icon>
     </ion-button>
     <!-- right button -->
     <ion-button class="btn" color="primary" [disabled]="activeSentence === totalSentenceNumber ? 'true' : 'false'" shape="round" (click)=nextSentence()>

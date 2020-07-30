@@ -1,0 +1,22 @@
+<svg viewBox="0 0 512 512">
+    <defs>
+        <style>
+            rect {
+                animation-name: redBlink;
+                animation-duration: 1s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+
+            @keyframes redBlink {
+                0%     { fill:white; }
+                50%    { fill:red; }
+                100%   { fill:white; }
+            }
+        </style>
+    </defs>
+
+    <rect height="80%" width="80%"
+    x="10%" y="10%"
+    rx="15%" ry="15%"/>
+</svg>
