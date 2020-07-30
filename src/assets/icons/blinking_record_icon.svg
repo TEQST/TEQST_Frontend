@@ -9,9 +9,9 @@
             }
 
             @keyframes redBlink {
-                0%     { fill:white; }
-                50%    { fill:red; }
-                100%   { fill:white; }
+                0%     { fill: #fff; }
+                50%    { fill: var(--ion-color-danger); }
+                100%   { fill: #fff; }
             }
         </style>
     </defs>
