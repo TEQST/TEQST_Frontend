@@ -68,6 +68,11 @@
             --ion-color-light-shade: #1e2023;
             --ion-color-light-tint: #383a3e;
         }
+
+        /* make lists look better */
+        .md ion-list, .ios ion-list {
+            background: transparent;
+        }
         
         /*
         * iOS Dark Theme
