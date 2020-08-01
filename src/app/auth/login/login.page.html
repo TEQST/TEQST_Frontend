@@ -13,7 +13,7 @@
           <form #form="ngForm" (ngSubmit)="performLogin(form)" (keyup.enter)="form.valid ? performLogin(form) : undefined">
             <ion-item lines="full">
               <ion-label position="floating" for="username">{{ 'Username' | translate }}</ion-label>
-              <ion-input name="username" type="text" autocomplete="username" id="username"  ngModel required ></ion-input>
+              <ion-input name="username" type="text" autofocus autocomplete="username" id="username"  ngModel required ></ion-input>
             </ion-item>
             <ion-item id="password-item" lines="full">
               <ion-label position="floating" for="password">{{ 'Password' | translate }}</ion-label>
