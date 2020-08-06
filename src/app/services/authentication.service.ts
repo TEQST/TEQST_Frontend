@@ -55,7 +55,7 @@ export class AuthenticationService {
     this.http.post(url, dataToSend).subscribe(() => {
       this.login(logInData);
     }, (error: any) => {
-      this.alertService.showErrorAlertNoRedirection('Username already eists',
+      this.alertService.showErrorAlertNoRedirection('Username already exists',
        'A user with that username already exists, please choose another username');
     });
   }
