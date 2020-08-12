@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 export class CreateFolderPage implements OnInit {
 
   @Input() parentId: any
-  @ViewChild('folderNameInput', {  static: false })  folderNameInput: IonInput
+  @ViewChild('folderNameInput', { static: false })  folderNameInput: IonInput
 
   public createFolderForm : FormGroup;
   public folderNameValid: boolean;

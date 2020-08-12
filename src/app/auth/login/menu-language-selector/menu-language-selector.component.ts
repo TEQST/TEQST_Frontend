@@ -14,7 +14,9 @@ export class MenuLanguageSelectorComponent implements OnInit {
   language: string;
   allMenuLangs: string[] = [];
 
-  constructor(private userService: UsermgmtService, private languageService: LanguageService, private navParams: NavParams) { }
+  constructor(private userService: UsermgmtService,
+              private languageService: LanguageService,
+              public navParams: NavParams) { }
 
   ngOnInit() {
     this.language = this.languageService.getMenuLanguage();

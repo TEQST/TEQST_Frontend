@@ -10,7 +10,7 @@ import { IonTabs, IonTabButton } from '@ionic/angular';
   styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
-  @ViewChild(IonTabs) tabs: IonTabs;
+  @ViewChild(IonTabs, { static: false }) tabs: IonTabs;
   @ViewChildren(IonTabButton, {read: ElementRef}) tabbuttonsEl: any;
   @ViewChildren(IonTabButton) tabbuttons: any;
   
