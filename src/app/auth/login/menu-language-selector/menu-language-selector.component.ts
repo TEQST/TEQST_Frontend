@@ -1,7 +1,7 @@
-import { UsermgmtService } from 'src/app/services/usermgmt.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { LanguageService } from 'src/app/services/language.service';
+import { Component, OnInit } from '@angular/core';
 import { NavParams } from '@ionic/angular';
+
+import { LanguageService } from 'src/app/services/language.service';
 
 
 @Component({
@@ -12,16 +12,16 @@ import { NavParams } from '@ionic/angular';
 export class MenuLanguageSelectorComponent implements OnInit {
 
   language: string;
-  allMenuLangs: string[] = [];
+  menuLanguages: string[] = [];
 
-  constructor(private userService: UsermgmtService,
-              private languageService: LanguageService,
-              public navParams: NavParams) { }
+  constructor(public navParams: NavParams,
+              private languageService: LanguageService) {
 
-  ngOnInit() {
+    this.menuLanguages = navParams.get('menuLanguages')
     this.language = this.languageService.getMenuLanguage();
-    
   }
+
+  ngOnInit() { }
 
   changeLanguage(): void {
     this.languageService.setMenuLanguage(this.language);

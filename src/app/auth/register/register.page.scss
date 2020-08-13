@@ -1,24 +1,25 @@
-.inner-col-setting {
-    max-width: 400px;
-    min-width: 300px;
+ion-card-content {
+  margin-top: 10px;
+  text-align: center;
 }
 
 .max-height {
     height: 100%;
 }
 
-.image-row {
+ion-row.image-row {
   height: 20%;
-
 }
-.content-row {
+
+ion-row.content-row {
   height: 80%;
-}
-.login-text-settings {
-  font-size:16px;
+
+  a.login-redirect {
+    font-size: 16px;
+  }
 }
 
-ion-card-content {
-  margin-top: 10px;
-  text-align: center;
+ion-col.inner-col-setting {
+  max-width: 400px;
+  min-width: 300px;
 }

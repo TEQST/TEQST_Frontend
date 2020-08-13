@@ -1,7 +1,7 @@
 <ion-list color="dark" >
   <ion-radio-group (ionChange)="changeLanguage()" [(ngModel)]="language" >
    
-    <ion-item *ngFor="let lang of navParams.get('menuLanguages')">
+    <ion-item *ngFor="let lang of menuLanguages">
       <ion-label >{{lang.native_name}}</ion-label>
       <ion-radio slot="end" mode="ios" color="dark" value='{{lang.short}}'> </ion-radio>      
     </ion-item>
