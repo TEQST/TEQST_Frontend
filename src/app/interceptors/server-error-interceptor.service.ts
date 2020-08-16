@@ -1,11 +1,12 @@
-import { UsermgmtService } from 'src/app/services/usermgmt.service';
 import { Injectable, Injector } from '@angular/core';
 import {
   HttpInterceptor, HttpRequest,
-  HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse
+  HttpHandler, HttpEvent, HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
+
+import { UsermgmtService } from 'src/app/services/usermgmt.service';
 import { AlertManagerService } from '../services/alert-manager.service';
 import { RollbarService } from '../rollbar';
 

@@ -1,5 +1,4 @@
 export interface FolderStats {
-
     id: number;
     name: string;
     speakers: StatsPerSpeaker[];
