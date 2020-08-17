@@ -1,6 +1,6 @@
 export class RecordingStateModel {
-    constructor(
+  constructor(
         public recordingId: number,
-        public activeSentence: number
-    ) {}
+        public activeSentence: number,
+  ) {}
 }

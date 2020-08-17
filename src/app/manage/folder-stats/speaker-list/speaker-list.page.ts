@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { NavParams, IonNav, ModalController } from '@ionic/angular';
-import { FolderStats } from 'src/app/interfaces/folder-stats';
-import { SpeakerDetailPage } from '../speaker-detail/speaker-detail.page';
+import {Component, OnInit} from '@angular/core';
+import {NavParams, IonNav, ModalController} from '@ionic/angular';
+import {FolderStats} from 'src/app/interfaces/folder-stats';
+import {SpeakerDetailPage} from '../speaker-detail/speaker-detail.page';
 
 
 @Component({
@@ -15,8 +15,8 @@ export class SpeakerListPage implements OnInit {
   public navComponent: IonNav
 
   constructor(public navParams: NavParams, private viewCtrl: ModalController) {
-    this.folderStats = navParams.get('folderStats')
-    this.navComponent = navParams.get('navComponent')
+    this.folderStats = navParams.get('folderStats');
+    this.navComponent = navParams.get('navComponent');
   }
 
   ngOnInit() {}
@@ -26,7 +26,7 @@ export class SpeakerListPage implements OnInit {
       folderName: this.folderStats.name,
       folderId: this.folderStats.id,
       speaker,
-    })
+    });
   }
 
   dismiss() {

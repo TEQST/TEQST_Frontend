@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
+import {Component, OnInit} from '@angular/core';
+import {NavController, PopoverController} from '@ionic/angular';
 
-import { Constants } from '../../constants';
-import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { LanguageService } from 'src/app/services/language.service';
+import {Constants} from '../../constants';
+import {MenuLanguageSelectorComponent}
+  from './menu-language-selector/menu-language-selector.component';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {LanguageService} from 'src/app/services/language.service';
 
 
 @Component({
@@ -22,20 +23,20 @@ export class LoginPage implements OnInit {
     public popoverController: PopoverController,
     public languageService: LanguageService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async presentMenuLanguages(ev: any) {
     const menulanguages = await this.languageService.getAllMenuLanguages();
     const popover = await this.popoverController.create({
       component: MenuLanguageSelectorComponent,
       componentProps: {
-        "menuLanguages": menulanguages
+        'menuLanguages': menulanguages,
       },
       event: ev,
       translucent: true,
-      showBackdrop: false
+      showBackdrop: false,
     });
-    
+
     return await popover.present();
   }
 
@@ -47,5 +48,4 @@ export class LoginPage implements OnInit {
   redirect() {
     window.open(this.SERVER_URL + '/admin');
   }
-
 }

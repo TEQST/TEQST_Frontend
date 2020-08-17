@@ -1,18 +1,18 @@
-import { InternetConnectionService } from './services/internet-connection.service';
-import { Component, OnInit } from '@angular/core';
+import {InternetConnectionService}
+  from './services/internet-connection.service';
+import {Component, OnInit} from '@angular/core';
 
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { TranslateService } from '@ngx-translate/core';
-import { LanguageService } from './services/language.service';
-
+import {Platform} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {TranslateService} from '@ngx-translate/core';
+import {LanguageService} from './services/language.service';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -21,14 +21,15 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private translate: TranslateService,
     private languageService: LanguageService,
-    private connectionService: InternetConnectionService
+    private connectionService: InternetConnectionService,
   ) {
     this.initializeApp();
   }
   ngOnInit() {
     if (localStorage.getItem('MenuLanguage') != null) {
-      this.languageService.setMenuLanguage(localStorage.getItem('MenuLanguage'));
-     }
+      this.languageService
+          .setMenuLanguage(localStorage.getItem('MenuLanguage'));
+    }
   }
 
   initializeApp() {

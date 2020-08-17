@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { CreateTextPageRoutingModule as CreateTextPageRoutingModule } from './create-text-routing.module';
+import {CreateTextPageRoutingModule as CreateTextPageRoutingModule}
+  from './create-text-routing.module';
 
-import { CreateTextPage } from './create-text.page';
+import {CreateTextPage} from './create-text.page';
 
 @NgModule({
   imports: [
@@ -17,8 +18,8 @@ import { CreateTextPage } from './create-text.page';
     ReactiveFormsModule,
     IonicModule,
     CreateTextPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [CreateTextPage]
+  declarations: [CreateTextPage],
 })
 export class CreateTextPageModule {}

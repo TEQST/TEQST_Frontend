@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button (click)="stopAllMedia()" defaultHref="tabs/speak"></ion-back-button>
     </ion-buttons>
-    <ion-item lines="none" slot="end" *ngIf="isUploadActive" >
+    <ion-item lines="none" slot="end" *ngIf="isUploadActive">
       <ion-label>Uploading... &nbsp;</ion-label>
       <ion-spinner color="primary"></ion-spinner>
     </ion-item>
@@ -15,7 +15,7 @@
   <div [class]="hasRecording ? 'hasRecording' : 'noRecording'">
     <div class="recordSentences">
       <h1>{{textTitle}}</h1>
-      <app-sentence-wrapper [dir]="isRightToLeft ? 'rtl' : 'ltr'" ></app-sentence-wrapper>
+      <app-sentence-wrapper [dir]="isRightToLeft ? 'rtl' : 'ltr'"></app-sentence-wrapper>
     </div>
     <div class="recordFooter">
       <app-player *ngIf="hasRecording"></app-player>

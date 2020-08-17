@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Constants } from '../constants';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { TranslateService } from '@ngx-translate/core';
-import { Language } from '../interfaces/language';
+import {Injectable} from '@angular/core';
+import {Constants} from '../constants';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {TranslateService} from '@ngx-translate/core';
+import {Language} from '../interfaces/language';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LanguageService {
   SERVER_URL = Constants.SERVER_URL;
@@ -14,7 +14,7 @@ export class LanguageService {
 
   constructor(public http: HttpClient, private translate: TranslateService ) {
     this.menuLanguage = localStorage.getItem('MenuLanguage');
-   }
+  }
 
 
   // returns all speakable Languages created by an admin
@@ -30,30 +30,31 @@ export class LanguageService {
   putMenuLanguageLocalStorageWithParam(lang: string) {
     localStorage.setItem('MenuLanguage', lang);
   }
-  async getAllMenuLanguages(){
-    let allMenuLangs: Language[] = [];
+  async getAllMenuLanguages() {
+    const allMenuLangs: Language[] = [];
     await this.getLangs().toPromise().then((dataReturnFromServer: any) => {
       for (const singleLanguage of dataReturnFromServer) {
         if (singleLanguage['is_menu_language'] === true) {
-          allMenuLangs.push(singleLanguage);          
+          allMenuLangs.push(singleLanguage);
         }
       }
     });
-    return allMenuLangs
+    return allMenuLangs;
   }
 
   getMenuLanguage(): string {
     return this.menuLanguage;
   }
   setMenuLanguage(lang: string): void {
-    if (lang !== null && lang !== undefined) {
-    this.menuLanguage = lang;
-    this.putMenuLanguageLocalStorageWithParam(lang);
-    this.translate.use(lang);
+    if (lang !== null && lang !== undefined) {
+      this.menuLanguage = lang;
+      this.putMenuLanguageLocalStorageWithParam(lang);
+      this.translate.use(lang);
     }
   }
   updateMenuLanguage(temporalMenuLanguage) {
-    if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') || localStorage.getItem('MenuLanguage') === null) {
+    if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') ||
+        localStorage.getItem('MenuLanguage') === null) {
       this.menuLanguage = temporalMenuLanguage;
     } else {
       this.menuLanguage = localStorage.getItem('MenuLanguage');

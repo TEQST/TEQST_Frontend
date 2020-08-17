@@ -43,7 +43,8 @@
       <ion-fab-button *ngIf="!currentFolder.is_sharedfolder" (click)="openCreateFolderModal()">
         <ion-icon name="folder" color="primary"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button *ngIf="currentFolder.id != null && (currentFolder.is_sharedfolder || subfolders.length == 0)" (click)="openCreateTextModal()">
+      <ion-fab-button *ngIf="currentFolder.id != null && (currentFolder.is_sharedfolder || subfolders.length == 0)"
+        (click)="openCreateTextModal()">
         <ion-icon name="reader" color="dark"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>

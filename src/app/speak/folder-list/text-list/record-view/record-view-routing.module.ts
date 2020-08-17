@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { RecordViewPage } from './record-view.page';
+import {RecordViewPage} from './record-view.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: RecordViewPage
-  }
+    component: RecordViewPage,
+  },
 ];
 
 @NgModule({

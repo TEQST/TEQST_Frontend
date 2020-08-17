@@ -1,7 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { MenuLanguageSelectorComponent } from './menu-language-selector.component';
+import {MenuLanguageSelectorComponent}
+  from './menu-language-selector.component';
 
 describe('MenuLanguageSelectorComponent', () => {
   let component: MenuLanguageSelectorComponent;
@@ -9,8 +10,8 @@ describe('MenuLanguageSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuLanguageSelectorComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [MenuLanguageSelectorComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MenuLanguageSelectorComponent);

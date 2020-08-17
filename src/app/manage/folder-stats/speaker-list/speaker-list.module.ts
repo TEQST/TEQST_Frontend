@@ -1,13 +1,13 @@
-import { TranslateModule } from '@ngx-translate/core';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { SpeakerListPageRoutingModule } from './speaker-list-routing.module';
+import {SpeakerListPageRoutingModule} from './speaker-list-routing.module';
 
-import { SpeakerListPage } from './speaker-list.page';
+import {SpeakerListPage} from './speaker-list.page';
 
 @NgModule({
   imports: [
@@ -15,8 +15,8 @@ import { SpeakerListPage } from './speaker-list.page';
     FormsModule,
     IonicModule,
     SpeakerListPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [SpeakerListPage]
+  declarations: [SpeakerListPage],
 })
 export class SpeakerListPageModule {}

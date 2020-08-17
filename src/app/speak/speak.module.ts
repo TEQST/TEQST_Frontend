@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { SpeakPageRoutingModule } from './speak-routing.module';
-import { SpeakPage } from './speak.page';
+import {SpeakPageRoutingModule} from './speak-routing.module';
+import {SpeakPage} from './speak.page';
 
 @NgModule({
   imports: [
@@ -15,8 +15,8 @@ import { SpeakPage } from './speak.page';
     FormsModule,
     IonicModule,
     SpeakPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [SpeakPage]
+  declarations: [SpeakPage],
 })
 export class SpeakPageModule {}

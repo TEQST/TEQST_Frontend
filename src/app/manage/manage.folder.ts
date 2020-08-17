@@ -1,4 +1,4 @@
-import { ManageFolderService } from 'src/app/services/manage-folder.service';
+import {ManageFolderService} from 'src/app/services/manage-folder.service';
 
 export class Folder {
     static folderService: ManageFolderService
@@ -8,24 +8,24 @@ export class Folder {
     is_sharedfolder: boolean
 
     static setServiceProvider(folderService) {
-        this.folderService = folderService
+      this.folderService = folderService;
     }
 
     constructor(id, name, is_sharedFolder) {
-        this.id = id;
-        this.name = name;
-        this.is_sharedfolder = is_sharedFolder;
+      this.id = id;
+      this.name = name;
+      this.is_sharedfolder = is_sharedFolder;
     }
 
     getSubfolderList() {
-        return Folder.folderService.getSubfolderListFor(this.id)
+      return Folder.folderService.getSubfolderListFor(this.id);
     }
 
     createSubfolder(name) {
-        return Folder.folderService.createFolder(this.id, name)
+      return Folder.folderService.createFolder(this.id, name);
     }
 
     delete() {
-        return Folder.folderService.deleteFolder(this.id)
+      return Folder.folderService.deleteFolder(this.id);
     }
 }

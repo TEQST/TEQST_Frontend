@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AudioRecordingService } from './audio-recording.service';
+import {AudioRecordingService} from './audio-recording.service';
 
 describe('AudioRecordingService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

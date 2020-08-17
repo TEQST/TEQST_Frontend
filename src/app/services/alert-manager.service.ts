@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import {Injectable} from '@angular/core';
+import {AlertController, NavController} from '@ionic/angular';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlertManagerService {
 
@@ -10,11 +10,19 @@ export class AlertManagerService {
   private alert: HTMLIonAlertElement;
   private noInternetAlert: HTMLIonAlertElement;
 
-  constructor(public alertController: AlertController, private navCtrl: NavController) {
-    this.alertController.create({ animated: false }).then(t => { t.present(); t.dismiss(); });
-   }
+  constructor(
+    public alertController: AlertController,
+    private navCtrl: NavController) {
 
-  async presentGoBackAlert(header: string, redirectURL: string = '/tabs/speak'): Promise<void>  {
+    this.alertController.create({animated: false}).then((t) => {
+      t.present(); t.dismiss();
+    });
+  }
+
+  async presentGoBackAlert(
+      header: string,
+      redirectURL: string = '/tabs/speak'): Promise<void> {
+
     if (this.alertActive) {
       return;
     }
@@ -29,14 +37,14 @@ export class AlertManagerService {
           handler: () => {
             // Navigate back to speak tab
             this.navCtrl.navigateBack(redirectURL);
-        }
-      }]
+          },
+        }],
     });
 
     await this.alert.present();
   }
 
-  async presentNotLoggedInAlert(): Promise<void>  {
+  async presentNotLoggedInAlert(): Promise<void> {
     // not logged in alert is the most dominant alert so dismiss any other one
     if (this.alertActive) {
       this.alert.dismiss();
@@ -54,13 +62,17 @@ export class AlertManagerService {
             // Navigate back to the login page
             this.navCtrl.navigateForward('/login');
             this.alertActive = false;
-          }
-        }]
+          },
+        }],
     });
     await this.alert.present();
   }
 
-  async showErrorAlert(status, msg, redirectURL: string = '/tabs/speak'): Promise<void>  {
+  async showErrorAlert(
+      status,
+      msg,
+      redirectURL: string = '/tabs/speak'): Promise<void> {
+
     if (this.alertActive) {
       return;
     }
@@ -74,14 +86,18 @@ export class AlertManagerService {
         handler: () => {
           this.navCtrl.navigateBack(redirectURL);
           this.alertActive = false;
-        }
-      }]
+        },
+      }],
     });
 
     await this.alert.present();
   }
 
-  async showErrorAlertNoRedirection(header, msg, reload: boolean = false): Promise<void> {
+  async showErrorAlertNoRedirection(
+      header,
+      msg,
+      reload: boolean = false): Promise<void> {
+
     if (this.alertActive) {
       return;
     }
@@ -97,8 +113,8 @@ export class AlertManagerService {
           if (reload === true) {
             window.location.reload();
           }
-        }
-      }]
+        },
+      }],
     });
 
     await this.alert.present();

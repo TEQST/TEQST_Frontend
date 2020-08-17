@@ -1,12 +1,12 @@
-import { TimeStatsComponent } from './time-stats/time-stats.component';
-import { SharedFolder } from './../../../interfaces/shared-folder';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {TimeStatsComponent} from './time-stats/time-stats.component';
+import {SharedFolder} from './../../../interfaces/shared-folder';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { SpeakTabNavService } from 'src/app/services/speak-tab-nav.service';
-import { AlertManagerService } from 'src/app/services/alert-manager.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { ModalController } from '@ionic/angular';
+import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {LoaderService} from 'src/app/services/loader.service';
+import {ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-text-list',
@@ -28,26 +28,28 @@ export class TextListPage implements OnInit {
               private alertManager: AlertManagerService,
               private loaderService: LoaderService,
               private modalController: ModalController) {
-    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
+    this.loaderService.getIsLoading()
+        .subscribe((isLoading) => this.isLoading = isLoading);
     this.publisherId = '';
     this.texts = [];
   }
 
   ngOnInit() {
     this.publisherId = this.route.snapshot.paramMap.get('publisherId');
-    this.folderId    = this.route.snapshot.paramMap.get('folderId');
+    this.folderId = this.route.snapshot.paramMap.get('folderId');
   }
 
   async ionViewWillEnter() {
     this.navService.getInfoForSharedfolder(this.folderId)
-      .subscribe(
-        data => {
-          this.sharedFolderData = data;
-          this.folderName = data.name;
-          this.texts = data.texts;
-        },
-        err => this.alertManager.showErrorAlert(err.status, err.statusText)
-      );
+        .subscribe(
+            (data) => {
+              this.sharedFolderData = data;
+              this.folderName = data.name;
+              this.texts = data.texts;
+            },
+            (err) => this.alertManager
+                .showErrorAlert(err.status, err.statusText),
+        );
   }
 
   async presentTimeStats() {
@@ -55,7 +57,7 @@ export class TextListPage implements OnInit {
       component: TimeStatsComponent,
       componentProps: {
         timestats: this.sharedFolderData.timestats,
-        folderName: this.sharedFolderData.name
+        folderName: this.sharedFolderData.name,
       },
     });
     return await popover.present();

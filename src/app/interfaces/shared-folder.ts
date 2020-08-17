@@ -1,4 +1,4 @@
-import { TimeStats } from "./time-stats";
+import {TimeStats} from './time-stats';
 
 
 export interface SharedFolder {

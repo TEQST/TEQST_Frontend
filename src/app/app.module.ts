@@ -1,33 +1,36 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouteReuseStrategy} from '@angular/router';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS}
+  from '@angular/common/http';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-import { RollbarService, rollbarFactory } from './rollbar';
+import {RollbarService, rollbarFactory} from './rollbar';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { ServerErrorInterceptorService } from './interceptors/server-error-interceptor.service';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoaderInterceptor } from './interceptors/loader.interceptor';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { ServerAuthtokenInterceptorService} from './interceptors/server-authtoken-interceptor.service';
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {ServerErrorInterceptorService}
+  from './interceptors/server-error-interceptor.service';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {LoaderInterceptor} from './interceptors/loader.interceptor';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
+import {ServerAuthtokenInterceptorService}
+  from './interceptors/server-authtoken-interceptor.service';
 
 @NgModule({
   exports: [
-    TranslateModule
+    TranslateModule,
   ],
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   entryComponents: [],
   imports: [
@@ -39,36 +42,37 @@ import { ServerAuthtokenInterceptorService} from './interceptors/server-authtoke
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule
+        .register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {
       provide: RollbarService,
-      useFactory: rollbarFactory
+      useFactory: rollbarFactory,
     },
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerErrorInterceptorService,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerAuthtokenInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 

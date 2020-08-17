@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { TimeStatsComponent } from './time-stats.component';
+import {TimeStatsComponent} from './time-stats.component';
 
 describe('TimeStatsComponent', () => {
   let component: TimeStatsComponent;
@@ -9,8 +9,8 @@ describe('TimeStatsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimeStatsComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [TimeStatsComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TimeStatsComponent);

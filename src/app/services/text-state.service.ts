@@ -1,7 +1,7 @@
-import { RecordingStateModel } from './../models/recording-state.model';
-import { TextObject } from './../interfaces/text-object';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { Injectable } from '@angular/core';
+import {RecordingStateModel} from './../models/recording-state.model';
+import {TextObject} from './../interfaces/text-object';
+import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 
@@ -29,14 +29,19 @@ export class TextStateService {
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingState.recordingId);
 
-    // when a text is finished the active_sentence on the backend is totalSentenceNumber + 1
-    // so for the ui we have to set the active sentence to the smaller of those two values
-    this.setActiveSentenceIndex(Math.min(index, this.totalSentenceNumber.getValue()));
+    /* when a text is finished,
+       the active_sentence on the backend is totalSentenceNumber + 1
+       so for the ui we have to set the active sentence
+       to the smaller of those two values */
+    this.setActiveSentenceIndex(
+        Math.min(index, this.totalSentenceNumber.getValue()));
   }
 
   public setActiveSentenceIndex(index: number): void {
     // check if the given index is within bounds
-    if (index > 0 && index <= this.totalSentenceNumber.getValue() && index <= this.furthestSentenceIndex.getValue()) {
+    if (index > 0 &&
+        index <= this.totalSentenceNumber.getValue() &&
+        index <= this.furthestSentenceIndex.getValue()) {
       this.activeSentenceIndex.next(index);
     }
   }
@@ -52,8 +57,11 @@ export class TextStateService {
   }
 
   public increaseFurthestSentence(): void {
-    if (this.furthestSentenceIndex.getValue() <= this.totalSentenceNumber.getValue() + 1) {
-      this.furthestSentenceIndex.next(this.furthestSentenceIndex.getValue() + 1);
+    if (this.furthestSentenceIndex.getValue() <=
+        this.totalSentenceNumber.getValue() + 1) {
+
+      this.furthestSentenceIndex.next(
+          this.furthestSentenceIndex.getValue() + 1);
     }
   }
 

@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { SpeakerListPage } from './speaker-list.page';
+import {SpeakerListPage} from './speaker-list.page';
 
 describe('SpeakerListPage', () => {
   let component: SpeakerListPage;
@@ -9,8 +9,8 @@ describe('SpeakerListPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpeakerListPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SpeakerListPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SpeakerListPage);

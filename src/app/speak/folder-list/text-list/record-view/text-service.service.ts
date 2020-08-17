@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, Observable, Subject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Constants } from 'src/app/constants';
-import { UsermgmtService } from 'src/app/services/usermgmt.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, ReplaySubject, Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Constants} from 'src/app/constants';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class TextServiceService {
@@ -16,7 +14,8 @@ export class TextServiceService {
   SERVER_URL = Constants.SERVER_URL;
 
 
-  // instantiate BehaviorSubjekts with 1 because every text has at least 1 sentence
+  /* instantiate BehaviorSubjekts with 1
+     because every text has at least 1 sentence */
   private sentences = new ReplaySubject<string[]>(1);
   private activeSentenceIndex = new BehaviorSubject<number>(1);
   private totalSentenceNumber = new BehaviorSubject<number>(1);
@@ -28,16 +27,17 @@ export class TextServiceService {
 
   // Url Information
   private textId: number;
- 
 
-  constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
-  }
+
+  constructor(
+    private http: HttpClient,
+    public authenticationService: AuthenticationService) { }
 
   private fetchText(): void {
     // fetch TextData from Server
     const textUrl = this.SERVER_URL + `/api/spk/texts/${this.textId}/`;
 
-    this.http.get(textUrl, {}).subscribe(text => {
+    this.http.get(textUrl, {}).subscribe((text) => {
       this.textTitle.next(text['title']);
       this.totalSentenceNumber.next(text['content'].length);
       this.sentences.next(text['content']);
@@ -52,26 +52,32 @@ export class TextServiceService {
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingInfo['id']);
 
-    // when a text is finished the active_sentence on the backend is totalSentenceNumber + 1
-    // so for the ui we have to set the active sentence to the smaller of those two values
-    this.setActiveSentenceIndex(Math.min(index, this.totalSentenceNumber.getValue()));
+    /* when a text is finished,
+       the active_sentence on the backend is totalSentenceNumber + 1
+       so for the ui we have to set the active sentence
+       to the smaller of those two values */
+    this.setActiveSentenceIndex(
+        Math.min(index, this.totalSentenceNumber.getValue()));
   }
 
 
-  // check if the user already has a recording information and if yes set the local recording info to the data from the server
+  /* check if the user already has a recording information
+     and if so,
+     set the local recording info to the data from the server */
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
-    const getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
+    const getRecordingInfoUrl =
+      this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
 
     await this.http.get(getRecordingInfoUrl).toPromise()
-    .then(info => {
-      if (info === null) {
-        result = false;
-      } else {
-        this.setRecordingInfo(info[0]);
-        result = true;
-      }
-    });
+        .then((info) => {
+          if (info === null) {
+            result = false;
+          } else {
+            this.setRecordingInfo(info[0]);
+            result = true;
+          }
+        });
     return result;
   }
 
@@ -79,14 +85,14 @@ export class TextServiceService {
   givePermissions(textToSpeech: boolean, speechRecognition: boolean ): void {
 
     const recordingInfo = {
-      text : this.textId,
+      text: this.textId,
       TTS_permission: textToSpeech,
-      SR_permission: speechRecognition
+      SR_permission: speechRecognition,
     };
 
     const postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
 
-    this.http.post(postRecordingInfoUrl, recordingInfo).subscribe(info => {
+    this.http.post(postRecordingInfoUrl, recordingInfo).subscribe((info) => {
       this.setRecordingInfo(info);
     });
   }
@@ -131,7 +137,8 @@ export class TextServiceService {
 
   setActiveSentenceIndex(index: number): void {
     // check if the given index is within bounds
-    if (index > 0 && index <= this.totalSentenceNumber.getValue() && index <= this.furthestSentenceIndex.getValue()) {
+    if (index > 0 && index <= this.totalSentenceNumber.getValue() &&
+        index <= this.furthestSentenceIndex.getValue()) {
       this.activeSentenceIndex.next(index);
 
       // check if sentence has recording
@@ -141,7 +148,8 @@ export class TextServiceService {
 
   // check if the current active sentence is already recorded
   private checkRecordingStatus(): void {
-    if (this.activeSentenceIndex.getValue() < this.furthestSentenceIndex.getValue()) {
+    if (this.activeSentenceIndex.getValue() <
+        this.furthestSentenceIndex.getValue()) {
       this.sentenceHasRecording.next(true);
     } else {
       this.sentenceHasRecording.next(false);
@@ -159,8 +167,11 @@ export class TextServiceService {
   }
 
   increaseFurthestSentence(): void {
-    if (this.furthestSentenceIndex.getValue() <= this.totalSentenceNumber.getValue() + 1) {
-      this.furthestSentenceIndex.next(this.furthestSentenceIndex.getValue() + 1);
+    if (this.furthestSentenceIndex.getValue() <=
+        this.totalSentenceNumber.getValue() + 1) {
+
+      this.furthestSentenceIndex.next(
+          this.furthestSentenceIndex.getValue() + 1);
       this.checkRecordingStatus();
     }
   }

@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { LoginPageRoutingModule } from './login-routing.module';
-import { LoginPage } from './login.page';
-import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
+import {LoginPageRoutingModule} from './login-routing.module';
+import {LoginPage} from './login.page';
+import {MenuLanguageSelectorComponent}
+  from './menu-language-selector/menu-language-selector.component';
 
 @NgModule({
   imports: [
@@ -14,12 +15,12 @@ import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-lan
     FormsModule,
     IonicModule,
     LoginPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
   declarations: [
     LoginPage,
-    MenuLanguageSelectorComponent
+    MenuLanguageSelectorComponent,
   ],
-  entryComponents: [MenuLanguageSelectorComponent]
+  entryComponents: [MenuLanguageSelectorComponent],
 })
-export class LoginPageModule {}
+export class LoginPageModule { }

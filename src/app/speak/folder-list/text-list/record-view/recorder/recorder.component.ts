@@ -1,7 +1,8 @@
-import { RecordingPlaybackService } from './../../../../../services/recording-playback.service';
-import { Component, OnInit, HostListener } from '@angular/core';
+import {RecordingPlaybackService}
+  from './../../../../../services/recording-playback.service';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {TextServiceService} from '../text-service.service';
-import { AudioRecordingService } from '../audio-recording.service';
+import {AudioRecordingService} from '../audio-recording.service';
 
 @Component({
   selector: 'app-recorder',
@@ -25,23 +26,27 @@ export class RecorderComponent implements OnInit {
 
   ngOnInit() {}
 
-  // subscribe to all needed variables from the services and update the locale ones on change
+  /* subscribe to all needed variables from the services
+     and update the locale ones on change */
   private subscribeToServices(): void {
-    this.textService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
-    this.textService.getTotalSentenceNumber().subscribe(totalNumber => {
+    this.textService.getActiveSentenceIndex()
+        .subscribe((index) => this.activeSentence = index);
+    this.textService.getTotalSentenceNumber().subscribe((totalNumber) => {
       this.totalSentenceNumber = totalNumber;
       this.updateProgressBar();
     });
-    this.textService.getFurthestSentenceIndex().subscribe(index => {
+    this.textService.getFurthestSentenceIndex().subscribe((index) => {
       this.furthestSentenceIndex = index;
       this.updateProgressBar();
     });
-    this.recordingService.getRecordingState().subscribe((status) => this.isRecording = status);
+    this.recordingService.getRecordingState()
+        .subscribe((status) => this.isRecording = status);
   }
 
   private updateProgressBar(): void {
     const indexOffset = 1;
-    this.recordingProgress = (this.furthestSentenceIndex - indexOffset) / this.totalSentenceNumber;
+    this.recordingProgress =
+      (this.furthestSentenceIndex - indexOffset) / this.totalSentenceNumber;
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -49,29 +54,29 @@ export class RecorderComponent implements OnInit {
     // check which key was pressed
     switch ($event.keyCode) {
       // spacebar will start or stop recording
-       case 32:
-          if (this.isRecording === true) {
-            this.stopRecording();
-          } else {
-            this.startRecording();
-          }
-          break;
+      case 32:
+        if (this.isRecording === true) {
+          this.stopRecording();
+        } else {
+          this.startRecording();
+        }
+        break;
 
         // down & right arrow key set next sentence active
-        case 40:
-        case 39:
-          this.nextSentence();
-          break;
+      case 40:
+      case 39:
+        this.nextSentence();
+        break;
 
         // up & left arrow key set the previous sentence active
         // if a recording is ongoing restart the recording
-        case 38:
-        case 37:
-          if (this.isRecording) {
-            this.recordingService.restartRecording();
-          } else {
-            this.previousSentence();
-          }
+      case 38:
+      case 37:
+        if (this.isRecording) {
+          this.recordingService.restartRecording();
+        } else {
+          this.previousSentence();
+        }
 
     }
   }

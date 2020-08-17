@@ -1,32 +1,36 @@
-import { AlertManagerService } from './alert-manager.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { SentenceRecordingModel } from './../models/sentence-recording.model';
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { UsermgmtService } from './usermgmt.service';
-import { Constants } from '../constants';
-import { AuthenticationService } from './authentication.service';
+import {AlertManagerService} from './alert-manager.service';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {SentenceRecordingModel} from './../models/sentence-recording.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Constants} from '../constants';
+import {AuthenticationService} from './authentication.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecordingUploadService {
 
   private SERVER_URL = Constants.SERVER_URL;
   private httpOptions;
 
-  private uploadQueue: [SentenceRecordingModel, boolean][] = []; // array of tuple [sentenceRecording, isReUpload]
+  // array of tuple [sentenceRecording, isReUpload]
+  private uploadQueue: [SentenceRecordingModel, boolean][] = [];
   private isUploadActive = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, public authenticationService: AuthenticationService, private alertService: AlertManagerService) { }
+  constructor(
+    private http: HttpClient,
+    public authenticationService: AuthenticationService,
+    private alertService: AlertManagerService) { }
 
-  public uploadRecording(sentenceRecording: SentenceRecordingModel, isReUpload: boolean): void {
+  public uploadRecording(
+      sentenceRecording: SentenceRecordingModel,
+      isReUpload: boolean): void {
+
     this.uploadQueue.push([sentenceRecording, isReUpload]);
     if (!this.isUploadActive.getValue()) {
       this.uploadNextElement();
     }
-
-
   }
 
   private uploadNextElement() {
@@ -43,16 +47,25 @@ export class RecordingUploadService {
 
     if (isReUpload) {
       // replace existing sentence recording
-      this.http.put(sentenceRecordingUrl + `${sentenceRecording.recordingId}/?index=${sentenceRecording.sentenceNumber}`,
-        formData, this.httpOptions).subscribe( () => {
-          this.checkIfQueueIsFinished();
-        }, () => this.uploadFailed());
+      const url = sentenceRecordingUrl +
+                  sentenceRecording.recordingId +
+                  `/?index=${sentenceRecording.sentenceNumber}`;
+      this.http.put(
+          url,
+          formData, this.httpOptions).subscribe( () => {
+        this.checkIfQueueIsFinished();
+      }, () => this.uploadFailed());
     } else {
       // create a new sentence recording
       formData.append('recording', sentenceRecording.recordingId.toString());
       formData.append('index', sentenceRecording.sentenceNumber.toString());
-      this.http.post(sentenceRecordingUrl, formData, this.httpOptions).subscribe( () => {
+      this.http.post(
+          sentenceRecordingUrl,
+          formData,
+          this.httpOptions).subscribe( () => {
+
         this.checkIfQueueIsFinished();
+
       }, () => this.uploadFailed());
     }
 
@@ -68,7 +81,10 @@ export class RecordingUploadService {
   }
 
   private uploadFailed(): void {
-    this.alertService.showErrorAlertNoRedirection('Upload failed', 'Please reload the page', true);
+    this.alertService.showErrorAlertNoRedirection(
+        'Upload failed',
+        'Please reload the page',
+        true);
     this.isUploadActive.next(false);
   }
 

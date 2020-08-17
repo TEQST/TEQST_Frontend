@@ -1,4 +1,4 @@
-import { Language } from './language';
+import {Language} from './language';
 
 export interface User {
     id: number;

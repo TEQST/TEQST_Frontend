@@ -1,7 +1,8 @@
-import { AudioRecordingService } from './../audio-recording.service';
-import { TextServiceService } from './../text-service.service';
-import { RecordingPlaybackService } from './../../../../../services/recording-playback.service';
-import { Component, OnInit } from '@angular/core';
+import {AudioRecordingService} from './../audio-recording.service';
+import {TextServiceService} from './../text-service.service';
+import {RecordingPlaybackService}
+  from './../../../../../services/recording-playback.service';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-player',
@@ -25,17 +26,23 @@ export class PlayerComponent implements OnInit {
   }
 
   subscribeToServices(): void {
-    // subscribe to the isPlaying observable and update the local variable on change
-    this.playbackService.getIsPlaying().subscribe((state) => this.isPlaying = state);
-    this.textService.getRecordingId().subscribe((id) => this.recordingId = id);
-    this.textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
-    this.recordingService.getRecordingState().subscribe((state) => this.isRecording = state);
+    /* subscribe to the isPlaying observable
+       and update the local variable on change */
+    this.playbackService.getIsPlaying()
+        .subscribe((state) => this.isPlaying = state);
+    this.textService.getRecordingId()
+        .subscribe((id) => this.recordingId = id);
+    this.textService.getActiveSentenceIndex()
+        .subscribe((index) => this.activeSentence = index);
+    this.recordingService.getRecordingState()
+        .subscribe((state) => this.isRecording = state);
   }
 
   playRecording(): void {
     // Only allow playback when no recording is active
     if (this.isRecording === false) {
-      this.playbackService.playSentenceRecording(this.recordingId, this.activeSentence);
+      this.playbackService
+          .playSentenceRecording(this.recordingId, this.activeSentence);
     }
   }
 

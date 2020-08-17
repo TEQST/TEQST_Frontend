@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AlertManagerService } from './alert-manager.service';
+import {AlertManagerService} from './alert-manager.service';
 
 describe('AlertManagerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

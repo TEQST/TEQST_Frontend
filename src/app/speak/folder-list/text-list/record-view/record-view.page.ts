@@ -1,12 +1,14 @@
-import { RecordingPlaybackService } from './../../../../services/recording-playback.service';
-import { RecordingUploadService } from './../../../../services/recording-upload.service';
-import { AudioRecordingService } from './audio-recording.service';
-import { Component, OnInit, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, NavController } from '@ionic/angular';
-import { TextServiceService } from './text-service.service';
-import { AlertManagerService } from 'src/app/services/alert-manager.service';
-import { LoaderService } from 'src/app/services/loader.service';
+import {RecordingPlaybackService}
+  from './../../../../services/recording-playback.service';
+import {RecordingUploadService}
+  from './../../../../services/recording-upload.service';
+import {AudioRecordingService} from './audio-recording.service';
+import {Component, OnInit, HostListener} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AlertController, NavController} from '@ionic/angular';
+import {TextServiceService} from './text-service.service';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {LoaderService} from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-record-view',
@@ -34,16 +36,21 @@ export class RecordViewPage implements OnInit {
               private loaderService: LoaderService,
               private recordingUploadService: RecordingUploadService,
               private playbackService: RecordingPlaybackService) {
-    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
-    this.textService.getSentenceHasRecording().subscribe((status) => this.hasRecording = status);
-    this.textService.getTextTitle().subscribe((title) => this.textTitle = title);
-    this.textService.getIsRightToLeft().subscribe((isRightToLeft) => this.isRightToLeft = isRightToLeft);
-    this.recordingUploadService.getIsUploadActive().subscribe((isUploadActive) => this.isUploadActive = isUploadActive);
-   }
+    this.loaderService.getIsLoading()
+        .subscribe((isLoading) => this.isLoading = isLoading);
+    this.textService.getSentenceHasRecording()
+        .subscribe((status) => this.hasRecording = status);
+    this.textService.getTextTitle()
+        .subscribe((title) => this.textTitle = title);
+    this.textService.getIsRightToLeft()
+        .subscribe((isRightToLeft) => this.isRightToLeft = isRightToLeft);
+    this.recordingUploadService.getIsUploadActive()
+        .subscribe((isUploadActive) => this.isUploadActive = isUploadActive);
+  }
 
   ngOnInit() {
     // get text id based on the current url
-    const textId = parseInt(this.route.snapshot.paramMap.get('textId'), 10) ;
+    const textId = parseInt(this.route.snapshot.paramMap.get('textId'), 10);
     // check if its a number
     if (isNaN(textId)) {
       this.alertService.presentGoBackAlert('Invalid Text ID');
@@ -51,7 +58,8 @@ export class RecordViewPage implements OnInit {
     }
     this.textId = textId;
     this.textService.setTextId(this.textId);
-    // if no text recording info exists present an alert to give needed permissions
+    /* if no text recording info exists present,
+       an alert to give needed permissions */
     this.textService.checkIfRecordingInfoExists().then((result) => {
       if (!result) {
         this.presentPermissionsCheckbox();
@@ -93,16 +101,16 @@ export class RecordViewPage implements OnInit {
           name: 'speechRecognition',
           type: 'checkbox',
           label: 'For Speech Recognition',
-          value: 'SR'
-        }
+          value: 'SR',
+        },
       ],
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            this.navCtrl.navigateBack(goBackUrl)
-          }
+            this.navCtrl.navigateBack(goBackUrl);
+          },
         }, {
           text: 'Ok',
           handler: (permissions) => {
@@ -115,9 +123,9 @@ export class RecordViewPage implements OnInit {
               const sr = Object.values(permissions).indexOf('SR') > -1;
               this.textService.givePermissions(tts, sr);
             }
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();

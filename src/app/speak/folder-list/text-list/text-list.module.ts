@@ -1,14 +1,14 @@
-import { TimeStatsComponent } from './time-stats/time-stats.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {TimeStatsComponent} from './time-stats/time-stats.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { TextListPageRoutingModule } from './text-list-routing.module';
-import { TextListPage } from './text-list.page';
+import {TextListPageRoutingModule} from './text-list-routing.module';
+import {TextListPage} from './text-list.page';
 
 @NgModule({
   imports: [
@@ -16,12 +16,12 @@ import { TextListPage } from './text-list.page';
     FormsModule,
     IonicModule,
     TextListPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
   declarations: [
     TextListPage,
-    TimeStatsComponent
+    TimeStatsComponent,
   ],
-  entryComponents: [TimeStatsComponent]
+  entryComponents: [TimeStatsComponent],
 })
 export class TextListPageModule {}

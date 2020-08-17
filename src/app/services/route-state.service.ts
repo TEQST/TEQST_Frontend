@@ -1,8 +1,8 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 // Access route params outside of routed component

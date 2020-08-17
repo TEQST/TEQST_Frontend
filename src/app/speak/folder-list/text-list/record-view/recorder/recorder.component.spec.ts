@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { RecorderComponent } from './recorder.component';
+import {RecorderComponent} from './recorder.component';
 
 describe('RecorderComponent', () => {
   let component: RecorderComponent;
@@ -9,8 +9,8 @@ describe('RecorderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecorderComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [RecorderComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RecorderComponent);

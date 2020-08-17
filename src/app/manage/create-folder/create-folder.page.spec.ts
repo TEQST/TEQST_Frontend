@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { CreateFolderPage } from './create-folder.page';
+import {CreateFolderPage} from './create-folder.page';
 
 describe('CreateFolderPage', () => {
   let component: CreateFolderPage;
@@ -9,8 +9,8 @@ describe('CreateFolderPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateFolderPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [CreateFolderPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateFolderPage);

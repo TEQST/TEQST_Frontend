@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { RegisterPageRoutingModule } from './register-routing.module';
-import { RegisterPage } from './register.page';
+import {RegisterPageRoutingModule} from './register-routing.module';
+import {RegisterPage} from './register.page';
 
 @NgModule({
   imports: [
@@ -13,8 +13,8 @@ import { RegisterPage } from './register.page';
     FormsModule,
     IonicModule,
     RegisterPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [RegisterPage]
+  declarations: [RegisterPage],
 })
-export class RegisterPageModule {}
+export class RegisterPageModule { }

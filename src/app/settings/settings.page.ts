@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { LoaderService } from '../services/loader.service';
-import { AuthenticationService } from '../services/authentication.service';
+import {Component, OnInit} from '@angular/core';
+import {LoaderService} from '../services/loader.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-settings',
@@ -13,7 +13,8 @@ export class SettingsPage implements OnInit {
 
   constructor(public authenticationService: AuthenticationService,
               private loaderService: LoaderService) {
-    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
+    this.loaderService.getIsLoading()
+        .subscribe((isLoading) => this.isLoading = isLoading);
   }
 
   ngOnInit() {
@@ -23,7 +24,6 @@ export class SettingsPage implements OnInit {
   logout() {
     this.authenticationService.logout();
   }
-
 
 
 }

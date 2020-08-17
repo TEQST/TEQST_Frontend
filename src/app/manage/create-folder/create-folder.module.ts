@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { CreateFolderPageRoutingModule as CreateFolderPageRoutingModule } from './create-folder-routing.module';
+import {CreateFolderPageRoutingModule as CreateFolderPageRoutingModule}
+  from './create-folder-routing.module';
 
-import { CreateFolderPage } from './create-folder.page';
+import {CreateFolderPage} from './create-folder.page';
 
 @NgModule({
   imports: [
@@ -17,8 +18,8 @@ import { CreateFolderPage } from './create-folder.page';
     ReactiveFormsModule,
     IonicModule,
     CreateFolderPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [CreateFolderPage]
+  declarations: [CreateFolderPage],
 })
 export class CreateFolderPageModule {}

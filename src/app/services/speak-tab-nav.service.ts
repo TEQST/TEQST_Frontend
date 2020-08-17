@@ -1,19 +1,19 @@
-import { SharedFolder } from './../interfaces/shared-folder';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Constants } from '../constants';
-import { UsermgmtService } from './usermgmt.service';
-import { AuthenticationService } from './authentication.service';
+import {SharedFolder} from './../interfaces/shared-folder';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Constants} from '../constants';
+import {AuthenticationService} from './authentication.service';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class SpeakTabNavService {
 
-  constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
-  }
+  constructor(
+    private http: HttpClient,
+    public authenticationService: AuthenticationService) { }
 
   SERVER_URL = Constants.SERVER_URL;
 
@@ -25,13 +25,15 @@ export class SpeakTabNavService {
   }
 
   getInfoForPublisher(publisherId: string) {
-    const url = new URL(this.SERVER_URL + '/api/publishers/' + publisherId + '/');
+    const url = new URL(
+        this.SERVER_URL + '/api/publishers/' + publisherId + '/');
 
     return this.http.get(url.toString());
   }
 
   getInfoForSharedfolder(folderId: string) {
-    const url = new URL(this.SERVER_URL + '/api/spk/sharedfolders/' + folderId + '/');
+    const url = new URL(
+        this.SERVER_URL + '/api/spk/sharedfolders/' + folderId + '/');
 
     return this.http.get<SharedFolder>(url.toString());
   }

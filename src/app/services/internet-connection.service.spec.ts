@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { InternetConnectionService } from './internet-connection.service';
+import {InternetConnectionService} from './internet-connection.service';
 
 describe('MonitorInternetConnectionService', () => {
   let service: InternetConnectionService;

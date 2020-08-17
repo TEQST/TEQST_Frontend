@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { RouteStateService } from './route-state.service';
+import {RouteStateService} from './route-state.service';
 
 describe('RouteStateService', () => {
   let service: RouteStateService;

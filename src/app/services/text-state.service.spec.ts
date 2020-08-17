@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { TextStateService } from './text-state.service';
+import {TextStateService} from './text-state.service';
 
 describe('TextStateService', () => {
   let service: TextStateService;

@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { ShareFolderPageRoutingModule } from './share-folder-routing.module';
+import {ShareFolderPageRoutingModule} from './share-folder-routing.module';
 
-import { ShareFolderPage } from './share-folder.page';
+import {ShareFolderPage} from './share-folder.page';
 
 @NgModule({
   imports: [
@@ -16,8 +16,8 @@ import { ShareFolderPage } from './share-folder.page';
     FormsModule,
     IonicModule,
     ShareFolderPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [ShareFolderPage]
+  declarations: [ShareFolderPage],
 })
 export class ShareFolderPageModule {}

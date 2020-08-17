@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { FolderStatsPage } from './folder-stats.page';
+import {FolderStatsPage} from './folder-stats.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FolderStatsPage
+    component: FolderStatsPage,
   },
   {
     path: 'speaker-detail',
-    loadChildren: () => import('./speaker-detail/speaker-detail.module').then( m => m.SpeakerDetailPageModule)
+    loadChildren: () => import('./speaker-detail/speaker-detail.module')
+        .then( (m) => m.SpeakerDetailPageModule),
   },
 ];
 

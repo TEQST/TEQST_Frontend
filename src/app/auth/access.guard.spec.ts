@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AccessGuard } from './access.guard';
+import {AccessGuard} from './access.guard';
 
 describe('AccessGuard', () => {
   let guard: AccessGuard;

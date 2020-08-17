@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { ModalController, IonInput } from '@ionic/angular';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import {Component, OnInit, ViewChild, Input} from '@angular/core';
+import {ModalController, IonInput} from '@ionic/angular';
+import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-create-folder',
@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 export class CreateFolderPage implements OnInit {
 
   @Input() parentId: any
-  @ViewChild('folderNameInput', { static: false })  folderNameInput: IonInput
+  @ViewChild('folderNameInput', {static: false}) folderNameInput: IonInput
 
   public createFolderForm : FormGroup;
   public folderNameValid: boolean;
@@ -23,37 +23,39 @@ export class CreateFolderPage implements OnInit {
               public viewCtrl: ModalController) {
 
     this.createFolderForm = this.formBuilder.group({
-      folderName: ['', control => { return this.folderNameValidator(control)} ]
-    })
+      folderName: ['', (control) => {
+        return this.folderNameValidator(control);
+      }],
+    });
 
-    this.folderNameValid = false
+    this.folderNameValid = false;
   }
 
   ngOnInit() { }
 
   folderNameValidator(control: FormControl) {
-    let folderName = control.value
+    const folderName = control.value;
     this.folderNameValid = (this.validatorPattern.test(folderName) &&
-                            folderName.trim() != '' &&   // folder name not empty
-                           !folderName.includes('__') && // and does not contain double underscore
-                           !this.existingFolderNames.includes(folderName))
-    if (this.folderNameValid) return null
+                            folderName.trim() != '' && // folder name not empty
+                           !folderName.includes('__') &&
+                           !this.existingFolderNames.includes(folderName));
+    if (this.folderNameValid) return null;
     else {
-      return { 'folderName': true };
+      return {'folderName': true};
     }
   }
 
-  submitForm(){
-    let formData = this.createFolderForm.value
+  submitForm() {
+    const formData = this.createFolderForm.value;
     // close the modal passing its data
     this.viewCtrl.dismiss({
-      folderName: formData.folderName
-    })
+      folderName: formData.folderName,
+    });
   }
 
   dismissForm() {
     // close the modal without passing data
-    this.viewCtrl.dismiss()
+    this.viewCtrl.dismiss();
   }
 
 }

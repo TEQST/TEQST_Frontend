@@ -1,20 +1,21 @@
-import { RecordingPlaybackService } from './../../../../services/recording-playback.service';
-import { RecordingUploadService } from './../../../../services/recording-upload.service';
-import { SentenceRecordingModel } from './../../../../models/sentence-recording.model';
-import { AlertManagerService } from 'src/app/services/alert-manager.service';
-import { Injectable, ModuleWithComponentFactories } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import {RecordingPlaybackService}
+  from './../../../../services/recording-playback.service';
+import {RecordingUploadService}
+  from './../../../../services/recording-upload.service';
+import {SentenceRecordingModel}
+  from './../../../../models/sentence-recording.model';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {Injectable} from '@angular/core';
+import {Observable, Subject, BehaviorSubject} from 'rxjs';
 
 import * as RecordRTC from 'recordrtc';
-import { TextServiceService } from './text-service.service';
-import { Constants } from 'src/app/constants';
-import { UsermgmtService } from 'src/app/services/usermgmt.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import {TextServiceService} from './text-service.service';
+import {Constants} from 'src/app/constants';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class AudioRecordingService {
@@ -36,7 +37,6 @@ export class AudioRecordingService {
   private sentenceHasRecording: boolean;
 
 
-
   constructor(private textService: TextServiceService,
               public authenticationService: AuthenticationService,
               private alertService: AlertManagerService,
@@ -45,16 +45,21 @@ export class AudioRecordingService {
     this.subscribeToServices();
   }
 
-  // subscribe to all needed variables from the services and update the local ones on change
+  /* subscribe to all needed variables from the services
+     and update the local ones on change */
   private subscribeToServices(): void {
-    this.textService.getActiveSentenceIndex().subscribe((index) => this.activeSentence = index);
-    this.textService.getFurthestSentenceIndex().subscribe((index) => this.furthestSentence = index);
+    this.textService.getActiveSentenceIndex()
+        .subscribe((index) => this.activeSentence = index);
+    this.textService.getFurthestSentenceIndex()
+        .subscribe((index) => this.furthestSentence = index);
     this.textService.getRecordingId().subscribe((id) => {
       this.recordingId = id;
       this.resetRecordingData();
     });
-    this.textService.getSentenceHasRecording().subscribe((value) => this.sentenceHasRecording = value);
-    this.playbackService.getIsPlaying().subscribe((state) => this.isPlaying = state);
+    this.textService.getSentenceHasRecording()
+        .subscribe((value) => this.sentenceHasRecording = value);
+    this.playbackService.getIsPlaying()
+        .subscribe((state) => this.isPlaying = state);
   }
 
   resetRecordingData(): void {
@@ -78,12 +83,14 @@ export class AudioRecordingService {
     }
 
     // get user permission for microphone access
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
+    navigator.mediaDevices.getUserMedia({audio: true}).then((s) => {
       this.stream = s;
       this.record();
-    }).catch(error => {
+    }).catch((error) => {
       this.alertService.showErrorAlertNoRedirection(
-        'No microphone access', 'Please allow access to your microphone to be able to start a recording');
+          'No microphone access',
+          'Please allow access to your microphone '+
+          'to be able to start a recording');
       this.isRecording$.next(false);
     });
 
@@ -98,7 +105,7 @@ export class AudioRecordingService {
       mimeType: 'audio/wav',
       audioBitsPerSecond: 16000,
       desiredSampRate: 16000,
-      numberOfAudioChannels: 1 // set mono recording
+      numberOfAudioChannels: 1, // set mono recording
 
     });
     this.recorder.record();
@@ -107,13 +114,16 @@ export class AudioRecordingService {
   }
 
   private saveRecording(index: number, blob: Blob): void {
-    const sentenceRecording = new SentenceRecordingModel(this.recordingId, index, blob);
-    this.playbackService.addToCache(sentenceRecording); // add recording to cache in case speaker wants to listen to it
+    const sentenceRecording =
+      new SentenceRecordingModel(this.recordingId, index, blob);
+    // add recording to cache in case speaker wants to listen to it
+    this.playbackService.addToCache(sentenceRecording);
     this.uploadRecording(sentenceRecording);
   }
 
   private uploadRecording(sentenceRecording: SentenceRecordingModel): void {
-    this.recordingUploadService.uploadRecording(sentenceRecording, this.sentenceHasRecording);
+    this.recordingUploadService
+        .uploadRecording(sentenceRecording, this.sentenceHasRecording);
   }
 
   stopRecording(): void {
@@ -141,7 +151,8 @@ export class AudioRecordingService {
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
         }
-        // if the next sentence hasn't been recorded before start next recording otherwise just skip to next sentence
+        /* if the next sentence hasn't been recorded before start
+           next recording otherwise just skip to next sentence */
         if (this.activeSentence >= this.furthestSentence - 1) {
           this.record();
           this.textService.setNextSentenceActive();
@@ -162,7 +173,7 @@ export class AudioRecordingService {
     if (this.recorder) {
       this.recorder = null;
       if (this.stream) {
-        this.stream.getAudioTracks().forEach(track => track.stop());
+        this.stream.getAudioTracks().forEach((track) => track.stop());
         this.stream = null;
       }
     }

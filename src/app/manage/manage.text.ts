@@ -1,4 +1,4 @@
-import { ManageFolderService } from 'src/app/services/manage-folder.service';
+import {ManageFolderService} from 'src/app/services/manage-folder.service';
 
 export class Text {
     static folderService: ManageFolderService
@@ -8,16 +8,16 @@ export class Text {
     content: string
 
     static setServiceProvider(folderService) {
-        this.folderService = folderService
+      this.folderService = folderService;
     }
 
     constructor(id, title, content='') {
-        this.id = id;
-        this.title = title;
-        this.content = content
+      this.id = id;
+      this.title = title;
+      this.content = content;
     }
 
     delete() {
-        return Text.folderService.deleteText(this.id)
+      return Text.folderService.deleteText(this.id);
     }
 }

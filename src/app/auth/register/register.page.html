@@ -1,64 +1,77 @@
 <ion-content class="padding center text-center">
   <ion-grid class="max-height">
-    
+
     <ion-row class="image-row ion-align-items-center ion-justify-content-center">
       <ion-col class="inner-col-setting">
         <ion-img src="../../assets/img/logo.png"></ion-img>
-      </ion-col>      
+      </ion-col>
     </ion-row>
 
     <ion-row class="ion-align-items-center content-row ion-justify-content-center">
       <ion-col class="inner-col-setting">
         <ion-card class="max-height">
           <ion-list class="padding center">
-            <ion-item >
+            <ion-item>
               <ion-label> {{'Username' | translate}}: </ion-label>
-              <ion-input placeholder="{{'Username' | translate}}" [(ngModel)]="username" required = true><ion-text color="danger">*</ion-text></ion-input>
+              <ion-input placeholder="{{'Username' | translate}}" [(ngModel)]="username" required=true>
+                <ion-text color="danger">*</ion-text>
+              </ion-input>
             </ion-item>
-  
+
             <ion-item>
               <ion-label>{{'Password' | translate}}: </ion-label>
-              <ion-input placeholder="{{'Password' | translate}}" [(ngModel)]="password" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
+              <ion-input placeholder="{{'Password' | translate}}" [(ngModel)]="password" type="password" required=true>
+                <ion-text color="danger">*</ion-text>
+              </ion-input>
             </ion-item>
-  
+
             <ion-item>
               <ion-label>{{'Password' | translate}}: </ion-label>
-              <ion-input placeholder="{{'repeat Password' | translate}}" [(ngModel)]="repassword" type="password" required=true><ion-text color="danger">*</ion-text></ion-input>
+              <ion-input placeholder="{{'repeat Password' | translate}}" [(ngModel)]="repassword" type="password"
+                required=true>
+                <ion-text color="danger">*</ion-text>
+              </ion-input>
             </ion-item>
-  
+
             <ion-item>
               <ion-label>{{'Birthyear' | translate}}: </ion-label>
-              <ion-input placeholder="{{'Birthyear' | translate}}" [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'" required="true"><ion-text color="danger">*</ion-text></ion-input>
+              <ion-input placeholder="{{'Birthyear' | translate}}" [(ngModel)]="birthyear" inputmode="decimal"
+                [pattern]="'19[2-9][0-9]|20[0-2][0-9]'" required="true">
+                <ion-text color="danger">*</ion-text>
+              </ion-input>
             </ion-item>
-  
+
             <ion-item>
               <ion-label>{{'Country' | translate}}: </ion-label>
-              <ion-input placeholder="{{'Country' | translate}}" [(ngModel)]="country" ></ion-input>
+              <ion-input placeholder="{{'Country' | translate}}" [(ngModel)]="country"></ion-input>
             </ion-item>
 
             <ion-item>
               <ion-label>{{'Accent' | translate}}: </ion-label>
-              <ion-input placeholder="{{'Accent' | translate}}" [(ngModel)]="accent" ></ion-input>
+              <ion-input placeholder="{{'Accent' | translate}}" [(ngModel)]="accent"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-label>{{'Language' | translate}}:<ion-text color="danger">*</ion-text></ion-label>
-              
-              <ion-select multiple="true" placeholder="{{'Select One' | translate}}" [(ngModel)]="language" required="true" >
-                <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}} >{{lang.native_name}}</ion-select-option>
-                
+              <ion-label>{{'Language' | translate}}:<ion-text color="danger">*</ion-text>
+              </ion-label>
+
+              <ion-select multiple="true" placeholder="{{'Select One' | translate}}" [(ngModel)]="language"
+                required="true">
+                <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}
+                </ion-select-option>
+
               </ion-select>
             </ion-item>
 
             <ion-item>
               <ion-label>{{'Education Level' | translate}}:</ion-label>
-                <ion-select placeholder="{{'Select One' | translate}}" [(ngModel)]="education">
-                  <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
-                  <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
-                  <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
-                </ion-select>
+              <ion-select placeholder="{{'Select One' | translate}}" [(ngModel)]="education">
+                <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
+                <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
+                <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
+              </ion-select>
             </ion-item>
-  
+
             <ion-item>
               <ion-label>{{'Gender' | translate}}:</ion-label>
               <ion-select placeholder="{{'Select One' | translate}}" [(ngModel)]="gender">
@@ -66,16 +79,16 @@
                 <ion-select-option selected value="M">{{'Male' | translate}}</ion-select-option>
               </ion-select>
             </ion-item>
-  
+
           </ion-list>
-            <ion-button full (click)="registerUser()" expand="block">{{'Register' | translate}}</ion-button>
-            <ion-card-content>
-              <ng-container>{{'Already have an Account?' | translate}}</ng-container>
-              <p><a routerLink="/login" class="login-redirect">{{'Login here' | translate }}</a></p>
-            </ion-card-content>
+          <ion-button full (click)="registerUser()" expand="block">{{'Register' | translate}}</ion-button>
+          <ion-card-content>
+            <ng-container>{{'Already have an Account?' | translate}}</ng-container>
+            <p><a routerLink="/login" class="login-redirect">{{'Login here' | translate }}</a></p>
+          </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-  
+
 </ion-content>
