@@ -44,6 +44,11 @@
       <ion-button (click)="redirect()">{{'Admin Page' | translate }}</ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
+      <ion-button (click)="redirectToHelp()">
+          <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
       <ion-button (click)="presentMenuLanguages($event)">
         <ion-icon slot="start" name="globe"></ion-icon>
       </ion-button>

@@ -48,4 +48,9 @@ export class LoginPage implements OnInit {
   redirect() {
     window.open(this.SERVER_URL + '/admin');
   }
+
+  redirectToHelp(){
+   window.open('http://localhost:8100/documentation');
+  }
+
 }

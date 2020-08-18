@@ -29,11 +29,16 @@ const routes: Routes = [
     canActivate: [AccessGuard],
   },
   {
+    path: 'documentation',
+    loadChildren: () => import('./help/documentation/documentation.module').then( m => m.DocumentationPageModule)
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
     data: {requiresLogin: true},
     canActivate: [AccessGuard],
   },
+ 
 ];
 
 @NgModule({
