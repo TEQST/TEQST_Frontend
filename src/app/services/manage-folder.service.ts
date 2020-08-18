@@ -70,7 +70,7 @@ export class ManageFolderService {
   createText(params: any[]) {
     const formData = new FormData();
     for (const param in params) {
-      if ({}.hasOwnProperty.call(param, params)) {
+      if ({}.hasOwnProperty.call(params, param)) {
         const paramValue = params[param];
         if (param == 'textfile') {
           formData.append('textfile', paramValue, paramValue.name);
