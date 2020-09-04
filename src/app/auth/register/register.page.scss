@@ -1,6 +1,7 @@
-ion-card-content {
-  margin-top: 10px;
-  text-align: center;
+ion-col.inner-col-setting {
+    max-width: 400px;
+    min-width: 300px;
+    padding: 0;
 }
 
 .max-height {
@@ -8,18 +9,48 @@ ion-card-content {
 }
 
 ion-row.image-row {
-  height: 20%;
-}
+  // remove the height of the footer so the card and image are positioned the same way on login and register
+  height: calc(35% - 56px);
+  min-height: 114px;
+  margin-bottom: 5px;
 
+}
 ion-row.content-row {
-  height: 80%;
+  height: calc(65% + 56px);
 
-  a.login-redirect {
-    font-size: 16px;
-  }
+}
+a.login-redirect {
+  font-size:16px;
 }
 
-ion-col.inner-col-setting {
-  max-width: 400px;
-  min-width: 300px;
+ion-card {
+  margin: 0;
+}
+
+ion-card-content {
+  margin-top: 10px;
+  text-align: center;
+}
+
+ion-item {
+  --padding-top: 0;
+  --inner-padding-bottom: 0;
+}
+
+ion-item#password-item {
+  --inner-padding-end: 0;
+  --padding-bottom: 6;
+}
+
+ion-button#toggle-password {
+  --ripple-color: transparent;
+  --background-hover: false;
+  height: 100%;
+  width: 4em;
+  margin: 0;
+  font-size: 16px;
+}
+
+.button-submit {
+  margin: 10px 7px;
 }

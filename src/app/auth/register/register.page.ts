@@ -7,6 +7,18 @@ import {AlertManagerService} from '../../services/alert-manager.service';
 import {LanguageService} from 'src/app/services/language.service';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 
+interface RegisterForm {
+  username: string,
+  password: string,
+  birth_year: number;
+  language_ids: string[];
+  country: string;
+  accent: string;
+  education: string;
+  gender: string;
+
+}
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -15,17 +27,10 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 
 export class RegisterPage implements OnInit {
 
-  username = '';
-  password = '';
-  repassword = '';
-  education = 'N';
-  birthyear: number;
-  country: string;
-  accent: string;
-  gender = 'N';
-  language: [];
-  allLangs: [];
-
+  public showPassword = false;
+  public currentRegisterStep = 1;
+  public registrationData = {} as RegisterForm;
+  public allLangs = [];
 
   constructor(
     public navCtrl: NavController,
@@ -38,47 +43,20 @@ export class RegisterPage implements OnInit {
     this.getAllLangs();
   }
 
-  /* sends data to the UsermgmtService to create a new user
-     logInData is data which is saved,
-     to call instant login after registration without user interaction.
-     throws an error if a required field is empty
-     or the repeated password field is different */
-  registerUser() {
-    const dataToSend = {
-      username: this.username,
-      password: this.password,
-      language_ids: this.language,
-      birth_year: this.birthyear,
-      gender: this.gender,
-      education: this.education,
-      country: this.country,
-      accent: this.accent,
-    };
-    const logInData = {
-      username: this.username,
-      password: this.password,
-    };
-    const currentYear = moment().year();
-    const minimumYear = currentYear - 100;
+  nextStep(form) {
+    this.currentRegisterStep = 2;
+  }
 
-    if (this.username === '' ||
-      this.password === '' ||
-      this.repassword === '' ||
-      this.language === undefined) {
-      this.alertService.showErrorAlertNoRedirection(
-          'Required fields empty',
-          'Please fill out all fields');
-    } else if (this.password !== this.repassword) {
-      this.alertService.showErrorAlertNoRedirection(
-          'Different passwords',
-          'The repeated password does not match the original password');
-    } else if (this.birthyear < minimumYear || this.birthyear > currentYear) {
-      this.alertService.showErrorAlertNoRedirection(
-          'Invalid birthyear',
-          `Set a birthyear between ${minimumYear} and ${currentYear}`);
-    } else {
-      this.authenticationService.register(dataToSend, logInData);
-    }
+  performRegister(form){
+    console.log(this.registrationData);
+    let loginData = (({username, password}) => ({username, password}))(this.registrationData);
+    this.authenticationService.register(this.registrationData).subscribe(() => {
+      this.authenticationService.login(loginData)
+    }, (error: any) => {
+      this.currentRegisterStep = 1;
+      this.alertService.showErrorAlertNoRedirection('Username already exists',
+        'A user with that username already exists, please choose another username');
+    });
   }
 
   // sets allLAngs[] to all Languages ever created by an Admin

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
@@ -54,16 +55,19 @@ export class AuthenticationService {
   }
 
   // creates a new User with the sended Data
-  register(dataToSend, logInData): void {
+  register2(dataToSend, logInData): void {
     const url = this.SERVER_URL + '/api/auth/register/';
     this.http.post(url, dataToSend).subscribe(() => {
       this.login(logInData);
     }, (error: any) => {
-      this.alertService.showErrorAlertNoRedirection(
-          'Username already exists',
-          'A user with that username already exists, ' +
-          'please choose another username');
+      this.alertService.showErrorAlertNoRedirection('Username already exists',
+       'A user with that username already exists, please choose another username');
     });
+  }
+
+  register(registrationData): Observable<object> {
+    const url = this.SERVER_URL + '/api/auth/register/';
+    return this.http.post(url, registrationData);
   }
 
 
