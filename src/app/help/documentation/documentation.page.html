@@ -5,11 +5,38 @@
 </ion-header>
 
 <ion-content class="ion-padding " >
-  <div class=" text" >
+ <div class="content">
+
+    <!-- Inhaltsverzeichnis --> 
+<h2>Inhaltsverzeichnis:</h2>
+<ol>
+  <li>
+  <button (click)="scrollToElement(speakerview)" class="adjustColorDarkmode"> <h4>Speaker View</h4></button>
+    <ol>
+      <li><button (click)="scrollToElement(speakerview)" class="adjustFontSize adjustColorDarkmode">Navigate to Recording</button></li>
+      <li><button (click)="scrollToElement(speakerviewRecTime)" class="adjustFontSize adjustColorDarkmode">View your recording Time</button></li>
+      <li><button (click)="scrollToElement(speakerviewRec)" class="adjustFontSize adjustColorDarkmode">Recording audio data</button></li>
+    </ol>
+  </li>
+
+  <li>
+  <button (click)="scrollToElement(pubview)" class="adjustColorDarkmode"> <h4>Publisher View</h4></button>
+    <ol>
+      <li><button (click)="scrollToElement(pubview)" class="adjustFontSize adjustColorDarkmode">Create folders</button></li>
+      <li><button (click)="scrollToElement(pubviewUpload)" class="adjustFontSize adjustColorDarkmode">Upload texts</button></li>
+
+      <li><button (click)="scrollToElement(pubviewStatistics)" class="adjustFontSize adjustColorDarkmode">Progess and statistics about speaker</button></li>
+      <li><button (click)="scrollToElement(pubviewDownload)" class="adjustFontSize adjustColorDarkmode">Downloading the selected data</button></li>
+    </ol>
+  </li>
+</ol>
+<br />
+<br />
+    <div #speakerview></div>
   <h2>1. Speaker View:</h2>
   <h3>1.1 Navigate to Recording:</h3>
 
-<ion-img class="inner" src="../../assets/img/documentation/Speaker-PubOverview.png"></ion-img>
+<img  src="../../assets/img/documentation/Speaker-PubOverview.png" class="inner">
 <ion-text>
   <br /> <i>Fig.1 Speaker View after Log in</i>
   <p>
@@ -19,7 +46,7 @@
   </p>
 </ion-text>
 
-<ion-img class="inner" src="../../assets/img/documentation/Speaker-FolderOverview.png"></ion-img>
+<img src="../../assets/img/documentation/Speaker-FolderOverview.png" class="inner">
   <ion-text>
     <br /> <i>Fig.2 Folders by jannik</i>
     <p>
@@ -28,7 +55,7 @@
     </p>
   </ion-text>
 
-  <ion-img class="inner" src="../../assets/img/documentation/Speaker-TextOverview.png"></ion-img>
+  <img class="inner" src="../../assets/img/documentation/Speaker-TextOverview.png">
     <ion-text>
       <br /> <i>Fig.3 Texts in folder f6_1 by Publisher jannik</i>
       <p>
@@ -39,8 +66,9 @@
       </p>
     </ion-text>
 
+    <div #speakerviewRecTime></div>
     <h3>1.2 View your recording Time:</h3>
-    <ion-img class="inner" src="../../assets/img/documentation/Speaker-TimeStatistics.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Speaker-TimeStatistics.png">
     <ion-text>
       <br /> <i>Fig.4 Time statistics for Folder f6_1</i>
       <p>
@@ -49,8 +77,9 @@
       </p>
     </ion-text>
 
+    <div #speakerviewRec></div>
     <h3>1.3 Recording audio data:</h3>
-    <ion-img class="inner" src="../../assets/img/documentation/Speaker-RecordingStart.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Speaker-RecordingStart.png">
     <ion-text>
       <br /> <i>Fig.5 shows the recording view. Currently the recording is paused.</i>
       <p>
@@ -63,7 +92,7 @@
       </p>
     </ion-text>
 
-    <ion-img class="inner" src="../../assets/img/documentation/Speaker-Recording.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Speaker-Recording.png">
     <ion-text>
       <br /> <i>Fig.6 shows the recording view. Currently recording sentence 6</i>
       <p>
@@ -75,7 +104,7 @@
       </p>
     </ion-text>
 
-    <ion-img class="inner" src="../../assets/img/documentation/Speaker-Listen.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Speaker-Listen.png">
     <ion-text>
       <br /> <i>Fig.7 shows the recording view. Recording is paused. allready recorded sentence is selceted</i>
       <p>
@@ -85,9 +114,10 @@
 
     </ion-text>
 
+    <div #pubview></div>
     <h2>2. Publisher View:</h2>
     <h3>2.1 Create Folders:</h3>
-    <ion-img class="inner" src="../../assets/img/documentation/Publisher-FolderOverview.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Publisher-FolderOverview.png">
     <ion-text>
       <br /> <i>Fig.8 Homescreen of the Publisher View</i>
         <p>
@@ -98,7 +128,7 @@
         </p>
     </ion-text>
 
-    <ion-img class="inner" src="../../assets/img/documentation/Publisher-createStuff.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Publisher-createStuff.png">
     <ion-text>
       <br /> <i>Fig.9 Empty Folder with creating options</i>
       <p>
@@ -106,8 +136,9 @@
       </p>
     </ion-text>
 
+    <div #pubviewUpload></div>
     <h3>2.2 Upload Texts:</h3>
-    <ion-img class="inner" src="../../assets/img/documentation/Publisher-createText.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Publisher-createText.png">
     <ion-text>
       <br /> <i>Fig.10 Publisher uploading a text</i>
       <p>
@@ -120,7 +151,7 @@
       </p>
     </ion-text>
 
-    <ion-img class="inner" src="../../assets/img/documentation/Publisher-sharringFolder.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Publisher-sharringFolder.png">
     <ion-text>
       <br /> <i>Fig.11 Publisher sharring a text</i>
       <p>
@@ -131,8 +162,10 @@
 
       </p>
     </ion-text>
+
+    <div #pubviewStatistics></div>
     <h3>2.3 Progess and statistics about speaker:</h3>
-    <ion-img class="inner" src="../../assets/img/documentation/Publisher-statistics.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Publisher-statistics.png">
     <ion-text>
       <br /> <i>Fig.12 statistics view of a folder</i>
       <p>
@@ -141,7 +174,7 @@
       </p>
     </ion-text>
     
-    <ion-img class="inner" src="../../assets/img/documentation/Publisher-speakerProgress.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Publisher-speakerProgress.png">
     <ion-text>
       <br /><i>Fig.13 Progress of single speaker</i>
       <p>
@@ -150,12 +183,14 @@
       </p>
     </ion-text>
 
+    <div #pubviewDownload></div>
     <h3>2.4 Downloading the selected Data:</h3>
-    <ion-img class="inner" src="../../assets/img/documentation/Publisher-Download.png"></ion-img>
+    <img class="inner" src="../../assets/img/documentation/Publisher-Download.png">
     <ion-text>
       <br /><i>Fig.13 Download audio data</i>
       <p>To Access the collected data, you can easily press the download symbol [1] on top right corner. The download of this folder will start automatically. The download includes all audio, a stm file and a log file.
       </p>
     </ion-text>
-  </div>
+  
+</div>
   </ion-content>
