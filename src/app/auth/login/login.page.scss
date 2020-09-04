@@ -51,28 +51,28 @@ ion-card {
 
 ion-row.content-row {
   height: 60%;
+}
 
-  ion-item#password-item {
-    --inner-padding-end: 0;
-    --padding-bottom: 6;
-  }
-  
-  ion-button#toggle-password {
-    --ripple-color: transparent;
-    --background-hover: false;
-    height: 100%;
-    width: 4em;
-    margin: 0;
-    font-size: 16px;
-  }
+ion-item#password-item {
+  --inner-padding-end: 0;
+  --padding-bottom: 6;
+}
 
-  .button-submit {
-    margin: 10px 7px;
-  }
+ion-button#toggle-password {
+  --ripple-color: transparent;
+  --background-hover: false;
+  height: 100%;
+  width: 4em;
+  margin: 0;
+  font-size: 16px;
+}
 
-  a.register-redirect {
-    font-size: 16px;
-  }
+.button-submit {
+  margin: 10px 7px;
+}
+
+a.register-redirect {
+  font-size: 16px;
 }
 
 
