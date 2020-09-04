@@ -54,3 +54,9 @@ ion-button#toggle-password {
 .button-submit {
   margin: 10px 7px;
 }
+
+@media (prefers-color-scheme: dark) {
+  .md {
+    --ion-item-background: #1e1e1e;
+  }
+}
