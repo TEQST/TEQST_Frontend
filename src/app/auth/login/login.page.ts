@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
   }
 
   redirectToHelp(){
-   window.open('http://localhost:8100/documentation');
+   window.open(this.SERVER_URL + '/documentation');
   }
 
 }
