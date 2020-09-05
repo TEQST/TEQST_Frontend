@@ -5,7 +5,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     loadChildren: './tabs/tabs.module#TabsPageModule',
   },
   {
@@ -33,11 +33,20 @@ const routes: Routes = [
     loadChildren: () => import('./help/documentation/documentation.module').then( m => m.DocumentationPageModule)
   },
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
     data: {requiresLogin: true},
     canActivate: [AccessGuard],
+  },  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
+
  
 ];
 
