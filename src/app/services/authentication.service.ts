@@ -1,3 +1,4 @@
+import { RegisterForm } from './../interfaces/register-form';
 import { Observable } from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
@@ -65,7 +66,7 @@ export class AuthenticationService {
     });
   }
 
-  register(registrationData): Observable<object> {
+  register(registrationData: RegisterForm): Observable<object> {
     const url = this.SERVER_URL + '/api/auth/register/';
     return this.http.post(url, registrationData);
   }
