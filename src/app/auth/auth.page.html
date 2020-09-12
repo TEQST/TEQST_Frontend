@@ -1,0 +1,39 @@
+<ion-content class="ion-padding ion-text-center">
+  <ion-grid class="max-height">
+
+    <ion-row class="image-row ion-align-items-center ion-justify-content-center">
+      <ion-col class="inner-col-setting">
+        <ion-img src="../../assets/img/logo.png"></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center content-row ion-justify-content-center">
+      <ion-col class="inner-col-setting">
+        <ion-card class="max-height">
+          <router-outlet></router-outlet>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="redirect()">
+        <ion-icon name="build-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="redirectToHelp()">
+        <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentMenuLanguages($event)">
+        <ion-icon slot="start" name="globe"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

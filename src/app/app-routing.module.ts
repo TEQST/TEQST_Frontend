@@ -5,7 +5,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     loadChildren: './tabs/tabs.module#TabsPageModule',
   },
   {
@@ -15,30 +15,22 @@ const routes: Routes = [
           .then( (m) => m.RecordViewPageModule),
   },
   {
-    path: 'login',
-    loadChildren: () => import('./auth/login/login.module')
-        .then( (m) => m.LoginPageModule),
-    data: {redirectIfLoggedIn: true},
-    canActivate: [AccessGuard],
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./auth/register/register.module')
-        .then( (m) => m.RegisterPageModule),
-    data: {redirectIfLoggedIn: true},
-    canActivate: [AccessGuard],
-  },
-  {
     path: 'documentation',
     loadChildren: () => import('./help/documentation/documentation.module').then( m => m.DocumentationPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./auth/auth.module')
+      .then((m) => m.AuthPageModule),
+    data: { redirectIfLoggedIn: true },
+    canActivate: [AccessGuard],
   },
   {
     path: '**',
     component: PageNotFoundComponent,
     data: {requiresLogin: true},
     canActivate: [AccessGuard],
-  },
- 
+  } 
 ];
 
 @NgModule({

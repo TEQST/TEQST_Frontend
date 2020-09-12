@@ -6,12 +6,12 @@ import {IonicModule} from '@ionic/angular';
 
 import {AccessGuard} from '../auth/access.guard';
 import {TabsPage} from './tabs.page';
-import {RouterModule, Routes, Router} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
