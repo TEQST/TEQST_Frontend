@@ -15,39 +15,22 @@ const routes: Routes = [
           .then( (m) => m.RecordViewPageModule),
   },
   {
-    path: 'login',
-    loadChildren: () => import('./auth/login/login.module')
-        .then( (m) => m.LoginPageModule),
-    data: {redirectIfLoggedIn: true},
-    canActivate: [AccessGuard],
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./auth/register/register.module')
-        .then( (m) => m.RegisterPageModule),
-    data: {redirectIfLoggedIn: true},
-    canActivate: [AccessGuard],
-  },
-  {
     path: 'documentation',
     loadChildren: () => import('./help/documentation/documentation.module').then( m => m.DocumentationPageModule)
   },
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    loadChildren: () => import('./auth/auth.module')
+      .then((m) => m.AuthPageModule),
+    data: { redirectIfLoggedIn: true },
+    canActivate: [AccessGuard],
   },
   {
     path: '**',
     component: PageNotFoundComponent,
     data: {requiresLogin: true},
     canActivate: [AccessGuard],
-  },  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
-  },
-
- 
+  } 
 ];
 
 @NgModule({
