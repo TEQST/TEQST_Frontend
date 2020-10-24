@@ -27,8 +27,13 @@ export class UsermgmtService {
   public languageService: LanguageService,
   private injector: Injector) {}
 
+  // check if username is available
+  checkUsername(username: string) {
+    const url = '/api/users/checkname/?username=' + username;
+    return this.http.get(url);
+  }
 
-  // notifys the Server about profile changes
+  // notifies the Server about profile changes
   updateProfile(dataToSend) {
     const url = this.SERVER_URL + '/api/user/';
     return this.http.put(url, dataToSend);
