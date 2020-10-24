@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+      "target": "https://i13pc108.ira.uka.de",
+      "secure": true,
+      "logLevel": "debug",
+      "changeOrigin": true
+    }
+  }
