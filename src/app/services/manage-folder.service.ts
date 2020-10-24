@@ -2,8 +2,6 @@ import {TextObject} from './../interfaces/text-object';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-
-import {Constants} from '../constants';
 import {AuthenticationService} from './authentication.service';
 
 interface User {

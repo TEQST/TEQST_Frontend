@@ -2,7 +2,6 @@ import {User} from './../interfaces/user';
 import {Injectable, Injector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
-import {Constants} from '../constants';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AlertManagerService} from './alert-manager.service';
 import {RollbarService} from '../rollbar';

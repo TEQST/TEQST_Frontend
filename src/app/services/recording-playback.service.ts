@@ -2,7 +2,6 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Constants} from '../constants';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable({

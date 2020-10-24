@@ -1,7 +1,6 @@
 import {SharedFolder} from './../interfaces/shared-folder';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Constants} from '../constants';
 import {AuthenticationService} from './authentication.service';
 
 

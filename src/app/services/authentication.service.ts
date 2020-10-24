@@ -5,7 +5,6 @@ import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
 import {AlertManagerService} from './alert-manager.service';
 import {LanguageService} from './language.service';
-import {Constants} from '../constants';
 import {User} from '../interfaces/user';
 import {UsermgmtService} from './usermgmt.service';
 

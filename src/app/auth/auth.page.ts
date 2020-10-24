@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Constants } from '../constants';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LanguageService } from '../services/language.service';
 import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
