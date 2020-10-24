@@ -1,5 +1,5 @@
 <form *ngIf="currentRegisterStep === 1" [formGroup]="stepOneForm" (ngSubmit)="nextStep()"
-  (keyup.enter)="stepOneForm?.valid ? nextStep(stepOneForm) : undefined">
+  (keyup.enter)="stepOneForm?.valid ? nextStep() : undefined">
   <ion-item lines="full">
     <ion-label position="floating">{{ 'Username' | translate }}</ion-label>
     <ion-input formControlName="username" type="text" id="username">
