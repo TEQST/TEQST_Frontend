@@ -1,50 +1,57 @@
-<form *ngIf="currentRegisterStep === 1" #form="ngForm" (ngSubmit)="nextStep(form)"
-  (keyup.enter)="form.valid ? nextStep(form) : undefined">
+<form *ngIf="currentRegisterStep === 1" [formGroup]="stepOneForm" (ngSubmit)="nextStep()"
+  (keyup.enter)="stepOneForm?.valid ? nextStep(stepOneForm) : undefined">
   <ion-item lines="full">
-    <ion-label position="floating" for="username">{{ 'Username' | translate }}</ion-label>
-    <ion-input name="username" type="text" id="username" [(ngModel)]="registrationData.username" ngModel required>
+    <ion-label position="floating">{{ 'Username' | translate }}</ion-label>
+    <ion-input formControlName="username" type="text" id="username">
     </ion-input>
   </ion-item>
+  <div class="error" *ngIf="errorControl.username.errors?.required && errorControl.username.touched">
+    Username is required.
+  </div>
+  <div class="warning" *ngIf="stepOneForm.controls.username.pending">
+    Checking username...
+  </div>
+  <div class="error" *ngIf="!errorControl.username.valid && !errorControl.username.pending && !errorControl.username.errors?.required">
+    Username is already taken.
+  </div>
   <ion-item id="password-item" lines="full">
-    <ion-label position="floating" for="password">{{ 'Password' | translate }}</ion-label>
+    <ion-label position="floating">{{ 'Password' | translate }}</ion-label>
     <ion-button id="toggle-password" fill=clear slot="end" (click)="showPassword = !showPassword">
       <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
     </ion-button>
-    <ion-input name="password" [type]="showPassword ? 'text' : 'password'" id="password" ngModel required
-      [(ngModel)]="registrationData.password"></ion-input>
+    <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'" id="password"></ion-input>
   </ion-item>
   <ion-item lines="full">
     <ion-label position="floating">{{'Year of birth' | translate}}</ion-label>
-    <ion-input name="yearOfBirth" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'" ngModel required
-      [(ngModel)]="registrationData.birth_year">
-    </ion-input>
+    <ion-input formControlName="birth_year" inputmode="decimal"></ion-input>
   </ion-item>
+  <div class="error" *ngIf="!errorControl.birth_year.valid && errorControl.birth_year.touched">
+    Please enter the year in the format YYYY. Example: 1992
+  </div>
   <ion-item lines="full">
     <ion-label position="floating">{{'Language' | translate}}</ion-label>
-    <ion-select multiple="true" name="language" ngModel required [(ngModel)]="registrationData.language_ids">
+    <ion-select multiple="true" formControlName="language_ids">
       <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
-
     </ion-select>
   </ion-item>
-  <ion-button class="button-submit" type="submit" [disabled]="form.invalid" expand="block">{{'Next' | translate}}
+  <ion-button class="button-submit" type="submit" [disabled]="!stepOneForm.valid" expand="block">{{'Next' | translate}}
   </ion-button>
 </form>
 
-
-<form *ngIf="currentRegisterStep === 2" #form2="ngForm" (ngSubmit)="performRegister(form2)"
-  (keyup.enter)="form2.valid ? performRegister(form2) : undefined">
+<form *ngIf="currentRegisterStep === 2" [formGroup]="stepTwoForm" (ngSubmit)="performRegister()"
+  (keyup.enter)="stepTwoForm.valid ? performRegister() : undefined">
   <ion-item lines="full">
     <ion-label position="floating">{{'Country' | translate}}: </ion-label>
-    <ion-input name="country" [(ngModel)]="registrationData.country" ngModel></ion-input>
+    <ion-input formControlName="country" ngModel></ion-input>
   </ion-item>
   <ion-item lines="full">
     <ion-label position="floating">{{'Accent' | translate}}: </ion-label>
-    <ion-input name="accent" [(ngModel)]="registrationData.accent" ngModel></ion-input>
+    <ion-input name="accent" formControlName="accent" ngModel></ion-input>
   </ion-item>
 
   <ion-item lines="full">
     <ion-label position="floating">{{'Education Level' | translate}}:</ion-label>
-    <ion-select name="education" [(ngModel)]="registrationData.education" ngModel>
+    <ion-select name="education" formControlName="education" ngModel>
       <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
       <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
       <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
@@ -53,15 +60,15 @@
 
   <ion-item lines="full">
     <ion-label position="floating">{{'Gender' | translate}}:</ion-label>
-    <ion-select name="gender" [(ngModel)]="registrationData.gender" ngModel>
+    <ion-select name="gender" formControlName="gender" ngModel>
       <ion-select-option value="F">{{'Female' | translate}}</ion-select-option>
-      <ion-select-option selected value="M">{{'Male' | translate}}</ion-select-option>
+      <ion-select-option value="M">{{'Male' | translate}}</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-button class="button-submit" type="submit" [disabled]="form2.invalid" expand="block">{{'Register' | translate}}
+  <ion-button class="button-submit" type="submit" expand="block">{{'Register' | translate}}
   </ion-button>
-
 </form>
+
 <ion-card-content>
   <ng-container>{{'Already have an Account?' | translate}}</ng-container>
   <p><a routerLink="/login" class="login-redirect">{{'Login here' | translate }}</a></p>
