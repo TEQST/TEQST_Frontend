@@ -1,7 +1,7 @@
 import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -18,7 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     AuthPageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AuthPage,

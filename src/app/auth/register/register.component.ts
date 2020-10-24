@@ -1,10 +1,12 @@
+import { AgeValidator } from './../../validators/age';
+import { UsernameValidator } from './../../validators/username';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
-import { RegisterForm } from 'src/app/interfaces/register-form';
 
 @Component({
   selector: 'app-register',
@@ -14,27 +16,58 @@ import { RegisterForm } from 'src/app/interfaces/register-form';
 export class RegisterComponent implements OnInit {
   public showPassword = false;
   public currentRegisterStep = 1;
-  public registrationData = {} as RegisterForm;
   public allLangs = [];
+  public stepOneForm: FormGroup;
+  public stepTwoForm: FormGroup;
 
   constructor(
     public navCtrl: NavController,
     public http: HttpClient,
     public authenticationService: AuthenticationService,
     public languageService: LanguageService,
-    private alertService: AlertManagerService) { }
+    private alertService: AlertManagerService,
+    private formBuilder: FormBuilder,
+    private usernameValidator: UsernameValidator) { 
+      this.stepOneForm = formBuilder.group({
+        username: ['', Validators.required, usernameValidator.checkUsername.bind(usernameValidator)],
+        password: ['', Validators.required],
+        birth_year: ['', [Validators.required, AgeValidator.checkAge]],
+        language_ids: [[], Validators.required]
+      });
+      
+      this.stepTwoForm = formBuilder.group({
+        country: [''],
+        accent: [''],
+        education: [''],
+        gender: ['']
+      })
+    }
 
   ngOnInit() {
     this.getAllLangs();
   }
 
-  nextStep(form) {
+  nextStep() {
     this.currentRegisterStep = 2;
+    console.log(this.stepOneForm)
   }
 
-  performRegister(form) {
-    let loginData = (({ username, password }) => ({ username, password }))(this.registrationData);
-    this.authenticationService.register(this.registrationData).subscribe(() => {
+  get errorControl() {
+    return this.stepOneForm.controls;
+  }
+
+  performRegister() {
+    //combine the value object from the forms into one
+    let registrationData = {...this.stepOneForm.value, ...this.stepTwoForm.value}
+    //filter out all properties with empty strings so the server accepts the request
+    for (let value in registrationData) {
+      if (registrationData[value] === '') {
+        delete registrationData[value]
+      }
+    }
+    let loginData = (({ username, password }) => ({ username, password }))(this.stepOneForm.value);
+    console.log(registrationData)
+    this.authenticationService.register(registrationData).subscribe(() => {
       this.authenticationService.login(loginData)
     }, (error: any) => {
       this.currentRegisterStep = 1;

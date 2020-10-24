@@ -1,3 +1,4 @@
+import { UsernameValidator } from './validators/username';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
@@ -51,6 +52,7 @@ import {ServerAuthtokenInterceptorService}
   providers: [
     StatusBar,
     SplashScreen,
+    UsernameValidator,
     {
       provide: RollbarService,
       useFactory: rollbarFactory,

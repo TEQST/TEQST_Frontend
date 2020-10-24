@@ -4,7 +4,6 @@ a.login-redirect {
 
 ion-card-content {
   margin-top: 10px;
-  text-align: center;
 }
 
 ion-item {
@@ -28,4 +27,20 @@ ion-button#toggle-password {
 
 .button-submit {
   margin: 10px 7px;
+}
+
+.error {
+  font-size: 0.8em;
+  color: var(--ion-color-danger);
+  width: 100%;
+  text-align: left;
+  padding: 5px 16px;
+}
+
+.warning {
+  font-size: 0.8em;
+  color: var(--ion-color-warning);
+  width: 100%;
+  text-align: left;
+  padding: 5px 16px;
 }
