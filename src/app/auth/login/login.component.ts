@@ -10,7 +10,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  SERVER_URL = Constants.SERVER_URL;
   public showPassword = false;
 
   constructor(

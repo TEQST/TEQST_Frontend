@@ -15,26 +15,21 @@ export class SpeakTabNavService {
     private http: HttpClient,
     public authenticationService: AuthenticationService) { }
 
-  SERVER_URL = Constants.SERVER_URL;
-
   getPublisherList() {
-    const urlStr = this.SERVER_URL + '/api/publishers/';
-    const url = new URL(urlStr);
+    const url = '/api/publishers/';
 
-    return this.http.get(url.toString());
+    return this.http.get(url);
   }
 
   getInfoForPublisher(publisherId: string) {
-    const url = new URL(
-        this.SERVER_URL + '/api/publishers/' + publisherId + '/');
+    const url =  `/api/publishers/${publisherId}/`;
 
-    return this.http.get(url.toString());
+    return this.http.get(url);
   }
 
   getInfoForSharedfolder(folderId: string) {
-    const url = new URL(
-        this.SERVER_URL + '/api/spk/sharedfolders/' + folderId + '/');
+    const url = `/api/spk/sharedfolders/${folderId}/`;
 
-    return this.http.get<SharedFolder>(url.toString());
+    return this.http.get<SharedFolder>(url);
   }
 }

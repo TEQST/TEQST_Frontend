@@ -15,7 +15,6 @@ import {LanguageService} from './language.service';
 
 export class UsermgmtService {
 
-  SERVER_URL = Constants.SERVER_URL;
    private httpOptions;
    public isPublisher = new BehaviorSubject<boolean>(undefined);
    // tslint:disable: no-string-literal
@@ -30,12 +29,12 @@ export class UsermgmtService {
 
    // notifys the Server about profile changes
    updateProfile(dataToSend) {
-     const url = this.SERVER_URL + '/api/user/';
+     const url = '/api/user/';
      return this.http.put(url, dataToSend);
    }
 
    patchProfile(dataToSend) {
-     const url = this.SERVER_URL + '/api/user/';
+     const url = '/api/user/';
      return this.http.patch(url, dataToSend);
    }
 
@@ -52,7 +51,7 @@ export class UsermgmtService {
 
    // gets all the information about the User who is currently logged in
    loadContent(): Observable<any> {
-     const url = this.SERVER_URL + '/api/user/';
+     const url = '/api/user/';
      return this.http.get(url);
    }
 

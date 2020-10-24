@@ -26,35 +26,30 @@ export class ManageFolderService {
     private http: HttpClient,
     public authenticationService: AuthenticationService) { }
 
-  SERVER_URL = Constants.SERVER_URL;
-
 
   getFolderInfoFor(folderId: string): Observable<object> {
-    const url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`);
+    const url = `/api/folders/${folderId}/`;
 
-    return this.http.get(url.toString());
+    return this.http.get(url);
   }
 
   getSubfolderListFor(folderId: string): Observable<object> {
-    let urlStr = `${this.SERVER_URL}/api/folders/`;
+    let url = `/api/folders/`;
     if (folderId) {
-      urlStr += folderId + '/';
-    }
-    const url = new URL(urlStr);
-    return this.http.get(url.toString());
+      url += folderId + '/';
+    }    
+    return this.http.get(url);
   }
 
   getTextListFor(folderId: string): Observable<object> {
-    const url = new URL(`${this.SERVER_URL}/api/pub/texts/`);
-    url.searchParams.append('sharedfolder', folderId);
-
-    return this.http.get(url.toString());
+    const url = `/api/pub/texts/?sharedfolder=${folderId}`;
+    return this.http.get(url);
   }
 
   createFolder(parentId: string, folderName: string) {
-    const url = new URL(`${this.SERVER_URL}/api/folders/`);
+    const url = `/api/folders/`;
 
-    return this.http.post(url.toString(),
+    return this.http.post(url,
         {
           parent: parentId,
           name: folderName,
@@ -63,8 +58,8 @@ export class ManageFolderService {
   }
 
   deleteFolder(folderId: string) {
-    const url = new URL(`${this.SERVER_URL}/api/folders/${folderId}/`);
-    return this.http.delete(url.toString());
+    const url = `/api/folders/${folderId}/`;
+    return this.http.delete(url);
   }
 
   createText(params: any[]) {
@@ -81,41 +76,40 @@ export class ManageFolderService {
     }
 
 
-    const url = new URL(`${this.SERVER_URL}/api/pub/texts/`);
+    const url = `/api/pub/texts/`;
 
-    return this.http.post(url.toString(), formData);
+    return this.http.post(url, formData);
   }
 
   deleteText(textId: string) {
-    const url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`);
-    return this.http.delete(url.toString(), { });
+    const url = `/api/pub/texts/${textId}/`;
+    return this.http.delete(url);
   }
 
   getTextInfo(textId: string): Observable<TextObject> {
-    const url = new URL(`${this.SERVER_URL}/api/pub/texts/${textId}/`);
-    return this.http.get<TextObject>(url.toString(), { });
+    const url = `/api/pub/texts/${textId}/`;
+    return this.http.get<TextObject>(url, { });
   }
 
   getSpeakers(sharedfolderId: number) {
-    const url = new URL(
-        `${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`);
-    return this.http.get<JSON[]>(url.toString(), { });
+    const url = 
+        `/api/sharedfolders/${sharedfolderId}/`;
+    return this.http.get<JSON[]>(url);
   }
 
   setSpeakers(sharedfolderId: number, speakers: number[]) {
-    const url = new URL(
-        `${this.SERVER_URL}/api/sharedfolders/${sharedfolderId}/`);
-    return this.http.put<JSON>(url.toString(), {speaker_ids: speakers}, { });
+    const url = `/api/sharedfolders/${sharedfolderId}/`;
+    return this.http.put<JSON>(url, {speaker_ids: speakers});
   }
 
   getAllUsers() {
-    const url = new URL(`${this.SERVER_URL}/api/users/`);
-    return this.http.get<User[]>(url.toString(), { });
+    const url = `/api/users/`;
+    return this.http.get<User[]>(url);
   }
 
   downloadFolder(folderId: number): Observable<ArrayBuffer> {
-    const url = new URL(`${this.SERVER_URL}/api/download/${folderId}/`);
-    return this.http.get<ArrayBuffer>(url.toString(), {
+    const url = `/api/download/${folderId}/`;
+    return this.http.get<ArrayBuffer>(url, {
       responseType: 'arraybuffer' as 'json',
     });
   }

@@ -20,7 +20,6 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 
 export class AudioRecordingService {
 
-  SERVER_URL = Constants.SERVER_URL;
 
   private stream: MediaStream;
   private recorder;
