@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Constants } from '../constants';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LanguageService } from '../services/language.service';
 import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
@@ -11,7 +10,7 @@ import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-lan
 })
 export class AuthPage implements OnInit {
 
-  SERVER_URL = Constants.SERVER_URL;
+
 
   constructor(
     public navCtrl: NavController,
@@ -36,11 +35,11 @@ export class AuthPage implements OnInit {
   }
 
   redirect() {
-    window.open(this.SERVER_URL + '/admin');
+    window.open('/admin');
   }
 
   redirectToHelp() {
-    window.open(this.SERVER_URL + '/documentation');
+    window.open( '/documentation');
   }
 
 }

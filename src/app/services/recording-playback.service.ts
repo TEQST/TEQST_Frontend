@@ -2,15 +2,12 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Constants} from '../constants';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecordingPlaybackService {
-
-  private SERVER_URL = Constants.SERVER_URL;
 
   private cacheSize = 10;
   private cache: SentenceRecordingModel[] = [];
@@ -109,10 +106,8 @@ export class RecordingPlaybackService {
       responseType: 'blob' as 'json',
     };
     // TODO: Switch to new sentencerecording URL as soon as its active
-    return await this.http.get<Blob>(
-        this.SERVER_URL +
-        `/api/sentencerecordings/${recordingId}/${sentenceNumber}/`,
-        audioHttpOptions).toPromise();
+    const url = `/api/sentencerecordings/${recordingId}/${sentenceNumber}/`;
+    return await this.http.get<Blob>(url, audioHttpOptions).toPromise();
   }
 
   public getIsPlaying(): Observable<boolean> {

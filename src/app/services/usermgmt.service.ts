@@ -2,7 +2,6 @@ import {User} from './../interfaces/user';
 import {Injectable, Injector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
-import {Constants} from '../constants';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AlertManagerService} from './alert-manager.service';
 import {RollbarService} from '../rollbar';
@@ -15,10 +14,9 @@ import {LanguageService} from './language.service';
 
 export class UsermgmtService {
 
-  SERVER_URL = Constants.SERVER_URL;
-  private httpOptions;
-  public isPublisher = new BehaviorSubject<boolean>(undefined);
-  // tslint:disable: no-string-literal
+   private httpOptions;
+   public isPublisher = new BehaviorSubject<boolean>(undefined);
+   // tslint:disable: no-string-literal
 
   constructor(
   public http: HttpClient,
@@ -33,16 +31,16 @@ export class UsermgmtService {
     return this.http.get(url);
   }
 
-  // notifies the Server about profile changes
-  updateProfile(dataToSend) {
-    const url = this.SERVER_URL + '/api/user/';
-    return this.http.put(url, dataToSend);
-  }
+   // notifies the Server about profile changes
+   updateProfile(dataToSend) {
+     const url = '/api/user/';
+     return this.http.put(url, dataToSend);
+   }
 
-  patchProfile(dataToSend) {
-    const url = this.SERVER_URL + '/api/user/';
-    return this.http.patch(url, dataToSend);
-  }
+   patchProfile(dataToSend) {
+     const url = '/api/user/';
+     return this.http.patch(url, dataToSend);
+   }
 
   // deletes Authtoken and clears localStorage
   deleteStoredUserData(): void {
@@ -55,11 +53,11 @@ export class UsermgmtService {
     }
   }
 
-  // gets all the information about the User who is currently logged in
-  loadContent(): Observable<any> {
-    const url = this.SERVER_URL + '/api/user/';
-    return this.http.get(url);
-  }
+   // gets all the information about the User who is currently logged in
+   loadContent(): Observable<any> {
+     const url = '/api/user/';
+     return this.http.get(url);
+   }
 
   storeUserData(userData: User): void {
     this.languageService.putMenuLanguageLocalStorage(),

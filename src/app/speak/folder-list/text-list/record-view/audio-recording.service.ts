@@ -10,7 +10,6 @@ import {Observable, Subject, BehaviorSubject} from 'rxjs';
 
 import * as RecordRTC from 'recordrtc';
 import {TextServiceService} from './text-service.service';
-import {Constants} from 'src/app/constants';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 
 
@@ -20,7 +19,6 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 
 export class AudioRecordingService {
 
-  SERVER_URL = Constants.SERVER_URL;
 
   private stream: MediaStream;
   private recorder;

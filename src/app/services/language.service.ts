@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Constants} from '../constants';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
@@ -9,7 +8,7 @@ import {Language} from '../interfaces/language';
   providedIn: 'root',
 })
 export class LanguageService {
-  SERVER_URL = Constants.SERVER_URL;
+  
   public menuLanguage;
 
   constructor(public http: HttpClient, private translate: TranslateService ) {
@@ -19,7 +18,7 @@ export class LanguageService {
 
   // returns all speakable Languages created by an admin
   getLangs(): Observable<object> {
-    const url = this.SERVER_URL + '/api/langs/';
+    const url = '/api/langs/';
     return this.http.get<Language[]>(url);
   }
 
