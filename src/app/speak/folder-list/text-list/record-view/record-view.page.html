@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="stopAllMedia()" defaultHref="tabs/speak"></ion-back-button>
+      <ion-back-button (click)="handleBackButton()" defaultHref="tabs/speak"></ion-back-button>
     </ion-buttons>
     <ion-item lines="none" slot="end" *ngIf="isUploadActive">
       <ion-label>Uploading... &nbsp;</ion-label>

@@ -9,6 +9,7 @@ import {AlertController, NavController} from '@ionic/angular';
 import {TextServiceService} from './text-service.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
+import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
 
 @Component({
   selector: 'app-record-view',
@@ -35,7 +36,8 @@ export class RecordViewPage implements OnInit {
               private alertService: AlertManagerService,
               private loaderService: LoaderService,
               private recordingUploadService: RecordingUploadService,
-              private playbackService: RecordingPlaybackService) {
+              private playbackService: RecordingPlaybackService,
+              private speakTabNavService: SpeakTabNavService) {
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
     this.textService.getSentenceHasRecording()
@@ -65,6 +67,14 @@ export class RecordViewPage implements OnInit {
         this.presentPermissionsCheckbox();
       }
     }, () => this.alertService.presentGoBackAlert('No Access'));
+  }
+
+  public handleBackButton() {
+    this.stopAllMedia();
+
+    const url = this.router.url;
+    const folderId = url.split('/')[3];
+    this.speakTabNavService.loadContentsOfSharedFolder(folderId);
   }
 
   // listen for the browser back button press
