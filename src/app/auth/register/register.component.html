@@ -34,6 +34,10 @@
       <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
     </ion-select>
   </ion-item>
+  <ion-item lines="full" >
+    <ion-checkbox #cbox formControlName="checkbox"></ion-checkbox>
+    <ion-label (click)="cbox.checked = !cbox.checked" class="cbox-label">I accept the <a [routerLink]="" (click)="presentServicesAgreement()">Services Agreement</a></ion-label>
+  </ion-item>
   <ion-button class="button-submit" type="submit" [disabled]="!stepOneForm.valid" expand="block">{{'Next' | translate}}
   </ion-button>
 </form>

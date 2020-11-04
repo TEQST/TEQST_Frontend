@@ -44,3 +44,18 @@ ion-button#toggle-password {
   text-align: left;
   padding: 5px 16px;
 }
+
+ion-checkbox {
+  margin: 0;
+}
+
+ion-item {
+  --min-height: 0
+}
+
+ion-label.cbox-label {
+  margin-left: 1em;
+  font-size: 14px;
+  color: #737373;
+  cursor: pointer
+}
