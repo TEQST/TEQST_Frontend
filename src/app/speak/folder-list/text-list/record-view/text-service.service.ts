@@ -10,7 +10,7 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 
 export class TextServiceService {
 
-  
+
   /* instantiate BehaviorSubjekts with 1
      because every text has at least 1 sentence */
   private sentences = new ReplaySubject<string[]>(1);

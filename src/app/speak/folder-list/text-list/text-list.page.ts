@@ -32,6 +32,11 @@ export class TextListPage implements OnInit {
         .subscribe((isLoading) => this.isLoading = isLoading);
     this.publisherId = '';
     this.texts = [];
+    this.navService.sharedFoldersList.subscribe((data) => {
+      this.sharedFolderData = data;
+      this.folderName = data.name;
+      this.texts = data.texts;
+    });
   }
 
   ngOnInit() {
@@ -40,16 +45,7 @@ export class TextListPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    this.navService.getInfoForSharedfolder(this.folderId)
-        .subscribe(
-            (data) => {
-              this.sharedFolderData = data;
-              this.folderName = data.name;
-              this.texts = data.texts;
-            },
-            (err) => this.alertManager
-                .showErrorAlert(err.status, err.statusText),
-        );
+    this.navService.loadContentsOfSharedFolder(this.folderId);
   }
 
   async presentTimeStats() {
