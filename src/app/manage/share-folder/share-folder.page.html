@@ -15,6 +15,13 @@
 
 <ion-content>
   <ion-list>
+    <ion-item>
+      <ion-label>{{'Public for everyone' | translate}}</ion-label>
+      <ion-toggle (ionChange)="handleFolderPublicityToggle($event)" [checked]="isPublicForAll"
+        *ngIf="isPublicForAll != null"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-list>
     <ion-list-header>
       <ion-label>{{'Added Speaker' | translate}}</ion-label>
     </ion-list-header>
