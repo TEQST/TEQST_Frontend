@@ -8,7 +8,10 @@
 </ion-header>
 
 <ion-content>
-  <h1>{{'Folders by' | translate}} {{publisherName}}</h1>
+  <div *ngIf="this.publisherId != null">
+    <h1 *ngIf="this.publisherId != 'public'">{{'Folders by' | translate}} {{publisherName}}</h1>
+    <h1 *ngIf="this.publisherId == 'public'">{{'Public folders' | translate}}</h1>
+  </div>
   <ion-list>
     <ion-item button *ngFor="let folder of folders" routerLink="/tabs/speak/{{publisherId}}/{{folder.id}}">
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}

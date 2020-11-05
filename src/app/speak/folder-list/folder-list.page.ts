@@ -27,7 +27,6 @@ export class FolderListPage implements OnInit {
 
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
-    this.publisherId = '';
   }
 
   ngOnInit() {
@@ -35,15 +34,26 @@ export class FolderListPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    this.navService.getInfoForPublisher(this.publisherId)
-        .subscribe(
-            (data) => {
-              this.publisherName = data['username'];
-              this.folders = data['freedfolders'];
-            },
-            (err) => this.alertManager
-                .showErrorAlert(err.status, err.statusText),
-        );
+    if (this.publisherId == 'public') {
+      this.navService.getPublicFolders()
+          .subscribe(
+              (data) => {
+                this.folders = data;
+              },
+              (err) => this.alertManager
+                  .showErrorAlert(err.status, err.statusText),
+          );
+    } else {
+      this.navService.getInfoForPublisher(this.publisherId)
+          .subscribe(
+              (data) => {
+                this.publisherName = data['username'];
+                this.folders = data['freedfolders'];
+              },
+              (err) => this.alertManager
+                  .showErrorAlert(err.status, err.statusText),
+          );
+    }
   }
 
 }

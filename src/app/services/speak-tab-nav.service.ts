@@ -21,13 +21,16 @@ constructor(
 
 getPublisherList() {
   const url = '/api/publishers/';
-
   return this.http.get(url);
 }
 
 getInfoForPublisher(publisherId: string) {
   const url = `/api/publishers/${publisherId}/`;
+  return this.http.get(url);
+}
 
+getPublicFolders() {
+  const url = '/api/spk/publicfolders/';
   return this.http.get(url);
 }
 
