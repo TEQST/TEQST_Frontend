@@ -28,6 +28,11 @@ export class TextListPage implements OnInit {
               private alertManager: AlertManagerService,
               private loaderService: LoaderService,
               private modalController: ModalController) {
+
+    this.route.queryParams.subscribe((params) => {
+      this.folderName = params.folderName;
+    });
+
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
     this.publisherId = '';

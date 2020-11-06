@@ -25,6 +25,10 @@ export class FolderListPage implements OnInit {
     private alertManager: AlertManagerService,
     private loaderService: LoaderService) {
 
+    this.route.queryParams.subscribe((params) => {
+      this.publisherName = params.publisherName;
+    });
+
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
   }

@@ -42,6 +42,11 @@ export class ManagePage implements OnInit {
 
     this.username = localStorage.getItem('username');
     this.currentFolder = new Folder(null, '', false);
+
+    this.route.queryParams.subscribe((params) => {
+      this.currentFolder.name = params.folderName;
+    });
+
     this.subfolders = [];
     this.texts = [];
     this.loaderService.getIsLoading()

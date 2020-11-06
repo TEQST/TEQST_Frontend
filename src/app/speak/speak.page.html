@@ -11,7 +11,8 @@
     <ion-item button routerLink="/tabs/speak/public">
       <ion-icon name="earth"></ion-icon> {{'Public' | translate}}
     </ion-item>
-    <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}">
+    <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}"
+      [queryParams]="{publisherName: pub.username}">
       <ion-icon name="person"></ion-icon> {{ pub.username }}
     </ion-item>
   </ion-list>

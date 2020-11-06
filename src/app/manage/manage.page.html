@@ -27,7 +27,8 @@
     <span *ngIf="currentFolder.name != '/'">{{currentFolder.name}}</span>
   </h1>
   <ion-list id="contentsList" class="fix-padding">
-    <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/manage', folder.id]">
+    <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/manage', folder.id]"
+      [queryParams]="{folderName: folder.name}">
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
       <ion-button class="delete" color="danger" slot="end" (click)="openDeleteFolderAlert($event, folder)">
         <ion-icon name="trash"></ion-icon>
