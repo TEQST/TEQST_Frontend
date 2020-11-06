@@ -6,6 +6,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {AlertManagerService} from './alert-manager.service';
 import {RollbarService} from '../rollbar';
 import {LanguageService} from './language.service';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,8 @@ import {LanguageService} from './language.service';
 
 export class UsermgmtService {
 
+  SERVER_URL = Constants.SERVER_URL;
+  
    private httpOptions;
    public isPublisher = new BehaviorSubject<boolean>(undefined);
    // tslint:disable: no-string-literal
@@ -27,18 +30,18 @@ export class UsermgmtService {
 
   // check if username is available
   checkUsername(username: string) {
-    const url = '/api/users/checkname/?username=' + username;
+    const url = this.SERVER_URL + '/api/users/checkname/?username=' + username;
     return this.http.get(url);
   }
 
    // notifies the Server about profile changes
    updateProfile(dataToSend) {
-     const url = '/api/user/';
+     const url = this.SERVER_URL + '/api/user/';
      return this.http.put(url, dataToSend);
    }
 
    patchProfile(dataToSend) {
-     const url = '/api/user/';
+     const url = this.SERVER_URL + '/api/user/';
      return this.http.patch(url, dataToSend);
    }
 
@@ -55,7 +58,7 @@ export class UsermgmtService {
 
    // gets all the information about the User who is currently logged in
    loadContent(): Observable<any> {
-     const url = '/api/user/';
+     const url = this.SERVER_URL + '/api/user/';
      return this.http.get(url);
    }
 

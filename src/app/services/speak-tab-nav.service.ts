@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {Subject} from 'rxjs';
 import {AlertManagerService} from './alert-manager.service';
+import { Constants } from '../constants';
 
 
 @Injectable({
@@ -14,19 +15,21 @@ export class SpeakTabNavService {
 
 public sharedFoldersList = new Subject<any>()
 
-constructor(
+  SERVER_URL = Constants.SERVER_URL;
+  
+  constructor(
     private http: HttpClient,
     public authenticationService: AuthenticationService,
     private alertService: AlertManagerService) { }
 
-getPublisherList() {
-  const url = '/api/publishers/';
+  getPublisherList() {
+    const url = this.SERVER_URL + '/api/publishers/';
 
   return this.http.get(url);
 }
 
-getInfoForPublisher(publisherId: string) {
-  const url = `/api/publishers/${publisherId}/`;
+  getInfoForPublisher(publisherId: string) {
+    const url =  this.SERVER_URL + `/api/publishers/${publisherId}/`;
 
   return this.http.get(url);
 }
@@ -42,5 +45,8 @@ loadContentsOfSharedFolder(folderId: string) {
           .showErrorAlert(err.status, err.statusText),
   );
 }
+  getInfoForSharedfolder(folderId: string) {
+    const url = this.SERVER_URL + `/api/spk/sharedfolders/${folderId}/`;
 
+}
 }

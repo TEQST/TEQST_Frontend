@@ -4,12 +4,14 @@ import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecordingUploadService {
 
+  private SERVER_URL = Constants.SERVER_URL;
   private httpOptions;
 
   // array of tuple [sentenceRecording, isReUpload]
@@ -41,7 +43,7 @@ export class RecordingUploadService {
 
     const formData = new FormData();
     formData.append('audiofile', audioFile);
-    const sentenceRecordingUrl = '/api/sentencerecordings/';
+    const sentenceRecordingUrl = this.SERVER_URL + '/api/sentencerecordings/';
 
     if (isReUpload) {
       // replace existing sentence recording
