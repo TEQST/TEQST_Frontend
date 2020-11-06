@@ -22,7 +22,7 @@
 <ion-content>
   <h1>
     <span *ngIf="currentFolder.name == '/'">
-      {{'Folders by' | translate}} {{username}}
+      {{'Folders of' | translate}} {{username}}
     </span>
     <span *ngIf="currentFolder.name != '/'">{{currentFolder.name}}</span>
   </h1>
