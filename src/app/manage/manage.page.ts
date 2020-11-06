@@ -1,7 +1,7 @@
 import {FolderStatsPage} from './folder-stats/folder-stats.page';
 import {LoaderService} from './../services/loader.service';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ModalController, AlertController} from '@ionic/angular';
 
 import {ManageFolderService} from 'src/app/services/manage-folder.service';
@@ -32,6 +32,7 @@ export class ManagePage implements OnInit {
 
 
   constructor(private manageFolderService: ManageFolderService,
+              private router: Router,
               private route: ActivatedRoute,
               private alertController: AlertController,
               private modalController: ModalController,
@@ -43,9 +44,10 @@ export class ManagePage implements OnInit {
     this.username = localStorage.getItem('username');
     this.currentFolder = new Folder(null, '', false);
 
-    this.route.queryParams.subscribe((params) => {
-      this.currentFolder.name = params.folderName;
-    });
+    const routeParams = this.router.getCurrentNavigation().extras.state;
+    if (typeof routeParams !== 'undefined' && 'folderName' in routeParams) {
+      this.currentFolder.name = routeParams.folderName;
+    }
 
     this.subfolders = [];
     this.texts = [];

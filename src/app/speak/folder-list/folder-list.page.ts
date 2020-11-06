@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
@@ -21,14 +21,15 @@ export class FolderListPage implements OnInit {
 
   constructor(
     private navService : SpeakTabNavService,
+    private router: Router,
     private route: ActivatedRoute,
     private alertManager: AlertManagerService,
     private loaderService: LoaderService) {
 
-    this.route.queryParams.subscribe((params) => {
-      this.publisherName = params.publisherName;
-    });
-
+    const routeParams = this.router.getCurrentNavigation().extras.state;
+    if (typeof routeParams !== 'undefined' && 'publisherName' in routeParams) {
+      this.publisherName = routeParams.publisherName;
+    }
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
   }

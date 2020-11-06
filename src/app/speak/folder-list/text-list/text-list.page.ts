@@ -1,10 +1,9 @@
 import {TimeStatsComponent} from './time-stats/time-stats.component';
 import {SharedFolder} from './../../../interfaces/shared-folder';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
-import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {ModalController} from '@ionic/angular';
 
@@ -24,15 +23,16 @@ export class TextListPage implements OnInit {
   public sharedFolderData: SharedFolder;
 
   constructor(private navService: SpeakTabNavService,
+              private router: Router,
               private route: ActivatedRoute,
-              private alertManager: AlertManagerService,
               private loaderService: LoaderService,
               private modalController: ModalController) {
 
-    this.route.queryParams.subscribe((params) => {
-      this.folderName = params.folderName;
-    });
-
+    const routeParams = this.router.getCurrentNavigation().extras.state;
+    if (typeof routeParams !== 'undefined' && 'folderName' in routeParams) {
+      console.log(routeParams.folderName);
+      this.folderName = routeParams.folderName;
+    }
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
     this.publisherId = '';

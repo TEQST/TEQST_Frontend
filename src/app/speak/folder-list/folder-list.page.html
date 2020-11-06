@@ -14,7 +14,7 @@
   </div>
   <ion-list>
     <ion-item button *ngFor="let folder of folders" routerLink="/tabs/speak/{{publisherId}}/{{folder.id}}"
-      [queryParams]="{folderName: folder.name}">
+      [state]="{folderName: folder.name}">
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
     </ion-item>
   </ion-list>
