@@ -28,6 +28,7 @@ export class ManagePage implements OnInit {
   public subfolders: Folder[]
   public texts: Text[]
   public isLoading = false;
+  public username: string
 
 
   constructor(private manageFolderService: ManageFolderService,
@@ -39,6 +40,7 @@ export class ManagePage implements OnInit {
     Folder.setServiceProvider(manageFolderService);
     Text.setServiceProvider(manageFolderService);
 
+    this.username = localStorage.getItem('username');
     this.currentFolder = new Folder(null, '', false);
     this.subfolders = [];
     this.texts = [];
