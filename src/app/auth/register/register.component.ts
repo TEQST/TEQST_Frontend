@@ -54,6 +54,10 @@ export class RegisterComponent implements OnInit {
     this.currentRegisterStep = 2;
   }
 
+  previousStep() {
+    this.currentRegisterStep = 1;
+  }
+
   get errorControl() {
     return this.stepOneForm.controls;
   }
