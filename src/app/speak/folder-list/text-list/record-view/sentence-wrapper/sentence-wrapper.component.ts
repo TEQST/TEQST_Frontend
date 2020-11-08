@@ -23,12 +23,13 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     private recordingService: AudioRecordingService,
     private playbackService: RecordingPlaybackService,
   ) {
-    this.subscribeToServices();
   }
 
   @ViewChildren('sentenceDomElement') sentenceList: QueryList<ElementRef>;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscribeToServices();
+  }
 
   ngAfterViewChecked() {
     this.scrollToSentence(this.activeSentence);
@@ -42,7 +43,10 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     this.textService.getSentences()
         .subscribe((sentences) => this.sentences = sentences);
     this.textService.getActiveSentenceIndex()
-        .subscribe((index) => this.activeSentence = index);
+        .subscribe((index) => {
+          this.activeSentence = index;
+          // console.log(this.activeSentence);
+        });
     this.recordingService.getRecordingState()
         .subscribe((state) => this.isRecording = state);
   }
@@ -61,7 +65,9 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     if (sentenceRef === undefined) {
       return;
     }
+    sentenceRef.nativeElement.scrollIntoView();
+    /*
     sentenceRef.nativeElement.parentNode.parentNode.scrollTop =
-      sentenceRef.nativeElement.offsetTop;
+      sentenceRef.nativeElement.offsetTop;*/
   }
 }

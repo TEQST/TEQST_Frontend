@@ -38,6 +38,9 @@ export class RecordViewPage implements OnInit {
               private recordingUploadService: RecordingUploadService,
               private playbackService: RecordingPlaybackService,
               private speakTabNavService: SpeakTabNavService) {
+
+    this.textService.reset();
+
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
     this.textService.getSentenceHasRecording()
