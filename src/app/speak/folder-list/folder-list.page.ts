@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
@@ -13,6 +13,8 @@ import {LoaderService} from 'src/app/services/loader.service';
 })
 
 export class FolderListPage implements OnInit {
+
+  @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
 
   public publisherId: string
   public folders: any
@@ -44,6 +46,7 @@ export class FolderListPage implements OnInit {
           .subscribe(
               (data) => {
                 this.folders = data;
+                this.folderListElem.nativeElement.classList.add('loaded');
               },
               (err) => this.alertManager
                   .showErrorAlert(err.status, err.statusText),
@@ -54,6 +57,7 @@ export class FolderListPage implements OnInit {
               (data) => {
                 this.publisherName = data['username'];
                 this.folders = data['freedfolders'];
+                this.folderListElem.nativeElement.classList.add('loaded');
               },
               (err) => this.alertManager
                   .showErrorAlert(err.status, err.statusText),

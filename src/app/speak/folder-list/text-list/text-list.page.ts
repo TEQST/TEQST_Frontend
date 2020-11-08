@@ -1,6 +1,6 @@
 import {TimeStatsComponent} from './time-stats/time-stats.component';
 import {SharedFolder} from './../../../interfaces/shared-folder';
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
@@ -14,6 +14,8 @@ import {ModalController} from '@ionic/angular';
 })
 
 export class TextListPage implements OnInit {
+
+  @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
 
   public publisherId: string;
   public folderId: string;
@@ -40,6 +42,7 @@ export class TextListPage implements OnInit {
       this.sharedFolderData = data;
       this.folderName = data.name;
       this.texts = data.texts;
+      this.textListElem.nativeElement.classList.add('loaded');
     });
   }
 

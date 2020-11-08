@@ -79,3 +79,12 @@ ion-header ion-img {
 ion-icon {
     min-width: 1em;
 }
+
+.fadeInWhenLoaded {
+    opacity: 0;
+    transition: .5s ease opacity;
+}
+
+.fadeInWhenLoaded.loaded {
+    opacity: 1;
+}

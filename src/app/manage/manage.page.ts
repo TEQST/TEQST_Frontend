@@ -1,6 +1,6 @@
 import {FolderStatsPage} from './folder-stats/folder-stats.page';
 import {LoaderService} from './../services/loader.service';
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalController, AlertController} from '@ionic/angular';
 
@@ -24,12 +24,14 @@ import {saveAs} from 'file-saver';
 
 export class ManagePage implements OnInit {
 
+  @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
+  @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
+
   public currentFolder: Folder
   public subfolders: Folder[]
   public texts: Text[]
   public isLoading = false;
   public username: string
-
 
   constructor(private manageFolderService: ManageFolderService,
               private router: Router,
@@ -106,6 +108,7 @@ export class ManagePage implements OnInit {
       subfolders.push(folder);
     }
     this.subfolders = subfolders;
+    this.folderListElem.nativeElement.classList.add('loaded');
   }
 
   async openCreateFolderModal() {
@@ -216,6 +219,7 @@ export class ManagePage implements OnInit {
                   texts.push(text);
                 }
                 this.texts = texts;
+                this.textListElem.nativeElement.classList.add('loaded');
               } else {
                 this.alertManager.showErrorAlert(
                     '',
