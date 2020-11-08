@@ -30,7 +30,6 @@ export class TextListPage implements OnInit {
 
     const routeParams = this.router.getCurrentNavigation().extras.state;
     if (typeof routeParams !== 'undefined' && 'folderName' in routeParams) {
-      console.log(routeParams.folderName);
       this.folderName = routeParams.folderName;
     }
     this.loaderService.getIsLoading()
