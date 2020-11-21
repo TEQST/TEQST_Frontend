@@ -22,15 +22,18 @@ public sharedFoldersList = new Subject<any>()
     public authenticationService: AuthenticationService,
     private alertService: AlertManagerService) { }
 
-  getPublisherList() {
-    const url = this.SERVER_URL + '/api/publishers/';
-
+getPublisherList() {
+  const url = '/api/publishers/';
   return this.http.get(url);
 }
 
-  getInfoForPublisher(publisherId: string) {
-    const url =  this.SERVER_URL + `/api/publishers/${publisherId}/`;
+getInfoForPublisher(publisherId: string) {
+  const url = `/api/publishers/${publisherId}/`;
+  return this.http.get(url);
+}
 
+getPublicFolders() {
+  const url = '/api/spk/publicfolders/';
   return this.http.get(url);
 }
 

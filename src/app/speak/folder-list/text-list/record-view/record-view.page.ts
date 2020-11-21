@@ -38,10 +38,16 @@ export class RecordViewPage implements OnInit {
               private recordingUploadService: RecordingUploadService,
               private playbackService: RecordingPlaybackService,
               private speakTabNavService: SpeakTabNavService) {
+
+    this.textService.reset();
+
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
     this.textService.getSentenceHasRecording()
-        .subscribe((status) => this.hasRecording = status);
+        .subscribe((status) => {
+          this.hasRecording = status;
+          //console.log(status)
+        });
     this.textService.getTextTitle()
         .subscribe((title) => this.textTitle = title);
     this.textService.getIsRightToLeft()

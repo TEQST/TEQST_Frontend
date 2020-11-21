@@ -38,7 +38,7 @@ export class ManageFolderService {
     let url = this.SERVER_URL + `/api/folders/`;
     if (folderId) {
       url += folderId + '/';
-    }    
+    }
     return this.http.get(url);
   }
 
@@ -93,14 +93,20 @@ export class ManageFolderService {
   }
 
   getSpeakers(sharedfolderId: number) {
-    const url = 
-    this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
+    const url =
+        `/api/sharedfolders/${sharedfolderId}/`;
     return this.http.get<JSON[]>(url);
   }
 
-  setSpeakers(sharedfolderId: number, speakers: number[]) {
-    const url = this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
-    return this.http.put<JSON>(url, {speaker_ids: speakers});
+  setSpeakers(
+      sharedfolderId: number,
+      speakers: number[],
+      public_for_all: boolean) {
+
+    const url = `/api/sharedfolders/${sharedfolderId}/`;
+    return this.http.put<JSON>(url, {
+      speaker_ids: speakers,
+      public: public_for_all});
   }
 
   getAllUsers() {

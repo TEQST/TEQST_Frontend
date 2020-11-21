@@ -14,7 +14,7 @@
 
 <ion-content>
   <h1>{{'Texts in' | translate}} {{folderName}}</h1>
-  <ion-list>
+  <ion-list #textList class="fadeInWhenLoaded">
     <ion-item button *ngFor="let text of texts" routerLink="/speak/{{publisherId}}/{{folderId}}/{{text.id}}">
       <ion-icon name="reader" [color]="(text.words_finished/text.words_total) === 1 ? 'success' : 'dark'" class="textIcon"></ion-icon> 
       <ion-label>

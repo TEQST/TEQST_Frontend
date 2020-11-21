@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 import {ManagePageRoutingModule} from './manage-routing.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {ManagePage} from './manage.page';
 
@@ -24,6 +25,7 @@ import {TextDetailPageModule} from './text-detail/text-detail.module';
     ShareFolderPageModule,
     TextDetailPageModule,
     FolderStatsPageModule,
+    TranslateModule,
   ],
   declarations: [ManagePage],
 })

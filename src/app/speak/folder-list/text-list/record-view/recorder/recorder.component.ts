@@ -1,6 +1,6 @@
 import {RecordingPlaybackService}
   from './../../../../../services/recording-playback.service';
-import {Component, OnInit, HostListener} from '@angular/core';
+import {Component, OnInit, HostListener, ViewChild, ElementRef} from '@angular/core';
 import {TextServiceService} from '../text-service.service';
 import {AudioRecordingService} from '../audio-recording.service';
 
@@ -12,11 +12,14 @@ import {AudioRecordingService} from '../audio-recording.service';
 
 export class RecorderComponent implements OnInit {
 
+  @ViewChild('progresBar', {read: ElementRef}) progresBar: ElementRef
+
   public activeSentence: number;
   public totalSentenceNumber: number;
   private furthestSentenceIndex: number;
   public recordingProgress: number;
   public isRecording = false;
+  private isLoaded = false;
 
   constructor(private textService: TextServiceService,
               private recordingService: AudioRecordingService,
@@ -29,15 +32,26 @@ export class RecorderComponent implements OnInit {
   /* subscribe to all needed variables from the services
      and update the locale ones on change */
   private subscribeToServices(): void {
+    this.textService.getIsLoaded()
+      .subscribe((isLoaded) => {
+          if (isLoaded) {
+            this.updateProgressBar();
+            this.isLoaded = true;
+          }
+    });
     this.textService.getActiveSentenceIndex()
-        .subscribe((index) => this.activeSentence = index);
+        .subscribe((index) => {
+            this.activeSentence = index;
+        });
     this.textService.getTotalSentenceNumber().subscribe((totalNumber) => {
       this.totalSentenceNumber = totalNumber;
-      this.updateProgressBar();
+      if (this.isLoaded)
+        this.updateProgressBar();
     });
     this.textService.getFurthestSentenceIndex().subscribe((index) => {
       this.furthestSentenceIndex = index;
-      this.updateProgressBar();
+      if (this.isLoaded)
+        this.updateProgressBar();
     });
     this.recordingService.getRecordingState()
         .subscribe((status) => this.isRecording = status);

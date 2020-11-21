@@ -63,21 +63,21 @@ export class RegisterComponent implements OnInit {
   }
 
   performRegister() {
-    //combine the value object from the forms into one
-    let registrationData = {...this.stepOneForm.value, ...this.stepTwoForm.value}
-    //filter out all properties with empty strings so the server accepts the request
-    for (let value in registrationData) {
+    // combine the value object from the forms into one
+    const registrationData = {...this.stepOneForm.value, ...this.stepTwoForm.value};
+    // filter out all properties with empty strings so the server accepts the request
+    for (const value in registrationData) {
       if (registrationData[value] === '') {
-        delete registrationData[value]
+        delete registrationData[value];
       }
     }
     let loginData = (({ username, password }) => ({ username, password }))(this.stepOneForm.value);
     this.authenticationService.register(registrationData).subscribe(() => {
-      this.authenticationService.login(loginData)
+      this.authenticationService.login(loginData);
     }, (error: any) => {
       this.currentRegisterStep = 1;
       this.alertService.showErrorAlertNoRedirection('Username already exists',
-        'A user with that username already exists, please choose another username');
+          'A user with that username already exists, please choose another username');
     });
   }
 

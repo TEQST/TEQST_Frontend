@@ -2,7 +2,7 @@ import {RecordingPlaybackService}
   from './../../../../../services/recording-playback.service';
 import {
   Component, OnInit, ElementRef,
-  QueryList, ViewChildren, AfterViewChecked,
+  QueryList, ViewChildren, AfterViewChecked, ViewChild,
 } from '@angular/core';
 import {TextServiceService} from '../text-service.service';
 import {AudioRecordingService} from '../audio-recording.service';
@@ -23,12 +23,14 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     private recordingService: AudioRecordingService,
     private playbackService: RecordingPlaybackService,
   ) {
-    this.subscribeToServices();
   }
 
+  @ViewChild('sentenceWrapper', {read: ElementRef}) sentenceWrapper: ElementRef
   @ViewChildren('sentenceDomElement') sentenceList: QueryList<ElementRef>;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscribeToServices();
+  }
 
   ngAfterViewChecked() {
     this.scrollToSentence(this.activeSentence);
@@ -37,6 +39,12 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
   /* subscribe to all needed variables from the services
      and update the locale ones on change */
   private subscribeToServices(): void {
+    this.textService.getIsLoaded()
+        .subscribe((isLoaded) => {
+          if (isLoaded) {
+            this.sentenceWrapper.nativeElement.classList.add('loaded');
+          }
+        });
     this.textService.getFurthestSentenceIndex()
         .subscribe((index) => this.furthestSentence = index);
     this.textService.getSentences()
@@ -61,7 +69,9 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     if (sentenceRef === undefined) {
       return;
     }
+    sentenceRef.nativeElement.scrollIntoView();
+    /*
     sentenceRef.nativeElement.parentNode.parentNode.scrollTop =
-      sentenceRef.nativeElement.offsetTop;
+      sentenceRef.nativeElement.offsetTop;*/
   }
 }
