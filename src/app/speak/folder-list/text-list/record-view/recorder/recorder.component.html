@@ -1,4 +1,5 @@
-<ion-progress-bar class="progress-bar" value="{{recordingProgress}}"></ion-progress-bar>
+<ion-progress-bar *ngIf="isLoaded" #progresBar class="progress-bar" value="{{recordingProgress}}"></ion-progress-bar>
+<div *ngIf="!isLoaded" class="progres-bar-placeholder"></div>
 
 <!-- left button -->
 <ion-button *ngIf="!isRecording" class="btn" [disabled]="activeSentence === 1 ? 'true' : 'false'" color="primary"
@@ -16,7 +17,8 @@
   <ion-icon src="./assets/icons/blinking_record_icon.svg" slot="icon-only"></ion-icon>
 </ion-button>
 <!-- right button -->
-<ion-button class="btn" color="primary" [disabled]="activeSentence === totalSentenceNumber ? 'true' : 'false'"
+<ion-button class="btn" color="primary" 
+  [disabled]="activeSentence === totalSentenceNumber || (activeSentence === furthestSentenceIndex && !isRecording) ? 'true' : 'false'"
   shape="round" (click)=nextSentence()>
   <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
 </ion-button>

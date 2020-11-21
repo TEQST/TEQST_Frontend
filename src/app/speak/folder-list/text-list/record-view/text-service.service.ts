@@ -22,6 +22,7 @@ export class TextServiceService {
   private recordingId = new ReplaySubject<number>(1);
   private textTitle = new BehaviorSubject<string>('');
   private isRightToLeft = new BehaviorSubject<boolean>(false);
+  private isLoaded = new BehaviorSubject<boolean>(false);
 
   // Url Information
   private textId: number;
@@ -42,6 +43,9 @@ export class TextServiceService {
     this.recordingId = new ReplaySubject<number>(1);
     this.textTitle = new BehaviorSubject<string>('');
     this.isRightToLeft = new BehaviorSubject<boolean>(false);
+    this.isLoaded = new BehaviorSubject<boolean>(false);
+    this.isTextFetched = false;
+    this.isRecordingExistsChecked = false;
   }
 
   private fetchText(): void {
@@ -119,6 +123,7 @@ export class TextServiceService {
   initActiveSentenceIfReady() {
     if (this.isTextFetched && this.isRecordingExistsChecked) {
       this.initActiveSentence();
+      this.isLoaded.next(true);
     }
   }
 
@@ -154,6 +159,10 @@ export class TextServiceService {
     return this.isRightToLeft.asObservable();
   }
 
+  getIsLoaded(): Observable<boolean> {
+    return this.isLoaded.asObservable();
+  }
+
   // fetch a new text from the server based on the given id
   setTextId(id: number): void {
     this.textId = id;
@@ -162,8 +171,10 @@ export class TextServiceService {
 
   setActiveSentenceIndex(index: number): void {
     // check if the given index is within bounds
-    if (index > 0 && index <= this.totalSentenceNumber.getValue() &&
+    if (this.isTextFetched && this.isRecordingExistsChecked &&
+        index > 0 && index <= this.totalSentenceNumber.getValue() &&
         index <= this.furthestSentenceIndex.getValue()) {
+
       this.activeSentenceIndex.next(index);
 
       // check if sentence has recording
@@ -173,7 +184,8 @@ export class TextServiceService {
 
   // check if the current active sentence is already recorded
   private checkRecordingStatus(): void {
-    if (this.activeSentenceIndex.getValue() <
+    if (this.isTextFetched && this.isRecordingExistsChecked &&
+        this.activeSentenceIndex.getValue() <
         this.furthestSentenceIndex.getValue()) {
       this.sentenceHasRecording.next(true);
     } else {

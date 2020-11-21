@@ -1,4 +1,4 @@
-<div #sentenceWrapper>
+<div #sentenceWrapper class="fadeInWhenLoaded">
   <!-- Only allow selection of sentences if no recording is active -->
   <div #sentenceDomElement class="verticalLine not-selectable" *ngFor="let sentence of sentences; index as i"
     [class.active]="i+1 === activeSentence" [class.verticalLineDone]="i+1 < furthestSentence"

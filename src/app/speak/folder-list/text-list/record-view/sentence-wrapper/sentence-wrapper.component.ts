@@ -2,7 +2,7 @@ import {RecordingPlaybackService}
   from './../../../../../services/recording-playback.service';
 import {
   Component, OnInit, ElementRef,
-  QueryList, ViewChildren, AfterViewChecked,
+  QueryList, ViewChildren, AfterViewChecked, ViewChild,
 } from '@angular/core';
 import {TextServiceService} from '../text-service.service';
 import {AudioRecordingService} from '../audio-recording.service';
@@ -25,6 +25,7 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
   ) {
   }
 
+  @ViewChild('sentenceWrapper', {read: ElementRef}) sentenceWrapper: ElementRef
   @ViewChildren('sentenceDomElement') sentenceList: QueryList<ElementRef>;
 
   ngOnInit() {
@@ -38,15 +39,18 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
   /* subscribe to all needed variables from the services
      and update the locale ones on change */
   private subscribeToServices(): void {
+    this.textService.getIsLoaded()
+        .subscribe((isLoaded) => {
+          if (isLoaded) {
+            this.sentenceWrapper.nativeElement.classList.add('loaded');
+          }
+        });
     this.textService.getFurthestSentenceIndex()
         .subscribe((index) => this.furthestSentence = index);
     this.textService.getSentences()
         .subscribe((sentences) => this.sentences = sentences);
     this.textService.getActiveSentenceIndex()
-        .subscribe((index) => {
-          this.activeSentence = index;
-          // console.log(this.activeSentence);
-        });
+        .subscribe((index) => this.activeSentence = index);
     this.recordingService.getRecordingState()
         .subscribe((state) => this.isRecording = state);
   }
