@@ -36,15 +36,15 @@ export class TextServiceService {
     public authenticationService: AuthenticationService) { }
 
   public reset() {
-    this.sentences = new ReplaySubject<string[]>(1);
-    this.activeSentenceIndex = new BehaviorSubject<number>(1);
-    this.totalSentenceNumber = new BehaviorSubject<number>(1);
-    this.furthestSentenceIndex = new BehaviorSubject<number>(1);
-    this.sentenceHasRecording = new BehaviorSubject<boolean>(false);
-    this.recordingId = new ReplaySubject<number>(1);
-    this.textTitle = new BehaviorSubject<string>('');
-    this.isRightToLeft = new BehaviorSubject<boolean>(false);
-    this.isLoaded = new BehaviorSubject<boolean>(false);
+    this.sentences.next([]);
+    this.activeSentenceIndex.next(1);
+    this.totalSentenceNumber.next(1);
+    this.furthestSentenceIndex.next(1);
+    this.sentenceHasRecording.next(false);
+    this.recordingId.next(1)
+    this.textTitle.next('');
+    this.isRightToLeft.next(false);
+    this.isLoaded.next(false);
     this.isTextFetched = false;
     this.isRecordingExistsChecked = false;
   }
