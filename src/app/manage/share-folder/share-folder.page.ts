@@ -26,7 +26,7 @@ export class ShareFolderPage implements OnInit {
   @Input() folderId: number;
   @Input() folderName: string
 
-  private isPublicForAll: boolean
+  public isPublicForAll: boolean
   private speakers: User[];
   public filteredSpeakers: User[];
   private allUsers: User[];
