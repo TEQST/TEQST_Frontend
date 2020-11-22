@@ -16,10 +16,10 @@ export class RecorderComponent implements OnInit {
 
   public activeSentence: number;
   public totalSentenceNumber: number;
-  private furthestSentenceIndex: number;
+  public furthestSentenceIndex: number;
   public recordingProgress: number;
   public isRecording = false;
-  private isLoaded = false;
+  public isLoaded = false;
 
   constructor(private textService: TextServiceService,
               private recordingService: AudioRecordingService,
