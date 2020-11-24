@@ -21,7 +21,7 @@ export class LoaderInterceptor implements HttpInterceptor {
         if (this.count > 0) {
           this.loaderService.show();
         }
-      }, 1000);
+      }, 0);
       return next.handle(request).pipe(
           finalize(() => {
             this.count--;
