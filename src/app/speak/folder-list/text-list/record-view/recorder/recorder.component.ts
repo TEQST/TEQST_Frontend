@@ -24,7 +24,7 @@ export class RecorderComponent implements OnInit {
   constructor(private textService: TextServiceService,
               private recordingService: AudioRecordingService,
               private playbackService: RecordingPlaybackService) {
-    this.subscribeToServices();
+    this.subscribeToServices();        
   }
 
   ngOnInit() {
@@ -110,8 +110,11 @@ export class RecorderComponent implements OnInit {
   nextSentence(): void {
     this.playbackService.stopAudioPlayback();
     if (this.isRecording === true) {
-      // if currently recording start the recording of the next sentence
-      this.recordingService.nextRecording();
+      if (this.activeSentence === this.totalSentenceNumber) {
+        this.recordingService.stopRecording()
+      } else {
+        this.recordingService.nextRecording();
+      }      
     } else {
       this.textService.setNextSentenceActive();
     }
