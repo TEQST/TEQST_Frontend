@@ -135,15 +135,17 @@ export class AudioRecordingService {
   stopRecording(): void {
     // check if recording is active if not do nothing
     if (this.recorder) {
-      this.recorder.stop((blob: Blob) => {
-        this.saveRecording(this.activeSentence, blob);
-        if (this.activeSentence === this.furthestSentence) {
-          this.textService.increaseFurthestSentence();
-        }
-      }, () => {
-        this.recordingFailed$.next();
-      });
-      this.resetRecorder()
+      setTimeout(() => {
+        this.recorder.stop((blob: Blob) => {
+          this.saveRecording(this.activeSentence, blob);
+          if (this.activeSentence === this.furthestSentence) {
+            this.textService.increaseFurthestSentence();
+          }
+        }, () => {
+          this.recordingFailed$.next();
+        });
+        this.resetRecorder()
+      }, 400)
     }
 
   }
