@@ -27,7 +27,13 @@ export class RecorderComponent implements OnInit {
     this.subscribeToServices();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.recordingService.requestUserAudio()
+  }
+
+  ngOnDestroy() {
+    this.recordingService.stopMediaStream()
+  }
 
   /* subscribe to all needed variables from the services
      and update the locale ones on change */
@@ -53,8 +59,9 @@ export class RecorderComponent implements OnInit {
       if (this.isLoaded)
         this.updateProgressBar();
     });
-    this.recordingService.getRecordingState()
-        .subscribe((status) => this.isRecording = status);
+    this.recordingService.getRecordingState().subscribe((status) => {
+      this.isRecording = status;
+    });
   }
 
   private updateProgressBar(): void {

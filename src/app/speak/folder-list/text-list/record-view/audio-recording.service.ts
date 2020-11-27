@@ -72,43 +72,51 @@ export class AudioRecordingService {
     return this.isRecording$.asObservable();
   }
 
-  startRecording(): void {
-    if (this.recorder) {
-      // Recording is already running
-      return;
-    } else if (this.isPlaying === true) {
-      this.playbackService.stopAudioPlayback();
+  isMediaStreamActive(): boolean {
+    if (!this.stream) {
+      return false
+    } else if (!this.stream.active) {
+        return false;
     }
-
-    // get user permission for microphone access
+    return true;
+}
+  //TODO async
+  requestUserAudio(): void {
+    if (this.isMediaStreamActive()) {
+      return 
+    }
     navigator.mediaDevices.getUserMedia({audio: true}).then((s) => {
       this.stream = s;
-      this.record();
     }).catch((error) => {
       this.alertService.showErrorAlertNoRedirection(
           'No microphone access',
           'Please allow access to your microphone '+
-          'to be able to start a recording');
+          'to be able to start a recording.');
       this.isRecording$.next(false);
     });
-
   }
 
-  // start the actual recording
-  private record(): void {
+  startRecording(): void {
+    if (this.recorder) {
+      return; // Recording is already running
+    } else if (this.isPlaying === true) {
+      this.playbackService.stopAudioPlayback();
+    }
+    this.requestUserAudio() //Get mediaStream in case user declined it on page load
+    if(this.isMediaStreamActive) {
 
-    // set the quality properties of the recorder
-    this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
-      type: 'audio',
-      mimeType: 'audio/wav',
-      audioBitsPerSecond: 16000,
-      desiredSampRate: 16000,
-      numberOfAudioChannels: 1, // set mono recording
-
-    });
-    this.recorder.record();
-    this.isRecording$.next(true);
-
+      // set the quality properties of the recorder
+      this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
+        type: 'audio',
+        mimeType: 'audio/wav',
+        audioBitsPerSecond: 16000,
+        desiredSampRate: 16000,
+        numberOfAudioChannels: 1, // set mono recording
+  
+      });
+      this.recorder.record();
+      this.isRecording$.next(true);
+    }
   }
 
   private saveRecording(index: number, blob: Blob): void {
@@ -132,13 +140,17 @@ export class AudioRecordingService {
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
         }
-        this.stopMedia();
       }, () => {
-        this.stopMedia();
         this.recordingFailed$.next();
       });
+      this.resetRecorder()
     }
 
+  }
+
+  resetRecorder(): void {
+    this.isRecording$.next(false);
+    this.recorder = null;
   }
 
   // save the current recording and start the next one
@@ -148,38 +160,33 @@ export class AudioRecordingService {
         this.saveRecording(this.activeSentence, blob);
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
-        }
-        /* if the next sentence hasn't been recorded before start
-           next recording otherwise just skip to next sentence */
+        } 
         if (this.activeSentence >= this.furthestSentence - 1) {
-          this.record();
+          this.resetRecorder()
+          this.startRecording()
           this.textService.setNextSentenceActive();
         } else {
-          this.stopMedia();
+          this.resetRecorder();
           this.textService.setNextSentenceActive();
         }
       }, () => {
-        this.stopMedia();
+        this.resetRecorder();
         this.recordingFailed$.next();
       });
     }
   }
 
-  // stop the recorder and free all open audio streams
-  private stopMedia(): void {
-    this.isRecording$.next(false);
-    if (this.recorder) {
-      this.recorder = null;
-      if (this.stream) {
-        this.stream.getAudioTracks().forEach((track) => track.stop());
-        this.stream = null;
-      }
+  stopMediaStream(): void {
+    if (this.stream) {
+      this.stream.getAudioTracks().forEach((track) => track.stop());
+      this.stream = null;
     }
+    this.resetRecorder();
   }
 
   // cancel current recording without saving
   abortRecording(): void {
-    this.stopMedia();
+    this.resetRecorder();
   }
 
   // abort the current recording and start a new one
