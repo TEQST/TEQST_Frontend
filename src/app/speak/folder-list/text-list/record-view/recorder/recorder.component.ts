@@ -24,10 +24,16 @@ export class RecorderComponent implements OnInit {
   constructor(private textService: TextServiceService,
               private recordingService: AudioRecordingService,
               private playbackService: RecordingPlaybackService) {
-    this.subscribeToServices();
+    this.subscribeToServices();        
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.recordingService.requestUserAudio()
+  }
+
+  ngOnDestroy() {
+    this.recordingService.stopMediaStream()
+  }
 
   /* subscribe to all needed variables from the services
      and update the locale ones on change */
@@ -53,8 +59,9 @@ export class RecorderComponent implements OnInit {
       if (this.isLoaded)
         this.updateProgressBar();
     });
-    this.recordingService.getRecordingState()
-        .subscribe((status) => this.isRecording = status);
+    this.recordingService.getRecordingState().subscribe((status) => {
+      this.isRecording = status;
+    });
   }
 
   private updateProgressBar(): void {
@@ -103,8 +110,11 @@ export class RecorderComponent implements OnInit {
   nextSentence(): void {
     this.playbackService.stopAudioPlayback();
     if (this.isRecording === true) {
-      // if currently recording start the recording of the next sentence
-      this.recordingService.nextRecording();
+      if (this.activeSentence === this.totalSentenceNumber) {
+        this.recordingService.stopRecording()
+      } else {
+        this.recordingService.nextRecording();
+      }      
     } else {
       this.textService.setNextSentenceActive();
     }
