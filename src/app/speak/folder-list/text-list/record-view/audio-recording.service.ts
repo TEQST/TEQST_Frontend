@@ -21,7 +21,7 @@ export class AudioRecordingService {
 
 
   private stream: MediaStream;
-  private recorder;
+  private activeRecorder;
   private recorded = new Map<number, Blob>();
   private audio = new Audio();
 
@@ -97,16 +97,14 @@ export class AudioRecordingService {
   }
 
   startRecording(): void {
-    if (this.recorder) {
-      return; // Recording is already running
-    } else if (this.isPlaying === true) {
+    if (this.isPlaying === true) {
       this.playbackService.stopAudioPlayback();
     }
     this.requestUserAudio() //Get mediaStream in case user declined it on page load
     if(this.isMediaStreamActive) {
 
       // set the quality properties of the recorder
-      this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
+      this.activeRecorder = new RecordRTC.StereoAudioRecorder(this.stream, {
         type: 'audio',
         mimeType: 'audio/wav',
         audioBitsPerSecond: 16000,
@@ -114,67 +112,79 @@ export class AudioRecordingService {
         numberOfAudioChannels: 1, // set mono recording
   
       });
-      this.recorder.record();
+      this.activeRecorder.record();
       this.isRecording$.next(true);
     }
   }
 
-  private saveRecording(index: number, blob: Blob): void {
+  private saveRecording(index: number, isReRecording: boolean, blob: Blob): void {
     const sentenceRecording =
       new SentenceRecordingModel(this.recordingId, index, blob);
     // add recording to cache in case speaker wants to listen to it
     this.playbackService.addToCache(sentenceRecording);
-    this.uploadRecording(sentenceRecording);
+    this.uploadRecording(sentenceRecording, isReRecording);
   }
 
-  private uploadRecording(sentenceRecording: SentenceRecordingModel): void {
+  private uploadRecording(sentenceRecording: SentenceRecordingModel, isReRecording: boolean): void {
     this.recordingUploadService
-        .uploadRecording(sentenceRecording, this.sentenceHasRecording);
+        .uploadRecording(sentenceRecording, isReRecording);
   }
 
   stopRecording(): void {
     // check if recording is active if not do nothing
-    if (this.recorder) {
+    if (this.activeRecorder) {
+
+      //save the current state
+      const currentRecorder = this.activeRecorder
+      const currentSentence = this.activeSentence
+      const isReRecording = this.sentenceHasRecording
+
       setTimeout(() => {
-        this.recorder.stop((blob: Blob) => {
-          this.saveRecording(this.activeSentence, blob);
-          if (this.activeSentence === this.furthestSentence) {
-            this.textService.increaseFurthestSentence();
-          }
+        currentRecorder.stop((blob: Blob) => {
+          this.saveRecording(currentSentence, isReRecording, blob);
         }, () => {
           this.recordingFailed$.next();
         });
-        this.resetRecorder()
       }, 400)
+
+      this.resetRecorder()
+      if (currentSentence === this.furthestSentence) {
+        this.textService.increaseFurthestSentence();
+      }
     }
 
   }
 
   resetRecorder(): void {
     this.isRecording$.next(false);
-    this.recorder = null;
+    this.activeRecorder = null;
   }
 
   // save the current recording and start the next one
   nextRecording(): void {
-    if (this.recorder) {
-      this.recorder.stop((blob: Blob) => {
-        this.saveRecording(this.activeSentence, blob);
-        if (this.activeSentence === this.furthestSentence) {
-          this.textService.increaseFurthestSentence();
-        } 
-        if (this.activeSentence >= this.furthestSentence - 1) {
-          this.resetRecorder()
-          this.startRecording()
-          this.textService.setNextSentenceActive();
-        } else {
-          this.resetRecorder();
-          this.textService.setNextSentenceActive();
-        }
+
+    //save the current state
+    const currentSentence = this.activeSentence
+    const currentRecorder = this.activeRecorder
+    const isReRecording = this.sentenceHasRecording
+
+    setTimeout(() => {
+      currentRecorder.stop((blob: Blob) => {
+        this.saveRecording(currentSentence, isReRecording, blob);
       }, () => {
-        this.resetRecorder();
         this.recordingFailed$.next();
       });
+    }, 400)
+    
+    if (this.activeSentence === this.furthestSentence) {
+      this.textService.increaseFurthestSentence();
+    } 
+    if (this.activeSentence >= this.furthestSentence - 1) {
+      this.startRecording()
+      this.textService.setNextSentenceActive();
+    } else {
+      this.resetRecorder();
+      this.textService.setNextSentenceActive();
     }
   }
 
@@ -193,8 +203,8 @@ export class AudioRecordingService {
 
   // abort the current recording and start a new one
   restartRecording(): void {
-    this.recorder.stop();
-    this.recorder.record();
+    this.activeRecorder.stop();
+    this.activeRecorder.record();
   }
 
 }
