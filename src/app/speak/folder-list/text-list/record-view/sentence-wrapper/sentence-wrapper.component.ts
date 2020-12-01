@@ -48,7 +48,7 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     this.textService.getFurthestSentenceIndex()
         .subscribe((index) => this.furthestSentence = index);
     this.textService.getSentences()
-        .subscribe((sentences) => this.sentences = sentences);
+        .subscribe((sentences) => this.sentences = sentences.map(this.removeID));
     this.textService.getActiveSentenceIndex()
         .subscribe((index) => this.activeSentence = index);
     this.recordingService.getRecordingState()
@@ -59,6 +59,10 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
   onSelect(index: number): void {
     this.playbackService.stopAudioPlayback();
     this.textService.setActiveSentenceIndex(index);
+  }
+
+  private removeID (sentence: string): string {
+    return sentence.replace(new RegExp("\{(.*?)\}"), "")
   }
 
   // scroll sentence with specified index into view
