@@ -130,6 +130,23 @@ export class AlertManagerService {
     await this.noInternetAlert.present();
   }
 
+  async presentRecordingInfoAlert(): Promise<void> {
+    this.alert = await this.alertController.create({
+      header: 'Recording instruction',
+      message: 'Please first press the record button and then start to talk. If you are not sure if you have recorded correctly please select a recording and use the play function on the left to check your recording.',
+      backdropDismiss: false,
+      buttons: [{
+        role: 'cancel',
+        text: 'OK',
+        handler: () => {
+          this.alertActive = false;
+        },
+      }],
+    });
+
+    await this.alert.present();
+  }
+
   dismissNoInternetAlert(): void {
     if (this.noInternetAlert != null) {
       this.noInternetAlert.dismiss();

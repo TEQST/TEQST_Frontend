@@ -41,6 +41,7 @@ export class AudioRecordingService {
               private recordingUploadService: RecordingUploadService,
               private playbackService: RecordingPlaybackService) {
     this.subscribeToServices();
+    this.alertService.presentRecordingInfoAlert();
   }
 
   /* subscribe to all needed variables from the services
