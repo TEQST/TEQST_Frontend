@@ -34,40 +34,54 @@
       <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
     </ion-select>
   </ion-item>
+  <ion-item lines="full" >
+    <ion-checkbox #cbox formControlName="checkbox"></ion-checkbox>
+    <ion-label (click)="cbox.checked = !cbox.checked" class="cbox-label">I accept the <a [routerLink]="" (click)="presentServicesAgreement()">Services Agreement</a></ion-label>
+  </ion-item>
   <ion-button class="button-submit" type="submit" [disabled]="!stepOneForm.valid" expand="block">{{'Next' | translate}}
   </ion-button>
 </form>
 
-<form *ngIf="currentRegisterStep === 2" [formGroup]="stepTwoForm" (ngSubmit)="performRegister()"
-  (keyup.enter)="stepTwoForm.valid ? performRegister() : undefined">
-  <ion-item lines="full">
-    <ion-label position="floating">{{'Country' | translate}}: </ion-label>
-    <ion-input formControlName="country" ngModel></ion-input>
-  </ion-item>
-  <ion-item lines="full">
-    <ion-label position="floating">{{'Accent' | translate}}: </ion-label>
-    <ion-input name="accent" formControlName="accent" ngModel></ion-input>
-  </ion-item>
 
-  <ion-item lines="full">
-    <ion-label position="floating">{{'Education Level' | translate}}:</ion-label>
-    <ion-select name="education" formControlName="education" ngModel>
-      <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
-      <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
-      <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+<div *ngIf="currentRegisterStep === 2">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="previousStep()">
+        <ion-icon name="arrow-back-outline"></ion-icon>    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 
-  <ion-item lines="full">
-    <ion-label position="floating">{{'Gender' | translate}}:</ion-label>
-    <ion-select name="gender" formControlName="gender" ngModel>
-      <ion-select-option value="F">{{'Female' | translate}}</ion-select-option>
-      <ion-select-option value="M">{{'Male' | translate}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-button class="button-submit" type="submit" expand="block">{{'Register' | translate}}
-  </ion-button>
-</form>
+  <form [formGroup]="stepTwoForm" (ngSubmit)="performRegister()"
+    (keyup.enter)="stepTwoForm.valid ? performRegister() : undefined">
+    <ion-item lines="full">
+      <ion-label position="floating">{{'Country' | translate}}: </ion-label>
+      <ion-input formControlName="country"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">{{'Accent' | translate}}: </ion-label>
+      <ion-input name="accent" formControlName="accent"></ion-input>
+    </ion-item>
+  
+    <ion-item lines="full">
+      <ion-label position="floating">{{'Education Level' | translate}}:</ion-label>
+      <ion-select name="education" formControlName="education">
+        <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
+        <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
+        <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-item lines="full">
+      <ion-label position="floating">{{'Gender' | translate}}:</ion-label>
+      <ion-select name="gender" formControlName="gender">
+        <ion-select-option value="F">{{'Female' | translate}}</ion-select-option>
+        <ion-select-option value="M">{{'Male' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button class="button-submit" type="submit" expand="block">{{'Register' | translate}}
+    </ion-button>
+  </form>
+</div>
 
 <ion-card-content>
   <ng-container>{{'Already have an Account?' | translate}}</ng-container>

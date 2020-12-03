@@ -1,12 +1,13 @@
-import {AgeValidator} from './../../validators/age';
-import {UsernameValidator} from './../../validators/username';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Component, OnInit} from '@angular/core';
-import {NavController} from '@ionic/angular';
-import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from 'src/app/services/authentication.service';
-import {LanguageService} from 'src/app/services/language.service';
-import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import { ServicesAgreementComponent } from './services-agreement/services-agreement.component';
+import { AgeValidator } from './../../validators/age';
+import { UsernameValidator } from './../../validators/username';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ModalController, NavController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { LanguageService } from 'src/app/services/language.service';
+import { AlertManagerService } from 'src/app/services/alert-manager.service';
 
 @Component({
   selector: 'app-register',
@@ -27,21 +28,23 @@ export class RegisterComponent implements OnInit {
     public languageService: LanguageService,
     private alertService: AlertManagerService,
     private formBuilder: FormBuilder,
-    private usernameValidator: UsernameValidator) {
-    this.stepOneForm = formBuilder.group({
-      username: ['', Validators.required, usernameValidator.checkUsername.bind(usernameValidator)],
-      password: ['', Validators.required],
-      birth_year: ['', [Validators.required, AgeValidator.checkAge]],
-      language_ids: [[], Validators.required],
-    });
-
-    this.stepTwoForm = formBuilder.group({
-      country: [''],
-      accent: [''],
-      education: [''],
-      gender: [''],
-    });
-  }
+    private usernameValidator: UsernameValidator,
+    private modalController: ModalController) { 
+      this.stepOneForm = formBuilder.group({
+        username: ['', Validators.required, usernameValidator.checkUsername.bind(usernameValidator)],
+        password: ['', Validators.required],
+        birth_year: ['', [Validators.required, AgeValidator.checkAge]],
+        language_ids: [[], Validators.required],
+        checkbox: [, Validators.requiredTrue]
+      });
+      
+      this.stepTwoForm = formBuilder.group({
+        country: [''],
+        accent: [''],
+        education: [''],
+        gender: ['']
+      })
+    }
 
   ngOnInit() {
     this.getAllLangs();
@@ -49,6 +52,10 @@ export class RegisterComponent implements OnInit {
 
   nextStep() {
     this.currentRegisterStep = 2;
+  }
+
+  previousStep() {
+    this.currentRegisterStep = 1;
   }
 
   get errorControl() {
@@ -64,8 +71,7 @@ export class RegisterComponent implements OnInit {
         delete registrationData[value];
       }
     }
-    const loginData = (({username, password}) => ({username, password}))(this.stepOneForm.value);
-    console.log(registrationData);
+    let loginData = (({ username, password }) => ({ username, password }))(this.stepOneForm.value);
     this.authenticationService.register(registrationData).subscribe(() => {
       this.authenticationService.login(loginData);
     }, (error: any) => {
@@ -80,6 +86,13 @@ export class RegisterComponent implements OnInit {
     this.languageService.getLangs().subscribe((dataReturnFromServer: any) => {
       this.allLangs = dataReturnFromServer;
     });
+  }
+
+  async presentServicesAgreement() {
+    const popover = await this.modalController.create({
+      component: ServicesAgreementComponent,
+    });
+    return await popover.present();
   }
 
 }

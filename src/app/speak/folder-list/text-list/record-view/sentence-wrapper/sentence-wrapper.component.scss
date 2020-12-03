@@ -1,7 +1,7 @@
 div {
-	opacity: 0.5;
+	opacity: 0.2;
 	padding: 5px;
-	font-size: large;
+	font-size: 0.9em;
 }
 
 .sentence {
@@ -11,7 +11,7 @@ div {
 	&.active {
 		opacity: 1;
 		padding: 15px;
-		font-size: larger;
+		font-size: large;
 		font-weight: bold;
 	}
 	&.done {

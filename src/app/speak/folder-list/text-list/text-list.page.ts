@@ -66,4 +66,10 @@ export class TextListPage implements OnInit {
     return await popover.present();
   }
 
+  // Truncate number to the specified amount of decimal places
+  truncateNumber(num, fixed) {
+    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+    return num.toString().match(re)[0];
+}
+
 }

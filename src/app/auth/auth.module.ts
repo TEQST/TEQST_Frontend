@@ -1,3 +1,4 @@
+import { ServicesAgreementComponent } from './register/services-agreement/services-agreement.component';
 import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -25,7 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
     AuthPage,
     MenuLanguageSelectorComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ServicesAgreementComponent
   ]
 })
 export class AuthPageModule {}
