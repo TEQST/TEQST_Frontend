@@ -177,6 +177,11 @@ export class AudioRecordingService {
   // save the current recording and start the next one
   nextRecording(): void {
 
+    if (this.errorInPreviousRecording === true) {
+      this.stopRecording();
+      return;
+    }
+
     //save the current state
     const currentSentence = this.activeSentence
     const currentRecorder = this.activeRecorder
@@ -245,7 +250,8 @@ export class AudioRecordingService {
 
   throwRecordingErrorAlert(): void {
     this.errorInPreviousRecording = false;
-    this.alertService.showErrorAlertNoRedirection("Issue with recording", "It seems like there is an issue in an previous recording. Please check the marked sentences if they have been recorded completely.")
+    this.alertService.showErrorAlertNoRedirection("Issue with recording", `It seems like there is an issue in a previous recording (marked red). 
+    You might have started talking to early. It might help to make a short pause at the beginning and the end.`)
   }
 
 }
