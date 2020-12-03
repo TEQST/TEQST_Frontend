@@ -1,16 +1,18 @@
-import {RecordingPlaybackService}
+import { SentenceStatus } from './../../../../interfaces/sentence-status';
+import { RecordingUploadResponse } from './../../../../interfaces/recording-upload-response';
+import { RecordingPlaybackService }
   from './../../../../services/recording-playback.service';
-import {RecordingUploadService}
+import { RecordingUploadService }
   from './../../../../services/recording-upload.service';
-import {SentenceRecordingModel}
+import { SentenceRecordingModel }
   from './../../../../models/sentence-recording.model';
-import {AlertManagerService} from 'src/app/services/alert-manager.service';
-import {Injectable} from '@angular/core';
-import {Observable, Subject, BehaviorSubject} from 'rxjs';
+import { AlertManagerService } from 'src/app/services/alert-manager.service';
+import { Injectable } from '@angular/core';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 import * as RecordRTC from 'recordrtc';
-import {TextServiceService} from './text-service.service';
-import {AuthenticationService} from 'src/app/services/authentication.service';
+import { TextServiceService } from './text-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Injectable({
@@ -27,19 +29,21 @@ export class AudioRecordingService {
 
   private recordingFailed$ = new Subject<string>();
   private isRecording$ = new BehaviorSubject<boolean>(false);
+  private sentencesRecordingStatus: SentenceStatus[]
   private isPlaying: boolean;
 
   private recordingId: number;
   private activeSentence: number;
   private furthestSentence: number;
   private sentenceHasRecording: boolean;
+  private errorInPreviousRecording: boolean;
 
 
   constructor(private textService: TextServiceService,
-              public authenticationService: AuthenticationService,
-              private alertService: AlertManagerService,
-              private recordingUploadService: RecordingUploadService,
-              private playbackService: RecordingPlaybackService) {
+    public authenticationService: AuthenticationService,
+    private alertService: AlertManagerService,
+    private recordingUploadService: RecordingUploadService,
+    private playbackService: RecordingPlaybackService) {
     this.subscribeToServices();
     this.alertService.presentRecordingInfoAlert();
   }
@@ -48,17 +52,23 @@ export class AudioRecordingService {
      and update the local ones on change */
   private subscribeToServices(): void {
     this.textService.getActiveSentenceIndex()
-        .subscribe((index) => this.activeSentence = index);
+      .subscribe((index) => this.activeSentence = index);
     this.textService.getFurthestSentenceIndex()
-        .subscribe((index) => this.furthestSentence = index);
+      .subscribe((index) => this.furthestSentence = index);
     this.textService.getRecordingId().subscribe((id) => {
       this.recordingId = id;
       this.resetRecordingData();
     });
     this.textService.getSentenceHasRecording()
-        .subscribe((value) => this.sentenceHasRecording = value);
+      .subscribe((value) => this.sentenceHasRecording = value);
+    this.textService.getSentencesRecordingStatus()
+      .subscribe((statusList) => {
+        this.sentencesRecordingStatus = statusList
+      });
+    this.recordingUploadService.getLastUploadResponse()
+      .subscribe((status) => this.updateSentenceRecordingStatus(status));
     this.playbackService.getIsPlaying()
-        .subscribe((state) => this.isPlaying = state);
+      .subscribe((state) => this.isPlaying = state);
   }
 
   resetRecordingData(): void {
@@ -77,22 +87,22 @@ export class AudioRecordingService {
     if (!this.stream) {
       return false
     } else if (!this.stream.active) {
-        return false;
+      return false;
     }
     return true;
-}
+  }
   //TODO async
   requestUserAudio(): void {
     if (this.isMediaStreamActive()) {
-      return 
+      return
     }
-    navigator.mediaDevices.getUserMedia({audio: true}).then((s) => {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((s) => {
       this.stream = s;
     }).catch((error) => {
       this.alertService.showErrorAlertNoRedirection(
-          'No microphone access',
-          'Please allow access to your microphone '+
-          'to be able to start a recording.');
+        'No microphone access',
+        'Please allow access to your microphone ' +
+        'to be able to start a recording.');
       this.isRecording$.next(false);
     });
   }
@@ -102,7 +112,7 @@ export class AudioRecordingService {
       this.playbackService.stopAudioPlayback();
     }
     this.requestUserAudio() //Get mediaStream in case user declined it on page load
-    if(this.isMediaStreamActive) {
+    if (this.isMediaStreamActive) {
 
       // set the quality properties of the recorder
       this.activeRecorder = new RecordRTC.StereoAudioRecorder(this.stream, {
@@ -111,7 +121,7 @@ export class AudioRecordingService {
         audioBitsPerSecond: 16000,
         desiredSampRate: 16000,
         numberOfAudioChannels: 1, // set mono recording
-  
+
       });
       this.activeRecorder.record();
       this.isRecording$.next(true);
@@ -158,6 +168,9 @@ export class AudioRecordingService {
 
   resetRecorder(): void {
     this.isRecording$.next(false);
+    if (this.errorInPreviousRecording === true) {
+      this.throwRecordingErrorAlert()
+    }
     this.activeRecorder = null;
   }
 
@@ -206,6 +219,33 @@ export class AudioRecordingService {
   restartRecording(): void {
     this.activeRecorder.stop();
     this.activeRecorder.record();
+  }
+
+  updateSentenceRecordingStatus(sentenceStatus: RecordingUploadResponse) {
+    let statusList = this.sentencesRecordingStatus
+    if (sentenceStatus === null || statusList === []) return;
+
+    if (sentenceStatus.valid !== "VALID") {
+      this.errorInPreviousRecording = true;
+      if (this.isRecording$.getValue() === false) {
+        this.throwRecordingErrorAlert()
+      }
+    }
+
+    if (sentenceStatus.index === statusList.length + 1) {
+      statusList.push({
+        index: sentenceStatus.index,
+        status: sentenceStatus.valid
+      })
+    } else {
+      statusList[sentenceStatus.index - 1].status = sentenceStatus.valid;
+    }
+    this.textService.setSentencesRecordingStatus(statusList);
+  }
+
+  throwRecordingErrorAlert(): void {
+    this.errorInPreviousRecording = false;
+    this.alertService.showErrorAlertNoRedirection("Issue with recording", "It seems like there is an issue in an previous recording. Please check the marked sentences if they have been recorded completely.")
   }
 
 }

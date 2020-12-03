@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, ReplaySubject, Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from 'src/app/services/authentication.service';
+import { SentenceStatus } from './../../../../interfaces/sentence-status';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Constants } from 'src/app/constants';
 
 
@@ -16,6 +17,7 @@ export class TextServiceService {
   /* instantiate BehaviorSubjekts with 1
      because every text has at least 1 sentence */
   private sentences = new ReplaySubject<string[]>(1);
+  private sentencesRecordingStatus = new BehaviorSubject<SentenceStatus[]>([]);
   private activeSentenceIndex = new BehaviorSubject<number>(1);
   private totalSentenceNumber = new BehaviorSubject<number>(1);
   private furthestSentenceIndex = new BehaviorSubject<number>(1);
@@ -37,6 +39,7 @@ export class TextServiceService {
 
   public reset() {
     this.sentences.next([]);
+    this.sentencesRecordingStatus.next([]);
     this.activeSentenceIndex.next(1);
     this.totalSentenceNumber.next(1);
     this.furthestSentenceIndex.next(1);
@@ -70,7 +73,9 @@ export class TextServiceService {
     this.nextActiveSentenceIndex = index;
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingInfo['id']);
-
+    this.sentencesRecordingStatus.next(recordingInfo['sentences_status'].sort((a, b) => {
+      return a.index - b.index //sort the list in ascending order by index
+    }))
     this.initActiveSentenceIfReady();
   }
 
@@ -83,20 +88,20 @@ export class TextServiceService {
     const getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
 
     await this.http.get(getRecordingInfoUrl).toPromise()
-        .then((info) => {
-          this.isRecordingExistsChecked = true;
-          if (info === null) {
-            result = false;
-          } else {
-            this.setRecordingInfo(info[0]);
-            result = true;
-          }
-        });
+      .then((info) => {
+        this.isRecordingExistsChecked = true;
+        if (info === null) {
+          result = false;
+        } else {
+          this.setRecordingInfo(info[0]);
+          result = true;
+        }
+      });
     return result;
   }
 
   // Create a text recording with the given permissions for the current user
-  givePermissions(textToSpeech: boolean, speechRecognition: boolean ): void {
+  givePermissions(textToSpeech: boolean, speechRecognition: boolean): void {
 
     const recordingInfo = {
       text: this.textId,
@@ -117,8 +122,8 @@ export class TextServiceService {
        so for the ui we have to set the active sentence
        to the smaller of those two values */
     this.setActiveSentenceIndex(
-        Math.min(this.nextActiveSentenceIndex,
-            this.totalSentenceNumber.getValue()));
+      Math.min(this.nextActiveSentenceIndex,
+        this.totalSentenceNumber.getValue()));
   }
 
   initActiveSentenceIfReady() {
@@ -142,6 +147,10 @@ export class TextServiceService {
 
   getSentences(): Observable<string[]> {
     return this.sentences.asObservable();
+  }
+
+  getSentencesRecordingStatus(): Observable<SentenceStatus[]> {
+    return this.sentencesRecordingStatus.asObservable();
   }
 
   getTotalSentenceNumber(): Observable<number> {
@@ -170,11 +179,15 @@ export class TextServiceService {
     this.fetchText();
   }
 
+  setSentencesRecordingStatus(statusList: SentenceStatus[]): void {
+    this.sentencesRecordingStatus.next(statusList)
+  }
+
   setActiveSentenceIndex(index: number): void {
     // check if the given index is within bounds
     if (this.isTextFetched && this.isRecordingExistsChecked &&
-        index > 0 && index <= this.totalSentenceNumber.getValue() &&
-        index <= this.furthestSentenceIndex.getValue()) {
+      index > 0 && index <= this.totalSentenceNumber.getValue() &&
+      index <= this.furthestSentenceIndex.getValue()) {
 
       this.activeSentenceIndex.next(index);
 
@@ -186,8 +199,8 @@ export class TextServiceService {
   // check if the current active sentence is already recorded
   private checkRecordingStatus(): void {
     if (this.isTextFetched && this.isRecordingExistsChecked &&
-        this.activeSentenceIndex.getValue() <
-        this.furthestSentenceIndex.getValue()) {
+      this.activeSentenceIndex.getValue() <
+      this.furthestSentenceIndex.getValue()) {
       this.sentenceHasRecording.next(true);
     } else {
       this.sentenceHasRecording.next(false);
@@ -206,10 +219,10 @@ export class TextServiceService {
 
   increaseFurthestSentence(): void {
     if (this.furthestSentenceIndex.getValue() <=
-        this.totalSentenceNumber.getValue() + 1) {
+      this.totalSentenceNumber.getValue() + 1) {
 
       this.furthestSentenceIndex.next(
-          this.furthestSentenceIndex.getValue() + 1);
+        this.furthestSentenceIndex.getValue() + 1);
       this.checkRecordingStatus();
     }
   }
