@@ -1,7 +1,7 @@
 div {
 	opacity: 0.2;
 	padding: 5px;
-	font-size: 0.9em;
+	font-size: 1em;
 }
 
 .verticalLine, .verticalLineDone {
@@ -10,7 +10,7 @@ div {
 	&.active {
 		opacity: 1;
 		padding: 15px;
-		font-size: large;
+		font-size: 1.4em;
 		font-weight: bold;
 	}
 }
