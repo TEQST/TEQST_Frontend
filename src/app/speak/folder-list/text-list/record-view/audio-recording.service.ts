@@ -36,6 +36,7 @@ export class AudioRecordingService {
   private activeSentence: number;
   private furthestSentence: number;
   private sentenceHasRecording: boolean;
+  private errorInPreviousRecording: boolean;
 
 
   constructor(private textService: TextServiceService,
@@ -167,6 +168,9 @@ export class AudioRecordingService {
 
   resetRecorder(): void {
     this.isRecording$.next(false);
+    if (this.errorInPreviousRecording === true) {
+      this.throwRecordingErrorAlert()
+    }
     this.activeRecorder = null;
   }
 
@@ -217,13 +221,17 @@ export class AudioRecordingService {
     this.activeRecorder.record();
   }
 
-  // getSentencesRecordingStatus(): Observable<SentenceStatus[]> {
-  //   return this.sentencesRecordingStatus.asObservable();
-  // }
-
   updateSentenceRecordingStatus(sentenceStatus: RecordingUploadResponse) {
     let statusList = this.sentencesRecordingStatus
     if (sentenceStatus === null || statusList === []) return;
+
+    if (sentenceStatus.valid !== "VALID") {
+      this.errorInPreviousRecording = true;
+      if (this.isRecording$.getValue() === false) {
+        this.throwRecordingErrorAlert()
+      }
+    }
+
     if (sentenceStatus.index === statusList.length + 1) {
       statusList.push({
         index: sentenceStatus.index,
@@ -233,6 +241,11 @@ export class AudioRecordingService {
       statusList[sentenceStatus.index - 1].status = sentenceStatus.valid;
     }
     this.textService.setSentencesRecordingStatus(statusList);
+  }
+
+  throwRecordingErrorAlert(): void {
+    this.errorInPreviousRecording = false;
+    this.alertService.showErrorAlertNoRedirection("Issue with recording", "It seems like there is an issue in an previous recording. Please check the marked sentences if they have been recorded completely.")
   }
 
 }
