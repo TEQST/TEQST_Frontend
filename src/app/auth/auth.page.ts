@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LanguageService } from '../services/language.service';
 import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
+import { Constants } from '../constants';
 
 @Component({
   selector: 'app-auth',
@@ -12,6 +13,8 @@ import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-lan
 export class AuthPage implements OnInit {
 
   public isLoading = false;
+
+  SERVER_URL = Constants.SERVER_URL;
 
   constructor(
     public navCtrl: NavController,
@@ -40,11 +43,11 @@ export class AuthPage implements OnInit {
   }
 
   redirect() {
-    window.open('/admin');
+    window.open(this.SERVER_URL + '/admin');
   }
 
   redirectToHelp() {
-    window.open( '/documentation');
+    window.open(this.SERVER_URL +  '/documentation');
   }
 
 }

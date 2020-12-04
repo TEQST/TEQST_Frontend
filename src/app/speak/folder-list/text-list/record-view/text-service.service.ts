@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, ReplaySubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from 'src/app/services/authentication.service';
-import {ThrowStmt} from '@angular/compiler';
-
+import { Constants } from 'src/app/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +10,7 @@ import {ThrowStmt} from '@angular/compiler';
 
 export class TextServiceService {
 
-
+  SERVER_URL = Constants.SERVER_URL;
   /* instantiate BehaviorSubjekts with 1
      because every text has at least 1 sentence */
   private sentences = new ReplaySubject<string[]>(1);
@@ -50,7 +49,7 @@ export class TextServiceService {
 
   private fetchText(): void {
     // fetch TextData from Server
-    const textUrl = `/api/spk/texts/${this.textId}/`;
+    const textUrl = this.SERVER_URL + `/api/spk/texts/${this.textId}/`;
 
     this.http.get(textUrl, {}).subscribe((text) => {
       this.textTitle.next(text['title']);
@@ -79,7 +78,7 @@ export class TextServiceService {
      set the local recording info to the data from the server */
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
-    const getRecordingInfoUrl = `/api/textrecordings/?text=${this.textId}`;
+    const getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
 
     await this.http.get(getRecordingInfoUrl).toPromise()
         .then((info) => {
@@ -103,7 +102,7 @@ export class TextServiceService {
       SR_permission: speechRecognition,
     };
 
-    const postRecordingInfoUrl = `/api/textrecordings/`;
+    const postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
 
     this.http.post(postRecordingInfoUrl, recordingInfo).subscribe((info) => {
       this.setRecordingInfo(info);
