@@ -121,9 +121,12 @@ export class TextServiceService {
        the active_sentence on the backend is totalSentenceNumber + 1
        so for the ui we have to set the active sentence
        to the smaller of those two values */
-    this.setActiveSentenceIndex(
-      Math.min(this.nextActiveSentenceIndex,
-        this.totalSentenceNumber.getValue()));
+    const firstSentenceIssue = this.sentencesRecordingStatus.getValue().find((sentenceStatus: SentenceStatus) => {
+      return sentenceStatus.status !== "VALID"
+    })
+    
+    const sentenceIndex = firstSentenceIssue ? firstSentenceIssue.index : Math.min(this.nextActiveSentenceIndex, this.totalSentenceNumber.getValue())
+    this.setActiveSentenceIndex(sentenceIndex);
   }
 
   initActiveSentenceIfReady() {
