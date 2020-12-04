@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse}
   from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {finalize} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 
 import {LoaderService} from '../services/loader.service';
 
@@ -15,7 +15,7 @@ export class LoaderInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler):
         Observable<HttpEvent<any>> {
-
+          
       this.count++;
       setTimeout(() => {
         if (this.count > 0) {
@@ -23,11 +23,16 @@ export class LoaderInterceptor implements HttpInterceptor {
         }
       }, 0);
       return next.handle(request).pipe(
-          finalize(() => {
-            this.count--;
-            if (this.count === 0) {
-              this.loaderService.hide();
+          tap((evt) => {
+            if (evt instanceof HttpResponse) {
+              if(evt != null) {
+                  this.count--;
+                if (this.count === 0) {
+                  this.loaderService.hide();
+                }
+              }
             }
+            
           }),
       );
     }

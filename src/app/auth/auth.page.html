@@ -11,6 +11,7 @@
       <ion-col class="inner-col-setting">
         <ion-card class="max-height">
           <router-outlet></router-outlet>
+          <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
         </ion-card>
       </ion-col>
     </ion-row>
