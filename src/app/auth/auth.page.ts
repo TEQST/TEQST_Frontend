@@ -1,3 +1,4 @@
+import { LoaderService } from './../services/loader.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LanguageService } from '../services/language.service';
@@ -10,14 +11,18 @@ import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-lan
 })
 export class AuthPage implements OnInit {
 
-
+  public isLoading = false;
 
   constructor(
     public navCtrl: NavController,
     public popoverController: PopoverController,
-    public languageService: LanguageService) { }
+    public languageService: LanguageService,
+    private loaderService: LoaderService) { 
+      this.loaderService.getIsLoading()
+        .subscribe((isLoading) => this.isLoading = isLoading);
+  }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   async presentMenuLanguages(ev: any) {
     const menulanguages = await this.languageService.getAllMenuLanguages();
