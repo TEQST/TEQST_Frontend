@@ -5,7 +5,6 @@ import {AuthenticationService} from './authentication.service';
 import { Constants } from '../constants';
 import {Subject} from 'rxjs';
 import {AlertManagerService} from './alert-manager.service';
-import { Constants } from '../constants';
 
 
 @Injectable({
@@ -15,14 +14,13 @@ import { Constants } from '../constants';
 export class SpeakTabNavService {
 
 SERVER_URL = Constants.SERVER_URL;
-public sharedFoldersList = new Subject<any>()
 
-  SERVER_URL = Constants.SERVER_URL;
+public sharedFoldersList = new Subject<any>()
   
-  constructor(
-    private http: HttpClient,
-    public authenticationService: AuthenticationService,
-    private alertService: AlertManagerService) { }
+constructor(
+  private http: HttpClient,
+  public authenticationService: AuthenticationService,
+  private alertService: AlertManagerService) { }
 
 getPublisherList() {
   const url = this.SERVER_URL + '/api/publishers/';
