@@ -94,7 +94,7 @@ export class ManageFolderService {
 
   getSpeakers(sharedfolderId: number) {
     const url =
-        `/api/sharedfolders/${sharedfolderId}/`;
+    this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
     return this.http.get<JSON[]>(url);
   }
 
@@ -103,7 +103,7 @@ export class ManageFolderService {
       speakers: number[],
       public_for_all: boolean) {
 
-    const url = `/api/sharedfolders/${sharedfolderId}/`;
+    const url = this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
     return this.http.put<JSON>(url, {
       speaker_ids: speakers,
       public: public_for_all});

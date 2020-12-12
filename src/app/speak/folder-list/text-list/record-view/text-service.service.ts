@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Constants } from 'src/app/constants';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +13,7 @@ export class TextServiceService {
 
   SERVER_URL = Constants.SERVER_URL;
   
-  /* instantiate BehaviorSubjekts with 1
+  /* instantiate BehaviorSubjects with 1
      because every text has at least 1 sentence */
   private sentences = new ReplaySubject<string[]>(1);
   private sentencesRecordingStatus = new BehaviorSubject<SentenceStatus[]>([]);
