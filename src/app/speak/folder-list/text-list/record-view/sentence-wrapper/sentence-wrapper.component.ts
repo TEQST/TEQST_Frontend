@@ -17,6 +17,7 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
   public activeSentence: number;
   public isRecording: boolean;
   public furthestSentence: number;
+  private newIndex: boolean = false
 
   constructor(
     private textService: TextServiceService,
@@ -33,7 +34,10 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    this.scrollToSentence(this.activeSentence);
+    if(this.newIndex) {
+      this.scrollToSentence(this.activeSentence);
+      this.newIndex = false;
+    }
   }
 
   /* subscribe to all needed variables from the services
@@ -50,7 +54,10 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     this.textService.getSentences()
         .subscribe((sentences) => this.sentences = sentences);
     this.textService.getActiveSentenceIndex()
-        .subscribe((index) => this.activeSentence = index);
+      .subscribe((index) => {
+        this.activeSentence = index;
+        this.newIndex = true;
+      });
     this.recordingService.getRecordingState()
         .subscribe((state) => this.isRecording = state);
   }
