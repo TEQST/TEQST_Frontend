@@ -91,7 +91,7 @@ export class RecordViewPage implements OnInit {
 
   public stopAllMedia(): void {
     this.playbackService.stopAudioPlayback();
-    this.audioService.abortRecording();
+    this.audioService.stopMediaStream();
   }
 
   // Present alert to the user to give permissions for the text

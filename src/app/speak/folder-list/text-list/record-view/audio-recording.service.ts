@@ -31,6 +31,7 @@ export class AudioRecordingService {
   private isRecording$ = new BehaviorSubject<boolean>(false);
   private sentencesRecordingStatus: SentenceStatus[]
   private isPlaying: boolean;
+  private stopCyclicBuffer: boolean = false;
 
   private recordingId: number;
   private activeSentence: number;
@@ -98,6 +99,7 @@ export class AudioRecordingService {
     }
     navigator.mediaDevices.getUserMedia({ audio: true }).then((s) => {
       this.stream = s;
+      this.startCyclicBuffer()
     }).catch((error) => {
       this.alertService.showErrorAlertNoRedirection(
         'No microphone access',
@@ -107,25 +109,44 @@ export class AudioRecordingService {
     });
   }
 
+  private async startCyclicBuffer(): Promise<void> {
+
+    if (this.isMediaStreamActive) {
+      let recorder = this.initRecorder()
+      recorder.record()
+      this.stopCyclicBuffer = false
+      const timer = ms => new Promise(res => setTimeout(res, ms))
+
+  
+      while(this.isRecording$.getValue() === false && !this.stopCyclicBuffer) {
+        this.activeRecorder = recorder
+        recorder = this.initRecorder()
+        recorder.record()
+        await timer(500);
+      }
+    }
+
+  }
+
+  private initRecorder(): any {
+    const recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
+      type: 'audio',
+      mimeType: 'audio/wav',
+      audioBitsPerSecond: 16000,
+      desiredSampRate: 16000,
+      numberOfAudioChannels: 1, // set mono recording
+      disableLogs: true
+
+    });
+    return recorder
+  }
+
   startRecording(): void {
     if (this.isPlaying === true) {
       this.playbackService.stopAudioPlayback();
     }
     this.requestUserAudio() //Get mediaStream in case user declined it on page load
-    if (this.isMediaStreamActive) {
-
-      // set the quality properties of the recorder
-      this.activeRecorder = new RecordRTC.StereoAudioRecorder(this.stream, {
-        type: 'audio',
-        mimeType: 'audio/wav',
-        audioBitsPerSecond: 16000,
-        desiredSampRate: 16000,
-        numberOfAudioChannels: 1, // set mono recording
-
-      });
-      this.activeRecorder.record();
-      this.isRecording$.next(true);
-    }
+    this.isRecording$.next(true);
   }
 
   private saveRecording(index: number, isReRecording: boolean, blob: Blob): void {
@@ -166,12 +187,23 @@ export class AudioRecordingService {
 
   }
 
+  clearRecorder(): void {
+    this.isRecording$.next(false);
+    if (this.errorInPreviousRecording === true) {
+      this.throwRecordingErrorAlert()
+    }
+    this.stopCyclicBuffer = true
+    this.activeRecorder = null;
+  }
+
+
   resetRecorder(): void {
     this.isRecording$.next(false);
     if (this.errorInPreviousRecording === true) {
       this.throwRecordingErrorAlert()
     }
     this.activeRecorder = null;
+    this.startCyclicBuffer()
   }
 
   // save the current recording and start the next one
@@ -199,7 +231,8 @@ export class AudioRecordingService {
       this.textService.increaseFurthestSentence();
     } 
     if (this.activeSentence >= this.furthestSentence - 1) {
-      this.startRecording()
+      this.activeRecorder = this.initRecorder()
+      this.activeRecorder.record()
       this.textService.setNextSentenceActive();
     } else {
       this.resetRecorder();
@@ -212,7 +245,7 @@ export class AudioRecordingService {
       this.stream.getAudioTracks().forEach((track) => track.stop());
       this.stream = null;
     }
-    this.resetRecorder();
+    this.clearRecorder();
   }
 
   // cancel current recording without saving
