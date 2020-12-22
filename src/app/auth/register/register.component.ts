@@ -36,6 +36,7 @@ export class RegisterComponent implements OnInit {
     });
 
     this.stepTwoForm = formBuilder.group({
+      email: ['', Validators.email],
       country: [''],
       accent: [''],
       education: [''],
@@ -65,7 +66,6 @@ export class RegisterComponent implements OnInit {
       }
     }
     const loginData = (({username, password}) => ({username, password}))(this.stepOneForm.value);
-    console.log(registrationData);
     this.authenticationService.register(registrationData).subscribe(() => {
       this.authenticationService.login(loginData);
     }, (error: any) => {
