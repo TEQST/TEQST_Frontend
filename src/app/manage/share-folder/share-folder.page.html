@@ -1,47 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{'Select Speaker for' | translate}} {{folderName}}</ion-title>
+    <ion-title>{{'Sharing options for' | translate}} {{folderName}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'Search for User' | translate}}">
-    </ion-searchbar>
-  </ion-toolbar>
+  <ion-segment (ionChange)="segmentChanged($event)" value="speakers">
+    <ion-segment-button value="speakers">
+      <ion-label>
+        <ion-icon name="mic-outline"></ion-icon>
+        Speakers
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="listeners">
+      <ion-label>
+        <ion-icon name="ear-outline"></ion-icon>
+        Listeners
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="isPublicForAll != null">
-    <ion-list>
-      <ion-item>
-        <ion-label>{{'Public for everyone' | translate}}</ion-label>
-        <ion-toggle (ionChange)="handleFolderPublicityToggle($event)" [checked]="isPublicForAll"></ion-toggle>
-      </ion-item>
-    </ion-list>
-    <ion-list>
-      <ion-list-header>
-        <ion-label>{{'Added Speaker' | translate}}</ion-label>
-      </ion-list-header>
-      <ion-item *ngFor="let speaker of filteredSpeakers">
-        <ion-label>{{speaker.username}}</ion-label>
-        <ion-button color="danger" slot="end" (click)="removeSpeaker(speaker)">
-          <ion-icon name="remove"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
-    <ion-list>
-      <ion-list-header>
-        <ion-label>{{'All Users' | translate}}</ion-label>
-      </ion-list-header>
-      <ion-item *ngFor="let user of filteredUsers">
-        <ion-label>{{user.username}}</ion-label>
-        <ion-button color="success" slot="end" (click)="addSpeaker(user)">
-          <ion-icon name="add"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
-  </div>
+  <speakers-segment [folderId]="folderId"></speakers-segment>
 </ion-content>

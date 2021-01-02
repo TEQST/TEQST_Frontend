@@ -1,3 +1,14 @@
 ion-button {
     height: 30px;
 }
+
+ion-segment {
+    ion-label {
+        margin: 0;
+    }
+    ion-icon {
+        font-size: 1.5em;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+}

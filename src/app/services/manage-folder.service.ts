@@ -1,8 +1,8 @@
-import {TextObject} from './../interfaces/text-object';
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {AuthenticationService} from './authentication.service';
+import { TextObject } from './../interfaces/text-object';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from './authentication.service';
 import { Constants } from '../constants';
 
 interface User {
@@ -12,7 +12,7 @@ interface User {
   'gender': string,
   'birth_year': number,
   'languages': number[],
-  'country': null
+  'country': null;
 }
 
 @Injectable({
@@ -51,10 +51,10 @@ export class ManageFolderService {
     const url = this.SERVER_URL + `/api/folders/`;
 
     return this.http.post(url,
-        {
-          parent: parentId,
-          name: folderName,
-        },
+      {
+        parent: parentId,
+        name: folderName,
+      },
     );
   }
 
@@ -89,24 +89,25 @@ export class ManageFolderService {
 
   getTextInfo(textId: string): Observable<TextObject> {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/`;
-    return this.http.get<TextObject>(url, { });
+    return this.http.get<TextObject>(url, {});
   }
 
-  getSpeakers(sharedfolderId: number) {
+  getSharingInfo(sharedfolderId: number) {
     const url =
-    this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
+      this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
     return this.http.get<JSON[]>(url);
   }
 
-  setSpeakers(
-      sharedfolderId: number,
-      speakers: number[],
-      public_for_all: boolean) {
+  setSharingInfo(
+    sharedfolderId: number,
+    speakers: number[],
+    public_for_all: boolean) {
 
     const url = this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
     return this.http.put<JSON>(url, {
       speaker_ids: speakers,
-      public: public_for_all});
+      public: public_for_all
+    });
   }
 
   getAllUsers() {
