@@ -1,8 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {ModalController} from '@ionic/angular';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {IonSlides, ModalController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
-import {User} from 'src/app/interfaces/user';
-
 
 // // interface to handle the user objects better
 // interface User {
@@ -25,6 +23,8 @@ export class ShareFolderPage implements OnInit {
 
   @Input() folderId: number;
   @Input() folderName: string;
+  @ViewChild('slides', {static: true}) slider: IonSlides;
+  segment = 0;
 
   constructor(public viewCtrl: ModalController,
     private route: ActivatedRoute) { }
@@ -37,8 +37,12 @@ export class ShareFolderPage implements OnInit {
     this.viewCtrl.dismiss();
   }
 
-  segmentChanged($event) {
-    console.log($event);
+  async segmentChanged($event) {
+    await this.slider.slideTo($event.detail.value);
+  }
+
+  async slideChanged() {
+    this.segment = await this.slider.getActiveIndex();
   }
 
 }

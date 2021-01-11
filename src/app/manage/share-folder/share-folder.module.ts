@@ -1,15 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { ShareFolderPageRoutingModule } from './share-folder-routing.module';
+import {ShareFolderPageRoutingModule} from './share-folder-routing.module';
 
-import { ShareFolderPage } from './share-folder.page';
-import { SpeakersSegmentComponent } from './speakers-segment/speakers-segment.component';
+import {ShareFolderPage} from './share-folder.page';
+
+import {SpeakersSegmentComponent}
+  from './speakers-segment/speakers-segment.component';
+import {ListenersSegmentComponent}
+  from './listeners-segment/listeners-segment.component';
 
 @NgModule({
   imports: [
@@ -21,7 +25,8 @@ import { SpeakersSegmentComponent } from './speakers-segment/speakers-segment.co
   ],
   declarations: [
     ShareFolderPage,
-    SpeakersSegmentComponent
+    SpeakersSegmentComponent,
+    ListenersSegmentComponent,
   ],
 })
 export class ShareFolderPageModule { }

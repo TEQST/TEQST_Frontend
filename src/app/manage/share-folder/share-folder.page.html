@@ -7,14 +7,14 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-segment (ionChange)="segmentChanged($event)" value="speakers">
-    <ion-segment-button value="speakers">
+  <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+    <ion-segment-button value="0">
       <ion-label>
         <ion-icon name="mic-outline"></ion-icon>
         Speakers
       </ion-label>
     </ion-segment-button>
-    <ion-segment-button value="listeners">
+    <ion-segment-button value="1">
       <ion-label>
         <ion-icon name="ear-outline"></ion-icon>
         Listeners
@@ -24,5 +24,12 @@
 </ion-header>
 
 <ion-content>
-  <speakers-segment [folderId]="folderId"></speakers-segment>
+  <ion-slides #slides (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <speakers-segment [folderId]="folderId"></speakers-segment>
+    </ion-slide>
+    <ion-slide>
+      <listeners-segment [folderId]="folderId"></listeners-segment>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

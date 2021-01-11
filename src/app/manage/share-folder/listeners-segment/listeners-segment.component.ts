@@ -3,14 +3,12 @@ import {User} from 'src/app/interfaces/user';
 import {ManageFolderService} from 'src/app/services/manage-folder.service';
 import {ShareFolderService} from 'src/app/services/share-folder.service';
 
-
 @Component({
-  selector: 'speakers-segment',
-  templateUrl: './speakers-segment.component.html',
-  styleUrls: ['./speakers-segment.component.scss'],
+  selector: 'listeners-segment',
+  templateUrl: './listeners-segment.component.html',
+  styleUrls: ['./listeners-segment.component.scss'],
 })
-export class SpeakersSegmentComponent implements OnInit {
-
+export class ListenersSegmentComponent implements OnInit {
   @Input() folderId: number;
   public isPublicForAll: boolean;
   private speakers: User[];
@@ -94,5 +92,4 @@ export class SpeakersSegmentComponent implements OnInit {
         .then((sharedfolder) => this.speakers = sharedfolder['speakers']);
     this.filterLists();
   }
-
 }

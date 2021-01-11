@@ -1,0 +1,24 @@
+<ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'Search for User' | translate}}">
+</ion-searchbar>
+<ion-list>
+  <ion-list-header>
+    <ion-label>{{'Added Listeners' | translate}}</ion-label>
+  </ion-list-header>
+  <ion-item *ngFor="let speaker of filteredListeners">
+    <ion-label>{{speaker.username}}</ion-label>
+    <ion-button color="danger" slot="end" (click)="removeListener(listener)">
+      <ion-icon name="remove"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-list>
+<ion-list>
+  <ion-list-header>
+    <ion-label>{{'All Users' | translate}}</ion-label>
+  </ion-list-header>
+  <ion-item *ngFor="let user of filteredUsers">
+    <ion-label>{{user.username}}</ion-label>
+    <ion-button color="success" slot="end" (click)="addListener(user)">
+      <ion-icon name="add"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-list>
