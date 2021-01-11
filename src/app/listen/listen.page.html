@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+    <ion-img src="../../assets/img/logo.png"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>{{'Select a publisher' | translate}}</h1>
+  <div #publisherList class="fadeInWhenLoaded">
+    <ion-list *ngIf="this.publishers != null">
+      <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/listen/{{pub.id}}"
+        [state]="{publisherName: pub.username}">
+        <ion-icon name="person"></ion-icon> {{ pub.username }}
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
