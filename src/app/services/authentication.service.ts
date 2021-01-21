@@ -1,5 +1,5 @@
-import { RegisterForm } from './../interfaces/register-form';
-import { Observable } from 'rxjs';
+import {RegisterForm} from './../interfaces/register-form';
+import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
@@ -7,7 +7,8 @@ import {AlertManagerService} from './alert-manager.service';
 import {LanguageService} from './language.service';
 import {User} from '../interfaces/user';
 import {UsermgmtService} from './usermgmt.service';
-import { Constants } from '../constants';
+import {Constants} from '../constants';
+import {ActivatedRoute} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,8 @@ export class AuthenticationService {
     public navCtrl: NavController,
     private alertService: AlertManagerService,
     public languageService: LanguageService,
-    public usermgmtService: UsermgmtService) {
+    public usermgmtService: UsermgmtService,
+    private route: ActivatedRoute) {
 
   }
 
@@ -46,7 +48,13 @@ export class AuthenticationService {
           this.usermgmtService.storeUserData(userData);
           this.languageService
               .setMenuLanguage(this.languageService.menuLanguage);
-          this.navCtrl.navigateForward('/tabs/speak');
+
+          if (this.route.snapshot.queryParamMap.has('next')) {
+            const nextURL = this.route.snapshot.queryParamMap.get('next');
+            this.navCtrl.navigateForward(nextURL);
+          } else {
+            this.navCtrl.navigateForward('/tabs/speak');
+          }
         }, (error: any) => {
           // calls AlertService when server sends error code
           this.alertService.showErrorAlertNoRedirection(
@@ -62,12 +70,12 @@ export class AuthenticationService {
       this.login(logInData);
     }, (error: any) => {
       this.alertService.showErrorAlertNoRedirection('Username already exists',
-       'A user with that username already exists, please choose another username');
+          'A user with that username already exists, please choose another username');
     });
   }
 
   register(registrationData: RegisterForm): Observable<object> {
-    const url =this.SERVER_URL +  '/api/auth/register/';
+    const url =this.SERVER_URL + '/api/auth/register/';
     return this.http.post(url, registrationData);
   }
 
@@ -80,7 +88,7 @@ export class AuthenticationService {
          because on back button press the page isn't refreshed */
       this.usermgmtService.deleteStoredUserData();
       this.usermgmtService.clearLoggingData();
-      //this.navCtrl.navigateForward('/login');
+      // this.navCtrl.navigateForward('/login');
       this.navCtrl.navigateRoot('/login');
     });
   }
