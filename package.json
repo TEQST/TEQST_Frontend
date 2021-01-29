@@ -16,7 +16,7 @@
     "build-i18n": "npm run build-i18n:en && npm run build-i18n:de",
     "dev": "lite-server --baseDir=www",
     "dev:de": "lite-server --baseDir=dist/de",
-    "extract-translations": "ngx-translate-extract --input ./src --output ./src/assets/i18n/{en.pot,ar.po,de.po,en.po,ja.po} --clean --sort --format pot --marker _"
+    "extract-translations": "ngx-translate-extract --input ./src --output ./src/assets/i18n/{en,ar,de,ja}.json --clean --sort --format json"
   },
   "private": true,
   "dependencies": {
