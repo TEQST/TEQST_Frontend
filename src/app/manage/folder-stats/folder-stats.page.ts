@@ -17,32 +17,18 @@ export class FolderStatsPage implements OnInit {
 
   public folderStats: FolderStats;
 
-  constructor(private statsServices: StatisticsService,
-              private viewCtrl: ModalController) { }
+  constructor(private viewCtrl: ModalController) { }
 
-  ngOnInit() {
-    this.statsServices.getSharedFolderStats(this.folderId)
-        .subscribe((folderStats) => {
-          this.addCompletedCountToSpeakers(folderStats);
-          this.folderStats = folderStats;
-          this.navComponent.push(SpeakerListPage, {
-            folderStats,
-            navComponent: this.navComponent,
-            viewCtrl: this.viewCtrl,
-          });
-        });
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    this.navComponent.push(SpeakerListPage, {
+      navComponent: this.navComponent,
+      viewCtrl: this.viewCtrl,
+      folderId: this.folderId,
+      folderName: this.folderName,
+    });
   }
 
-  addCompletedCountToSpeakers(folderStats) {
-    for (const speaker of folderStats.speakers) {
-      let completedTextsCount = 0;
-      for (const text of speaker.texts) {
-        if (text.total == text.finished) {
-          completedTextsCount++;
-        }
-      }
-      speaker.completedTextsCount = completedTextsCount;
-    }
-  }
 
 }
