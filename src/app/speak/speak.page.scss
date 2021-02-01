@@ -1,3 +1,12 @@
 ion-icon {
     margin-right: 10px;
+
+    &.public {
+        color: #007cff;
+    }
+
+    &.person {
+        color: #ff6000;
+    }
 }
+
