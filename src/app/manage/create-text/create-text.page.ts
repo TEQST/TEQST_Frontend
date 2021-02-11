@@ -126,7 +126,7 @@ export class CreateTextPage implements OnInit {
     this.formValid = this.titleValid &&
                      this.fileSelected &&
                      this.languageSelected &&
-                     (!this.enableTextSplit || this.splitLinesValid);
+                   (!this.enableTextSplit || this.splitLinesValid);
   }
 
   textSplitToggleChanged($event) {

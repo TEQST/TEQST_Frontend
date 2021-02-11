@@ -1,9 +1,11 @@
-import { LoaderService } from './../services/loader.service';
-import { Component, OnInit } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
-import { LanguageService } from '../services/language.service';
-import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
-import { Constants } from '../constants';
+import {LoaderService} from './../services/loader.service';
+import {Component, OnInit} from '@angular/core';
+import {NavController, PopoverController} from '@ionic/angular';
+import {LanguageService} from '../services/language.service';
+import {
+  MenuLanguageSelectorComponent,
+} from './menu-language-selector/menu-language-selector.component';
+import {Constants} from '../constants';
 
 @Component({
   selector: 'app-auth',
@@ -20,8 +22,8 @@ export class AuthPage implements OnInit {
     public navCtrl: NavController,
     public popoverController: PopoverController,
     public languageService: LanguageService,
-    private loaderService: LoaderService) { 
-      this.loaderService.getIsLoading()
+    private loaderService: LoaderService) {
+    this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
   }
 
@@ -47,7 +49,7 @@ export class AuthPage implements OnInit {
   }
 
   redirectToHelp() {
-    window.open(this.SERVER_URL +  '/documentation');
+    window.open(this.SERVER_URL + '/documentation');
   }
 
 }

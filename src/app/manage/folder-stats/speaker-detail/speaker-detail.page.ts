@@ -20,8 +20,5 @@ export class SpeakerDetailPage implements OnInit {
     this.speaker = navParams.get('speaker');
   }
 
-  ngOnInit() {
-  }
-
-
+  ngOnInit() { }
 }

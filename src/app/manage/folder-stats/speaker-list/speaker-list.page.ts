@@ -22,6 +22,7 @@ export class SpeakerListPage implements OnInit {
   constructor(public navParams: NavParams,
               private viewCtrl: ModalController,
               private statsServices: StatisticsService) {
+
     this.navComponent = navParams.get('navComponent');
     this.folderId = navParams.get('folderId');
     this.folderName = navParams.get('folderName');
@@ -59,6 +60,5 @@ export class SpeakerListPage implements OnInit {
   dismiss() {
     this.viewCtrl.dismiss();
   }
-
 
 }

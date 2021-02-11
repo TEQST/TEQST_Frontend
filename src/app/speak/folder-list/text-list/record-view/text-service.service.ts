@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, ReplaySubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from 'src/app/services/authentication.service';
-import { Constants } from 'src/app/constants';
+import {Constants} from 'src/app/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +39,7 @@ export class TextServiceService {
     this.totalSentenceNumber.next(1);
     this.furthestSentenceIndex.next(1);
     this.sentenceHasRecording.next(false);
-    this.recordingId.next(1)
+    this.recordingId.next(1);
     this.textTitle.next('');
     this.isRightToLeft.next(false);
     this.isLoaded.next(false);
@@ -78,7 +78,8 @@ export class TextServiceService {
      set the local recording info to the data from the server */
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
-    const getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
+    const getRecordingInfoUrl = this.SERVER_URL +
+      `/api/textrecordings/?text=${this.textId}`;
 
     await this.http.get(getRecordingInfoUrl).toPromise()
         .then((info) => {

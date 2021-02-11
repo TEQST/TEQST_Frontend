@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { TextWrapperComponent } from './text-wrapper.component';
+import {TextWrapperComponent} from './text-wrapper.component';
 
 describe('TextWrapperComponent', () => {
   let component: TextWrapperComponent;
@@ -9,8 +9,8 @@ describe('TextWrapperComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextWrapperComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [TextWrapperComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TextWrapperComponent);

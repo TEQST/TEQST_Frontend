@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { PlaybarComponent } from './playbar.component';
+import {PlaybarComponent} from './playbar.component';
 
 describe('PlaybarComponent', () => {
   let component: PlaybarComponent;
@@ -9,8 +9,8 @@ describe('PlaybarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlaybarComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [PlaybarComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PlaybarComponent);

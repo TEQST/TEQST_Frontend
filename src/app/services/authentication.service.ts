@@ -70,7 +70,8 @@ export class AuthenticationService {
       this.login(logInData);
     }, (error: any) => {
       this.alertService.showErrorAlertNoRedirection('Username already exists',
-          'A user with that username already exists, please choose another username');
+          'A user with that username already exists, ' +
+          'please choose another username');
     });
   }
 

@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from './authentication.service';
-import { Constants } from '../constants';
+import {Constants} from '../constants';
 
 interface User {
   'id': number,
