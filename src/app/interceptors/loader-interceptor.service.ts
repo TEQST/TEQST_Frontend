@@ -1,15 +1,21 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { LoaderService } from '../services/loader.service';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {LoaderService} from '../services/loader.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class LoaderInterceptorService implements HttpInterceptor{
+export class LoaderInterceptorService implements HttpInterceptor {
 
-  private requests: HttpRequest<any>[] = []
+  private requests: HttpRequest<any>[] = [];
 
   constructor(public loaderService: LoaderService) { }
 
@@ -19,29 +25,29 @@ export class LoaderInterceptorService implements HttpInterceptor{
       this.requests.splice(i, 1);
     }
     if (this.requests.length === 0) {
-      this.loaderService.hide()
+      this.loaderService.hide();
     }
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler):
       Observable<HttpEvent<any>> {
-      
-    this.requests.push(request)
+
+    this.requests.push(request);
     this.loaderService.show();
 
     return next.handle(request).pipe(
         tap({
-          next: event => {
+          next: (event) => {
             if (event instanceof HttpResponse) {
               this.removeRequest(request);
             }
           },
-          error: err => {
+          error: (err) => {
             this.removeRequest(request);
           },
           complete: () => {
             this.removeRequest(request);
-          }
+          },
         }),
     );
   }

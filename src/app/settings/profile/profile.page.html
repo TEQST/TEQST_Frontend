@@ -10,42 +10,44 @@
 <ion-content>
   <h1>{{'Profile' | translate}}</h1>
   <ion-list>
-    <ion-item >
+    <ion-item>
       <ion-label id="username" position="stacked">{{'Username' | translate}}:</ion-label>
-      <ion-input value="{{username}}" readonly></ion-input>       
+      <ion-input value="{{username}}" readonly></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">{{'Birthyear' | translate}}:</ion-label>
-        <ion-input placeholder={{birthyear}} [(ngModel)]="birthyear" inputmode="decimal" [pattern]="'19[2-9][0-9]|20[0-2][0-9]'" required="true"></ion-input>   
-      </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">{{'Country' | translate}}:</ion-label>   
-      <ion-input placeholder={{country}} [(ngModel)]="country"></ion-input>   
+      <ion-input placeholder={{birthyear}} [(ngModel)]="birthyear" inputmode="decimal"
+        [pattern]="'19[2-9][0-9]|20[0-2][0-9]'" required="true"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">{{'Accent' | translate}}:</ion-label>   
-      <ion-input placeholder={{accent}} [(ngModel)]="accent"></ion-input>   
+      <ion-label position="stacked">{{'Country' | translate}}:</ion-label>
+      <ion-input placeholder={{country}} [(ngModel)]="country"></ion-input>
     </ion-item>
-    
-    
+
+    <ion-item>
+      <ion-label position="stacked">{{'Accent' | translate}}:</ion-label>
+      <ion-input placeholder={{accent}} [(ngModel)]="accent"></ion-input>
+    </ion-item>
+
+
     <ion-item>
       <ion-label position="stacked">{{'Languages' | translate}}:</ion-label>
-      <ion-select multiple="true" [(ngModel)]="languageIds" [selectedText]="languageString" class="sel" (ngModelChange)="updateLanguageString()">
-        <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}} >{{lang.native_name}}</ion-select-option>
+      <ion-select multiple="true" [(ngModel)]="languageIds" [selectedText]="languageString" class="sel"
+        (ngModelChange)="updateLanguageString()">
+        <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">{{'Education Level' | translate}}:</ion-label>
-        <ion-select [(ngModel)]="education">
-          <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
-          <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
-          <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
-        </ion-select>
-    </ion-item>     
+      <ion-select [(ngModel)]="education">
+        <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
+        <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
+        <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
 
     <ion-item>
       <ion-label position="stacked">{{'Gender' | translate}}:</ion-label>
@@ -55,16 +57,18 @@
       </ion-select>
     </ion-item>
 
-   
+
     <ion-item>
       <ion-label position="stacked">{{'Menu Language' | translate}}:</ion-label>
-      <ion-select [(ngModel)]=menuLanguageShort [selectedText]="menuLanguageNative" (ngModelChange)="updateMenuLanguageString()">
-        <ion-select-option *ngFor="let lang of allMenuLangs" value="{{lang.short}}">{{lang.native_name}}</ion-select-option>
+      <ion-select [(ngModel)]=menuLanguageShort [selectedText]="menuLanguageNative"
+        (ngModelChange)="updateMenuLanguageString()">
+        <ion-select-option *ngFor="let lang of allMenuLangs" value="{{lang.short}}">{{lang.native_name}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-button id="save" (click)="save()">{{'Save changes' | translate}}</ion-button>
 
-   
+
   </ion-list>
 </ion-content>

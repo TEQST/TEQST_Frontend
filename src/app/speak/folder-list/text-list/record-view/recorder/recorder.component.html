@@ -17,7 +17,7 @@
   <ion-icon src="./assets/icons/blinking_record_icon.svg" slot="icon-only"></ion-icon>
 </ion-button>
 <!-- right button -->
-<ion-button class="btn" color="primary" 
+<ion-button class="btn" color="primary"
   [disabled]="activeSentence === totalSentenceNumber || (activeSentence === furthestSentenceIndex && !isRecording) ? 'true' : 'false'"
   shape="round" (click)=nextSentence()>
   <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>

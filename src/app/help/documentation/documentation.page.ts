@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-documentation',
@@ -13,6 +13,10 @@ export class DocumentationPage implements OnInit {
   }
 
   scrollToElement($element): void {
-    $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    $element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
   }
 }

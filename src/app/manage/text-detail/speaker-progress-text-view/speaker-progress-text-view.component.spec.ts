@@ -1,7 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { SpeakerProgressTextViewComponent } from './speaker-progress-text-view.component';
+import {
+  SpeakerProgressTextViewComponent,
+} from './speaker-progress-text-view.component';
 
 describe('SpeakerProgressTextViewComponent', () => {
   let component: SpeakerProgressTextViewComponent;
@@ -9,8 +11,8 @@ describe('SpeakerProgressTextViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpeakerProgressTextViewComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SpeakerProgressTextViewComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SpeakerProgressTextViewComponent);

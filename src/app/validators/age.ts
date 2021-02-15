@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import {FormControl} from '@angular/forms';
 
 export class AgeValidator {
 
@@ -6,19 +6,19 @@ export class AgeValidator {
 
     if (isNaN(control.value)) {
       return {
-          'not a number': true
+        'not a number': true,
       };
     }
 
     if (control.value % 1 !== 0) {
       return {
-          'not a whole number': true
+        'not a whole number': true,
       };
     }
 
     if (control.value < 1900 || control.value > 2020) {
       return {
-          'not realistic': true
+        'not realistic': true,
       };
     }
 

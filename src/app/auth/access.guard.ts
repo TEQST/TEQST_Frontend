@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {
-  CanActivate, ActivatedRouteSnapshot,
-  UrlTree, Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  UrlTree,
+  Router,
+  RouterStateSnapshot,
 } from '@angular/router';
 import {Observable} from 'rxjs';
-
 import {UsermgmtService} from 'src/app/services/usermgmt.service';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 
@@ -22,7 +24,8 @@ export class AccessGuard implements CanActivate {
      based on the set flag in the router
      If he is not allowed redirect him to an allowed url */
   canActivate(
-      next: ActivatedRouteSnapshot):
+      next: ActivatedRouteSnapshot,
+      state: RouterStateSnapshot):
         Observable<boolean | UrlTree> |
         Promise<boolean | UrlTree> | boolean | UrlTree {
 
@@ -35,7 +38,7 @@ export class AccessGuard implements CanActivate {
        Otherwise just redirect him to the login page */
     if (requiresLogin) {
       if (!this.authService.isLoggedIn()) {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'], {queryParams: {next: state.url}});
         return false;
       }
     }

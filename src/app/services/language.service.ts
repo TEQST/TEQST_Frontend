@@ -3,13 +3,13 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {Language} from '../interfaces/language';
-import { Constants } from '../constants';
+import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LanguageService {
-  
+
   SERVER_URL = Constants.SERVER_URL;
   public menuLanguage;
 

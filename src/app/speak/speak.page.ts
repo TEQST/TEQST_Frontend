@@ -32,7 +32,6 @@ export class SpeakPage implements OnInit {
             (data) => {
               this.publishers = data;
               this.publisherListElem.nativeElement.classList.add('loaded');
-
             },
             (err) => this.alertManager
                 .showErrorAlert(err.status, err.statusText),

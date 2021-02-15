@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { UsermgmtService } from '../../services/usermgmt.service';
-import { NavController } from '@ionic/angular';
-import { AlertManagerService } from 'src/app/services/alert-manager.service';
+import {Component, OnInit} from '@angular/core';
+import {UsermgmtService} from '../../services/usermgmt.service';
+import {NavController} from '@ionic/angular';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import * as moment from 'moment';
-import { LoaderService } from 'src/app/services/loader.service';
-import { LanguageService } from 'src/app/services/language.service';
+import {LoaderService} from 'src/app/services/loader.service';
+import {LanguageService} from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-profile',
@@ -32,14 +32,14 @@ export class ProfilePage implements OnInit {
   public isLoading = false;
 
 
-
   constructor(public usermgmtService: UsermgmtService,
               public languageService: LanguageService,
               public navCtrl: NavController,
               private alertService: AlertManagerService,
               private loaderService: LoaderService) {
-    this.loaderService.getIsLoading().subscribe((isLoading) => this.isLoading = isLoading);
-              }
+    this.loaderService.getIsLoading()
+        .subscribe((isLoading) => this.isLoading = isLoading);
+  }
   // tslint:disable: no-string-literal
 
   // loads everytime Page is loaded their content
@@ -52,29 +52,34 @@ export class ProfilePage implements OnInit {
   loadContent() {
     const tempLangIds = [];
     const dataToSend = {
-      menu_language_id: localStorage.getItem('MenuLanguage')
+      menu_language_id: localStorage.getItem('MenuLanguage'),
     };
     this.usermgmtService.patchProfile(dataToSend).subscribe(() => {});
-    this.usermgmtService.loadContent().subscribe((dataReturnFromServer: any) => {
-      this.dataFromServer = JSON.stringify(dataReturnFromServer);
+    this.usermgmtService.loadContent()
+        .subscribe((dataReturnFromServer: any) => {
+          this.dataFromServer = JSON.stringify(dataReturnFromServer);
 
-      this.language = dataReturnFromServer.languages;
-      for (let i = 0; i < this.language.length; i++) {
-        this.languageString += dataReturnFromServer.languages[i].native_name + ', ';
-        tempLangIds.push(dataReturnFromServer.languages[i].short);
-      }
-      this.languageIds = tempLangIds;
-      this.menuLanguageShort = JSON.parse(this.dataFromServer).menu_language.short;
-      this.menuLanguageNative = JSON.parse(this.dataFromServer).menu_language.native_name;
-      this.languageString = this.languageString.substr(0, this.languageString.length - 2);
-      this.username = JSON.parse(this.dataFromServer).username;
-      this.birthyear = JSON.parse(this.dataFromServer).birth_year;
-      this.gender = JSON.parse(this.dataFromServer).gender;
-      this.education = JSON.parse(this.dataFromServer).education;
-      this.country = JSON.parse(this.dataFromServer).country;
-      this.accent = JSON.parse(this.dataFromServer).accent;
-      this.getAllLangs();
-   });
+          this.language = dataReturnFromServer.languages;
+          for (let i = 0; i < this.language.length; i++) {
+            this.languageString +=
+              dataReturnFromServer.languages[i].native_name + ', ';
+            tempLangIds.push(dataReturnFromServer.languages[i].short);
+          }
+          this.languageIds = tempLangIds;
+          this.menuLanguageShort =
+            JSON.parse(this.dataFromServer).menu_language.short;
+          this.menuLanguageNative =
+            JSON.parse(this.dataFromServer).menu_language.native_name;
+          this.languageString =
+            this.languageString.substr(0, this.languageString.length - 2);
+          this.username = JSON.parse(this.dataFromServer).username;
+          this.birthyear = JSON.parse(this.dataFromServer).birth_year;
+          this.gender = JSON.parse(this.dataFromServer).gender;
+          this.education = JSON.parse(this.dataFromServer).education;
+          this.country = JSON.parse(this.dataFromServer).country;
+          this.accent = JSON.parse(this.dataFromServer).accent;
+          this.getAllLangs();
+        });
   }
 
   // loads all Languages which can be spoken (has to be created before by admin)
@@ -105,14 +110,18 @@ export class ProfilePage implements OnInit {
         }
       }
     }
-    this.languageString = this.languageString.substr(0, this.languageString.length - 2);
+    this.languageString =
+      this.languageString.substr(0, this.languageString.length - 2);
   }
 
   // saves Profile information
   // dataToSend is the User Information which is sent to the server
   save() {
-    // only save when at least one Language is selected and a Birthyear within the last 100 years
-    if ( this.languageIds.length !== 0 && this.birthyear >= moment().year() - 100 && this.birthyear <= moment().year()) {
+    /* only save when at least one language is selected
+       and a birthyear within the last 100 years */
+    if (this.languageIds.length !== 0 &&
+        this.birthyear >= moment().year() - 100 &&
+        this.birthyear <= moment().year()) {
       // set data to send
       const dataToSend = {
         birth_year: this.birthyear,
@@ -121,12 +130,12 @@ export class ProfilePage implements OnInit {
         gender: this.gender,
         education: this.education,
         menu_language_id: this.menuLanguageShort,
-        accent: this.accent
+        accent: this.accent,
       };
 
       this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
-      this.navCtrl.navigateBack('tabs/settings');
-      this.languageService.setMenuLanguage(this.menuLanguageShort);
+        this.navCtrl.navigateBack('tabs/settings');
+        this.languageService.setMenuLanguage(this.menuLanguageShort);
       });
 
     } else {
@@ -134,8 +143,9 @@ export class ProfilePage implements OnInit {
       const minimumYear = currentYear - 100;
       // call alertMessage Service
       this.alertService.showErrorAlertNoRedirection(
-        'Invalid Input',
-        'You have to set at least one Language and a Birthyear between ' + minimumYear + ' and ' +  currentYear);
+          'Invalid Input',
+          'You have to set at least one language and a birthyear between ' +
+           minimumYear + ' and ' + currentYear);
     }
   }
 }

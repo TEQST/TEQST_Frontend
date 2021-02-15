@@ -1,9 +1,9 @@
-import { RouteStateService } from './../../../../services/route-state.service';
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { TextStateService } from 'src/app/services/text-state.service';
-import { takeUntil, map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import {RouteStateService} from './../../../../services/route-state.service';
+import {ActivatedRoute} from '@angular/router';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {TextStateService} from 'src/app/services/text-state.service';
+import {takeUntil, map} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-text-wrapper',
@@ -28,18 +28,22 @@ export class TextWrapperComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToServices(): void {
-    this.textStateService.getFurthestSentenceIndex().subscribe(index => this.furthestSentence = index);
-    this.textStateService.getActiveSentenceIndex().subscribe(index => this.activeSentence = index);
-    this.textStateService.getSentences().subscribe((sentences) => this.sentences = sentences);
+    this.textStateService.getFurthestSentenceIndex()
+        .subscribe((index) => this.furthestSentence = index);
+    this.textStateService.getActiveSentenceIndex()
+        .subscribe((index) => this.activeSentence = index);
+    this.textStateService.getSentences()
+        .subscribe((sentences) => this.sentences = sentences);
   }
 
   private shareRouteParams(): void {
     this.route.paramMap
         .pipe(
-          map(paramMap => paramMap.get('speaker')),
-          takeUntil(this.destroy)
+            map((paramMap) => paramMap.get('speaker')),
+            takeUntil(this.destroy),
         )
-        .subscribe((speakerParam) => this.routeStateService.updateSpeakerParamState(speakerParam));
+        .subscribe((speakerParam) =>
+          this.routeStateService.updateSpeakerParamState(speakerParam));
   }
 
   // when clicking on a sentence set it to active

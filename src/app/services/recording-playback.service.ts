@@ -3,7 +3,7 @@ import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
-import { Constants } from '../constants';
+import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -109,7 +109,8 @@ export class RecordingPlaybackService {
       responseType: 'blob' as 'json',
     };
     // TODO: Switch to new sentencerecording URL as soon as its active
-    const url = this.SERVER_URL + `/api/sentencerecordings/${recordingId}/${sentenceNumber}/`;
+    const url = this.SERVER_URL +
+      `/api/sentencerecordings/${recordingId}/${sentenceNumber}/`;
     return await this.http.get<Blob>(url, audioHttpOptions).toPromise();
   }
 

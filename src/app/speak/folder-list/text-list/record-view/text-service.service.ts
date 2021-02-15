@@ -1,9 +1,9 @@
-import { SentenceStatus } from './../../../../interfaces/sentence-status';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Constants } from 'src/app/constants';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, ReplaySubject, Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {Constants} from 'src/app/constants';
+import {SentenceStatus} from './../../../../interfaces/sentence-status';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import { Constants } from 'src/app/constants';
 export class TextServiceService {
 
   SERVER_URL = Constants.SERVER_URL;
-  
+
   /* instantiate BehaviorSubjects with 1
      because every text has at least 1 sentence */
   private sentences = new ReplaySubject<string[]>(1);
@@ -43,7 +43,7 @@ export class TextServiceService {
     this.totalSentenceNumber.next(1);
     this.furthestSentenceIndex.next(1);
     this.sentenceHasRecording.next(false);
-    this.recordingId.next(1)
+    this.recordingId.next(1);
     this.textTitle.next('');
     this.isRightToLeft.next(false);
     this.isLoaded.next(false);
@@ -73,8 +73,8 @@ export class TextServiceService {
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingInfo['id']);
     this.sentencesRecordingStatus.next(recordingInfo['sentences_status'].sort((a, b) => {
-      return a.index - b.index //sort the list in ascending order by index
-    }))
+      return a.index - b.index; // sort the list in ascending order by index
+    }));
     this.initActiveSentenceIfReady();
   }
 
@@ -84,18 +84,19 @@ export class TextServiceService {
      set the local recording info to the data from the server */
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
-    const getRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/?text=${this.textId}`;
+    const getRecordingInfoUrl = this.SERVER_URL +
+      `/api/textrecordings/?text=${this.textId}`;
 
     await this.http.get(getRecordingInfoUrl).toPromise()
-      .then((info) => {
-        this.isRecordingExistsChecked = true;
-        if (info === null) {
-          result = false;
-        } else {
-          this.setRecordingInfo(info[0]);
-          result = true;
-        }
-      });
+        .then((info) => {
+          this.isRecordingExistsChecked = true;
+          if (info === null) {
+            result = false;
+          } else {
+            this.setRecordingInfo(info[0]);
+            result = true;
+          }
+        });
     return result;
   }
 
@@ -121,10 +122,10 @@ export class TextServiceService {
        so for the ui we have to set the active sentence
        to the smaller of those two values */
     const firstSentenceIssue = this.sentencesRecordingStatus.getValue().find((sentenceStatus: SentenceStatus) => {
-      return sentenceStatus.status !== "VALID"
-    })
-    
-    const sentenceIndex = firstSentenceIssue ? firstSentenceIssue.index : Math.min(this.nextActiveSentenceIndex, this.totalSentenceNumber.getValue())
+      return sentenceStatus.status !== 'VALID';
+    });
+
+    const sentenceIndex = firstSentenceIssue ? firstSentenceIssue.index : Math.min(this.nextActiveSentenceIndex, this.totalSentenceNumber.getValue());
     this.setActiveSentenceIndex(sentenceIndex);
   }
 
@@ -182,7 +183,7 @@ export class TextServiceService {
   }
 
   setSentencesRecordingStatus(statusList: SentenceStatus[]): void {
-    this.sentencesRecordingStatus.next(statusList)
+    this.sentencesRecordingStatus.next(statusList);
   }
 
   setActiveSentenceIndex(index: number): void {
@@ -224,7 +225,7 @@ export class TextServiceService {
       this.totalSentenceNumber.getValue() + 1) {
 
       this.furthestSentenceIndex.next(
-        this.furthestSentenceIndex.getValue() + 1);
+          this.furthestSentenceIndex.getValue() + 1);
       this.checkRecordingStatus();
     }
   }

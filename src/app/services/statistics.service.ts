@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {FolderStats} from '../interfaces/folder-stats';
 import {AuthenticationService} from './authentication.service';
-import { Constants } from '../constants';
+import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,8 @@ export class StatisticsService {
 
 
   public getSharedFolderStats(sharedFolderId: number): Observable<FolderStats> {
-    const url = this.SERVER_URL + `/api/pub/sharedfolders/${sharedFolderId}/stats/`;
+    const url = this.SERVER_URL +
+      `/api/pub/sharedfolders/${sharedFolderId}/stats/`;
     return this.http.get<FolderStats>(url.toString());
   }
 

@@ -13,7 +13,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content class="fadeInWhenLoaded">
-    <h1 *ngIf="text">{{text.title}}</h1>
+<ion-content>
+  <h1>{{text.title}}</h1>
+  <div #content class="fadeInWhenLoaded">
     <router-outlet></router-outlet>
+  </div>
 </ion-content>

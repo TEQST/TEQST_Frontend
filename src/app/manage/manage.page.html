@@ -39,7 +39,8 @@
   </div>
   <div #textList class="fadeInWhenLoaded">
     <ion-list *ngIf="texts.length > 0" class="fix-padding">
-      <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/manage/text', text.id]">
+      <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/manage/text', text.id]" [state]="{title:
+        text.title}">
         <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}
         <ion-button class="delete" color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
           <ion-icon name="trash"></ion-icon>

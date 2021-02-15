@@ -46,7 +46,7 @@ export class RecordViewPage implements OnInit {
     this.textService.getSentenceHasRecording()
         .subscribe((status) => {
           this.hasRecording = status;
-          //console.log(status)
+          // console.log(status)
         });
     this.textService.getTextTitle()
         .subscribe((title) => this.textTitle = title);

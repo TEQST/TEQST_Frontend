@@ -10,11 +10,11 @@
   <div #publisherList class="fadeInWhenLoaded">
     <ion-list *ngIf="this.publishers != null">
       <ion-item button routerLink="/tabs/speak/public">
-        <ion-icon name="earth"></ion-icon> {{'Public' | translate}}
+        <ion-icon name="earth" class="public"></ion-icon> {{'Public' | translate}}
       </ion-item>
       <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}"
         [state]="{publisherName: pub.username}">
-        <ion-icon name="person"></ion-icon> {{ pub.username }}
+        <ion-icon name="person" class="person"></ion-icon> {{ pub.username }}
       </ion-item>
     </ion-list>
   </div>

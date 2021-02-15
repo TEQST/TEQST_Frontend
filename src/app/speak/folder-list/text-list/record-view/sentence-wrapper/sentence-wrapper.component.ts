@@ -36,7 +36,7 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    if(this.newIndex) {
+    if (this.newIndex) {
       this.scrollToSentence(this.activeSentence);
       this.newIndex = false;
     }
@@ -61,10 +61,10 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
       });
 
     this.textService.getActiveSentenceIndex()
-      .subscribe((index) => {
-        this.activeSentence = index;
-        this.newIndex = true;
-      });
+        .subscribe((index) => {
+          this.activeSentence = index;
+          this.newIndex = true;
+        });
     this.recordingService.getRecordingState()
       .subscribe((state) => this.isRecording = state);
   }

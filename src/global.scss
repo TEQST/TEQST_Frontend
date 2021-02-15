@@ -88,3 +88,21 @@ ion-icon {
 .fadeInWhenLoaded.loaded {
     opacity: 1!important;
 }
+
+/* hotfix for https://github.com/ionic-team/ionic-framework/issues/17397  */
+
+.alert-checkbox-group::-webkit-scrollbar {
+    width: 1em;
+    display: block !important;
+}
+
+.alert-checkbox-group::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+.alert-checkbox-group::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+/* hotfix end */
