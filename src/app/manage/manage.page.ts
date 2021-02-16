@@ -186,23 +186,7 @@ export class ManagePage implements OnInit {
   }
 
   downloadFolder() {
-    this.manageFolderService.downloadFolder(parseInt(this.currentFolder.id, 10))
-        .subscribe((zipData) => {
-          const blob = new Blob([zipData], {
-            type: 'application/zip',
-          });
-          // save file locally
-          saveAs(
-              blob,
-              `${this.currentFolder.name}_${this.currentFolder.id}.zip`);
-        },
-        (error: HttpErrorResponse) => {
-          this.alertManager.showErrorAlertNoRedirection(
-              'No download available',
-              'No Speaker has finished a text of the current folder yet. ' +
-              'Please try again later.');
-        },
-        );
+    this.manageFolderService.downloadFolder(this.currentFolder);
   }
 
   // ### texts ###
