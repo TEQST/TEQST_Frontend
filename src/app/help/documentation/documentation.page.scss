@@ -1,5 +1,25 @@
+
+ion-title {
+  color: #fff;
+  font-weight: bold;
+}
+
+button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+figure {
+  margin: 0;
+
+  figcaption {
+    text-align: center;
+    font-style: italic;
+  }
+}
+
 .inner {
-    padding: 0;    
+  padding: 0;    
 }
 
 .content{
@@ -7,9 +27,8 @@
   margin: auto;
 }
 
-button{
-  background-color: transparent;
-  background-repeat:no-repeat;
+.bold {
+  font-weight: bold;
 }
 
 .adjustFontSize{
@@ -25,24 +44,28 @@ ol {
   counter-reset: item;
   margin: 0;
   padding: 0;
+
+  & > li {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 0.6em;
+  }
+  
+  & > li:before {
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: 0.6em;    
+  }
+  li ol > li {
+    margin: 0;
+
+    &:before {
+      content: counters(item, ".") " ";
+    }
+  }
 }
 
-ol > li {
-  display: table;
-  counter-increment: item;
-  margin-bottom: 0.6em;
-}
 
-ol > li:before {
-  content: counters(item, ".") ". ";
-  display: table-cell;
-  padding-right: 0.6em;    
-}
 
-li ol > li {
-  margin: 0;
-}
 
-li ol > li:before {
-  content: counters(item, ".") " ";
-}
+

@@ -1,7 +1,7 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-title color="primary" class="ion-text-center">
-      <h1>TEQST Documentation</h1>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      TEQST Documentation
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +19,7 @@
         <ol>
           <li>
             <button (click)="scrollToElement(speakerview)" class="adjustFontSize adjustColorDarkmode">
-              Navigate to recording
+              Navigate to text
             </button>
           </li>
           <li>
@@ -29,7 +29,7 @@
           </li>
           <li>
             <button (click)="scrollToElement(speakerviewRec)" class="adjustFontSize adjustColorDarkmode">
-              recording audio data
+              Recording audio data
             </button>
           </li>
         </ol>
@@ -52,12 +52,12 @@
           </li>
           <li>
             <button (click)="scrollToElement(pubviewStatistics)" class="adjustFontSize adjustColorDarkmode">
-              Progess and statistics about speaker
+              Statistics about speakers
             </button>
           </li>
           <li>
             <button (click)="scrollToElement(pubviewDownload)" class="adjustFontSize adjustColorDarkmode">
-              Downloading the selected data
+              Downloading recordings
             </button>
           </li>
         </ol>
@@ -68,22 +68,27 @@
     <div #speakerview></div>
     <h2>1. Speaker view:</h2>
     <h3>1.1 Navigate to recording:</h3>
-
-    <img src="../../assets/img/documentation/Speaker-PubOverview.png" class="inner">
+    <figure>
+      <img src="../../assets/img/documentation/Speaker-PubOverview.png"
+           alt="Image of publisher list">
+      <figcaption><span class="bold">Fig.1</span> Speaker view after Log in</figcaption>
+    </figure>
     <ion-text>
-      <br /> <i>Fig.1 Speaker view after Log in</i>
+      <br /> <i></i>
       <p>
         This page will show up after you logged in the first time (see Fig.1). An overview of all publishers (marked red
-        in Fig.1), who shared a folder with you, is presented.
-        This list is empty, when no folder was shared to your profile! <br />In this example, the publisher jannik, pub1
-        and Publisher1 want me to collect some audio data.
-        To get started, you have to click once into the row of the publishers name.
+        in Fig.1), who shared a folder with you, is presented.<br>
+        This list is empty, when no folder was shared to your profile! <br>In this example, the publisher jannik, pub1
+        and Publisher1 want me to collect some audio data.<br>
+        To get started, click on the publishers name.
       </p>
     </ion-text>
-
-    <img src="../../assets/img/documentation/Speaker-FolderOverview.png" class="inner">
+    <figure>
+      <img src="../../assets/img/documentation/Speaker-FolderOverview.png"
+           alt="Image of folder overview">
+      <figcaption><span class="bold">Fig.2</span> Folders by jannik</figcaption>
+    </figure>
     <ion-text>
-      <br /> <i>Fig.2 Folders by jannik</i>
       <p>
         After selecting a publisher, you can see the folders shared with you. The owner of the folders(jannik) is shown
         at [1] in Fig. 2.
