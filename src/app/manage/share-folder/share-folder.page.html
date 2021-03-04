@@ -44,4 +44,15 @@
       </ion-item>
     </ion-list>
   </div>
+  <!-- Skeleton Text displayed during Loading -->
+  <div *ngIf="isPublicForAll == null">
+    <ion-list *ngFor="let i of [1, 2]">
+      <ion-item *ngFor="let i of [1, 2, 3]">
+        <ion-label>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </ion-label>
+        <ion-skeleton-text class="ion-float-right" animated style="width: 30%"></ion-skeleton-text>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
