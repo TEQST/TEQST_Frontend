@@ -12,17 +12,11 @@ export class DocumentationPage implements OnInit {
   ngOnInit() {
   }
 
-  scrollToElement($element): void {
-    $element.scrollIntoView({
+  scrollToElement(e): void {
+    e.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
       inline: 'nearest',
     });
-  }
-
-  preventMenuCloseIfWideEnough(event) {
-    console.log(event);
-    event.preventDefault();
-    return false;
   }
 }

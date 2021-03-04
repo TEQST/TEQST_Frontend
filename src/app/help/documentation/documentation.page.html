@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">
+    <ion-title>
       TEQST Documentation
     </ion-title>
   </ion-toolbar>
@@ -12,13 +12,9 @@
 
 <ion-split-pane contentId="content-wrapper">
   <!--  the side menu  -->
+
   <ion-menu side="start" menuId="first" contentId="content-wrapper"
     (ionWillClose)="preventMenuCloseIfWideEnough($event)">
-    <ion-header>
-      <ion-toolbar color="medium">
-        <ion-title>Table of contents</ion-title>
-      </ion-toolbar>
-    </ion-header>
     <ion-content color="light">
       <nav>
         <ion-list>

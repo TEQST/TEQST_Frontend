@@ -1,11 +1,13 @@
 
 ion-title {
-  color: #fff;
+  color: var(--ion-color-light);
   font-weight: bold;
+  padding-left: 16px;
 }
 
 ion-split-pane {
   margin-top: 56px;
+  --side-max-width: 400px;
 }
 
 nav {
@@ -44,7 +46,6 @@ article {
 
 .content{
   max-width: 1200px;
-  margin: auto;
 }
 
 .bold {
