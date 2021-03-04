@@ -4,9 +4,21 @@ ion-title {
   font-weight: bold;
 }
 
-button {
+ion-split-pane {
+  margin-top: 56px;
+}
+
+nav {
+  padding: 10px 0;
+}
+
+ion-list {
   background-color: transparent;
-  background-repeat: no-repeat;
+
+  ion-list-header {
+    font-weight: bold;
+    font-size: 1.3em;
+  }
 }
 
 figure {
@@ -20,6 +32,10 @@ figure {
 
 article, section {
   padding-top: 10px;
+}
+
+article {
+  margin: 0 30px;
 }
 
 .inner {

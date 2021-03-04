@@ -19,4 +19,10 @@ export class DocumentationPage implements OnInit {
       inline: 'nearest',
     });
   }
+
+  preventMenuCloseIfWideEnough(event) {
+    console.log(event);
+    event.preventDefault();
+    return false;
+  }
 }
