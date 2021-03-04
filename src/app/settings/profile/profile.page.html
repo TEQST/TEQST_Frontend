@@ -3,6 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/settings"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" id="save" (click)="save()">
+        {{'Save changes' | translate}}
+        <ion-icon name="checkmark-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
@@ -66,9 +72,6 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
-
-    <ion-button id="save" (click)="save()">{{'Save changes' | translate}}</ion-button>
-
 
   </ion-list>
 </ion-content>
