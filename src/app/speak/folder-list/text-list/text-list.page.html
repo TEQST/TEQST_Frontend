@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-select">
   <h1>{{'Texts in' | translate}} {{folderName}}</h1>
   <ion-list #textList class="fadeInWhenLoaded">
     <ion-item button *ngFor="let text of texts" routerLink="/speak/{{publisherId}}/{{folderId}}/{{text.id}}">

@@ -55,17 +55,6 @@ article {
   }
 }
 
-.no-select, ion-menu ion-label {
-  user-select: none;
-}
-
-.no-drag {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-}
-
 .red {
   color: var(--ion-color-danger);
 }
