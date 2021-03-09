@@ -1,6 +1,9 @@
+<!-- disable touble tap to zoom -->
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" id="menu-button-wrapper">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title class="no-select">
@@ -9,11 +12,9 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-split-pane contentId="content-wrapper">
   <!--  the side menu  -->
-  <ion-menu side="start" menuId="first" contentId="content-wrapper"
-    (ionWillClose)="preventMenuCloseIfWideEnough($event)">
+  <ion-menu side="start" menuId="first" contentId="content-wrapper">
     <ion-content color="light">
       <nav>
         <ion-list>
@@ -63,11 +64,10 @@
           </figure>
           <p>
             This page will show up after you logged in the first time (Figure 1).<br>
-            An overview of all <span class="red_circle">publishers</span>, who shared a folder with you, is
-            presented.<br>
-            This list is empty, when no folder was shared to your profile! <br>In this example, the publisher jannik,
-            pub1
-            and Publisher1 want me to collect some audio data.<br>
+            An overview of all <span class="red_circle">publishers</span>,
+            who shared a folder with you, is presented.<br>
+            This list is empty, when no folder was shared to your profile! <br>
+            In this example, the publisher jannik, pub1 and Publisher1 want me to collect some audio data.<br>
             To get started, click on the publishers name.
           </p>
           <figure>
@@ -76,23 +76,21 @@
           </figure>
           <p>
             After selecting a <span class="red_underline">publisher</span>, you can see the folders shared with you.<br>
-            The owner of the folders (jannik) is shown
-            at top (<span class="red">[1]</span> in Figure 2)<br>
+            The owner of the folders (jannik) is shown at top (<span class="red">[1]</span> in Figure 2)<br>
             You can navigate through the folders by clicking them.<br>
-            If you want to go back, click the back arrow <ion-icon name="arrow-back"></ion-icon> (<span
-              class="red">[2]</span> in Figure 2)
+            If you want to go back,
+            click the back arrow <ion-icon name="arrow-back"></ion-icon> (<span class="red">[2]</span> in Figure 2)
           </p>
           <figure>
             <img src="../../assets/img/documentation/Speaker-TextOverview.png" alt="Image of folder overview">
             <figcaption>Figure 3:&nbsp; Texts in folder f6_1 by publisher jannik</figcaption>
           </figure>
           <p>
-            After you have selected a folder you can see the texts within the folder. (<span class="red">[2]</span> in
-            Figure 3)<br>
-            Now you can choose a text, for collecting audio data, by clicking the name of the text. <br>
-            If you open a text the first time you
-            have to give the permission,
-            to use your collected audio data, whether for text-to-speech, speech-recognition or both.<br />
+            After you have selected a folder you can see the texts within the folder.
+            (<span class="red">[2]</span> in Figure 3)<br>
+            Now you can choose a text, for collecting audio data, by clicking the name of the text.<br>
+            If you open a text the first time you have to give the permission,
+            to use your collected audio data, whether for text-to-speech, speech-recognition or both.<br>
             If you are interested in the recording time for this folder, click the alarm clock
             <ion-icon name="alarm" color="primary"></ion-icon> (<span class="red">[1]</span> in Figure 3).
           </p>
@@ -104,11 +102,11 @@
             <figcaption>Figure 4:&nbsp; Time statistics for Folder f6_1</figcaption>
           </figure>
           <p>
-            After clicking the alarm clock <ion-icon name="alarm" color="primary"></ion-icon> on top right at
-            the text overview, the time statistics will pop up.<br>
+            After clicking the alarm clock <ion-icon name="alarm" color="primary"></ion-icon>
+            at the top right in the text overview, the time statistics will pop up.<br>
             Here you can see how much time you have spent with recording.<br>
-            The first duration indicates how much time you have spent with recording and rerecording texts in this
-            folder.<br>
+            The first duration indicates how much time you have spent
+            with recording and rerecording texts in this folder.<br>
             The second duration indicates how much time of correct audio you have produced.<br>
             The time is displayed in <span class="red">hours:minutes:seconds</span>
           </p>
@@ -121,25 +119,22 @@
             </figcaption>
           </figure>
           <p>
-            <span class="red">[1]</span> The <span class="green_bar_right">green
-              bar</span> indicates,
-            that
-            sentences 1-4 are already recorded. For <span style="border-right: 3px solid red; padding-right: 5px">red
-              marked sentences</span> no audio exists.<br>
+            <span class="red">[1]</span> The <span class="green_bar_right">green bar</span> indicates,
+            that sentences 1-4 are already recorded.
+            For <span style="border-right: 3px solid red; padding-right: 5px">red marked sentences</span> no audio
+            exists.<br>
             <span class="red">[2]</span> The currently active sentence is <span class="bold">highlighted</span>.<br>
             <span class="red">[3]</span>&nbsp;<span class="blue_underline">This bar</span> shows the progress of the
-            whole
-            text.<br>
+            whole text.<br>
             <span class="red">[4]</span> Use these buttons
             <ion-icon name="arrow-back" class="arrow-back-icon"></ion-icon>&nbsp;
             <ion-icon name="arrow-forward" class="arrow-forward-icon"></ion-icon>
-            to select another sentence. Only sentences which are already
-            recorded or the
-            currently active can be selected. The selection is as well possible by clicking the sentence.<br>
+            to select another sentence.
+            Only sentences which are already recorded or the currently active can be selected.
+            The selection is as well possible by clicking the sentence.<br>
             <span class="red">[5]</span> The microphone button <ion-icon name="mic" class="mic-icon"></ion-icon>
-            starts the recording for the selected sentence. Speak as
-            clearly as
-            possible.<br>
+            starts the recording for the selected sentence.
+            Speak as clearly as possible.<br>
             <span class="red">[6]</span> Text title.
           </p>
           <figure>
@@ -148,14 +143,15 @@
             </figcaption>
           </figure>
           <p>
-            <br /> The microphone button <ion-icon name="mic" class="mic-icon"></ion-icon> was clicked.<br>
+            The microphone button <ion-icon name="mic" class="mic-icon"></ion-icon> was clicked.<br>
             The recording of sentence 6 (<span class="red">[4]</span> in Figure 6) has started.<br>
             <span class="red">[1]</span> The microphone button <ion-icon name="mic" class="mic-icon">
             </ion-icon> changed to the red blinking square <ion-icon name="square" class="mic-icon-recording">
-            </ion-icon>, which
-            indicates, that you are currently recording.<br>
+            </ion-icon>,
+            which indicates, that you are currently recording.<br>
             After you finished reading out the sentence you can press <span class="red">[1]</span> or <span
-              class="red">[2]</span>. If you press <span class="red">[1]</span> the current
+              class="red">[2]</span>.
+            If you press <span class="red">[1]</span> the current
             recording is saved and then the recording is paused automatically (Figure 5).<br>
             If you press <span class="red">[2]</span> instead your current recording is saved and the recording of the
             next sentence starts
@@ -224,15 +220,14 @@
           <p>
             After you clicked the text-creation button <ion-icon name="reader"></ion-icon> (<span class="red">[1]</span>
             in Figure 9) the upload text pop up is
-            shown. <br />
+            shown.<br>
             <span class="red">[1]</span> Enter here a name for your upload. The speaker will see this name.<br />
             <span class="red">[2]</span> Search your text in your file system and add it here. Consider that only .txt
-            Files are accepted <br />
+            Files are accepted<br>
             <span class="red">[3]</span> Choose the language of your text.<br>
             <span class="red">[4]</span> If you have a long .txt file, you can activate the automatic split in multiple
             texts.<br>
-            <span class="red">[5]</span> You can
-            select how many sentences will be in one splitted text.<br>
+            <span class="red">[5]</span> You can select how many sentences will be in one splitted text.<br>
             <span class="red">[6]</span> Upload your text by clicking on the create text button.
           </p>
           <figure>
