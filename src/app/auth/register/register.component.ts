@@ -29,7 +29,10 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private usernameValidator: UsernameValidator) {
     this.stepOneForm = formBuilder.group({
-      username: ['', Validators.required, usernameValidator.checkUsername.bind(usernameValidator)],
+      username: ['',
+        Validators.required,
+        usernameValidator.checkUsername.bind(usernameValidator),
+      ],
       password: ['', Validators.required],
       birth_year: ['', [Validators.required, AgeValidator.checkAge]],
       language_ids: [[], Validators.required],
@@ -57,21 +60,27 @@ export class RegisterComponent implements OnInit {
   }
 
   performRegister() {
-    // combine the value object from the forms into one
-    const registrationData = {...this.stepOneForm.value, ...this.stepTwoForm.value};
-    // filter out all properties with empty strings so the server accepts the request
+    // combine the value object of the forms into one
+    const registrationData = {
+      ...this.stepOneForm.value,
+      ...this.stepTwoForm.value,
+    };
+    // filter out all properties with empty strings
+    // so the server accepts the request
     for (const value in registrationData) {
       if (registrationData[value] === '') {
         delete registrationData[value];
       }
     }
+    // create a new object only with username and password
     const loginData = (({username, password}) => ({username, password}))(this.stepOneForm.value);
     this.authenticationService.register(registrationData).subscribe(() => {
       this.authenticationService.login(loginData);
     }, (error: any) => {
       this.currentRegisterStep = 1;
       this.alertService.showErrorAlertNoRedirection('Username already exists',
-          'A user with that username already exists, please choose another username');
+          `A user with that username already exists, 
+          please choose another username`);
     });
   }
 
