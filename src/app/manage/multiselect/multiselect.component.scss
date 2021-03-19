@@ -1,0 +1,32 @@
+.textIcon {
+    margin-right: 10px;
+}
+
+.toolbar {
+    // border-top: 1px solid #d9d9d9;
+    --padding-top: 0px;
+    --inner-padding-bottom: 0px;
+}
+.toolbar ion-item {
+    --padding-top: 0px;
+    --inner-padding-bottom: 0px;
+    // animation: expandToolbar 3s linear;
+}
+ion-checkbox {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.animate {
+    overflow: hidden;
+    animation: expandToolbar 2s linear;
+}
+
+@keyframes expandToolbar {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: auto;
+    }
+}

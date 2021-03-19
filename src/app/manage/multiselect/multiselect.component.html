@@ -1,0 +1,29 @@
+ 
+<ion-header class="toolbar">
+  <div>
+    <ion-item #toolbar lines="none">
+      <ion-toolbar >
+        <ion-checkbox slot="start" ></ion-checkbox>
+        <ion-buttons slot="end">
+          <!-- <ion-button >Select All</ion-button> -->
+          <ion-button >
+            <ion-icon color="danger" name="trash" (click)="play()"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-item>
+  </div>
+</ion-header>
+<ion-content>
+  <h1>
+    <span>
+      testfolder
+    </span>
+  </h1>
+  <ion-list *ngIf="texts.length > 0" class="fix-padding" >
+    <ion-item *ngFor="let text of texts">
+      <ion-checkbox #checkboxes slot="start" ></ion-checkbox>
+      <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}
+    </ion-item>
+  </ion-list>
+</ion-content>

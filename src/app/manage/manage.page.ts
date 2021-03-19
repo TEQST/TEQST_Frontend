@@ -32,6 +32,7 @@ export class ManagePage implements OnInit {
   public texts: Text[]
   public isLoading = false;
   public username: string
+  public showMultiSelect = false;
 
   constructor(private manageFolderService: ManageFolderService,
               private router: Router,
@@ -109,6 +110,10 @@ export class ManagePage implements OnInit {
     }
     this.subfolders = subfolders;
     this.folderListElem.nativeElement.classList.add('loaded');
+  }
+
+  toggleMultiSelect() {
+    this.showMultiSelect = !this.showMultiSelect;
   }
 
   async openCreateFolderModal() {

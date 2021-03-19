@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-img *ngIf="currentFolder.name == '/'" src="../../assets/img/logo.png"></ion-img>
     <ion-buttons *ngIf="currentFolder.is_sharedfolder" slot="end">
+      <ion-button color="primary" (click)="toggleMultiSelect()">
+        <ion-icon name="checkbox-outline"></ion-icon>
+      </ion-button>
       <ion-button color="primary" (click)="openShareFolderModal()">
         <ion-icon name="cloudy"></ion-icon>
       </ion-button>
@@ -18,6 +21,8 @@
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
+
+<app-multiselect style="height: 100%;" [texts]="texts" *ngIf="texts.length > 0 && showMultiSelect" ></app-multiselect>
 
 <ion-content>
   <h1>
@@ -37,28 +42,30 @@
       </ion-item>
     </ion-list>
   </div>
-  <div #textList class="fadeInWhenLoaded">
+
+  <div #textList *ngIf="!showMultiSelect">
     <ion-list *ngIf="texts.length > 0" class="fix-padding">
       <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/manage/text', text.id]">
+        <ion-checkbox *ngIf="showMultiSelect"  slot="start" ></ion-checkbox>
         <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}
-        <ion-button class="delete" color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
+        <ion-button *ngIf="!showMultiSelect" class="delete" color="danger" slot="end" (click)="openDeleteTextAlert($event, text)">
           <ion-icon name="trash"></ion-icon>
         </ion-button>
       </ion-item>
     </ion-list>
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+      <ion-fab-button color="primary">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button *ngIf="!currentFolder.is_sharedfolder" (click)="openCreateFolderModal()">
+          <ion-icon name="folder" color="primary"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button *ngIf="currentFolder.id != null && (currentFolder.is_sharedfolder || subfolders.length == 0)"
+          (click)="openCreateTextModal()">
+          <ion-icon name="reader" color="dark"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
   </div>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="primary">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button *ngIf="!currentFolder.is_sharedfolder" (click)="openCreateFolderModal()">
-        <ion-icon name="folder" color="primary"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button *ngIf="currentFolder.id != null && (currentFolder.is_sharedfolder || subfolders.length == 0)"
-        (click)="openCreateTextModal()">
-        <ion-icon name="reader" color="dark"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
 </ion-content>
