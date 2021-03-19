@@ -10,10 +10,6 @@ ion-fab-button {
     height: 60px;
 }
 
-ion-button.delete {
-    height: 25px;
-}
-
 .fix-padding{
     padding-bottom: 80px;
 }
@@ -21,4 +17,58 @@ ion-button.delete {
 ion-checkbox {
     margin-top: 0;
     margin-bottom: 0;
+    margin-right: 9px;
+}
+
+ion-button.delete, #multiSelectToolbar .actions ion-button {
+    height: 25px;
+}
+
+#contentTitleWrapper, #multiSelectToolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+#textList ion-button.delete, #textList ion-checkbox, #multiSelectToolbar .actions {
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s ease opacity, .5s ease transform, 0s .5s linear visibility;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: .5s ease opacity, .5s ease transform;
+    }
+}
+
+#multiSelectToolbar {
+    .actions {
+        overflow: hidden;
+        margin-top: 21px;
+        transform: translateX(-30px);
+        margin-right: 5px;
+    }
+
+    #toggleMultiSelect {
+        --background: transparent;
+        color: var(--ion-color-dark);
+        margin-right: 10px;
+        margin-top: 18px;
+    }
+}
+
+#textList {
+    ion-button.delete, ion-checkbox {
+        position: absolute;
+        right: 17px;
+    }
+
+    ion-button.delete {
+        transform: translateX(30px);
+    }
+
+    ion-checkbox {
+        transform: translateX(-30px);
+    }
 }
