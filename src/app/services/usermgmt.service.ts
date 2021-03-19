@@ -1,3 +1,4 @@
+import {ProfileData} from './../interfaces/profile-data';
 import {User} from './../interfaces/user';
 import {Injectable, Injector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
@@ -56,9 +57,9 @@ export class UsermgmtService {
    }
 
    // gets all the information about the User who is currently logged in
-   loadContent(): Observable<any> {
+   getProfileData(): Observable<ProfileData> {
      const url = this.SERVER_URL + '/api/user/';
-     return this.http.get(url);
+     return this.http.get<ProfileData>(url);
    }
 
    storeUserData(userData: User): void {

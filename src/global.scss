@@ -105,4 +105,20 @@ ion-icon {
     outline: 1px solid slategrey;
 }
 
+.no-select, .no-select * {
+    user-select: none;
+}
+
+.no-select input {
+    user-select: auto!important;
+}
+
+// note: does not work on ion-img because of shadow-root
+.no-drag, .no-drag * {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
+
 /* hotfix end */

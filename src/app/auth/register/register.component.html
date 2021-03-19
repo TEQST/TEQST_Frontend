@@ -54,6 +54,10 @@
   <form [formGroup]="stepTwoForm" (ngSubmit)="performRegister()"
     (keyup.enter)="stepTwoForm.valid ? performRegister() : undefined">
     <ion-item lines="full">
+      <ion-label position="floating">{{'Email' | translate}}: </ion-label>
+      <ion-input formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
       <ion-label position="floating">{{'Country' | translate}}: </ion-label>
       <ion-input formControlName="country"></ion-input>
     </ion-item>

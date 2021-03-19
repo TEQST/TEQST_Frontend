@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="no-select">
   <ion-toolbar>
     <ion-title>{{'Create a new text' | translate}}</ion-title>
     <ion-buttons slot="end">
@@ -8,7 +8,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="no-select">
   <form [formGroup]="createTextForm" (ngSubmit)="createText(createTextForm.value)">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="no-select">
   <ion-toolbar>
     <ion-title>{{'Statistics for' | translate}} {{folderName}}</ion-title>
     <ion-buttons slot="end">
@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-select">
   <div #content class="fadeInWhenLoaded">
     <div *ngIf="folderStats">
       <ion-list>

@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-select">
   <div *ngIf="this.publisherId != null">
     <h1 *ngIf="this.publisherId != 'public'">{{'Folders by' | translate}} {{publisherName}}</h1>
     <h1 *ngIf="this.publisherId == 'public'">{{'Public folders' | translate}}</h1>
