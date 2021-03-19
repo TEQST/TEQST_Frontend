@@ -109,6 +109,10 @@ ion-icon {
     user-select: none;
 }
 
+.no-select input {
+    user-select: auto!important;
+}
+
 // note: does not work on ion-img because of shadow-root
 .no-drag, .no-drag * {
     -webkit-user-drag: none;
