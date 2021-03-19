@@ -72,8 +72,11 @@ export class RegisterComponent implements OnInit {
         delete registrationData[value];
       }
     }
-    // create a new object only with username and password
-    const loginData = (({username, password}) => ({username, password}))(this.stepOneForm.value);
+    // extract username and password into a new object
+    const loginData = (({username, password}) => {
+      return {username, password};
+    })(this.stepOneForm.value);
+
     this.authenticationService.register(registrationData).subscribe(() => {
       this.authenticationService.login(loginData);
     }, (error: any) => {
