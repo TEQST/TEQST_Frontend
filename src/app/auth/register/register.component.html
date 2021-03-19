@@ -82,7 +82,7 @@
         <ion-select-option value="M">{{'Male' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button class="button-submit" type="submit" expand="block">{{'Register' | translate}}
+    <ion-button class="button-submit" type="submit" [disabled]="!stepTwoForm.valid" expand="block">{{'Register' | translate}}
     </ion-button>
   </form>
 </div>
