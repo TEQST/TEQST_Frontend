@@ -1,10 +1,12 @@
+import {Language} from './../../interfaces/language';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
 import {UsermgmtService} from '../../services/usermgmt.service';
-import {NavController} from '@ionic/angular';
+import {NavController, ToastController} from '@ionic/angular';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
-import * as moment from 'moment';
 import {LoaderService} from 'src/app/services/loader.service';
 import {LanguageService} from 'src/app/services/language.service';
+import {AgeValidator} from 'src/app/validators/age';
 
 @Component({
   selector: 'app-profile',
@@ -13,21 +15,11 @@ import {LanguageService} from 'src/app/services/language.service';
 })
 export class ProfilePage implements OnInit {
 
-  private dataFromServer: any = '';
-  // all needed user Info
-  birthyear: number;
-  username = '';
-  language: [object];
-  gender: string;
-  education: string;
-  country = '';
-  allLangs: [];
-  allMenuLangs: string[] = [];
-  languageString = '';
-  languageIds = [];
-  menuLanguageShort = 'en';
-  menuLanguageNative: string;
-  accent = '';
+  public profileForm: FormGroup;
+
+
+  allLangs: Language[] = [];
+  allMenuLangs: Language[] = [];
 
   public isLoading = false;
 
@@ -35,117 +27,69 @@ export class ProfilePage implements OnInit {
   constructor(public usermgmtService: UsermgmtService,
               public languageService: LanguageService,
               public navCtrl: NavController,
-              private alertService: AlertManagerService,
-              private loaderService: LoaderService) {
+              private loaderService: LoaderService,
+              private formBuilder: FormBuilder,
+              private toastController: ToastController) {
+    this.profileForm = formBuilder.group({
+      username: [''],
+      email: ['', Validators.email],
+      birth_year: ['', [Validators.required, AgeValidator.checkAge]],
+      gender: [''],
+      education: [''],
+      country: [''],
+      accent: [''],
+      language_ids: [[]],
+      menu_language_id: [''],
+
+    });
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
   }
-  // tslint:disable: no-string-literal
 
-  // loads everytime Page is loaded their content
+  // loads every time Page is loaded their content
   ngOnInit() {
     this.loadContent();
   }
 
-  // loads content(userInfo) of profile page
-  // fills the variables in this class with the given information
-  loadContent() {
-    const tempLangIds = [];
-    const dataToSend = {
-      menu_language_id: localStorage.getItem('MenuLanguage'),
-    };
-    this.usermgmtService.patchProfile(dataToSend).subscribe(() => {});
-    this.usermgmtService.loadContent()
-        .subscribe((dataReturnFromServer: any) => {
-          this.dataFromServer = JSON.stringify(dataReturnFromServer);
+  private async loadContent(): Promise<void> {
 
-          this.language = dataReturnFromServer.languages;
-          for (let i = 0; i < this.language.length; i++) {
-            this.languageString +=
-              dataReturnFromServer.languages[i].native_name + ', ';
-            tempLangIds.push(dataReturnFromServer.languages[i].short);
-          }
-          this.languageIds = tempLangIds;
-          this.menuLanguageShort =
-            JSON.parse(this.dataFromServer).menu_language.short;
-          this.menuLanguageNative =
-            JSON.parse(this.dataFromServer).menu_language.native_name;
-          this.languageString =
-            this.languageString.substr(0, this.languageString.length - 2);
-          this.username = JSON.parse(this.dataFromServer).username;
-          this.birthyear = JSON.parse(this.dataFromServer).birth_year;
-          this.gender = JSON.parse(this.dataFromServer).gender;
-          this.education = JSON.parse(this.dataFromServer).education;
-          this.country = JSON.parse(this.dataFromServer).country;
-          this.accent = JSON.parse(this.dataFromServer).accent;
-          this.getAllLangs();
-        });
-  }
+    await this.languageService.getAllMenuLanguages().then((menuLanguages)=> {
+      this.allMenuLangs = menuLanguages;
+    });
 
-  // loads all Languages which can be spoken (has to be created before by admin)
-  getAllLangs() {
-    this.languageService.getLangs().subscribe((dataReturnFromServer: any) => {
-      this.allLangs = dataReturnFromServer;
-      for (const singleLanguage of this.allLangs) {
-        if (singleLanguage['is_menu_language'] === true) {
-          this.allMenuLangs.push(singleLanguage);
-        }
-      }
+    await this.languageService.getLangs().toPromise().then((languages) => {
+      this.allLangs = languages;
+    });
+
+
+    this.usermgmtService.getProfileData().subscribe((profileData) => {
+
+      const formData = {
+        ...profileData,
+        menu_language_id: profileData.menu_language.short,
+        language_ids: profileData.languages.map((lang) => lang.short),
+      };
+      this.profileForm.patchValue(formData);
+      console.log(this.profileForm);
     });
   }
-  updateMenuLanguageString() {
-    for (const singleLanguage of this.allMenuLangs) {
-      if ( singleLanguage['short'] === this.menuLanguageShort) {
-        this.menuLanguageNative = singleLanguage['native_name'];
-      }
-    }
-  }
-  updateLanguageString() {
-    this.languageString = '';
-    for (const singleLanguage of this.allLangs) {
-      for (const oneItem of this.languageIds) {
-        if (oneItem === singleLanguage['short']) {
 
-          this.languageString += singleLanguage['native_name'] + ', ';
-        }
-      }
-    }
-    this.languageString =
-      this.languageString.substr(0, this.languageString.length - 2);
+  saveProfileData(): void {
+    this.usermgmtService.updateProfile(this.profileForm.value).subscribe(() => {
+      this.languageService.setMenuLanguage(
+          this.profileForm.value.menu_language_id,
+      );
+      this.presentSavedToast();
+    },
+    );
   }
 
-  // saves Profile information
-  // dataToSend is the User Information which is sent to the server
-  save() {
-    /* only save when at least one language is selected
-       and a birthyear within the last 100 years */
-    if (this.languageIds.length !== 0 &&
-        this.birthyear >= moment().year() - 100 &&
-        this.birthyear <= moment().year()) {
-      // set data to send
-      const dataToSend = {
-        birth_year: this.birthyear,
-        language_ids: this.languageIds,
-        country: this.country,
-        gender: this.gender,
-        education: this.education,
-        menu_language_id: this.menuLanguageShort,
-        accent: this.accent,
-      };
-
-      this.usermgmtService.updateProfile(dataToSend).subscribe(() => {
-        this.navCtrl.navigateBack('tabs/settings');
-        this.languageService.setMenuLanguage(this.menuLanguageShort);
-      });
-
-    } else {
-      const currentYear = moment().year();
-      const minimumYear = currentYear - 100;
-      // call alertMessage Service
-      this.alertService.showErrorAlertNoRedirection(
-          'Invalid Input',
-          'You have to set at least one language and a birthyear between ' +
-           minimumYear + ' and ' + currentYear);
-    }
+  async presentSavedToast(): Promise<void> {
+    const toast = await this.toastController.create({
+      message: 'Your profile has been updated.',
+      duration: 2000,
+    });
+    toast.present();
   }
+
 }
