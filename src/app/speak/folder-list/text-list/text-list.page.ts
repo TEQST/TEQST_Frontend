@@ -1,10 +1,9 @@
 import {TimeStatsComponent} from './time-stats/time-stats.component';
 import {SharedFolder} from './../../../interfaces/shared-folder';
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
-import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {ModalController} from '@ionic/angular';
 
@@ -16,6 +15,8 @@ import {ModalController} from '@ionic/angular';
 
 export class TextListPage implements OnInit {
 
+  @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
+
   public publisherId: string;
   public folderId: string;
   public texts: any;
@@ -24,14 +25,25 @@ export class TextListPage implements OnInit {
   public sharedFolderData: SharedFolder;
 
   constructor(private navService: SpeakTabNavService,
+              private router: Router,
               private route: ActivatedRoute,
-              private alertManager: AlertManagerService,
               private loaderService: LoaderService,
               private modalController: ModalController) {
+
+    const routeParams = this.router.getCurrentNavigation().extras.state;
+    if (typeof routeParams !== 'undefined' && 'folderName' in routeParams) {
+      this.folderName = routeParams.folderName;
+    }
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
     this.publisherId = '';
     this.texts = [];
+    this.navService.sharedFoldersList.subscribe((data) => {
+      this.sharedFolderData = data;
+      this.folderName = data.name;
+      this.texts = data.texts;
+      this.textListElem.nativeElement.classList.add('loaded');
+    });
   }
 
   ngOnInit() {
@@ -40,16 +52,7 @@ export class TextListPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    this.navService.getInfoForSharedfolder(this.folderId)
-        .subscribe(
-            (data) => {
-              this.sharedFolderData = data;
-              this.folderName = data.name;
-              this.texts = data.texts;
-            },
-            (err) => this.alertManager
-                .showErrorAlert(err.status, err.statusText),
-        );
+    this.navService.loadContentsOfSharedFolder(this.folderId);
   }
 
   async presentTimeStats() {

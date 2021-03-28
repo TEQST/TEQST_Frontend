@@ -2,7 +2,7 @@ import {RecordingPlaybackService}
   from './../../../../../services/recording-playback.service';
 import {
   Component, OnInit, ElementRef,
-  QueryList, ViewChildren, AfterViewChecked,
+  QueryList, ViewChildren, AfterViewChecked, ViewChild,
 } from '@angular/core';
 import {TextServiceService} from '../text-service.service';
 import {AudioRecordingService} from '../audio-recording.service';
@@ -17,32 +17,47 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
   public activeSentence: number;
   public isRecording: boolean;
   public furthestSentence: number;
+  private newIndex: boolean = false
 
   constructor(
     private textService: TextServiceService,
     private recordingService: AudioRecordingService,
     private playbackService: RecordingPlaybackService,
   ) {
+  }
+
+  @ViewChild('sentenceWrapper', {read: ElementRef}) sentenceWrapper: ElementRef
+  @ViewChildren('sentenceDomElement') sentenceList: QueryList<ElementRef>;
+
+  ngOnInit() {
     this.subscribeToServices();
   }
 
-  @ViewChildren('sentenceDomElement') sentenceList: QueryList<ElementRef>;
-
-  ngOnInit() {}
-
   ngAfterViewChecked() {
-    this.scrollToSentence(this.activeSentence);
+    if (this.newIndex) {
+      this.scrollToSentence(this.activeSentence);
+      this.newIndex = false;
+    }
   }
 
   /* subscribe to all needed variables from the services
      and update the locale ones on change */
   private subscribeToServices(): void {
+    this.textService.getIsLoaded()
+        .subscribe((isLoaded) => {
+          if (isLoaded) {
+            this.sentenceWrapper.nativeElement.classList.add('loaded');
+          }
+        });
     this.textService.getFurthestSentenceIndex()
         .subscribe((index) => this.furthestSentence = index);
     this.textService.getSentences()
         .subscribe((sentences) => this.sentences = sentences);
     this.textService.getActiveSentenceIndex()
-        .subscribe((index) => this.activeSentence = index);
+        .subscribe((index) => {
+          this.activeSentence = index;
+          this.newIndex = true;
+        });
     this.recordingService.getRecordingState()
         .subscribe((state) => this.isRecording = state);
   }
@@ -61,7 +76,9 @@ export class SentenceWrapperComponent implements OnInit, AfterViewChecked {
     if (sentenceRef === undefined) {
       return;
     }
+    sentenceRef.nativeElement.scrollIntoView();
+    /*
     sentenceRef.nativeElement.parentNode.parentNode.scrollTop =
-      sentenceRef.nativeElement.offsetTop;
+      sentenceRef.nativeElement.offsetTop;*/
   }
 }

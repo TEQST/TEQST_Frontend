@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { ProfilePageRoutingModule } from './profile-routing.module';
+import {ProfilePageRoutingModule} from './profile-routing.module';
 
-import { ProfilePage } from './profile.page';
+import {ProfilePage} from './profile.page';
 
 
 @NgModule({
@@ -17,8 +17,9 @@ import { ProfilePage } from './profile.page';
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    ReactiveFormsModule,
   ],
-  declarations: [ProfilePage, ]
+  declarations: [ProfilePage],
 })
 export class ProfilePageModule {}

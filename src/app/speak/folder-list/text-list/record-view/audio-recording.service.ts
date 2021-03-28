@@ -10,8 +10,8 @@ import {Observable, Subject, BehaviorSubject} from 'rxjs';
 
 import * as RecordRTC from 'recordrtc';
 import {TextServiceService} from './text-service.service';
-import {Constants} from 'src/app/constants';
 import {AuthenticationService} from 'src/app/services/authentication.service';
+import {ToastController} from '@ionic/angular';
 
 
 @Injectable({
@@ -20,7 +20,6 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 
 export class AudioRecordingService {
 
-  SERVER_URL = Constants.SERVER_URL;
 
   private stream: MediaStream;
   private recorder;
@@ -36,12 +35,15 @@ export class AudioRecordingService {
   private furthestSentence: number;
   private sentenceHasRecording: boolean;
 
+  private recordingTimeoutLength: number = 180000; // 3 min = 3*60*1000=180000
+  private recordingTimeout;
 
   constructor(private textService: TextServiceService,
               public authenticationService: AuthenticationService,
               private alertService: AlertManagerService,
               private recordingUploadService: RecordingUploadService,
-              private playbackService: RecordingPlaybackService) {
+              private playbackService: RecordingPlaybackService,
+              public toastController: ToastController) {
     this.subscribeToServices();
   }
 
@@ -74,43 +76,53 @@ export class AudioRecordingService {
     return this.isRecording$.asObservable();
   }
 
-  startRecording(): void {
-    if (this.recorder) {
-      // Recording is already running
-      return;
-    } else if (this.isPlaying === true) {
-      this.playbackService.stopAudioPlayback();
+  isMediaStreamActive(): boolean {
+    if (!this.stream) {
+      return false;
+    } else if (!this.stream.active) {
+      return false;
     }
-
-    // get user permission for microphone access
+    return true;
+  }
+  // TODO async
+  requestUserAudio(): void {
+    if (this.isMediaStreamActive()) {
+      return;
+    }
     navigator.mediaDevices.getUserMedia({audio: true}).then((s) => {
       this.stream = s;
-      this.record();
     }).catch((error) => {
       this.alertService.showErrorAlertNoRedirection(
           'No microphone access',
           'Please allow access to your microphone '+
-          'to be able to start a recording');
+          'to be able to start a recording.');
       this.isRecording$.next(false);
     });
-
   }
 
-  // start the actual recording
-  private record(): void {
+  startRecording(): void {
+    if (this.recorder) {
+      return; // Recording is already running
+    } else if (this.isPlaying === true) {
+      this.playbackService.stopAudioPlayback();
+    }
+    // Get mediaStream in case user declined it on page load
+    this.requestUserAudio();
+    if (this.isMediaStreamActive) {
 
-    // set the quality properties of the recorder
-    this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
-      type: 'audio',
-      mimeType: 'audio/wav',
-      audioBitsPerSecond: 16000,
-      desiredSampRate: 16000,
-      numberOfAudioChannels: 1, // set mono recording
+      // set the quality properties of the recorder
+      this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
+        type: 'audio',
+        mimeType: 'audio/wav',
+        audioBitsPerSecond: 16000,
+        desiredSampRate: 16000,
+        numberOfAudioChannels: 1, // set mono recording
 
-    });
-    this.recorder.record();
-    this.isRecording$.next(true);
-
+      });
+      this.recorder.record();
+      this.startRecordingTimeout();
+      this.isRecording$.next(true);
+    }
   }
 
   private saveRecording(index: number, blob: Blob): void {
@@ -129,65 +141,94 @@ export class AudioRecordingService {
   stopRecording(): void {
     // check if recording is active if not do nothing
     if (this.recorder) {
+      this.stopRecordingTimeout();
       this.recorder.stop((blob: Blob) => {
         this.saveRecording(this.activeSentence, blob);
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
         }
-        this.stopMedia();
       }, () => {
-        this.stopMedia();
         this.recordingFailed$.next();
       });
+      this.resetRecorder();
     }
 
+  }
+
+  resetRecorder(): void {
+    this.isRecording$.next(false);
+    this.recorder = null;
   }
 
   // save the current recording and start the next one
   nextRecording(): void {
     if (this.recorder) {
+      this.stopRecordingTimeout();
       this.recorder.stop((blob: Blob) => {
         this.saveRecording(this.activeSentence, blob);
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
         }
-        /* if the next sentence hasn't been recorded before start
-           next recording otherwise just skip to next sentence */
         if (this.activeSentence >= this.furthestSentence - 1) {
-          this.record();
+          this.resetRecorder();
+          this.startRecording();
           this.textService.setNextSentenceActive();
         } else {
-          this.stopMedia();
+          this.resetRecorder();
           this.textService.setNextSentenceActive();
         }
       }, () => {
-        this.stopMedia();
+        this.resetRecorder();
         this.recordingFailed$.next();
       });
     }
   }
 
-  // stop the recorder and free all open audio streams
-  private stopMedia(): void {
-    this.isRecording$.next(false);
-    if (this.recorder) {
-      this.recorder = null;
-      if (this.stream) {
-        this.stream.getAudioTracks().forEach((track) => track.stop());
-        this.stream = null;
-      }
+  stopMediaStream(): void {
+    this.stopRecordingTimeout();
+    if (this.stream) {
+      this.stream.getAudioTracks().forEach((track) => track.stop());
+      this.stream = null;
     }
+    this.resetRecorder();
   }
 
   // cancel current recording without saving
   abortRecording(): void {
-    this.stopMedia();
+    this.stopRecordingTimeout();
+    this.resetRecorder();
   }
 
   // abort the current recording and start a new one
   restartRecording(): void {
+    this.stopRecordingTimeout();
     this.recorder.stop();
     this.recorder.record();
+    this.startRecordingTimeout();
+  }
+
+  startRecordingTimeout() {
+    this.recordingTimeout = setTimeout(() => {
+      this.showRecordingTooLongToast();
+    }, this.recordingTimeoutLength);
+  }
+
+  stopRecordingTimeout() {
+    clearTimeout(this.recordingTimeout);
+  }
+
+  async showRecordingTooLongToast() {
+    const toast = await this.toastController.create({
+      message:
+       '<ion-icon name="hourglass-outline"></ion-icon><br>'+
+       'Your recording seems to be very long.\n'+
+       'Make sure to always click "->" to go to the next sentence.',
+      duration: 10000,
+      color: 'danger',
+      position: 'top',
+      cssClass: 'ion-text-center',
+    });
+    toast.present();
   }
 
 }

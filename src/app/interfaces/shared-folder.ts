@@ -14,5 +14,3 @@ interface SharedFolderText {
     id: number;
     title: string;
 }
-
-

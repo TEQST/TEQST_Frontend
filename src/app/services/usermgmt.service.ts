@@ -1,12 +1,13 @@
+import {ProfileData} from './../interfaces/profile-data';
 import {User} from './../interfaces/user';
 import {Injectable, Injector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
-import {Constants} from '../constants';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AlertManagerService} from './alert-manager.service';
 import {RollbarService} from '../rollbar';
 import {LanguageService} from './language.service';
+import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -16,19 +17,24 @@ import {LanguageService} from './language.service';
 export class UsermgmtService {
 
   SERVER_URL = Constants.SERVER_URL;
+
    private httpOptions;
    public isPublisher = new BehaviorSubject<boolean>(undefined);
    // tslint:disable: no-string-literal
 
-   constructor(
-    public http: HttpClient,
-    public navCtrl: NavController,
-    private alertService: AlertManagerService,
-    public languageService: LanguageService,
-    private injector: Injector) {}
+   constructor(public http: HttpClient,
+               public navCtrl: NavController,
+               private alertService: AlertManagerService,
+               public languageService: LanguageService,
+               private injector: Injector) {}
 
+   // check if username is available
+   checkUsername(username: string) {
+     const url = this.SERVER_URL + '/api/users/checkname/?username=' + username;
+     return this.http.get(url);
+   }
 
-   // notifys the Server about profile changes
+   // notifies the Server about profile changes
    updateProfile(dataToSend) {
      const url = this.SERVER_URL + '/api/user/';
      return this.http.put(url, dataToSend);
@@ -51,9 +57,9 @@ export class UsermgmtService {
    }
 
    // gets all the information about the User who is currently logged in
-   loadContent(): Observable<any> {
+   getProfileData(): Observable<ProfileData> {
      const url = this.SERVER_URL + '/api/user/';
-     return this.http.get(url);
+     return this.http.get<ProfileData>(url);
    }
 
    storeUserData(userData: User): void {

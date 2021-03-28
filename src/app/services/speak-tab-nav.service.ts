@@ -1,8 +1,10 @@
 import {SharedFolder} from './../interfaces/shared-folder';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Constants} from '../constants';
 import {AuthenticationService} from './authentication.service';
+import {Constants} from '../constants';
+import {Subject} from 'rxjs';
+import {AlertManagerService} from './alert-manager.service';
 
 
 @Injectable({
@@ -11,30 +13,39 @@ import {AuthenticationService} from './authentication.service';
 
 export class SpeakTabNavService {
 
-  constructor(
+SERVER_URL = Constants.SERVER_URL;
+public sharedFoldersList = new Subject<any>()
+
+constructor(
     private http: HttpClient,
-    public authenticationService: AuthenticationService) { }
+    public authenticationService: AuthenticationService,
+    private alertService: AlertManagerService) { }
 
-  SERVER_URL = Constants.SERVER_URL;
+getPublisherList() {
+  const url = this.SERVER_URL + '/api/publishers/';
+  return this.http.get(url);
+}
 
-  getPublisherList() {
-    const urlStr = this.SERVER_URL + '/api/publishers/';
-    const url = new URL(urlStr);
+getInfoForPublisher(publisherId: string) {
+  const url = this.SERVER_URL + `/api/publishers/${publisherId}/`;
+  return this.http.get(url);
+}
 
-    return this.http.get(url.toString());
-  }
+getPublicFolders() {
+  const url = this.SERVER_URL + '/api/spk/publicfolders/';
+  return this.http.get(url);
+}
 
-  getInfoForPublisher(publisherId: string) {
-    const url = new URL(
-        this.SERVER_URL + '/api/publishers/' + publisherId + '/');
+loadContentsOfSharedFolder(folderId: string) {
+  const url = this.SERVER_URL + `/api/spk/sharedfolders/${folderId}/`;
 
-    return this.http.get(url.toString());
-  }
+  return this.http.get<SharedFolder>(url).subscribe(
+      (data) => {
+        this.sharedFoldersList.next(data);
+      },
+      (err) => this.alertService
+          .showErrorAlert(err.status, err.statusText),
+  );
+}
 
-  getInfoForSharedfolder(folderId: string) {
-    const url = new URL(
-        this.SERVER_URL + '/api/spk/sharedfolders/' + folderId + '/');
-
-    return this.http.get<SharedFolder>(url.toString());
-  }
 }

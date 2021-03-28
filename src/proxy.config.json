@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://beta-dot-datacollector-speech.uc.r.appspot.com",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

@@ -15,6 +15,7 @@ export class MenuLanguageSelectorComponent implements OnInit {
 
   constructor(public navParams: NavParams,
               private languageService: LanguageService) {
+
     this.menuLanguages = navParams.get('menuLanguages');
     this.language = this.languageService.getMenuLanguage();
   }

@@ -1,7 +1,11 @@
-ion-icon {
+ion-list ion-icon {
     margin-right: 10px;
 }
 
-#logout-btn ion-icon {
-    margin-left: 10px;
+#logout-btn {
+    text-transform: capitalize;
+
+    ion-icon {
+        margin-left: 5px;
+    }
 }

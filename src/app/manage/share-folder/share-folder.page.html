@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="no-select">
   <ion-toolbar>
     <ion-title>{{'Select Speaker for' | translate}} {{folderName}}</ion-title>
     <ion-buttons slot="end">
@@ -13,27 +13,46 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-list-header>
-      <ion-label>{{'Added Speaker' | translate}}</ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let speaker of filteredSpeakers">
-      <ion-label>{{speaker.username}}</ion-label>
-      <ion-button color="danger" slot="end" (click)="removeSpeaker(speaker)">
-        <ion-icon name="remove"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-list-header>
-      <ion-label>{{'All Users' | translate}}</ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let user of filteredUsers">
-      <ion-label>{{user.username}}</ion-label>
-      <ion-button color="success" slot="end" (click)="addSpeaker(user)">
-        <ion-icon name="add"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+<ion-content class="no-select">
+  <div *ngIf="isPublicForAll != null">
+    <ion-list>
+      <ion-item>
+        <ion-label>{{'Public for everyone' | translate}}</ion-label>
+        <ion-toggle (ionChange)="handleFolderPublicityToggle($event)" [checked]="isPublicForAll"></ion-toggle>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>{{'Added Speaker' | translate}}</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let speaker of filteredSpeakers">
+        <ion-label>{{speaker.username}}</ion-label>
+        <ion-button color="danger" slot="end" (click)="removeSpeaker(speaker)">
+          <ion-icon name="remove"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>{{'All Users' | translate}}</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let user of filteredUsers">
+        <ion-label>{{user.username}}</ion-label>
+        <ion-button color="success" slot="end" (click)="addSpeaker(user)">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+  <!-- Skeleton Text displayed during Loading -->
+  <div *ngIf="isPublicForAll == null">
+    <ion-list *ngFor="let i of [1, 2]">
+      <ion-item *ngFor="let i of [1, 2, 3]">
+        <ion-label>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </ion-label>
+        <ion-skeleton-text class="ion-float-right" animated style="width: 30%"></ion-skeleton-text>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

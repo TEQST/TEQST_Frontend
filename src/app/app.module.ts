@@ -1,3 +1,7 @@
+import {
+  LoaderInterceptorService,
+} from './interceptors/loader-interceptor.service';
+import {UsernameValidator} from './validators/username';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
@@ -18,7 +22,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {ServerErrorInterceptorService}
   from './interceptors/server-error-interceptor.service';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {LoaderInterceptor} from './interceptors/loader.interceptor';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {ServerAuthtokenInterceptorService}
@@ -51,6 +54,7 @@ import {ServerAuthtokenInterceptorService}
   providers: [
     StatusBar,
     SplashScreen,
+    UsernameValidator,
     {
       provide: RollbarService,
       useFactory: rollbarFactory,
@@ -63,7 +67,7 @@ import {ServerAuthtokenInterceptorService}
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: LoaderInterceptor,
+      useClass: LoaderInterceptorService,
       multi: true,
     },
     {

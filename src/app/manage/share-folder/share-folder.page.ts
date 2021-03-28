@@ -26,6 +26,7 @@ export class ShareFolderPage implements OnInit {
   @Input() folderId: number;
   @Input() folderName: string
 
+  public isPublicForAll: boolean
   private speakers: User[];
   public filteredSpeakers: User[];
   private allUsers: User[];
@@ -60,8 +61,23 @@ export class ShareFolderPage implements OnInit {
         .then((sharedFolder) => {
           this.speakers = sharedFolder['speakers'];
           this.filteredSpeakers = sharedFolder['speakers'];
+          this.isPublicForAll = sharedFolder['public'];
         });
     this.filterLists();
+  }
+
+  handleFolderPublicityToggle(event) {
+    this.setFolderPublicity(event.target.checked);
+  }
+
+  async setFolderPublicity(public_for_all) {
+    this.isPublicForAll = public_for_all;
+    const speakers = this.speakers.map((speaker) => speaker.id);
+    await this.folderService.setSpeakers(
+        this.folderId,
+        speakers,
+        this.isPublicForAll)
+        .toPromise();
   }
 
   // update the search term on text input
@@ -92,7 +108,10 @@ export class ShareFolderPage implements OnInit {
     // create a new array with just the speaker ids
     const newSpeakers = this.speakers.map((speaker) => speaker.id);
     newSpeakers.push(user.id);
-    await this.folderService.setSpeakers(this.folderId, newSpeakers)
+    await this.folderService.setSpeakers(
+        this.folderId,
+        newSpeakers,
+        this.isPublicForAll)
         .toPromise()
         .then((sharedfolder) => this.speakers = sharedfolder['speakers']);
     this.filterLists();
@@ -103,7 +122,10 @@ export class ShareFolderPage implements OnInit {
     // remove the speaker from the array
     const newSpeakerIds = oldSpeakerIds.filter(
         (speakerid) => speakerid != speaker.id);
-    await this.folderService.setSpeakers(this.folderId, newSpeakerIds)
+    await this.folderService.setSpeakers(
+        this.folderId,
+        newSpeakerIds,
+        this.isPublicForAll)
         .toPromise()
         .then((sharedfolder) => this.speakers = sharedfolder['speakers']);
     this.filterLists();

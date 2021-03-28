@@ -1,7 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { SpeakerSelectPopoverComponent } from './speaker-select-popover.component';
+import {
+  SpeakerSelectPopoverComponent,
+} from './speaker-select-popover.component';
 
 describe('SpeakerSelectPopoverComponent', () => {
   let component: SpeakerSelectPopoverComponent;
@@ -9,8 +11,8 @@ describe('SpeakerSelectPopoverComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpeakerSelectPopoverComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SpeakerSelectPopoverComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SpeakerSelectPopoverComponent);

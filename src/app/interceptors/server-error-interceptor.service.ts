@@ -1,7 +1,10 @@
 import {Injectable, Injector} from '@angular/core';
 import {
-  HttpInterceptor, HttpRequest,
-  HttpHandler, HttpEvent, HttpErrorResponse,
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry, tap} from 'rxjs/operators';

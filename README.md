@@ -1,4 +1,5 @@
 # TEQST_Frontend
+### This repository contains the frontend code of [TEQST](https://github.com/TEQST/TEQST)
 ## Setup
 ### Install the Ionic Framework and Angular
 npm install -g @ionic/cli\

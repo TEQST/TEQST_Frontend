@@ -5,11 +5,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-select">
   <h1>{{'Select a publisher' | translate}}</h1>
-  <ion-list>
-    <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}">
-      <ion-icon name="person" class="personIcon"></ion-icon> {{ pub.username }}
-    </ion-item>
-  </ion-list>
+  <div #publisherList class="fadeInWhenLoaded">
+    <ion-list *ngIf="this.publishers != null">
+      <ion-item button routerLink="/tabs/speak/public">
+        <ion-icon name="earth" class="public"></ion-icon> {{'Public' | translate}}
+      </ion-item>
+      <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}"
+        [state]="{publisherName: pub.username}">
+        <ion-icon name="person" class="person"></ion-icon> {{ pub.username }}
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

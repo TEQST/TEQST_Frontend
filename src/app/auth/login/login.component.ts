@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Constants } from 'src/app/constants';
-import { NavController } from '@ionic/angular';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import {Component, OnInit} from '@angular/core';
+import {NavController} from '@ionic/angular';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +9,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  SERVER_URL = Constants.SERVER_URL;
   public showPassword = false;
 
   constructor(
