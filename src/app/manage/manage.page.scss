@@ -63,12 +63,4 @@ ion-button.delete, #multiSelectToolbar .actions ion-button {
         position: absolute;
         right: 17px;
     }
-
-    ion-button.delete {
-        transform: translateX(30px);
-    }
-
-    ion-checkbox {
-        transform: translateX(-30px);
-    }
 }
