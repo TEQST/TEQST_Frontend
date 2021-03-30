@@ -48,10 +48,16 @@ ion-checkbox.selectCheckbox {
 
 #multiSelectToolbar {
     .actions {
+        position: absolute;
         overflow: hidden;
+        width: 140px;
+        right: 60px;
         margin-top: 21px;
-        transform: scale(0.9);
         margin-right: 5px;
+        padding-left: 20px;
+        transform: scale(0.9);
+        background-color: var(--ion-background-color);
+        border-radius: 20px;
     }
 
     #toggleMultiSelect {
