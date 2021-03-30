@@ -3,7 +3,7 @@ import {
 } from './interceptors/loader-interceptor.service';
 import {UsernameValidator} from './validators/username';
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, HammerModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS}
   from '@angular/common/http';
@@ -41,6 +41,7 @@ import {ServerAuthtokenInterceptorService}
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    HammerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
