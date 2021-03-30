@@ -113,7 +113,42 @@ export class ManagePage implements OnInit {
   }
 
   toggleMultiSelect() {
+    if (this.showMultiSelect)
+      this.uncheckAllItems();
     this.showMultiSelect = !this.showMultiSelect;
+  }
+
+  toggleSelectItem(e) {
+    if (e.target.nodeName == 'ION-CHECKBOX')
+      return;
+    const item = e.target.querySelector('.selectCheckbox');
+    item.checked = !item.checked;
+  }
+
+  uncheckAllItems() {
+    this.setAllItemsCheckedState(false)
+  }
+
+  checkAllItems() {
+    this.setAllItemsCheckedState(true)
+  }
+
+  toggleAllItemsCheckedState() {
+    const container = this.currentFolder.is_sharedfolder ? this.textListElem : this.folderListElem;
+    for (const checkbox of container.nativeElement.querySelectorAll('.selectCheckbox')) {
+      if (!checkbox.checked) {
+        this.checkAllItems();
+        return;
+      }
+    }
+    this.uncheckAllItems();
+  }
+
+  setAllItemsCheckedState(checked) {
+    const container = this.currentFolder.is_sharedfolder ? this.textListElem : this.folderListElem;
+    for (const checkbox of container.nativeElement.querySelectorAll('.selectCheckbox')) {
+      checkbox.checked = checked;
+    }
   }
 
   async openCreateFolderModal() {

@@ -29,7 +29,10 @@ ion-button.delete, #multiSelectToolbar .actions ion-button {
     justify-content: space-between;
 }
 
-#textList ion-button.delete, #textList ion-checkbox, #multiSelectToolbar .actions {
+#multiSelectToolbar .actions,
+#folderList ion-button.delete,
+#textList ion-button.delete,
+ion-checkbox.selectCheckbox {
     opacity: 0;
     visibility: hidden;
     transition: .5s ease opacity, .5s ease transform, 0s .5s linear visibility;
@@ -58,8 +61,8 @@ ion-button.delete, #multiSelectToolbar .actions ion-button {
     }
 }
 
-#textList {
-    ion-button.delete, ion-checkbox {
+#folderList, #textList {
+    ion-button.delete, ion-checkbox.selectCheckbox {
         position: absolute;
         right: 17px;
     }
