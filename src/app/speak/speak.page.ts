@@ -27,6 +27,9 @@ export class SpeakPage implements OnInit {
   ngOnInit() { }
 
   async ionViewWillEnter() {
+    this.publishers = [];
+    this.publisherListElem.nativeElement.classList.remove('loaded');
+
     this.navService.getPublisherList()
         .subscribe(
             (data) => {

@@ -41,6 +41,9 @@ export class FolderListPage implements OnInit {
   }
 
   async ionViewWillEnter() {
+    this.folders = [];
+    this.folderListElem.nativeElement.classList.remove('loaded');
+
     if (this.publisherId == 'public') {
       this.navService.getPublicFolders()
           .subscribe(

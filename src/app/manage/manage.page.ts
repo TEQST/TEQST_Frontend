@@ -54,6 +54,11 @@ export class ManagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
+    this.subfolders = [];
+    this.texts = [];
+    this.folderListElem.nativeElement.classList.remove('loaded');
+    this.textListElem.nativeElement.classList.remove('loaded');
+
     // retrieve folder id from url
     const folderId = this.route.snapshot.paramMap.get('folderId');
     if (folderId == null) {

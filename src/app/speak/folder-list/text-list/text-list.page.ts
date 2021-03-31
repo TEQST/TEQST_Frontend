@@ -44,6 +44,11 @@ export class TextListPage implements OnInit {
       this.texts = data.texts;
       this.textListElem.nativeElement.classList.add('loaded');
     });
+    // clear contents when data is being refreshed
+    this.navService.requestMade.subscribe(_ => {
+      this.texts = [];
+      this.textListElem.nativeElement.classList.remove('loaded');
+    })
   }
 
   ngOnInit() {
