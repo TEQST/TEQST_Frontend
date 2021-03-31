@@ -26,6 +26,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {ServerAuthtokenInterceptorService}
   from './interceptors/server-authtoken-interceptor.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
@@ -42,6 +43,8 @@ import {ServerAuthtokenInterceptorService}
     AppRoutingModule,
     HttpClientModule,
     HammerModule,
+    FormsModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
