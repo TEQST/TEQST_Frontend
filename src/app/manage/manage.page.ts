@@ -1,10 +1,10 @@
-import {LoaderService} from './../services/loader.service';
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ManageFolderService} from 'src/app/services/manage-folder.service';
-import {Folder} from './manage.folder';
-import {Text} from './manage.text';
-import {AlertManagerService} from '../services/alert-manager.service';
+import { LoaderService } from './../services/loader.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ManageFolderService } from 'src/app/services/manage-folder.service';
+import { Folder } from './manage.folder';
+import { Text } from './manage.text';
+import { AlertManagerService } from '../services/alert-manager.service';
 import { ManageFolderUIService } from './manage-folder-ui.service';
 import { ManageTextUIService } from './manage-text-ui.service';
 
@@ -17,8 +17,9 @@ import { ManageTextUIService } from './manage-text-ui.service';
 
 export class ManagePage implements OnInit {
 
-  @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
-  @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
+  @ViewChild('textList', { read: ElementRef }) textListElem: ElementRef
+  @ViewChild('folderList', { read: ElementRef }) folderListElem: ElementRef
+  @ViewChild('sharedFolderActions', { read: ElementRef }) sharedFolderActions: ElementRef
 
   public currentFolder: Folder
   public subfolders: Folder[]
@@ -27,31 +28,32 @@ export class ManagePage implements OnInit {
   public username: string
 
   constructor(private manageFolderService: ManageFolderService,
-              private manageFolderUIService: ManageFolderUIService,
-              private manageTextUIService: ManageTextUIService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private alertManager: AlertManagerService,
-              private loaderService: LoaderService) {
+    private manageFolderUIService: ManageFolderUIService,
+    private manageTextUIService: ManageTextUIService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private alertManager: AlertManagerService,
+    private loaderService: LoaderService) {
 
     Folder.setServiceProvider(manageFolderService);
     Text.setServiceProvider(manageFolderService);
 
     this.username = localStorage.getItem('username');
-    this.currentFolder = new Folder(null, '', false);
 
     const routeParams = this.router.getCurrentNavigation().extras.state;
-    if (typeof routeParams !== 'undefined' && 'folderName' in routeParams) {
-      this.currentFolder.name = routeParams.folderName;
+    if (typeof routeParams !== 'undefined' && 'folder' in routeParams) {
+      this.currentFolder = routeParams.folder;
+    }else {
+      this.currentFolder = new Folder(null, '', false);
     }
 
     this.subfolders = [];
     this.texts = [];
     this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
+      .subscribe((isLoading) => this.isLoading = isLoading);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async ionViewWillEnter() {
     this.subfolders = [];
@@ -72,33 +74,33 @@ export class ManagePage implements OnInit {
 
   async getFolderInfo() {
     this.currentFolder.getSubfolderList()
-        .subscribe(
-            (data) => {
-              if (Array.isArray(data)) {
-                /* on the topmost filesystem level
-                   only an array of folders exist */
-                this.subfolders = this.manageFolderUIService.initSubfolderList(data);
-                this.folderListElem.nativeElement.classList.add('loaded');
-              } else {
-                // get information about the current folder
-                this.currentFolder.name = data['name'];
-                this.currentFolder.is_sharedfolder = data['is_sharedfolder'];
-                const subfolderInfo = data['subfolder'];
+      .subscribe(
+        async (data) => {
+          if (Array.isArray(data)) {
+            /* on the topmost filesystem level
+               only an array of folders exist */
+            this.subfolders = this.manageFolderUIService.initSubfolderList(data);
+            this.folderListElem.nativeElement.classList.add('loaded');
+          } else {
+            // get information about the current folder
+            this.currentFolder.name = data['name'];
+            this.currentFolder.is_sharedfolder = data['is_sharedfolder'];
+            const subfolderInfo = data['subfolder'];
 
-                if (this.currentFolder.is_sharedfolder) {
-                  this.manageTextUIService.initTextList(this.currentFolder, (texts) => {
-                    this.texts = texts;
-                    this.textListElem.nativeElement.classList.add('loaded');
-                  });
-                } else {
-                  this.subfolders = this.manageFolderUIService.initSubfolderList(subfolderInfo);
-                  this.folderListElem.nativeElement.classList.add('loaded');
-                }
-              }
-            },
-            (err) => this.alertManager.showErrorAlert(
-                err.status, err.statusText, '/manage'),
-        );
+            if (this.currentFolder.is_sharedfolder) {
+                await this.manageTextUIService.initTextList(this.currentFolder, (texts) => {
+                this.texts = texts;
+                this.textListElem.nativeElement.classList.add('loaded');
+              });
+            } else {
+              this.subfolders = this.manageFolderUIService.initSubfolderList(subfolderInfo);
+              this.folderListElem.nativeElement.classList.add('loaded');
+            }
+          }
+        },
+        (err) => this.alertManager.showErrorAlert(
+          err.status, err.statusText, '/manage'),
+      );
   }
 
   openCreateFolderModal() {
