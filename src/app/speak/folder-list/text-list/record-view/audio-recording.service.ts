@@ -12,6 +12,7 @@ import * as RecordRTC from 'recordrtc';
 import {TextServiceService} from './text-service.service';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {ToastController} from '@ionic/angular';
+import { OpusService } from 'src/app/services/opus.service';
 
 
 @Injectable({
@@ -43,7 +44,8 @@ export class AudioRecordingService {
               private alertService: AlertManagerService,
               private recordingUploadService: RecordingUploadService,
               private playbackService: RecordingPlaybackService,
-              public toastController: ToastController) {
+              public toastController: ToastController,
+              private opusService: OpusService) {
     this.subscribeToServices();
   }
 
@@ -126,11 +128,15 @@ export class AudioRecordingService {
   }
 
   private saveRecording(index: number, blob: Blob): void {
-    const sentenceRecording =
-      new SentenceRecordingModel(this.recordingId, index, blob);
-    // add recording to cache in case speaker wants to listen to it
-    this.playbackService.addToCache(sentenceRecording);
-    this.uploadRecording(sentenceRecording);
+
+    let opusblob = this.opusService.encode2(blob)
+
+    // const sentenceRecording =
+    //   new SentenceRecordingModel(this.recordingId, index, opusblob);
+    // // add recording to cache in case speaker wants to listen to it
+    
+    // this.playbackService.addToCache(sentenceRecording);
+    // this.uploadRecording(sentenceRecording);
   }
 
   private uploadRecording(sentenceRecording: SentenceRecordingModel): void {
