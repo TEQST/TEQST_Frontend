@@ -1,29 +1,29 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import encoderPath from 'opus-recorder/dist/encoderWorker.min.js';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OpusService {
 
   constructor() { }
 
   private concatUint8Arrays(a: Uint8Array, b: Uint8Array) {
-    let c = new Uint8Array(a.length + b.length);
+    const c = new Uint8Array(a.length + b.length);
     c.set(a);
     c.set(b, a.length);
     return c;
   }
 
   private chunkBuffers(arrayBuffer: ArrayBuffer, chunkLength: number) {
-    var chunkedBuffers = [];
+    const chunkedBuffers = [];
 
-    var totalFile = new Int16Array(arrayBuffer);
+    const totalFile = new Int16Array(arrayBuffer);
     // Skip wave header; 44 bytes
     for (let i = 22; i < totalFile.length; i += chunkLength) {
 
       // Convert 16 bit signed int to 32bit float
-      var bufferChunk = new Float32Array(chunkLength);
+      const bufferChunk = new Float32Array(chunkLength);
       for (let j = 0; j < chunkLength; j++) {
         bufferChunk[j] = (totalFile[i + j] + 0.5) / 32767.5;
       }
@@ -31,69 +31,73 @@ export class OpusService {
       chunkedBuffers.push([bufferChunk]);
     };
 
-    return chunkedBuffers
+    return chunkedBuffers;
   };
 
-  public encode(arrayBuffer: ArrayBuffer) {
-    var encoderWorker = new Worker(encoderPath);
+  public async encode(blob: Blob): Promise<Blob> {
+
+    const arrayBuffer = await this.blob2arraybuffer(blob);
+
+    const encoderWorker = new Worker(encoderPath);
     let completeOggData = new Uint8Array(0);
 
-    var bufferLength = 4096;
+    const bufferLength = 4096;
 
     encoderWorker.postMessage({
       command: 'init',
-      originalSampleRate: 16000
+      originalSampleRate: 16000,
     });
 
     encoderWorker.postMessage({
-      command: 'getHeaderPages'
+      command: 'getHeaderPages',
     });
 
-    this.chunkBuffers(arrayBuffer, bufferLength).forEach(bufferChunk => encoderWorker.postMessage({
-      command: 'encode',
-      buffers: bufferChunk
-    }));
+    this.chunkBuffers(arrayBuffer, bufferLength).forEach((bufferChunk) => {
+      encoderWorker.postMessage({
+        command: 'encode',
+        buffers: bufferChunk,
+      });
+    });
 
     encoderWorker.postMessage({
-      command: 'done'
+      command: 'done',
     });
-    
 
-    let dataBlob;
-    encoderWorker.onmessage = ({ data }) => {
-      if (data.message === "done") {
-        //finished encoding - save to audio tag
-        var fileName = new Date().toISOString() + ".ogg";
-        
-        let dataBlob = new Blob([completeOggData], { type: "audio/ogg" });
-        let url = URL.createObjectURL(dataBlob);
+    // wait for encoding to finish - resolve when successfull
+    const promise = new Promise<Blob>((resolve) => {
 
-        var audio = document.createElement('audio');
-        audio.controls = true;
-        audio.src = URL.createObjectURL(dataBlob);
-        audio.play()
+      encoderWorker.onmessage = ({data}) => {
+        if (data.message === 'done') {
+          // finished encoding
+          const dataBlob = new Blob([completeOggData], {type: 'audio/ogg'});
+          resolve(dataBlob);
 
-        
-      }
+        } else if (data.message === 'page') {
+          completeOggData = this.concatUint8Arrays(completeOggData, data.page);
+        };
+      };
 
-      else if (data.message === "page") {
-        completeOggData = this.concatUint8Arrays(completeOggData, data.page);
-      }
-    }
-    
-    
-    return dataBlob;
+    });
+
+    return promise;
   }
 
-  public encode2(blob: Blob): void {
-    let fileReader = new FileReader();
-    let arrayBuffer;
+  private blob2arraybuffer(blob: Blob): Promise<ArrayBuffer> {
+    const fileReader = new FileReader();
 
-    fileReader.onloadend = () => {
-      arrayBuffer = fileReader.result;
-      this.encode(arrayBuffer);
-    }
+    return new Promise<ArrayBuffer>((resolve, reject) => {
+      fileReader.onerror = () => {
+        fileReader.abort();
+        reject(new Error('Failed to read blob'));
+      };
 
-    fileReader.readAsArrayBuffer(blob);
+      fileReader.onloadend = () => {
+        const arrayBuffer = fileReader.result as ArrayBuffer;
+        resolve(arrayBuffer);
+      };
+
+      fileReader.readAsArrayBuffer(blob);
+
+    });
   }
 }
