@@ -35,7 +35,8 @@ ion-button.delete, #multiSelectToolbar .actions ion-button {
 ion-checkbox.selectCheckbox {
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.5);
+    // enable this line when firefox finally fixes flickering of checkbox
+    //transform: scale(0.5);
     transition: .5s ease opacity, .5s ease transform, 0s .5s linear visibility;
 
     &.active {
