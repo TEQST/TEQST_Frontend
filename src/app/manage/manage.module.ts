@@ -1,4 +1,3 @@
-import { MultiselectComponent } from './multiselect/multiselect.component';
 import {FolderStatsPageModule} from './folder-stats/folder-stats.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -29,8 +28,7 @@ import {TextDetailPageModule} from './text-detail/text-detail.module';
     TranslateModule,
   ],
   declarations: [
-    ManagePage,
-    MultiselectComponent
+    ManagePage
   ],
 })
 export class ManagePageModule {}
