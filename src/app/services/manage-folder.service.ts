@@ -63,6 +63,11 @@ export class ManageFolderService {
     return this.http.delete(url);
   }
 
+  deleteFolders(folderIds) {
+    //const url = this.SERVER_URL + `/api/folders/${folderId}/`;
+    return this.http.delete('TODO');
+  }
+
   createText(params: any[]) {
     const formData = new FormData();
     for (const param in params) {
@@ -85,6 +90,11 @@ export class ManageFolderService {
   deleteText(textId: string) {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/`;
     return this.http.delete(url);
+  }
+
+  deleteTexts(textIds) {
+    //const url = this.SERVER_URL + `/api/folders/${folderId}/`;
+    return this.http.delete('TODO');
   }
 
   getTextInfo(textId: string): Observable<TextObject> {

@@ -56,7 +56,8 @@ ion-checkbox.selectCheckbox {
         margin-top: 21px;
         margin-right: 5px;
         padding-left: 20px;
-        transform: scale(0.9);
+        // enable this line when firefox finally fixes flickering of checkbox
+        //transform: scale(0.9);
         background-color: var(--ion-background-color);
         border-radius: 20px;
     }

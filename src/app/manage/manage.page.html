@@ -29,7 +29,7 @@
     </h1>
     <div id="multiSelectToolbar">
       <div class="actions" [class.active]="showMultiSelect">
-        <ion-button class="delete" color="danger">
+        <ion-button class="delete" color="danger" (click)="openDeleteSelectedItemsModal()">
           <ion-icon name="trash"></ion-icon>
         </ion-button>
         <ion-button (click)="toggleAllItemsCheckedState()">

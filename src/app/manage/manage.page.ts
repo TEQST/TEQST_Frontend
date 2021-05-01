@@ -151,6 +151,57 @@ export class ManagePage implements OnInit {
     }
   }
 
+  deleteSelectedItems() {
+    let dataList = [];
+    let listParentElem = null;
+    if (this.currentFolder.is_sharedfolder) {
+      dataList = this.texts;
+      listParentElem = this.textListElem;
+    } else {
+      dataList = this.subfolders;
+      listParentElem = this.folderListElem;
+    }
+    const listElem = listParentElem.nativeElement.querySelector('ion-list');
+    const checkboxes = listElem.querySelectorAll('.selectCheckbox');
+    let idsToDelete = [];
+    for (const checkbox of checkboxes) {
+      let li  = checkbox.parentNode;
+      if (checkbox.checked) {
+        let index = Array.prototype.indexOf.call(listElem.childNodes, li);
+        let id = dataList[index].id;
+        idsToDelete.push(id);
+      }
+    }
+
+    if (this.currentFolder.is_sharedfolder)
+      return this.manageFolderService.deleteTexts(idsToDelete);
+    else
+      return this.manageFolderService.deleteFolders(idsToDelete);
+  }
+
+  async openDeleteSelectedItemsModal() {
+    const alert = await this.alertController.create({
+      header: 'Attention!',
+      message: `Do you really want to delete all selected items?`,
+      buttons: [
+        'No',
+        {
+          text: 'Yes',
+          handler: async () => {
+            this.deleteSelectedItems()
+                .subscribe(
+                    () => this.getFolderInfo(),
+                    (err) => this.alertManager.showErrorAlertNoRedirection(
+                        err.status,
+                        err.statusText),
+                );
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
   async openCreateFolderModal() {
     const modal = await this.modalController.create({
       component: CreateFolderPage,
