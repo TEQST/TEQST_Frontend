@@ -46,6 +46,10 @@ export class OpusService {
     encoderWorker.postMessage({
       command: 'init',
       originalSampleRate: 16000,
+      encoderSampleRate: 16000,
+      encoderApplication: 2048,
+      numberOfChannels: 1,
+      resampleQuality: 10,
     });
 
     encoderWorker.postMessage({
