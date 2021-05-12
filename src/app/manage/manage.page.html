@@ -29,7 +29,7 @@
   <div #folderList class="fadeInWhenLoaded">
     <ion-list *ngIf="subfolders.length > 0">
       <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/manage', folder.id]"
-        [state]="{folderName: folder.name}">
+        [state]="{folder: folder}">
         <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
         <ion-button class="delete" color="danger" slot="end" (click)="openDeleteFolderAlert($event, folder)">
           <ion-icon name="trash"></ion-icon>

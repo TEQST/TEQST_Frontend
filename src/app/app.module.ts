@@ -3,7 +3,7 @@ import {
 } from './interceptors/loader-interceptor.service';
 import {UsernameValidator} from './validators/username';
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, HammerModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS}
   from '@angular/common/http';
@@ -26,6 +26,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {ServerAuthtokenInterceptorService}
   from './interceptors/server-authtoken-interceptor.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
@@ -41,6 +42,9 @@ import {ServerAuthtokenInterceptorService}
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    HammerModule,
+    FormsModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

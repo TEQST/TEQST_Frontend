@@ -70,7 +70,6 @@ export class ProfilePage implements OnInit {
         language_ids: profileData.languages.map((lang) => lang.short),
       };
       this.profileForm.patchValue(formData);
-      console.log(this.profileForm);
     });
   }
 

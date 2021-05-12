@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/speak"></ion-back-button>
     </ion-buttons>
-    <ion-buttons *ngIf="sharedFolderData" slot="end">
-      <ion-button color="primary" (click)="presentTimeStats()">
+    <ion-buttons slot="end">
+      <ion-button id="statsBtn" [class.disabled]="!sharedFolderData" color="primary" (click)="presentTimeStats()">
         <ion-icon name="alarm"></ion-icon>
       </ion-button>
     </ion-buttons>
