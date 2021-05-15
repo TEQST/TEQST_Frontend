@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {TextStateService} from 'src/app/services/text-state.service';
 
 @Component({
   selector: 'app-speaker-progress-text-view',
@@ -7,7 +8,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SpeakerProgressTextViewComponent implements OnInit {
 
-  constructor() { }
+  public textTitle: string;
+
+  constructor(private textStateService: TextStateService) {
+    textStateService.getTextTitle().subscribe((title) => this.textTitle = title);
+  }
 
   ngOnInit() {}
 
