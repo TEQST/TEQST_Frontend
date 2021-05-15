@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {title} from 'process';
 import {TextStateService} from 'src/app/services/text-state.service';
 
 @Component({
@@ -9,10 +10,12 @@ import {TextStateService} from 'src/app/services/text-state.service';
 export class BasicTextViewComponent implements OnInit {
 
   public sentences: string[] = [];
+  public textTitle: string;
 
   constructor(private textStateService: TextStateService) {
     this.textStateService.getSentences()
         .subscribe((sentences) => this.sentences = sentences);
+    textStateService.getTextTitle().subscribe((title) => this.textTitle = title);
   }
 
   ngOnInit() {}

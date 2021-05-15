@@ -1,6 +1,6 @@
 .sentences {
     overflow-y: auto;
-    height: calc(100% - 114px); // 56px footer + 63px header
+    height: calc(100% - 56px); // 56px footer + 63px header
 }
 .footer {
     height: 56px; // 120px record buttons + 60px play bar + 3px progress bar
