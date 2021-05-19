@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import {ProfileData} from './../interfaces/profile-data';
 import {User} from './../interfaces/user';
 import {Injectable, Injector} from '@angular/core';
@@ -18,7 +19,6 @@ export class UsermgmtService {
 
   SERVER_URL = Constants.SERVER_URL;
 
-   private httpOptions;
    public isPublisher = new BehaviorSubject<boolean>(undefined);
    // tslint:disable: no-string-literal
 
@@ -99,5 +99,10 @@ export class UsermgmtService {
          },
        },
      });
+   }
+
+   public getCountries(): Observable<Object> {
+     const url = this.SERVER_URL + '/api/countries/';
+     return this.http.get(url);
    }
 }
