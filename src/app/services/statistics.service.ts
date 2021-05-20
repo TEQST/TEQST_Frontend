@@ -29,4 +29,11 @@ export class StatisticsService {
     return this.http.get<TextStats>(url.toString());
   }
 
+  public downloadstatistics(): Observable<Blob>{
+    const url = this.SERVER_URL + `/api/pub/speakerstats/`;
+    return this.http.get(url.toString(), {
+      responseType: 'blob'
+    });
+  }
+
 }
