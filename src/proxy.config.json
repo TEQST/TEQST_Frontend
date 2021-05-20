@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://beta-dot-datacollector-speech.uc.r.appspot.com",
+    "target": "https://i13pc108.ira.uka.de:591",
     "secure": true,
     "logLevel": "debug",
     "changeOrigin": true

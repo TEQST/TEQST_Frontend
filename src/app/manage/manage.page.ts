@@ -7,7 +7,8 @@ import { Text } from './manage.text';
 import { AlertManagerService } from '../services/alert-manager.service';
 import { ManageFolderUIService } from './manage-folder-ui.service';
 import { ManageTextUIService } from './manage-text-ui.service';
-
+import { StatisticsService} from '../services/statistics.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-manage',
@@ -30,6 +31,7 @@ export class ManagePage implements OnInit {
   constructor(private manageFolderService: ManageFolderService,
     private manageFolderUIService: ManageFolderUIService,
     private manageTextUIService: ManageTextUIService,
+    private statisticsService: StatisticsService,
     private router: Router,
     private route: ActivatedRoute,
     private alertManager: AlertManagerService,
@@ -150,6 +152,10 @@ export class ManagePage implements OnInit {
     this.manageTextUIService.initTextList(this.currentFolder, (texts) => {
       this.texts = texts;
     });
+  }
+
+  downloadstatistics(){
+    this.statisticsService.downloadstatistics().subscribe(blob => saveAs(blob, 'statistics.csv'))
   }
 
 }

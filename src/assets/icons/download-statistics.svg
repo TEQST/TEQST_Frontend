@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="download-statistics.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata14">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>ionicons-v5-a</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1114"
+     inkscape:window-height="905"
+     id="namedview10"
+     showgrid="false"
+     inkscape:zoom="0.921875"
+     inkscape:cx="264.23158"
+     inkscape:cy="208.99372"
+     inkscape:window-x="978"
+     inkscape:window-y="543"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg8" />
+  <title
+     id="title2">ionicons-v5-a</title>
+  <polyline
+     points="112 268 256 412 400 268"
+     style="fill:none;stroke:#000000;stroke-width:48px;stroke-linecap:round;stroke-linejoin:round"
+     id="polyline4"
+     transform="matrix(0.50962661,0,0,0.47062386,121.73898,263.97193)" />
+  <line
+     x1="252.20338"
+     y1="448.45648"
+     x2="252.20338"
+     y2="311.0343"
+     style="fill:none;stroke:#000000;stroke-width:23.50738144px;stroke-linecap:round;stroke-linejoin:round"
+     id="line6" />
+  <g
+     id="g3741"
+     transform="matrix(0.66362451,0,0,0.5480226,80.146025,13.740106)">
+    <path
+       id="path3721"
+       d="M 104,496 H 72 A 24,24 0 0 1 48,472 V 328 a 24,24 0 0 1 24,-24 h 32 a 24,24 0 0 1 24,24 v 144 a 24,24 0 0 1 -24,24 z"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3723"
+       d="M 328,496 H 296 A 24,24 0 0 1 272,472 V 232 a 24,24 0 0 1 24,-24 h 32 a 24,24 0 0 1 24,24 v 240 a 24,24 0 0 1 -24,24 z"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3725"
+       d="M 440,496 H 408 A 24,24 0 0 1 384,472 V 120 a 24,24 0 0 1 24,-24 h 32 a 24,24 0 0 1 24,24 v 352 a 24,24 0 0 1 -24,24 z"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3727"
+       d="M 216,496 H 184 A 24,24 0 0 1 160,472 V 40 a 24,24 0 0 1 24,-24 h 32 a 24,24 0 0 1 24,24 v 432 a 24,24 0 0 1 -24,24 z"
+       inkscape:connector-curvature="0" />
+  </g>
+  <line
+     x1="174.89182"
+     y1="489.22034"
+     x2="331.68442"
+     y2="489.22034"
+     style="fill:none;stroke:#000000;stroke-width:25.10953522px;stroke-linecap:round;stroke-linejoin:round"
+     id="line6-3" />
+</svg>
