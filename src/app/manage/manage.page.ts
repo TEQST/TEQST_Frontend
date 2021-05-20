@@ -1,14 +1,14 @@
-import { LoaderService } from './../services/loader.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ManageFolderService } from 'src/app/services/manage-folder.service';
-import { Folder } from './manage.folder';
-import { Text } from './manage.text';
-import { AlertManagerService } from '../services/alert-manager.service';
-import { ManageFolderUIService } from './manage-folder-ui.service';
-import { ManageTextUIService } from './manage-text-ui.service';
-import { StatisticsService} from '../services/statistics.service';
-import { saveAs } from 'file-saver';
+import {LoaderService} from './../services/loader.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ManageFolderService} from 'src/app/services/manage-folder.service';
+import {Folder} from './manage.folder';
+import {Text} from './manage.text';
+import {AlertManagerService} from '../services/alert-manager.service';
+import {ManageFolderUIService} from './manage-folder-ui.service';
+import {ManageTextUIService} from './manage-text-ui.service';
+import {StatisticsService} from '../services/statistics.service';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-manage',
@@ -18,9 +18,10 @@ import { saveAs } from 'file-saver';
 
 export class ManagePage implements OnInit {
 
-  @ViewChild('textList', { read: ElementRef }) textListElem: ElementRef
-  @ViewChild('folderList', { read: ElementRef }) folderListElem: ElementRef
-  @ViewChild('sharedFolderActions', { read: ElementRef }) sharedFolderActions: ElementRef
+  @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
+  @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
+  @ViewChild('sharedFolderActions',
+      {read: ElementRef}) sharedFolderActions: ElementRef
 
   public currentFolder: Folder
   public subfolders: Folder[]
@@ -45,14 +46,14 @@ export class ManagePage implements OnInit {
     const routeParams = this.router.getCurrentNavigation().extras.state;
     if (typeof routeParams !== 'undefined' && 'folder' in routeParams) {
       this.currentFolder = routeParams.folder;
-    }else {
+    } else {
       this.currentFolder = new Folder(null, '', false);
     }
 
     this.subfolders = [];
     this.texts = [];
     this.loaderService.getIsLoading()
-      .subscribe((isLoading) => this.isLoading = isLoading);
+        .subscribe((isLoading) => this.isLoading = isLoading);
   }
 
   ngOnInit() { }
@@ -76,37 +77,42 @@ export class ManagePage implements OnInit {
 
   async getFolderInfo() {
     this.currentFolder.getSubfolderList()
-      .subscribe(
-        async (data) => {
-          if (Array.isArray(data)) {
-            /* on the topmost filesystem level
+        .subscribe(
+            async (data) => {
+              if (Array.isArray(data)) {
+                /* on the topmost filesystem level
                only an array of folders exist */
-            this.subfolders = this.manageFolderUIService.initSubfolderList(data);
-            this.folderListElem.nativeElement.classList.add('loaded');
-          } else {
-            // get information about the current folder
-            this.currentFolder.name = data['name'];
-            this.currentFolder.is_sharedfolder = data['is_sharedfolder'];
-            const subfolderInfo = data['subfolder'];
+                this.subfolders = this.manageFolderUIService.
+                    initSubfolderList(data);
 
-            if (this.currentFolder.is_sharedfolder) {
-                await this.manageTextUIService.initTextList(this.currentFolder, (texts) => {
-                this.texts = texts;
-                this.textListElem.nativeElement.classList.add('loaded');
-              });
-            } else {
-              this.subfolders = this.manageFolderUIService.initSubfolderList(subfolderInfo);
-              this.folderListElem.nativeElement.classList.add('loaded');
-            }
-          }
-        },
-        (err) => this.alertManager.showErrorAlert(
-          err.status, err.statusText, '/manage'),
-      );
+                this.folderListElem.nativeElement.classList.add('loaded');
+              } else {
+                // get information about the current folder
+                this.currentFolder.name = data['name'];
+                this.currentFolder.is_sharedfolder = data['is_sharedfolder'];
+                const subfolderInfo = data['subfolder'];
+
+                if (this.currentFolder.is_sharedfolder) {
+                  await this.manageTextUIService.
+                      initTextList(this.currentFolder, (texts) => {
+                        this.texts = texts;
+                        this.textListElem.nativeElement.classList.add('loaded');
+                      });
+                } else {
+                  this.subfolders = this.manageFolderUIService.
+                      initSubfolderList(subfolderInfo);
+                  this.folderListElem.nativeElement.classList.add('loaded');
+                }
+              }
+            },
+            (err) => this.alertManager.showErrorAlert(
+                err.status, err.statusText, '/manage'),
+        );
   }
 
   openCreateFolderModal() {
-    this.manageFolderUIService.openCreateFolderModal(this.currentFolder, this.subfolders, () => this.getFolderInfo())
+    this.manageFolderUIService.openCreateFolderModal(
+        this.currentFolder, this.subfolders, () => this.getFolderInfo());
   }
 
   openDeleteFolderAlert($event, folder) {
@@ -114,7 +120,9 @@ export class ManagePage implements OnInit {
     $event.preventDefault();
     $event.stopPropagation();
 
-    this.manageFolderUIService.openDeleteFolderAlert(folder, () => this.getFolderInfo());
+    this.manageFolderUIService.openDeleteFolderAlert(folder, () => {
+      this.getFolderInfo();
+    });
   }
 
   openShareFolderModal() {
@@ -130,13 +138,14 @@ export class ManagePage implements OnInit {
   }
 
   openCreateTextModal() {
-    this.manageTextUIService.openCreateTextModal(this.currentFolder, this.texts, () => {
-      if (!this.currentFolder.is_sharedfolder) {
-        this.currentFolder.is_sharedfolder = true;
-        this.textListElem.nativeElement.classList.add('loaded');
-      }
-      this.initTexts();
-    });
+    this.manageTextUIService.openCreateTextModal(
+        this.currentFolder, this.texts, () => {
+          if (!this.currentFolder.is_sharedfolder) {
+            this.currentFolder.is_sharedfolder = true;
+            this.textListElem.nativeElement.classList.add('loaded');
+          }
+          this.initTexts();
+        });
   }
 
   openDeleteTextAlert($event, text) {
@@ -145,7 +154,7 @@ export class ManagePage implements OnInit {
     $event.stopPropagation();
     this.manageTextUIService.openDeleteTextAlert(text, () => {
       this.initTexts();
-    })
+    });
   }
 
   initTexts() {
@@ -154,8 +163,10 @@ export class ManagePage implements OnInit {
     });
   }
 
-  downloadstatistics(){
-    this.statisticsService.downloadstatistics().subscribe(blob => saveAs(blob, 'statistics.csv'))
+  downloadstatistics() {
+    this.statisticsService.downloadstatistics().subscribe((blob) => {
+      saveAs(blob, 'statistics.csv');
+    });
   }
 
 }
