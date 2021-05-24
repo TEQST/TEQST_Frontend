@@ -23,11 +23,11 @@ export class SpeakersSegmentComponent implements OnInit {
     private folderService: ManageFolderService,
     private shareFolderService: ShareFolderService) { }
 
+
   ngOnInit() {
     // reset Search term on each opening of the modal
     this.searchTerm = '';
-    this.fetchUserLists()
-        .then(() => this.filterLists);
+    this.fetchUserLists();
   }
 
   async fetchUserLists() {
@@ -38,6 +38,7 @@ export class SpeakersSegmentComponent implements OnInit {
     this.speakers = userLists.speakers;
     this.filteredSpeakers = userLists.speakers;
     this.isPublicForAll = userLists.isPublicForAll;
+    this.filterLists();
   }
 
   handleFolderPublicityToggle(event) {
