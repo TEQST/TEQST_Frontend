@@ -1,9 +1,9 @@
-import { TextObject } from './../interfaces/text-object';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthenticationService } from './authentication.service';
-import { Constants } from '../constants';
+import {TextObject} from './../interfaces/text-object';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {AuthenticationService} from './authentication.service';
+import {Constants} from '../constants';
 
 interface User {
   'id': number,
@@ -51,10 +51,10 @@ export class ManageFolderService {
     const url = this.SERVER_URL + `/api/folders/`;
 
     return this.http.post(url,
-      {
-        parent: parentId,
-        name: folderName,
-      },
+        {
+          parent: parentId,
+          name: folderName,
+        },
     );
   }
 
@@ -90,29 +90,6 @@ export class ManageFolderService {
   getTextInfo(textId: string): Observable<TextObject> {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/`;
     return this.http.get<TextObject>(url, {});
-  }
-
-  getSharingInfo(sharedfolderId: number) {
-    const url =
-      this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
-    return this.http.get<JSON[]>(url);
-  }
-
-  setSharingInfo(
-    sharedfolderId: number,
-    speakers: number[],
-    public_for_all: boolean) {
-
-    const url = this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
-    return this.http.put<JSON>(url, {
-      speaker_ids: speakers,
-      public: public_for_all
-    });
-  }
-
-  getAllUsers() {
-    const url = this.SERVER_URL + `/api/users/`;
-    return this.http.get<User[]>(url);
   }
 
   downloadFolder(folderId: number): Observable<ArrayBuffer> {

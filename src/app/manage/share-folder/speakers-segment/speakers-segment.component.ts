@@ -20,7 +20,6 @@ export class SpeakersSegmentComponent implements OnInit {
   private searchTerm: string = '';
 
   constructor(
-    private folderService: ManageFolderService,
     private shareFolderService: ShareFolderService) { }
 
 
@@ -31,13 +30,19 @@ export class SpeakersSegmentComponent implements OnInit {
   }
 
   async fetchUserLists() {
-    const userLists =
-      await this.shareFolderService.fetchUserLists(this.folderId);
-    this.allUsers = userLists.allUsers;
-    this.filteredUsers = userLists.allUsers;
-    this.speakers = userLists.speakers;
-    this.filteredSpeakers = userLists.speakers;
-    this.isPublicForAll = userLists.isPublicForAll;
+    await this.shareFolderService.getSharingSpeakers(this.folderId)
+        .toPromise()
+        .then((sharedFolder) => {
+          this.speakers = sharedFolder['speakers'];
+          this.filteredSpeakers = sharedFolder['speakers'];
+          this.isPublicForAll = sharedFolder['public'];
+        });
+    await this.shareFolderService.getAllUsers()
+        .toPromise()
+        .then((allUsers) => {
+          this.allUsers = allUsers;
+          this.filteredUsers = allUsers;
+        });
     this.filterLists();
   }
 
@@ -48,7 +53,7 @@ export class SpeakersSegmentComponent implements OnInit {
   async setFolderPublicity(public_for_all) {
     this.isPublicForAll = public_for_all;
     const speakers = this.speakers.map((speaker) => speaker.id);
-    await this.folderService.setSharingInfo(
+    await this.shareFolderService.setSharingSpeakers(
         this.folderId,
         speakers,
         this.isPublicForAll)
@@ -73,7 +78,7 @@ export class SpeakersSegmentComponent implements OnInit {
     // create a new array with just the speaker ids
     const newSpeakers = this.speakers.map((speaker) => speaker.id);
     newSpeakers.push(user.id);
-    await this.folderService.setSharingInfo(
+    await this.shareFolderService.setSharingSpeakers(
         this.folderId,
         newSpeakers,
         this.isPublicForAll)
@@ -87,7 +92,7 @@ export class SpeakersSegmentComponent implements OnInit {
     // remove the speaker from the array
     const newSpeakerIds = oldSpeakerIds.filter(
         (speakerid) => speakerid != speaker.id);
-    await this.folderService.setSharingInfo(
+    await this.shareFolderService.setSharingSpeakers(
         this.folderId,
         newSpeakerIds,
         this.isPublicForAll)

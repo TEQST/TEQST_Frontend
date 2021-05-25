@@ -10,15 +10,13 @@ import {ShareFolderService} from 'src/app/services/share-folder.service';
 })
 export class ListenersSegmentComponent implements OnInit {
   @Input() folderId: number;
-  public isPublicForAll: boolean;
-  private speakers: User[];
-  public filteredSpeakers: User[];
+  private listeners: User[];
+  public filteredListeners: User[];
   private allUsers: User[];
   public filteredUsers: User[];
   private searchTerm: string = '';
 
   constructor(
-    private folderService: ManageFolderService,
     private shareFolderService: ShareFolderService) { }
 
   ngOnInit() {
@@ -28,28 +26,19 @@ export class ListenersSegmentComponent implements OnInit {
   }
 
   async fetchUserLists() {
-    const userLists =
-      await this.shareFolderService.fetchUserLists(this.folderId);
-    this.allUsers = userLists.allUsers;
-    this.filteredUsers = userLists.allUsers;
-    this.speakers = userLists.speakers;
-    this.filteredSpeakers = userLists.speakers;
-    this.isPublicForAll = userLists.isPublicForAll;
+    await this.shareFolderService.getSharingListeners(this.folderId)
+        .toPromise()
+        .then((sharedFolder) => {
+          this.listeners = sharedFolder['listeners'];
+          this.filteredListeners = sharedFolder['listeners'];
+        });
+    await this.shareFolderService.getAllUsers()
+        .toPromise()
+        .then((allUsers) => {
+          this.allUsers = allUsers;
+          this.filteredUsers = allUsers;
+        });
     this.filterLists();
-  }
-
-  handleFolderPublicityToggle(event) {
-    this.setFolderPublicity(event.target.checked);
-  }
-
-  async setFolderPublicity(public_for_all) {
-    this.isPublicForAll = public_for_all;
-    const speakers = this.speakers.map((speaker) => speaker.id);
-    await this.folderService.setSharingInfo(
-        this.folderId,
-        speakers,
-        this.isPublicForAll)
-        .toPromise();
   }
 
   // update the search term on text input
@@ -61,35 +50,33 @@ export class ListenersSegmentComponent implements OnInit {
   // filter user and speaker list based on the search term
   filterLists() {
     const filtered = this.shareFolderService
-        .filterLists(this.speakers, this.allUsers, this.searchTerm);
-    this.filteredSpeakers = filtered.filteredList;
+        .filterLists(this.listeners, this.allUsers, this.searchTerm);
+    this.filteredListeners = filtered.filteredList;
     this.filteredUsers = filtered.filteredUsers;
   }
 
-  async addSpeaker(user: User) {
-    // create a new array with just the speaker ids
-    const newSpeakers = this.speakers.map((speaker) => speaker.id);
-    newSpeakers.push(user.id);
-    await this.folderService.setSharingInfo(
+  async addListener(user: User) {
+    // create a new array with just the listener ids
+    const newListeners = this.listeners.map((listener) => listener.id);
+    newListeners.push(user.id);
+    await this.shareFolderService.setSharingListeners(
         this.folderId,
-        newSpeakers,
-        this.isPublicForAll)
+        newListeners)
         .toPromise()
-        .then((sharedfolder) => this.speakers = sharedfolder['speakers']);
+        .then((sharedfolder) => this.listeners = sharedfolder['listeners']);
     this.filterLists();
   }
 
-  async removeSpeaker(speaker: User) {
-    const oldSpeakerIds = this.speakers.map((speaker) => speaker.id);
-    // remove the speaker from the array
-    const newSpeakerIds = oldSpeakerIds.filter(
+  async removeListener(speaker: User) {
+    const oldSpeakerIds = this.listeners.map((listener) => listener.id);
+    // remove the listeners from the array
+    const newListenerIds = oldSpeakerIds.filter(
         (speakerid) => speakerid != speaker.id);
-    await this.folderService.setSharingInfo(
+    await this.shareFolderService.setSharingListeners(
         this.folderId,
-        newSpeakerIds,
-        this.isPublicForAll)
+        newListenerIds)
         .toPromise()
-        .then((sharedfolder) => this.speakers = sharedfolder['speakers']);
+        .then((sharedfolder) => this.listeners = sharedfolder['listeners']);
     this.filterLists();
   }
 }
