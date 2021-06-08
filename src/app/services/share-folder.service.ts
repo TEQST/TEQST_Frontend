@@ -57,26 +57,6 @@ export class ShareFolderService {
     return this.http.get<User[]>(url);
   }
 
-  async fetchUserLists(folderId) {
-    // get a list of all users
-    let allUsers;
-    let speakers;
-    let isPublicForAll;
-    await this.getAllUsers()
-        .toPromise()
-        .then((userArray) => {
-          allUsers = userArray;
-        });
-    // get a list of all speakers of the folder
-    await this.getSharingSpeakers(folderId)
-        .toPromise()
-        .then((sharedFolder) => {
-          speakers = sharedFolder['speakers'];
-          isPublicForAll = sharedFolder['public'];
-        });
-    return {allUsers, speakers, isPublicForAll};
-  }
-
   filterLists(list, allUsers, searchTerm) {
     const filteredList = list.filter((user) => {
       return user.username.toLowerCase()
