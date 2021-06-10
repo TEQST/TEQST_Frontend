@@ -4,8 +4,8 @@
   <ion-list-header>
     <ion-label>{{'Added Listeners' | translate}}</ion-label>
   </ion-list-header>
-  <ion-item *ngFor="let speaker of filteredListeners">
-    <ion-label>{{speaker.username}}</ion-label>
+  <ion-item *ngFor="let listener of filteredListeners">
+    <ion-label>{{listener.username}}</ion-label>
     <ion-button color="danger" slot="end" (click)="removeListener(listener)">
       <ion-icon name="remove"></ion-icon>
     </ion-button>

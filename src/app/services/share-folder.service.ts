@@ -37,7 +37,7 @@ export class ShareFolderService {
 
   getSharingListeners(sharedfolderId: number) {
     const url =
-      this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/listeners`;
+      this.SERVER_URL + `/api/pub/sharedfolders/${sharedfolderId}/listeners`;
     return this.http.get<JSON[]>(url);
   }
 
@@ -46,7 +46,7 @@ export class ShareFolderService {
       listeners: number[]) {
 
     const url = this.SERVER_URL +
-      `/api/sharedfolders/${sharedfolderId}/listeners`;
+      `/api/pub/sharedfolders/${sharedfolderId}/listeners/`;
     return this.http.put<JSON>(url, {
       listener_ids: listeners,
     });
