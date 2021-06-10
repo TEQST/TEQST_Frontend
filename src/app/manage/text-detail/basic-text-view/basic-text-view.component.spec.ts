@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { BasicTextViewComponent } from './basic-text-view.component';
+import {BasicTextViewComponent} from './basic-text-view.component';
 
 describe('BasicTextViewComponent', () => {
   let component: BasicTextViewComponent;
@@ -9,8 +9,8 @@ describe('BasicTextViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BasicTextViewComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [BasicTextViewComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BasicTextViewComponent);

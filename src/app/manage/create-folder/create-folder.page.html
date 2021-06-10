@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="no-select">
   <ion-toolbar>
     <ion-title>{{'Create a new folder' | translate}}</ion-title>
     <ion-buttons slot="end">
@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-select">
   <form [formGroup]="createFolderForm" (ngSubmit)="submitForm()">
     <ion-item id="titleInputItem">
       <ion-label position="stacked">{{'Title' | translate}}</ion-label>

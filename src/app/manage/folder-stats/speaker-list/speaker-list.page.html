@@ -1,6 +1,6 @@
-<ion-header>
+<ion-header class="no-select">
   <ion-toolbar>
-    <ion-title>{{'Statistics for' | translate}} {{folderStats.name}}</ion-title>
+    <ion-title>{{'Statistics for' | translate}} {{folderName}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
@@ -9,31 +9,32 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item button *ngFor="let speaker of folderStats.speakers" (click)="showDetail(speaker)">
-      <ion-label>
-        <h2>{{speaker.name}}</h2>
-      </ion-label>
-      <span class="progress-text ion-float-right">
-        {{speaker.completedTextsCount}} / {{speaker.texts.length}} {{"texts" | translate}}
-      </span>
-      <ion-icon [ngClass]="{'hidden' : !(speaker.completedTextsCount === speaker.texts.length)}" class="ion-float-right"
-        color="success" name="checkmark-circle"></ion-icon>
-    </ion-item>
-  </ion-list>
-  <!-- Message shown, when folder has not been shared -->
-  <div *ngIf="folderStats.speakers.length === 0" class="vertical-center-container">
-    <ion-text class="vertical-center-content" color="medium">
-      <span>{{"No statistics to display. Please share the folder to a speaker." | translate}}</span>
-    </ion-text>
+<ion-content class="no-select">
+  <div #content class="fadeInWhenLoaded">
+    <div *ngIf="folderStats">
+      <ion-list>
+        <ion-item button *ngFor="let speaker of folderStats.speakers" (click)="showDetail(speaker)">
+          <ion-label>
+            <h2>{{speaker.name}}</h2>
+          </ion-label>
+          <span class="progress-text ion-float-right">
+            {{speaker.completedTextsCount}} / {{speaker.texts.length}} {{"texts" | translate}}
+          </span>
+          <ion-icon [ngClass]="{'hidden' : !(speaker.completedTextsCount === speaker.texts.length)}"
+            class="ion-float-right" color="success" name="checkmark-circle"></ion-icon>
+        </ion-item>
+      </ion-list>
+      <!-- Message shown, when folder has not been shared -->
+      <div *ngIf="folderStats.speakers.length === 0" class="vertical-center-container">
+        <ion-text class="vertical-center-content" color="medium">
+          <span>{{"No statistics to display. Please share the folder to a speaker." | translate}}</span>
+        </ion-text>
+      </div>
+    </div>
   </div>
   <!-- Skeleton Text displayed during Loading -->
   <div *ngIf="!folderStats">
     <ion-list *ngFor="let i of [1, 2]">
-      <ion-list-header>
-        <ion-skeleton-text animated style="width: 15%;"></ion-skeleton-text>
-      </ion-list-header>
       <ion-item *ngFor="let i of [1, 2, 3]">
         <ion-label>
           <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>

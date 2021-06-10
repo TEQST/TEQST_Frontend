@@ -16,13 +16,14 @@ const routes: Routes = [
   },
   {
     path: 'documentation',
-    loadChildren: () => import('./help/documentation/documentation.module').then( m => m.DocumentationPageModule)
+    loadChildren: () => import('./help/documentation/documentation.module')
+        .then( (m) => m.DocumentationPageModule),
   },
   {
     path: '',
     loadChildren: () => import('./auth/auth.module')
-      .then((m) => m.AuthPageModule),
-    data: { redirectIfLoggedIn: true },
+        .then((m) => m.AuthPageModule),
+    data: {redirectIfLoggedIn: true},
     canActivate: [AccessGuard],
   },
   {

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="no-select">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/manage"></ion-back-button>
@@ -13,7 +13,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content class="fadeInWhenLoaded">
-    <h1 *ngIf="text">{{text.title}}</h1>
+<ion-content>
+  <div #content style="height: 100%;" class="fadeInWhenLoaded">
     <router-outlet></router-outlet>
+  </div>
 </ion-content>

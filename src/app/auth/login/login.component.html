@@ -5,7 +5,7 @@
   </ion-item>
   <ion-item id="password-item" lines="full">
     <ion-label position="floating" for="password">{{ 'Password' | translate }}</ion-label>
-    <ion-button id="toggle-password" fill=clear slot="end" (click)="showPassword = !showPassword">
+    <ion-button id="toggle-password" fill="clear" slot="end" (click)="showPassword = !showPassword">
       <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
     </ion-button>
     <ion-input name="password" [type]="showPassword ? 'text' : 'password'" autocomplete="current-password" id="password"

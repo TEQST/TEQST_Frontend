@@ -1,6 +1,12 @@
 import {RecordingPlaybackService}
   from './../../../../../services/recording-playback.service';
-import {Component, OnInit, HostListener, ViewChild, ElementRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import {TextServiceService} from '../text-service.service';
 import {AudioRecordingService} from '../audio-recording.service';
 
@@ -24,40 +30,42 @@ export class RecorderComponent implements OnInit {
   constructor(private textService: TextServiceService,
               private recordingService: AudioRecordingService,
               private playbackService: RecordingPlaybackService) {
-    this.subscribeToServices();        
+    this.subscribeToServices();
   }
 
   ngOnInit() {
-    this.recordingService.requestUserAudio()
+    this.recordingService.requestUserAudio();
   }
 
   ngOnDestroy() {
-    this.recordingService.stopMediaStream()
+    this.recordingService.stopMediaStream();
   }
 
   /* subscribe to all needed variables from the services
      and update the locale ones on change */
   private subscribeToServices(): void {
     this.textService.getIsLoaded()
-      .subscribe((isLoaded) => {
+        .subscribe((isLoaded) => {
           if (isLoaded) {
             this.updateProgressBar();
             this.isLoaded = true;
           }
-    });
+        });
     this.textService.getActiveSentenceIndex()
         .subscribe((index) => {
-            this.activeSentence = index;
+          this.activeSentence = index;
         });
     this.textService.getTotalSentenceNumber().subscribe((totalNumber) => {
       this.totalSentenceNumber = totalNumber;
-      if (this.isLoaded)
+      if (this.isLoaded) {
         this.updateProgressBar();
+      }
     });
     this.textService.getFurthestSentenceIndex().subscribe((index) => {
       this.furthestSentenceIndex = index;
-      if (this.isLoaded)
+      if (this.isLoaded) {
         this.updateProgressBar();
+      }
     });
     this.recordingService.getRecordingState().subscribe((status) => {
       this.isRecording = status;
@@ -111,10 +119,10 @@ export class RecorderComponent implements OnInit {
     this.playbackService.stopAudioPlayback();
     if (this.isRecording === true) {
       if (this.activeSentence === this.totalSentenceNumber) {
-        this.recordingService.stopRecording()
+        this.recordingService.stopRecording();
       } else {
         this.recordingService.nextRecording();
-      }      
+      }
     } else {
       this.textService.setNextSentenceActive();
     }

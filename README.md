@@ -7,7 +7,7 @@ npm i -D -E @angular/cli
 ### Run a development server at http://localhost:8100
 ionic serve
 ### Run a development server that can be accessed inside the same LAN
-ionic serve --address 0.0.0.0\
+ionic serve --external\
 \
 *The IP-address to connect to will be written in the terminal output as "External: IP"*
 ## Compile for production

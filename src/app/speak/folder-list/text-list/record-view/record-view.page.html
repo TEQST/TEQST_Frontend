@@ -14,7 +14,7 @@
 <ion-content>
   <div [class]="hasRecording ? 'hasRecording' : 'noRecording'">
     <div class="recordSentences">
-      <h1>{{textTitle}}</h1>
+      <h1 class="no-select">{{textTitle}}</h1>
       <app-sentence-wrapper [dir]="isRightToLeft ? 'rtl' : 'ltr'"></app-sentence-wrapper>
     </div>
     <div class="recordFooter">

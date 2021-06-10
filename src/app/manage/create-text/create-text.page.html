@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="no-select">
   <ion-toolbar>
     <ion-title>{{'Create a new text' | translate}}</ion-title>
     <ion-buttons slot="end">
@@ -8,7 +8,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="no-select">
   <form [formGroup]="createTextForm" (ngSubmit)="createText(createTextForm.value)">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
@@ -23,7 +23,8 @@
       <ion-item>
         <ion-label>{{'Language' | translate}}</ion-label>
         <ion-select formControlName="language" placeholder="{{'Select One' | translate}}">
-          <ion-select-option *ngFor="let lang of availableLanguages" value="{{lang.short}}">{{lang.native_name}}
+          <ion-select-option *ngFor="let lang of availableLanguages" value="{{lang.short}}">
+            {{lang.native_name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -38,7 +39,8 @@
     </ion-list>
     <div class="ion-padding">
       <ion-button [disabled]="!formValid" expand="block" type="submit" class="ion-no-margin" color="dark">
-        {{'Create text' | translate}}</ion-button>
+        {{'Create text' | translate}}
+      </ion-button>
     </div>
   </form>
 </ion-content>

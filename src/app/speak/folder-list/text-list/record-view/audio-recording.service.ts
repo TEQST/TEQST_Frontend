@@ -11,6 +11,7 @@ import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import * as RecordRTC from 'recordrtc';
 import {TextServiceService} from './text-service.service';
 import {AuthenticationService} from 'src/app/services/authentication.service';
+import {ToastController} from '@ionic/angular';
 
 
 @Injectable({
@@ -34,12 +35,15 @@ export class AudioRecordingService {
   private furthestSentence: number;
   private sentenceHasRecording: boolean;
 
+  private recordingTimeoutLength: number = 180000; // 3 min = 3*60*1000=180000
+  private recordingTimeout;
 
   constructor(private textService: TextServiceService,
               public authenticationService: AuthenticationService,
               private alertService: AlertManagerService,
               private recordingUploadService: RecordingUploadService,
-              private playbackService: RecordingPlaybackService) {
+              private playbackService: RecordingPlaybackService,
+              public toastController: ToastController) {
     this.subscribeToServices();
   }
 
@@ -74,16 +78,16 @@ export class AudioRecordingService {
 
   isMediaStreamActive(): boolean {
     if (!this.stream) {
-      return false
+      return false;
     } else if (!this.stream.active) {
-        return false;
+      return false;
     }
     return true;
-}
-  //TODO async
+  }
+  // TODO async
   requestUserAudio(): void {
     if (this.isMediaStreamActive()) {
-      return 
+      return;
     }
     navigator.mediaDevices.getUserMedia({audio: true}).then((s) => {
       this.stream = s;
@@ -102,8 +106,9 @@ export class AudioRecordingService {
     } else if (this.isPlaying === true) {
       this.playbackService.stopAudioPlayback();
     }
-    this.requestUserAudio() //Get mediaStream in case user declined it on page load
-    if(this.isMediaStreamActive) {
+    // Get mediaStream in case user declined it on page load
+    this.requestUserAudio();
+    if (this.isMediaStreamActive) {
 
       // set the quality properties of the recorder
       this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
@@ -112,9 +117,10 @@ export class AudioRecordingService {
         audioBitsPerSecond: 16000,
         desiredSampRate: 16000,
         numberOfAudioChannels: 1, // set mono recording
-  
+
       });
       this.recorder.record();
+      this.startRecordingTimeout();
       this.isRecording$.next(true);
     }
   }
@@ -135,6 +141,7 @@ export class AudioRecordingService {
   stopRecording(): void {
     // check if recording is active if not do nothing
     if (this.recorder) {
+      this.stopRecordingTimeout();
       this.recorder.stop((blob: Blob) => {
         this.saveRecording(this.activeSentence, blob);
         if (this.activeSentence === this.furthestSentence) {
@@ -143,7 +150,7 @@ export class AudioRecordingService {
       }, () => {
         this.recordingFailed$.next();
       });
-      this.resetRecorder()
+      this.resetRecorder();
     }
 
   }
@@ -156,14 +163,15 @@ export class AudioRecordingService {
   // save the current recording and start the next one
   nextRecording(): void {
     if (this.recorder) {
+      this.stopRecordingTimeout();
       this.recorder.stop((blob: Blob) => {
         this.saveRecording(this.activeSentence, blob);
         if (this.activeSentence === this.furthestSentence) {
           this.textService.increaseFurthestSentence();
-        } 
+        }
         if (this.activeSentence >= this.furthestSentence - 1) {
-          this.resetRecorder()
-          this.startRecording()
+          this.resetRecorder();
+          this.startRecording();
           this.textService.setNextSentenceActive();
         } else {
           this.resetRecorder();
@@ -177,6 +185,7 @@ export class AudioRecordingService {
   }
 
   stopMediaStream(): void {
+    this.stopRecordingTimeout();
     if (this.stream) {
       this.stream.getAudioTracks().forEach((track) => track.stop());
       this.stream = null;
@@ -186,13 +195,40 @@ export class AudioRecordingService {
 
   // cancel current recording without saving
   abortRecording(): void {
+    this.stopRecordingTimeout();
     this.resetRecorder();
   }
 
   // abort the current recording and start a new one
   restartRecording(): void {
+    this.stopRecordingTimeout();
     this.recorder.stop();
     this.recorder.record();
+    this.startRecordingTimeout();
+  }
+
+  startRecordingTimeout() {
+    this.recordingTimeout = setTimeout(() => {
+      this.showRecordingTooLongToast();
+    }, this.recordingTimeoutLength);
+  }
+
+  stopRecordingTimeout() {
+    clearTimeout(this.recordingTimeout);
+  }
+
+  async showRecordingTooLongToast() {
+    const toast = await this.toastController.create({
+      message:
+       '<ion-icon name="hourglass-outline"></ion-icon><br>'+
+       'Your recording seems to be very long.\n'+
+       'Make sure to always click "->" to go to the next sentence.',
+      duration: 10000,
+      color: 'danger',
+      position: 'top',
+      cssClass: 'ion-text-center',
+    });
+    toast.present();
   }
 
 }

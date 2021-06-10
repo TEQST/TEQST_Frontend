@@ -4,7 +4,7 @@ import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
-import { Constants } from '../constants';
+import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',

@@ -1,16 +1,18 @@
-import { MenuLanguageSelectorComponent } from './menu-language-selector/menu-language-selector.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MenuLanguageSelectorComponent,
+} from './menu-language-selector/menu-language-selector.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { AuthPageRoutingModule } from './auth-routing.module';
+import {AuthPageRoutingModule} from './auth-routing.module';
 
-import { AuthPage } from './auth.page';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { TranslateModule } from '@ngx-translate/core';
+import {AuthPage} from './auth.page';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -19,13 +21,13 @@ import { TranslateModule } from '@ngx-translate/core';
     IonicModule,
     AuthPageRoutingModule,
     TranslateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     AuthPage,
     MenuLanguageSelectorComponent,
     LoginComponent,
-    RegisterComponent
-  ]
+    RegisterComponent,
+  ],
 })
 export class AuthPageModule {}

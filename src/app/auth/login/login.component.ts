@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import {Component, OnInit} from '@angular/core';
+import {NavController} from '@ionic/angular';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',

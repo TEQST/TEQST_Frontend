@@ -46,7 +46,7 @@ export class RecordViewPage implements OnInit {
     this.textService.getSentenceHasRecording()
         .subscribe((status) => {
           this.hasRecording = status;
-          //console.log(status)
+          // console.log(status)
         });
     this.textService.getTextTitle()
         .subscribe((title) => this.textTitle = title);
@@ -97,53 +97,8 @@ export class RecordViewPage implements OnInit {
   // Present alert to the user to give permissions for the text
   // if its dismissed without any information entered go back
   async presentPermissionsCheckbox() {
-    // get the current router url
-    const url = this.router.url;
-    // remove the textId param
-    const goBackUrl = '/tabs' + url.slice(0, url.lastIndexOf('/'));
-    const alert = await this.alertController.create({
-      header: 'Recording Permissions',
-      backdropDismiss: false,
-      message: 'You have to select at least one',
-      inputs: [
-        {
-          name: 'textToSpeech',
-          type: 'checkbox',
-          label: 'For Text to Speech',
-          value: 'TTS',
-        },
-
-        {
-          name: 'speechRecognition',
-          type: 'checkbox',
-          label: 'For Speech Recognition',
-          value: 'SR',
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            this.navCtrl.navigateBack(goBackUrl);
-          },
-        }, {
-          text: 'Ok',
-          handler: (permissions) => {
-            // check if at least one option is selected
-            if (Object.keys(permissions).length === 0) {
-              this.router.navigate([goBackUrl]);
-            } else {
-              // check which of the options is selected
-              const tts = Object.values(permissions).indexOf('TTS') > -1;
-              const sr = Object.values(permissions).indexOf('SR') > -1;
-              this.textService.givePermissions(tts, sr);
-            }
-          },
-        },
-      ],
-    });
-
-    await alert.present();
+    const tts = true;
+    const sr = true;
+    this.textService.givePermissions(tts, sr);
   }
 }

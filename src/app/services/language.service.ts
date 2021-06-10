@@ -19,7 +19,7 @@ export class LanguageService {
 
 
   // returns all speakable Languages created by an admin
-  getLangs(): Observable<object> {
+  getLangs(): Observable<Language[]> {
     const url = this.SERVER_URL + '/api/langs/';
     return this.http.get<Language[]>(url);
   }

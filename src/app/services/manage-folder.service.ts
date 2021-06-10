@@ -4,6 +4,9 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from './authentication.service';
 import {Constants} from '../constants';
+import {Folder} from '../manage/manage.folder';
+import streamSaver from 'streamsaver';
+import {AlertManagerService} from './alert-manager.service';
 
 interface User {
   'id': number,
@@ -25,7 +28,8 @@ export class ManageFolderService {
 
   constructor(
     private http: HttpClient,
-    public authenticationService: AuthenticationService) { }
+    public authenticationService: AuthenticationService,
+    private alertManager: AlertManagerService) { }
 
 
   getFolderInfoFor(folderId: string): Observable<object> {
@@ -92,11 +96,53 @@ export class ManageFolderService {
     return this.http.get<TextObject>(url, {});
   }
 
-  downloadFolder(folderId: number): Observable<ArrayBuffer> {
-    const url = this.SERVER_URL + `/api/download/${folderId}/`;
-    return this.http.get<ArrayBuffer>(url, {
-      responseType: 'arraybuffer' as 'json',
-    });
+  downloadFolder(folder: Folder) {
+    const url = this.SERVER_URL + `/api/download/${folder.id}/`;
+
+    const fileName = `${folder.name}_${folder.id}.zip`;
+    const fileStream = streamSaver.createWriteStream(fileName);
+
+    const errorTitle = 'Error while processing your download.';
+    const errorMsg = 'Please try again later!';
+
+    const options = {
+      headers: new Headers({'Authorization': localStorage.getItem('Token')}),
+    };
+    fetch(url, options)
+        .then((res) => {
+          const readableStream = res.body;
+
+          if (window.WritableStream && readableStream.pipeTo) {
+            return readableStream.pipeTo(fileStream)
+                .catch(() => {
+                  this.alertManager
+                      .showErrorAlertNoRedirection(errorTitle, errorMsg);
+                });
+          }
+
+          const writer = fileStream.getWriter();
+
+          const reader = res.body.getReader();
+          const pump = () => reader.read()
+              .then((res) => {
+                if (res.done) {
+                  writer.close();
+                } else {
+                  writer.write(res.value).then(pump);
+                }
+              })
+              .catch(() => {
+                this.alertManager
+                    .showErrorAlertNoRedirection(errorTitle, errorMsg);
+              });
+          pump();
+        })
+        .catch(() => {
+          this.alertManager.showErrorAlertNoRedirection(
+              'No download available',
+              'No Speaker has finished a text of the current folder yet. ' +
+              'Please try again later.');
+        });
   }
 }
 
