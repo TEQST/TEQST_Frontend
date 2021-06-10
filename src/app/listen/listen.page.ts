@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { User } from '../interfaces/user';
+import { ListenerService } from '../services/listener.service';
 
 @Component({
   selector: 'app-listen',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listen.page.scss'],
 })
 export class ListenPage implements OnInit {
+  @ViewChild('publisherList', {read: ElementRef}) publisherListElem: ElementRef
+  private publishers
 
-  constructor() { }
+  constructor(private listenerService: ListenerService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.listenerService.getPublishers()
+    .toPromise()
+    .then((publishers) => {
+        this.publishers = publishers
+        this.publisherListElem.nativeElement.classList.add('loaded');
+    })
   }
 
 }

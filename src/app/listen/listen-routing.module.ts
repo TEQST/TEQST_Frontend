@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: ListenPage
-  }
+  },
+  {
+    path: ':publisherId',
+    loadChildren: () => import('./folder-list/folder-list.module')
+        .then( (m) => m.FolderListPageModule),
+  },
 ];
 
 @NgModule({
