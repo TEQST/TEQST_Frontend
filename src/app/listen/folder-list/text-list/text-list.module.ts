@@ -5,18 +5,18 @@ import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 import {TranslateModule} from '@ngx-translate/core';
 
-import {FolderListPageRoutingModule} from './folder-list-routing.module';
+import {TextListPageRoutingModule} from './text-list-routing.module';
 
-import {FolderListPage} from './folder-list.page';
+import {TextListPage} from './text-list.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FolderListPageRoutingModule,
+    TextListPageRoutingModule,
     TranslateModule,
   ],
-  declarations: [FolderListPage],
+  declarations: [TextListPage],
 })
-export class FolderListPageModule {}
+export class TextListPageModule {}

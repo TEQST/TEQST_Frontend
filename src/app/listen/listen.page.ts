@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { User } from '../interfaces/user';
-import { ListenerService } from '../services/listener.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AlertManagerService} from '../services/alert-manager.service';
+import {ListenerService} from '../services/listener.service';
+import {LoaderService} from '../services/loader.service';
 
 @Component({
   selector: 'app-listen',
@@ -9,17 +10,32 @@ import { ListenerService } from '../services/listener.service';
 })
 export class ListenPage implements OnInit {
   @ViewChild('publisherList', {read: ElementRef}) publisherListElem: ElementRef
-  private publishers
 
-  constructor(private listenerService: ListenerService) { }
+  public publishers: any
+  public isLoading = false;
 
-  async ngOnInit() {
-    await this.listenerService.getPublishers()
-    .toPromise()
-    .then((publishers) => {
-        this.publishers = publishers
-        this.publisherListElem.nativeElement.classList.add('loaded');
-    })
+  constructor(private alertManager: AlertManagerService,
+              private loaderService: LoaderService,
+              private listenerService: ListenerService) {
+    this.loaderService.getIsLoading()
+        .subscribe((isLoading) => this.isLoading = isLoading);
+  }
+
+  ngOnInit() { }
+
+  async ionViewWillEnter() {
+    this.publishers = [];
+    this.publisherListElem.nativeElement.classList.remove('loaded');
+
+    await this.listenerService.getPublisherList()
+        .subscribe(
+            (data) => {
+              this.publishers = data;
+              this.publisherListElem.nativeElement.classList.add('loaded');
+            },
+            (err) => this.alertManager
+                .showErrorAlert(err.status, err.statusText),
+        );
   }
 
 }

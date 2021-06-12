@@ -1,13 +1,18 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { FolderListPage } from './folder-list.page';
+import {FolderListPage} from './folder-list.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FolderListPage
-  }
+    component: FolderListPage,
+  },
+  {
+    path: ':folderId',
+    loadChildren: () => import('./text-list/text-list.module')
+        .then( (m) => m.TextListPageModule),
+  },
 ];
 
 @NgModule({
