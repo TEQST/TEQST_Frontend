@@ -63,7 +63,6 @@ export class ProfilePage implements OnInit {
 
 
     this.usermgmtService.getProfileData().subscribe((profileData) => {
-
       const formData = {
         ...profileData,
         menu_language_id: profileData.menu_language.short,
