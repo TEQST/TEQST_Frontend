@@ -10,8 +10,9 @@
 <ion-content class="no-select">
   <h1>{{'Texts in' | translate}} {{folderName}}</h1>
   <ion-list #textList class="fadeInWhenLoaded">
-    <ion-item button *ngFor="let text of texts" routerLink="/listen/{{publisherId}}/{{folderId}}/{{text.id}}">
-      <ion-icon name="reader" color="dark" class="textIcon"></ion-icon> {{ text.title }}
+    <ion-item button *ngFor="let text of texts" routerLink="/tabs/listen/{{publisherId}}/{{folderId}}/{{text.id}}" [state]="{title:
+      text.title}">
+      <ion-icon name="reader" color="dark" class="textIcon"></ion-icon> {{text.title}}
     </ion-item>
   </ion-list>
 </ion-content>

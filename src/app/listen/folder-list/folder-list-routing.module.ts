@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {FolderListPage} from './folder-list.page';
+import { TextListPage } from './text-list/text-list.page';
 
 const routes: Routes = [
   {

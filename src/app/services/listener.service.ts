@@ -4,8 +4,10 @@ import {Constants} from '../constants';
 import {AuthenticationService} from './authentication.service';
 import {User} from '../interfaces/user';
 import {SharedFolder} from './../interfaces/shared-folder';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {AlertManagerService} from './alert-manager.service';
+import { TextObject } from '../interfaces/text-object';
+import { TextStats } from '../interfaces/text-stats';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +30,10 @@ export class ListenerService {
     return this.http.get<JSON[]>(url);
   }
 
-  getFoldersOfPublisher(publisher_id) {
+  getFoldersOfPublisher(publisherId) {
     this.requestMade.next(true);
     const url =
-      this.SERVER_URL + `/api/lstn/publishers/${publisher_id}/`;
+      this.SERVER_URL + `/api/lstn/publishers/${publisherId}/`;
     return this.http.get<JSON[]>(url);
   }
 
@@ -46,5 +48,18 @@ export class ListenerService {
         (err) => this.alertService
             .showErrorAlert(err.status, err.statusText),
     );
+  }
+
+  getTextInfo(textId) {
+    this.requestMade.next(true);
+    const url =
+      this.SERVER_URL + `/api/lstn/texts/${textId}/`;
+    return this.http.get<TextObject>(url);
+  }
+
+  public getTextStats(textId: number): Observable<TextStats> {
+    this.requestMade.next(true);
+    const url = this.SERVER_URL + `/api/lstn/texts/${textId}/stats/`;
+    return this.http.get<TextStats>(url.toString());
   }
 }
