@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from './authentication.service';
-import { Constants } from '../constants';
+import {Constants} from '../constants';
 
 interface User {
   'id': number,
@@ -64,8 +64,8 @@ export class ManageFolderService {
   }
 
   deleteFolders(folderIds) {
-    //const url = this.SERVER_URL + `/api/folders/${folderId}/`;
-    return this.http.delete('TODO');
+    const url = this.SERVER_URL + `/api/pub/folders/delete/`;
+    return this.http.post(url, folderIds);
   }
 
   createText(params: any[]) {
@@ -75,7 +75,7 @@ export class ManageFolderService {
         const paramValue = params[param];
         if (param == 'textfile') {
           formData.append('textfile', paramValue, paramValue.name);
-        } else {
+        } else { 
           formData.append(param, paramValue);
         }
       }
@@ -93,8 +93,8 @@ export class ManageFolderService {
   }
 
   deleteTexts(textIds) {
-    //const url = this.SERVER_URL + `/api/folders/${folderId}/`;
-    return this.http.delete('TODO');
+    const url = this.SERVER_URL + `/api/pub/texts/delete/`;
+    return this.http.post(url, textIds);
   }
 
   getTextInfo(textId: string): Observable<TextObject> {
