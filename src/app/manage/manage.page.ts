@@ -179,10 +179,13 @@ export class ManagePage implements OnInit {
       }
     }
 
+    this.toggleMultiSelect();
+
     if (this.currentFolder.is_sharedfolder)
       return this.manageFolderService.deleteTexts(idsToDelete);
     else
       return this.manageFolderService.deleteFolders(idsToDelete);
+    
   }
 
   async openDeleteSelectedItemsModal() {
