@@ -14,7 +14,7 @@ import {AlertManagerService} from './alert-manager.service';
 export class SpeakTabNavService {
 
 SERVER_URL = Constants.SERVER_URL;
-public sharedFoldersList = new Subject<any>()
+public sharedTextsList = new Subject<any>()
 public requestMade = new Subject<any>();
 
 constructor(
@@ -46,7 +46,7 @@ loadContentsOfSharedFolder(folderId: string) {
 
   return this.http.get<SharedFolder>(url).subscribe(
       (data) => {
-        this.sharedFoldersList.next(data);
+        this.sharedTextsList.next(data);
       },
       (err) => this.alertService
           .showErrorAlert(err.status, err.statusText),

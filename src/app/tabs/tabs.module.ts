@@ -32,6 +32,12 @@ const routes: Routes = [
         canActivate: [AccessGuard],
       },
       {
+        path: 'listen',
+        loadChildren: '../listen/listen.module#ListenPageModule',
+        data: {requiresLogin: true, requiredRole: 'listener'},
+        canActivate: [AccessGuard],
+      },
+      {
         path: 'settings',
         loadChildren: '../settings/settings.module#SettingsPageModule',
         data: {requiresLogin: true},

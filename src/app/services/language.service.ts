@@ -1,8 +1,8 @@
-import {Language} from './../interfaces/language';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
+import {Language} from '../interfaces/language';
 import {Constants} from '../constants';
 
 @Injectable({

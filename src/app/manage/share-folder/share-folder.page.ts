@@ -1,19 +1,17 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {ModalController} from '@ionic/angular';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {IonSlides, ModalController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
-import {ManageFolderService} from 'src/app/services/manage-folder.service';
 
-
-// interface to handle the user objects better
-interface User {
-  'id': number,
-  'username': string,
-  'education': string,
-  'gender': string,
-  'birth_year': number,
-  'languages': number[],
-  'country': null
-}
+// // interface to handle the user objects better
+// interface User {
+//   'id': number,
+//   'username': string,
+//   'education': string,
+//   'gender': string,
+//   'birth_year': number,
+//   'languages': number[],
+//   'country': null;
+// }
 
 @Component({
   selector: 'app-share-folder',
@@ -24,111 +22,27 @@ interface User {
 export class ShareFolderPage implements OnInit {
 
   @Input() folderId: number;
-  @Input() folderName: string
-
-  public isPublicForAll: boolean
-  private speakers: User[];
-  public filteredSpeakers: User[];
-  private allUsers: User[];
-  public filteredUsers: User[]
-  private searchTerm: string = '';
+  @Input() folderName: string;
+  @ViewChild('slides', {static: true}) slider: IonSlides;
+  segment = 0;
 
   constructor(public viewCtrl: ModalController,
-              private folderService: ManageFolderService,
-              private route: ActivatedRoute) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // reset Search term on each opening of the modal
-    this.searchTerm = '';
-    this.fetchUserLists();
+
   }
 
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  async fetchUserLists() {
-    // get a list of all users
-    await this.folderService.getAllUsers()
-        .toPromise()
-        .then((userArray) => {
-          this.allUsers = userArray;
-          this.filteredUsers = userArray;
-        });
-    // get a list of all speakers of the folder
-    await this.folderService.getSpeakers(this.folderId)
-        .toPromise()
-        .then((sharedFolder) => {
-          this.speakers = sharedFolder['speakers'];
-          this.filteredSpeakers = sharedFolder['speakers'];
-          this.isPublicForAll = sharedFolder['public'];
-        });
-    this.filterLists();
+  async segmentChanged($event) {
+    await this.slider.slideTo($event.detail.value);
   }
 
-  handleFolderPublicityToggle(event) {
-    this.setFolderPublicity(event.target.checked);
-  }
-
-  async setFolderPublicity(public_for_all) {
-    this.isPublicForAll = public_for_all;
-    const speakers = this.speakers.map((speaker) => speaker.id);
-    await this.folderService.setSpeakers(
-        this.folderId,
-        speakers,
-        this.isPublicForAll)
-        .toPromise();
-  }
-
-  // update the search term on text input
-  onSearchTerm(event: CustomEvent) {
-    this.searchTerm = event.detail.value;
-    this.filterLists();
-  }
-
-  // filter user and speaker list based on the search term
-  filterLists() {
-    this.filteredSpeakers = this.speakers.filter((speaker) => {
-      return speaker.username.toLowerCase()
-          .startsWith(this.searchTerm.toLowerCase());
-    });
-
-    this.filteredUsers = this.allUsers.filter((user) => {
-      if (user.username.toLowerCase()
-          .startsWith(this.searchTerm.toLowerCase())) {
-        // remove all users already listed in the speaker list
-        return this.filteredSpeakers
-            .findIndex((speaker) => speaker.username === user.username) === -1;
-      }
-      return false;
-    });
-  }
-
-  async addSpeaker(user: User) {
-    // create a new array with just the speaker ids
-    const newSpeakers = this.speakers.map((speaker) => speaker.id);
-    newSpeakers.push(user.id);
-    await this.folderService.setSpeakers(
-        this.folderId,
-        newSpeakers,
-        this.isPublicForAll)
-        .toPromise()
-        .then((sharedfolder) => this.speakers = sharedfolder['speakers']);
-    this.filterLists();
-  }
-
-  async removeSpeaker(speaker: User) {
-    const oldSpeakerIds = this.speakers.map((speaker) => speaker.id);
-    // remove the speaker from the array
-    const newSpeakerIds = oldSpeakerIds.filter(
-        (speakerid) => speakerid != speaker.id);
-    await this.folderService.setSpeakers(
-        this.folderId,
-        newSpeakerIds,
-        this.isPublicForAll)
-        .toPromise()
-        .then((sharedfolder) => this.speakers = sharedfolder['speakers']);
-    this.filterLists();
+  async slideChanged() {
+    this.segment = await this.slider.getActiveIndex();
   }
 
 }

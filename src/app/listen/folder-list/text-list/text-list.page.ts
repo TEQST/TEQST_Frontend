@@ -1,18 +1,18 @@
-import {TimeStatsComponent} from './time-stats/time-stats.component';
-import {SharedFolder} from './../../../interfaces/shared-folder';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-
-import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
-import {LoaderService} from 'src/app/services/loader.service';
+import {Router, ActivatedRoute} from '@angular/router';
 import {ModalController} from '@ionic/angular';
+import {SharedFolder} from 'src/app/interfaces/shared-folder';
+import {ListenerService} from 'src/app/services/listener.service';
+import {LoaderService} from 'src/app/services/loader.service';
+import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
+import {TimeStatsComponent}
+  from 'src/app/speak/folder-list/text-list/time-stats/time-stats.component';
 
 @Component({
   selector: 'app-text-list',
   templateUrl: './text-list.page.html',
   styleUrls: ['./text-list.page.scss'],
 })
-
 export class TextListPage implements OnInit {
 
   @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
@@ -24,11 +24,11 @@ export class TextListPage implements OnInit {
   public isLoading = false;
   public sharedFolderData: SharedFolder;
 
-  constructor(private navService: SpeakTabNavService,
-              private router: Router,
+  constructor(private router: Router,
               private route: ActivatedRoute,
               private loaderService: LoaderService,
-              private modalController: ModalController) {
+              private modalController: ModalController,
+              private listenerService: ListenerService) {
 
     const routeParams = this.router.getCurrentNavigation().extras.state;
     if (typeof routeParams !== 'undefined' && 'folderName' in routeParams) {
@@ -36,16 +36,18 @@ export class TextListPage implements OnInit {
     }
     this.loaderService.getIsLoading()
         .subscribe((isLoading) => this.isLoading = isLoading);
+
     this.publisherId = '';
     this.texts = [];
-    this.navService.sharedTextsList.subscribe((data) => {
+
+    this.listenerService.sharedTextsList.subscribe((data) => {
       this.sharedFolderData = data;
       this.folderName = data.name;
       this.texts = data.texts;
       this.textListElem.nativeElement.classList.add('loaded');
     });
     // clear contents when data is being refreshed
-    this.navService.requestMade.subscribe((_) => {
+    this.listenerService.requestMade.subscribe((_) => {
       this.texts = [];
       this.textListElem.nativeElement.classList.remove('loaded');
     });
@@ -57,7 +59,7 @@ export class TextListPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    this.navService.loadContentsOfSharedFolder(this.folderId);
+    this.listenerService.loadContentsOfSharedFolder(this.folderId);
   }
 
   async presentTimeStats() {

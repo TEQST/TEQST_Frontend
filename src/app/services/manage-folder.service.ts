@@ -15,7 +15,7 @@ interface User {
   'gender': string,
   'birth_year': number,
   'languages': number[],
-  'country': null
+  'country': null;
 }
 
 @Injectable({
@@ -103,29 +103,7 @@ export class ManageFolderService {
 
   getTextInfo(textId: string): Observable<TextObject> {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/`;
-    return this.http.get<TextObject>(url, { });
-  }
-
-  getSpeakers(sharedfolderId: number) {
-    const url =
-    this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
-    return this.http.get<JSON[]>(url);
-  }
-
-  setSpeakers(
-      sharedfolderId: number,
-      speakers: number[],
-      public_for_all: boolean) {
-
-    const url = this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
-    return this.http.put<JSON>(url, {
-      speaker_ids: speakers,
-      public: public_for_all});
-  }
-
-  getAllUsers() {
-    const url = this.SERVER_URL + `/api/users/`;
-    return this.http.get<User[]>(url);
+    return this.http.get<TextObject>(url, {});
   }
 
   downloadFolder(folder: Folder) {
