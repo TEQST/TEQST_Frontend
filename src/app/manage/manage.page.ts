@@ -9,6 +9,7 @@ import {ManageFolderUIService} from './manage-folder-ui.service';
 import {ManageTextUIService} from './manage-text-ui.service';
 import {StatisticsService} from '../services/statistics.service';
 import {saveAs} from 'file-saver';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-manage',
@@ -34,6 +35,7 @@ export class ManagePage implements OnInit {
     private manageFolderUIService: ManageFolderUIService,
     private manageTextUIService: ManageTextUIService,
     private statisticsService: StatisticsService,
+    private alertController: AlertController,
     private router: Router,
     private route: ActivatedRoute,
     private alertManager: AlertManagerService,
@@ -204,29 +206,6 @@ export class ManagePage implements OnInit {
       ],
     });
     await alert.present();
-  }
-
-  async openCreateFolderModal() {
-    const modal = await this.modalController.create({
-      component: CreateFolderPage,
-      componentProps: {
-        existingFolderNames: this.subfolders.map((folder) => folder.name),
-      },
-    });
-    modal.onDidDismiss()
-        .then(async (returnData) => {
-          const data = returnData.data;
-          if (data) {
-            this.currentFolder.createSubfolder(data.folderName)
-                .subscribe(
-                    () => this.getFolderInfo(),
-                    (err) => this.alertManager.showErrorAlertNoRedirection(
-                        err.status,
-                        err.statusText),
-                );
-          }
-        });
-    return await modal.present();
   }
 
   async openDeleteFolderAlert($event, folder) {
