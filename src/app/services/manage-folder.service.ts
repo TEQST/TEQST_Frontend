@@ -67,6 +67,11 @@ export class ManageFolderService {
     return this.http.delete(url);
   }
 
+  deleteFolders(folderIds) {
+    const url = this.SERVER_URL + `/api/pub/folders/delete/`;
+    return this.http.post(url, folderIds);
+  }
+
   createText(params: any[]) {
     const formData = new FormData();
     for (const param in params) {
@@ -74,7 +79,7 @@ export class ManageFolderService {
         const paramValue = params[param];
         if (param == 'textfile') {
           formData.append('textfile', paramValue, paramValue.name);
-        } else {
+        } else { 
           formData.append(param, paramValue);
         }
       }
@@ -89,6 +94,11 @@ export class ManageFolderService {
   deleteText(textId: string) {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/`;
     return this.http.delete(url);
+  }
+
+  deleteTexts(textIds) {
+    const url = this.SERVER_URL + `/api/pub/texts/delete/`;
+    return this.http.post(url, textIds);
   }
 
   getTextInfo(textId: string): Observable<TextObject> {

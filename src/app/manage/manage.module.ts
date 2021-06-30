@@ -27,6 +27,8 @@ import {TextDetailPageModule} from './text-detail/text-detail.module';
     FolderStatsPageModule,
     TranslateModule,
   ],
-  declarations: [ManagePage],
+  declarations: [
+    ManagePage
+  ],
 })
 export class ManagePageModule {}
