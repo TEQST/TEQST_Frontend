@@ -4,12 +4,12 @@
       <ion-back-button *ngIf="currentFolder.id" defaultHref="tabs/manage"></ion-back-button>
     </ion-buttons>
     <ion-img *ngIf="currentFolder.name == '/'" src="../../assets/img/logo.png"></ion-img>
-    <ion-buttons *ngIf="currentFolder.name == '/'" slot="end">
+    <ion-buttons class="action-buttons-right" *ngIf="currentFolder.name == '/'" slot="end">
       <ion-button color="primary" (click)="downloadstatistics()">
         <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons *ngIf="currentFolder.is_sharedfolder" slot="end">
+    <ion-buttons class="action-buttons-right" *ngIf="currentFolder.is_sharedfolder" slot="end">
       <ion-button color="primary" (click)="openShareFolderModal()">
         <ion-icon name="cloudy"></ion-icon>
       </ion-button>
