@@ -3,11 +3,11 @@
     <ion-tab-button tab="speak">
       <ion-icon name="mic"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="manage" *ngIf="isPublisher">
-      <ion-icon name="cloud-upload"></ion-icon>
-    </ion-tab-button>
     <ion-tab-button tab="listen" *ngIf="isListener">
       <ion-icon name="ear"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="manage" *ngIf="isPublisher">
+      <ion-icon name="cloud-upload"></ion-icon>
     </ion-tab-button>
     <ion-tab-button tab="settings">
       <ion-icon name="settings"></ion-icon>
