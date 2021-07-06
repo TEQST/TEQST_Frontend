@@ -4,7 +4,8 @@
         "es2020": true
     },
     "extends": [
-        "google"
+        "google",
+        "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -19,6 +20,8 @@
         "padded-blocks": "off",
         "require-jsdoc": "off",
         "new-cap": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "@typescript-eslint/explicit-function-return-type": "warn",
+        "linebreak-style": ["error", "windows"]
     }
 }

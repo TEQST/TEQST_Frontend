@@ -31,7 +31,7 @@ export class ShareFolderPage implements OnInit {
   public filteredSpeakers: User[];
   private allUsers: User[];
   public filteredUsers: User[]
-  private searchTerm: string = '';
+  private searchTerm = '';
 
   constructor(public viewCtrl: ModalController,
               private folderService: ManageFolderService,

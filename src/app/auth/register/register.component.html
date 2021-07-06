@@ -2,8 +2,7 @@
   (keyup.enter)="stepOneForm?.valid ? nextStep() : undefined">
   <ion-item lines="full">
     <ion-label position="floating">{{ 'Username' | translate }}</ion-label>
-    <ion-input formControlName="username" type="text" id="username">
-    </ion-input>
+    <ion-input formControlName="username" type="text" id="username"></ion-input>
   </ion-item>
   <div class="error" *ngIf="errorControl.username.errors?.required && errorControl.username.touched">
     Username is required.
@@ -34,24 +33,54 @@
       <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-button class="button-submit" type="submit" [disabled]="!stepOneForm.valid" expand="block">{{'Next' | translate}}
+  <ion-button class="button-submit" type="submit" [disabled]="stepOneForm.valid" expand="block">{{'Next' | translate}}
   </ion-button>
 </form>
 
 <form *ngIf="currentRegisterStep === 2" [formGroup]="stepTwoForm" (ngSubmit)="performRegister()"
   (keyup.enter)="stepTwoForm.valid ? performRegister() : undefined">
+
   <ion-item lines="full">
     <ion-label position="floating">{{'Email' | translate}}: </ion-label>
-    <ion-input formControlName="email"></ion-input>
+    <ion-input  formControlName="email"></ion-input>
   </ion-item>
-  <ion-item lines="full">
+
+  <!-- Country -->
+  <ion-item id="country" lines="full" (click)="toggleCountryDropdown()">
     <ion-label position="floating">{{'Country' | translate}}: </ion-label>
-    <ion-input formControlName="country"></ion-input>
+    <ion-input id="country" formControlName="country" (ionChange)="filterCountries($event)"></ion-input>
   </ion-item>
-  <ion-item lines="full">
+  <div id="country" *ngIf="showCountryDropdown" class="country-dropdown-container" (clickOutside)="clearCountryDropdown()">
+    <ion-content>
+      <ion-virtual-scroll [items]="filteredCountries" approxItemHeight="48px">
+        <ion-item button  *virtualItem="let country" (click)="selectCountry(country)">
+          {{country.english_name}}
+        </ion-item>
+      </ion-virtual-scroll>
+    </ion-content>
+  </div>
+
+  <!-- Accent -->
+  <ion-item id="accent" lines="full" (click)="toggleAccentDropdown()">
     <ion-label position="floating">{{'Accent' | translate}}: </ion-label>
-    <ion-input name="accent" formControlName="accent"></ion-input>
+    <ion-input id="accent" formControlName="accent" (ionChange)="filterAccents($event)"></ion-input>
   </ion-item>
+  <div id="accent" *ngIf="showAccentDropdown" class="accent-dropdown-container" (clickOutside)="toggleAccentDropdown()">
+    <div *ngIf="filteredAccents.length === 0">
+      <ion-item-divider>{{'Add new Accent' | translate}}</ion-item-divider>
+      <ion-item button (click)="toggleAccentDropdown()">
+        {{stepTwoForm.value.accent}}
+        <ion-icon color="primary" slot="end" name="add-circle"></ion-icon>
+      </ion-item>
+    </div>
+    <ion-content>
+      <ion-virtual-scroll *ngIf="filteredAccents.length > 0" [items]="filteredAccents" approxItemHeight="48px">
+        <ion-item button *virtualItem="let accent" (click)="selectAccent(accent)">
+          {{accent}}
+        </ion-item>
+      </ion-virtual-scroll>
+    </ion-content>
+  </div>
 
   <ion-item lines="full">
     <ion-label position="floating">{{'Education Level' | translate}}:</ion-label>
