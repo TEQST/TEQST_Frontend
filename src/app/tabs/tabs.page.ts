@@ -15,12 +15,14 @@ export class TabsPage implements OnInit {
   @ViewChildren(IonTabButton) tabbuttons: any;
 
   public isPublisher: boolean;
+  public isListener: boolean;
 
   constructor(public usermgmtService: UsermgmtService) { }
 
   ngOnInit() {
     this.usermgmtService.getIsPublisher().subscribe((isPublisher: boolean) => {
       this.isPublisher = isPublisher;
+      this.isListener = true;
     });
   }
 

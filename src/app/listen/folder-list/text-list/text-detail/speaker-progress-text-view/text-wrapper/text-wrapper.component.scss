@@ -1,0 +1,24 @@
+div {
+	opacity: 0.2;
+	padding: 5px;
+	font-size: large;
+}
+
+.verticalLine, .verticalLineDone {
+	padding: 5px 10px;
+
+	&.active {
+		opacity: 1;
+		padding: 15px;
+		font-size: larger;
+		font-weight: bold;
+	}
+}
+
+.verticalLine {
+  border-left: 8px solid #ff0000;
+}
+
+.verticalLineDone {
+  border-left: 8px solid Green;
+}

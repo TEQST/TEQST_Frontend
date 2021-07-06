@@ -1,3 +1,4 @@
+import {Country} from './../interfaces/country';
 import {ProfileData} from './../interfaces/profile-data';
 import {User} from './../interfaces/user';
 import {Injectable, Injector} from '@angular/core';
@@ -17,87 +18,114 @@ import {Constants} from '../constants';
 export class UsermgmtService {
 
   SERVER_URL = Constants.SERVER_URL;
-  
-   private httpOptions;
-   public isPublisher = new BehaviorSubject<boolean>(undefined);
-   // tslint:disable: no-string-literal
 
-   constructor(public http: HttpClient,
-               public navCtrl: NavController,
-               private alertService: AlertManagerService,
-               public languageService: LanguageService,
-               private injector: Injector) {}
+  public isPublisher = new BehaviorSubject<boolean>(undefined);
+  // tslint:disable: no-string-literal
 
-   // check if username is available
-   checkUsername(username: string) {
-     const url = this.SERVER_URL + '/api/users/checkname/?username=' + username;
-     return this.http.get(url);
-   }
+  constructor(public http: HttpClient,
+              public navCtrl: NavController,
+              private alertService: AlertManagerService,
+              public languageService: LanguageService,
+              private injector: Injector) {}
 
-   // notifies the Server about profile changes
-   updateProfile(dataToSend) {
-     const url = this.SERVER_URL + '/api/user/';
-     return this.http.put(url, dataToSend);
-   }
+  // check if username is available
+  checkUsername(username: string) {
+    const url = this.SERVER_URL + '/api/users/checkname/?username=' + username;
+    return this.http.get(url);
+  }
 
-   patchProfile(dataToSend) {
-     const url = this.SERVER_URL + '/api/user/';
-     return this.http.patch(url, dataToSend);
-   }
+  // notifies the Server about profile changes
+  updateProfile(dataToSend) {
+    const url = this.SERVER_URL + '/api/user/';
+    return this.http.put(url, dataToSend);
+  }
 
-   // deletes Authtoken and clears localStorage
-   deleteStoredUserData(): void {
-     // keep menu language in local storage
-     const tempLanguage = localStorage.getItem('MenuLanguage');
-     localStorage.clear();
-     if ( tempLanguage != null) {
-       // localStorage.setItem('MenuLanguage', temp);
-       this.languageService.putMenuLanguageLocalStorageWithParam(tempLanguage);
-     }
-   }
+  patchProfile(dataToSend) {
+    const url = this.SERVER_URL + '/api/user/';
+    return this.http.patch(url, dataToSend);
+  }
 
-   // gets all the information about the User who is currently logged in
-   getProfileData(): Observable<ProfileData> {
-     const url = this.SERVER_URL + '/api/user/';
-     return this.http.get<ProfileData>(url);
-   }
+  // deletes Authtoken and clears localStorage
+  deleteStoredUserData(): void {
+    // keep menu language in local storage
+    const tempLanguage = localStorage.getItem('MenuLanguage');
+    localStorage.clear();
+    if ( tempLanguage != null) {
+      // localStorage.setItem('MenuLanguage', temp);
+      this.languageService.putMenuLanguageLocalStorageWithParam(tempLanguage);
+    }
+  }
 
-   storeUserData(userData: User): void {
-     this.languageService.putMenuLanguageLocalStorage(),
-     localStorage.setItem(
-         'isPublisher',
-         JSON.stringify(this.isPublisher.getValue()));
-     localStorage.setItem('userId', userData.id.toString());
-     localStorage.setItem('username', userData.username);
-   }
-   // returns boolean if a user is a Publisher
-   getIsPublisher(): Observable<boolean> {
-     this.isPublisher.next(JSON.parse(localStorage.getItem('isPublisher')));
-     return this.isPublisher.asObservable();
-   }
+  // gets all the information about the User who is currently logged in
+  getProfileData(): Observable<ProfileData> {
+    const url = this.SERVER_URL + '/api/user/';
+    return this.http.get<ProfileData>(url);
+  }
 
-   // add user id and username to the error logging
-   public initLoggingData(id: number, username: string): void {
-     const rollbar = this.injector.get(RollbarService);
-     rollbar.configure({
-       payload: {
-         person: {
-           id,
-           username,
-         },
-       },
-     });
-   }
+  storeUserData(userData: User): void {
+    this.languageService.putMenuLanguageLocalStorage(),
+    localStorage.setItem(
+        'isPublisher',
+        JSON.stringify(this.isPublisher.getValue()));
+    localStorage.setItem('userId', userData.id.toString());
+    localStorage.setItem('username', userData.username);
+  }
+  // returns boolean if a user is a Publisher
+  getIsPublisher(): Observable<boolean> {
+    this.isPublisher.next(JSON.parse(localStorage.getItem('isPublisher')));
+    return this.isPublisher.asObservable();
+  }
 
-   public clearLoggingData(): void {
-     const rollbar = this.injector.get(RollbarService);
-     rollbar.configure({
-       payload: {
-         person: {
-           id: null,
-           username: null,
-         },
-       },
-     });
-   }
+  // add user id and username to the error logging
+  public initLoggingData(id: number, username: string): void {
+    const rollbar = this.injector.get(RollbarService);
+    rollbar.configure({
+      payload: {
+        person: {
+          id,
+          username,
+        },
+      },
+    });
+  }
+
+  public clearLoggingData(): void {
+    const rollbar = this.injector.get(RollbarService);
+    rollbar.configure({
+      payload: {
+        person: {
+          id: null,
+          username: null,
+        },
+      },
+    });
+  }
+
+  public getAccents(): Observable<string[]> {
+    const url = this.SERVER_URL + '/api/accents/';
+    return this.http.get<string[]>(url);
+  }
+
+  private getCountries(): Observable<Object> {
+    const url = this.SERVER_URL + '/api/countries/';
+    return this.http.get(url);
+  }
+
+  public async getCountryList(): Promise<Country[]> {
+    const countryList: Country[] = [];
+    const countryObj = await this.getCountries().toPromise();
+
+    for (const countryShort in countryObj) {
+      if (Object.prototype.hasOwnProperty.call( countryObj, countryShort)) {
+        countryList.push(
+            {
+              short: countryShort,
+              english_name: countryObj[countryShort],
+            });
+      }
+    }
+
+    return countryList;
+
+  }
 }

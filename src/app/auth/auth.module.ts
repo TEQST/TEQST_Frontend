@@ -1,3 +1,4 @@
+import {DirectivesModule} from './../directives/directives.module';
 import {
   MenuLanguageSelectorComponent,
 } from './menu-language-selector/menu-language-selector.component';
@@ -25,6 +26,7 @@ import {TranslateModule} from '@ngx-translate/core';
     AuthPageRoutingModule,
     TranslateModule,
     ReactiveFormsModule,
+    DirectivesModule,
   ],
   declarations: [
     AuthPage,

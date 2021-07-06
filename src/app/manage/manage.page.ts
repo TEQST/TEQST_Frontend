@@ -9,6 +9,7 @@ import {ManageFolderUIService} from './manage-folder-ui.service';
 import {ManageTextUIService} from './manage-text-ui.service';
 import {StatisticsService} from '../services/statistics.service';
 import {saveAs} from 'file-saver';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-manage',
@@ -28,11 +29,13 @@ export class ManagePage implements OnInit {
   public texts: Text[]
   public isLoading = false;
   public username: string
+  public showMultiSelect = false;
 
   constructor(private manageFolderService: ManageFolderService,
     private manageFolderUIService: ManageFolderUIService,
     private manageTextUIService: ManageTextUIService,
     private statisticsService: StatisticsService,
+    private alertController: AlertController,
     private router: Router,
     private route: ActivatedRoute,
     private alertManager: AlertManagerService,
@@ -115,7 +118,100 @@ export class ManagePage implements OnInit {
         this.currentFolder, this.subfolders, () => this.getFolderInfo());
   }
 
-  openDeleteFolderAlert($event, folder) {
+  toggleMultiSelect() {
+    if (this.showMultiSelect)
+      this.uncheckAllItems();
+    this.showMultiSelect = !this.showMultiSelect;
+  }
+
+  toggleSelectItem(e) {
+    if (e.target.nodeName == 'ION-CHECKBOX')
+      return;
+    const item = e.target.querySelector('.selectCheckbox');
+    item.checked = !item.checked;
+  }
+
+  uncheckAllItems() {
+    this.setAllItemsCheckedState(false)
+  }
+
+  checkAllItems() {
+    this.setAllItemsCheckedState(true)
+  }
+
+  toggleAllItemsCheckedState() {
+    const container = this.currentFolder.is_sharedfolder ? this.textListElem : this.folderListElem;
+    for (const checkbox of container.nativeElement.querySelectorAll('.selectCheckbox')) {
+      if (!checkbox.checked) {
+        this.checkAllItems();
+        return;
+      }
+    }
+    this.uncheckAllItems();
+  }
+
+  setAllItemsCheckedState(checked) {
+    const container = this.currentFolder.is_sharedfolder ? this.textListElem : this.folderListElem;
+    for (const checkbox of container.nativeElement.querySelectorAll('.selectCheckbox')) {
+      checkbox.checked = checked;
+    }
+  }
+
+  deleteSelectedItems() {
+    let dataList = [];
+    let listParentElem = null;
+    if (this.currentFolder.is_sharedfolder) {
+      dataList = this.texts;
+      listParentElem = this.textListElem;
+    } else {
+      dataList = this.subfolders;
+      listParentElem = this.folderListElem;
+    }
+    const listElem = listParentElem.nativeElement.querySelector('ion-list');
+    const checkboxes = listElem.querySelectorAll('.selectCheckbox');
+    let idsToDelete = [];
+    for (const checkbox of checkboxes) {
+      let li  = checkbox.parentNode;
+      if (checkbox.checked) {
+        let index = Array.prototype.indexOf.call(listElem.childNodes, li);
+        let id = dataList[index].id;
+        idsToDelete.push(id);
+      }
+    }
+
+    this.toggleMultiSelect();
+
+    if (this.currentFolder.is_sharedfolder)
+      return this.manageFolderService.deleteTexts(idsToDelete);
+    else
+      return this.manageFolderService.deleteFolders(idsToDelete);
+    
+  }
+
+  async openDeleteSelectedItemsModal() {
+    const alert = await this.alertController.create({
+      header: 'Attention!',
+      message: `Do you really want to delete all selected items?`,
+      buttons: [
+        'No',
+        {
+          text: 'Yes',
+          handler: async () => {
+            this.deleteSelectedItems()
+                .subscribe(
+                    () => this.getFolderInfo(),
+                    (err) => this.alertManager.showErrorAlertNoRedirection(
+                        err.status,
+                        err.statusText),
+                );
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  async openDeleteFolderAlert($event, folder) {
     // cancel click event to prevent opening the folder
     $event.preventDefault();
     $event.stopPropagation();

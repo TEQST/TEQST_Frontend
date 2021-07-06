@@ -38,17 +38,17 @@ export class TextListPage implements OnInit {
         .subscribe((isLoading) => this.isLoading = isLoading);
     this.publisherId = '';
     this.texts = [];
-    this.navService.sharedFoldersList.subscribe((data) => {
+    this.navService.sharedTextsList.subscribe((data) => {
       this.sharedFolderData = data;
       this.folderName = data.name;
       this.texts = data.texts;
       this.textListElem.nativeElement.classList.add('loaded');
     });
     // clear contents when data is being refreshed
-    this.navService.requestMade.subscribe(_ => {
+    this.navService.requestMade.subscribe((_) => {
       this.texts = [];
       this.textListElem.nativeElement.classList.remove('loaded');
-    })
+    });
   }
 
   ngOnInit() {

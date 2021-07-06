@@ -31,7 +31,11 @@ const routes: Routes = [
     component: PageNotFoundComponent,
     data: {requiresLogin: true},
     canActivate: [AccessGuard],
-  },
+  },   {
+    path: 'listen',
+    loadChildren: () => import('./listen/listen.module').then( m => m.ListenPageModule)
+  }
+
 ];
 
 @NgModule({
