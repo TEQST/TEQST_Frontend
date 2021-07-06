@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {IonSlides, ModalController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
+import {User} from 'src/app/interfaces/user';
 
 // // interface to handle the user objects better
 // interface User {
@@ -25,6 +26,13 @@ export class ShareFolderPage implements OnInit {
   @Input() folderName: string;
   @ViewChild('slides', {static: true}) slider: IonSlides;
   segment = 0;
+
+  public isPublicForAll: boolean
+  private speakers: User[];
+  public filteredSpeakers: User[];
+  private allUsers: User[];
+  public filteredUsers: User[]
+  private searchTerm = '';
 
   constructor(public viewCtrl: ModalController,
     private route: ActivatedRoute) { }

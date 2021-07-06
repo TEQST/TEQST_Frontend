@@ -1,3 +1,5 @@
+import {Country} from './../../interfaces/country';
+import {UsermgmtService} from 'src/app/services/usermgmt.service';
 import {AgeValidator} from './../../validators/age';
 import {UsernameValidator} from './../../validators/username';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -7,6 +9,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {LanguageService} from 'src/app/services/language.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {IonicSelectableComponent} from 'ionic-selectable';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +23,14 @@ export class RegisterComponent implements OnInit {
   public stepOneForm: FormGroup;
   public stepTwoForm: FormGroup;
 
+  private countries : Country[] = [];
+  public filteredCountries: Country[];
+  public showCountryDropdown = false;
+
+  private accents = [];
+  public filteredAccents = []
+  public showAccentDropdown = false;
+
   constructor(
     public navCtrl: NavController,
     public http: HttpClient,
@@ -27,7 +38,8 @@ export class RegisterComponent implements OnInit {
     public languageService: LanguageService,
     private alertService: AlertManagerService,
     private formBuilder: FormBuilder,
-    private usernameValidator: UsernameValidator) {
+    private usernameValidator: UsernameValidator,
+    private usermgmtService: UsermgmtService) {
     this.stepOneForm = formBuilder.group({
       username: ['',
         Validators.required,
@@ -40,10 +52,18 @@ export class RegisterComponent implements OnInit {
 
     this.stepTwoForm = formBuilder.group({
       email: ['', Validators.email],
-      country: [''],
-      accent: [''],
+      country: ['', Validators.required],
+      accent: ['', Validators.required],
       education: [''],
       gender: [''],
+    });
+    usermgmtService.getCountryList().then((list) => {
+      this.countries = list;
+      this.filteredCountries = list;
+    });
+    usermgmtService.getAccents().subscribe((accents) => {
+      this.accents = accents;
+      this.filteredAccents = accents;
     });
   }
 
@@ -53,6 +73,21 @@ export class RegisterComponent implements OnInit {
 
   nextStep() {
     this.currentRegisterStep = 2;
+  }
+
+  toggleCountryDropdown(): void {
+    this.showCountryDropdown = !this.showCountryDropdown;
+
+  }
+
+  clearCountryDropdown(): void {
+    this.showCountryDropdown = false;
+    this.stepTwoForm.patchValue({country: ''});
+  }
+
+  toggleAccentDropdown(): void {
+    this.showAccentDropdown = !this.showAccentDropdown;
+
   }
 
   get errorControl() {
@@ -93,5 +128,31 @@ export class RegisterComponent implements OnInit {
       this.allLangs = dataReturnFromServer;
     });
   }
+
+  public filterCountries(event: CustomEvent): void {
+    const searchTerm = event.detail.value;
+    this.filteredCountries = this.countries.filter((country) => {
+      return country.english_name.toLowerCase()
+          .startsWith(searchTerm.toLowerCase());
+    });
+  }
+
+  public filterAccents(event: CustomEvent): void {
+    const searchTerm = event.detail.value;
+    this.filteredAccents = this.accents.filter((accent) => {
+      return accent.toLowerCase().startsWith(searchTerm.toLowerCase());
+    });
+  }
+
+  public selectCountry(country: Country): void {
+    this.stepTwoForm.patchValue({country: country.english_name});
+    this.toggleCountryDropdown();
+  }
+
+  public selectAccent(accent: string): void {
+    this.stepTwoForm.patchValue({accent: accent});
+    this.toggleAccentDropdown();
+  }
+
 
 }

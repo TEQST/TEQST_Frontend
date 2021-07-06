@@ -44,3 +44,17 @@ ion-button#toggle-password {
   text-align: left;
   padding: 5px 16px;
 }
+
+.country-dropdown-container {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 73%; // better would be 100% - 2 * item-height but item-height(--min-height) is not accessible from outside the item
+}
+
+.accent-dropdown-container {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 60%; // better would be 100% - 3 * item-height but item-height(--min-height) is not accessible from outside the item
+}
