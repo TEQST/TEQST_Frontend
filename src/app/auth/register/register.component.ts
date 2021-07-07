@@ -114,6 +114,14 @@ export class RegisterComponent implements OnInit {
         delete registrationData[value];
       }
     }
+
+
+    // change country name to country short
+    const countryObj = this.countries.find((country) => {
+      return country.english_name === registrationData.country;
+    });
+    registrationData.country = countryObj.short;
+
     // extract username and password into a new object
     const loginData = (({username, password}) => {
       return {username, password};
