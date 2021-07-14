@@ -10,7 +10,6 @@ import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {LanguageService} from 'src/app/services/language.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
-import {IonicSelectableComponent} from 'ionic-selectable';
 
 @Component({
   selector: 'app-register',

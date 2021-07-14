@@ -20,6 +20,7 @@ export class UsermgmtService {
   SERVER_URL = Constants.SERVER_URL;
 
   public isPublisher = new BehaviorSubject<boolean>(undefined);
+  public isListener = new BehaviorSubject<boolean>(undefined);
   // tslint:disable: no-string-literal
 
   constructor(public http: HttpClient,
@@ -67,13 +68,22 @@ export class UsermgmtService {
     localStorage.setItem(
         'isPublisher',
         JSON.stringify(this.isPublisher.getValue()));
+    localStorage.setItem(
+        'isListener',
+        JSON.stringify(this.isListener.getValue()));
     localStorage.setItem('userId', userData.id.toString());
     localStorage.setItem('username', userData.username);
   }
-  // returns boolean if a user is a Publisher
+  // returns boolean if a user is a publisher
   getIsPublisher(): Observable<boolean> {
     this.isPublisher.next(JSON.parse(localStorage.getItem('isPublisher')));
     return this.isPublisher.asObservable();
+  }
+
+  // returns boolean if a user is a listener
+  getIsListener(): Observable<boolean> {
+    this.isListener.next(JSON.parse(localStorage.getItem('isListener')));
+    return this.isListener.asObservable();
   }
 
   // add user id and username to the error logging

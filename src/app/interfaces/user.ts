@@ -11,4 +11,5 @@ export interface User {
     accent: string;
     country: string;
     is_publisher: boolean;
+    is_listener: boolean;
 }

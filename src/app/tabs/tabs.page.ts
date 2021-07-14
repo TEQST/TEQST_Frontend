@@ -22,7 +22,9 @@ export class TabsPage implements OnInit {
   ngOnInit() {
     this.usermgmtService.getIsPublisher().subscribe((isPublisher: boolean) => {
       this.isPublisher = isPublisher;
-      this.isListener = true;
+    });
+    this.usermgmtService.getIsListener().subscribe((isListener: boolean) => {
+      this.isListener = isListener;
     });
   }
 
