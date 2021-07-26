@@ -81,20 +81,28 @@ export class RegisterComponent implements OnInit {
     this.currentRegisterStep = 1;
   }
 
-  toggleCountryDropdown(): void {
-    this.showCountryDropdown = !this.showCountryDropdown;
-
+  openCountryDropdown(): void {
+    this.showCountryDropdown = true;
   }
 
-  clearCountryDropdown(): void {
+  closeCountryDropdown(): void {
     this.showCountryDropdown = false;
+  }
+
+
+  clearCountryDropdown(): void {
+    this.closeCountryDropdown();
     this.stepTwoForm.patchValue({country: ''});
   }
 
-  toggleAccentDropdown(): void {
-    this.showAccentDropdown = !this.showAccentDropdown;
-
+  openAccentDropdown(): void {
+    this.showAccentDropdown = true;
   }
+
+  closeAccentDropdown(): void {
+    this.showAccentDropdown = false;
+  }
+
 
   get errorControl() {
     return this.stepOneForm.controls;
@@ -167,12 +175,12 @@ export class RegisterComponent implements OnInit {
 
   public selectCountry(country: Country): void {
     this.stepTwoForm.patchValue({country: country.english_name});
-    this.toggleCountryDropdown();
+    this.closeCountryDropdown();
   }
 
   public selectAccent(accent: string): void {
     this.stepTwoForm.patchValue({accent: accent});
-    this.toggleAccentDropdown();
+    this.closeAccentDropdown();
   }
 
 

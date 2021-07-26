@@ -58,9 +58,9 @@
     </ion-item>
   
     <!-- Country -->
-    <ion-item id="country" lines="full" (click)="toggleCountryDropdown()">
+    <ion-item id="country" lines="full" (click)="openCountryDropdown()">
       <ion-label position="floating">{{'Country' | translate}}: </ion-label>
-      <ion-input id="country" formControlName="country" (ionChange)="filterCountries($event)"></ion-input>
+      <ion-input id="country" formControlName="country" (ionFocus)="openCountryDropdown()" (ionChange)="filterCountries($event)"></ion-input>
     </ion-item>
     <div id="country" *ngIf="showCountryDropdown" class="country-dropdown-container" (clickOutside)="clearCountryDropdown()">
       <ion-content>
@@ -71,16 +71,16 @@
         </ion-virtual-scroll>
       </ion-content>
     </div>
-  
+
     <!-- Accent -->
-    <ion-item id="accent" lines="full" (click)="toggleAccentDropdown()">
+    <ion-item id="accent" lines="full" (click)="openAccentDropdown()">
       <ion-label position="floating">{{'Accent' | translate}}: </ion-label>
-      <ion-input id="accent" formControlName="accent" (ionChange)="filterAccents($event)"></ion-input>
+      <ion-input id="accent" formControlName="accent" (ionFocus)="openAccentDropdown()" (ionChange)="filterAccents($event)"></ion-input>
     </ion-item>
-    <div id="accent" *ngIf="showAccentDropdown" class="accent-dropdown-container" (clickOutside)="toggleAccentDropdown()">
+    <div id="accent" *ngIf="showAccentDropdown" class="accent-dropdown-container" (clickOutside)="closeAccentDropdown()">
       <div *ngIf="filteredAccents.length === 0">
         <ion-item-divider>{{'Add new Accent' | translate}}</ion-item-divider>
-        <ion-item button (click)="toggleAccentDropdown()">
+        <ion-item button (click)="closeAccentDropdown()">
           {{stepTwoForm.value.accent}}
           <ion-icon color="primary" slot="end" name="add-circle"></ion-icon>
         </ion-item>
