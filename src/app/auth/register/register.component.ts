@@ -56,8 +56,8 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.email],
       country: ['', Validators.required],
       accent: ['', Validators.required],
-      education: [''],
-      gender: [''],
+      education: ['', Validators.required],
+      gender: ['', Validators.required],
     });
     usermgmtService.getCountryList().then((list) => {
       this.countries = list;
