@@ -1,4 +1,5 @@
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
@@ -43,10 +44,13 @@ export class LoaderInterceptorService implements HttpInterceptor {
             }
           },
           error: (err) => {
-            this.removeRequest(request);
+            if (err instanceof HttpErrorResponse) {
+              this.removeRequest(request);
+            }
           },
           complete: () => {
-            this.removeRequest(request);
+            // is called every time when the observable is completed
+            // this.removeRequest(request);
           },
         }),
     );
