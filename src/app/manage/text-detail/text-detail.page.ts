@@ -14,6 +14,8 @@ import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {PopoverController} from '@ionic/angular';
 import {TextStateService} from 'src/app/services/text-state.service';
+import {BaseComponent} from 'src/app/base-component';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-text-detail',
@@ -22,7 +24,7 @@ import {TextStateService} from 'src/app/services/text-state.service';
   providers: [TextStateService],
 })
 
-export class TextDetailPage implements OnInit {
+export class TextDetailPage extends BaseComponent implements OnInit {
 
   @ViewChild('content', {read: ElementRef}) contentElem: ElementRef
 
@@ -31,20 +33,17 @@ export class TextDetailPage implements OnInit {
   private textStats: TextStats;
   public selectedSpeaker: Observable<string>;
   private speakers: string[];
-  public isLoading = false;
 
   constructor(private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
               private router: Router,
               private alertManager: AlertManagerService,
-              private loaderService: LoaderService,
+              public loaderService: LoaderService,
               private statsService: StatisticsService,
               private popoverController: PopoverController,
               private textStateService: TextStateService,
               private routeStateService: RouteStateService ) {
-
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
+    super(loaderService);
   }
 
   ngOnInit() {
@@ -89,7 +88,7 @@ export class TextDetailPage implements OnInit {
         return speaker.name;
       },
       );
-      this.selectedSpeaker.subscribe((speaker) => {
+      this.selectedSpeaker.pipe(takeUntil(this.ngUnsubscribe)).subscribe((speaker) => {
         this.switchSpeaker(speaker);
       });
     });

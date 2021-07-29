@@ -11,7 +11,9 @@ import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {PopoverController} from '@ionic/angular';
 import {TextStateService} from 'src/app/services/text-state.service';
-import { ListenerService } from 'src/app/services/listener.service';
+import {ListenerService} from 'src/app/services/listener.service';
+import {BaseComponent} from 'src/app/base-component';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-text-detail',
@@ -20,7 +22,7 @@ import { ListenerService } from 'src/app/services/listener.service';
   providers: [TextStateService],
 })
 
-export class TextDetailPage implements OnInit {
+export class TextDetailPage extends BaseComponent implements OnInit {
 
   @ViewChild('content', {read: ElementRef}) contentElem: ElementRef
 
@@ -29,19 +31,16 @@ export class TextDetailPage implements OnInit {
   private textStats: TextStats;
   public selectedSpeaker: Observable<string>;
   private speakers: string[];
-  public isLoading = false;
 
   constructor(private listenerService: ListenerService,
               private route: ActivatedRoute,
               private router: Router,
               private alertManager: AlertManagerService,
-              private loaderService: LoaderService,
+              public loaderService: LoaderService,
               private popoverController: PopoverController,
               private textStateService: TextStateService,
               private routeStateService: RouteStateService ) {
-
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
+    super(loaderService);
   }
 
   ngOnInit() {
@@ -86,9 +85,10 @@ export class TextDetailPage implements OnInit {
         return speaker.name;
       },
       );
-      this.selectedSpeaker.subscribe((speaker) => {
-        this.switchSpeaker(speaker);
-      });
+      this.selectedSpeaker.pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((speaker) => {
+            this.switchSpeaker(speaker);
+          });
     });
   }
 

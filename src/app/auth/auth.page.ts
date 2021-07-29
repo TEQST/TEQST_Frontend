@@ -6,24 +6,23 @@ import {
   MenuLanguageSelectorComponent,
 } from './menu-language-selector/menu-language-selector.component';
 import {Constants} from '../constants';
+import {BaseComponent} from '../base-component';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.scss'],
 })
-export class AuthPage implements OnInit {
+export class AuthPage extends BaseComponent implements OnInit {
 
   SERVER_URL = Constants.SERVER_URL;
-  public isLoading = false;
 
   constructor(
     public navCtrl: NavController,
     public popoverController: PopoverController,
     public languageService: LanguageService,
-    private loaderService: LoaderService) {
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
+    public loaderService: LoaderService) {
+    super(loaderService);
   }
 
   ngOnInit() {}

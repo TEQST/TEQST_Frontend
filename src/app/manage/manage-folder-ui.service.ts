@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { AlertManagerService } from '../services/alert-manager.service';
-import { CreateFolderPage } from './create-folder/create-folder.page';
-import { FolderStatsPage } from './folder-stats/folder-stats.page';
-import { Folder } from './manage.folder';
-import { ShareFolderPage } from './share-folder/share-folder.page';
+import {Injectable} from '@angular/core';
+import {AlertController, ModalController} from '@ionic/angular';
+import {AlertManagerService} from '../services/alert-manager.service';
+import {CreateFolderPage} from './create-folder/create-folder.page';
+import {FolderStatsPage} from './folder-stats/folder-stats.page';
+import {Folder} from './manage.folder';
+import {ShareFolderPage} from './share-folder/share-folder.page';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ManageFolderUIService {
 
@@ -39,12 +39,12 @@ export class ManageFolderUIService {
           const data = returnData.data;
           if (data) {
             currentFolder.createSubfolder(data.folderName)
-              .subscribe(
-                  successCallback,
-                  (err) => this.alertManager.showErrorAlertNoRedirection(
-                      err.status,
-                      err.statusText),
-              );
+                .subscribe(
+                    successCallback,
+                    (err) => this.alertManager.showErrorAlertNoRedirection(
+                        err.status,
+                        err.statusText),
+                );
           }
         });
     await modal.present();

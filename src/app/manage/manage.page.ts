@@ -9,7 +9,8 @@ import {ManageFolderUIService} from './manage-folder-ui.service';
 import {ManageTextUIService} from './manage-text-ui.service';
 import {StatisticsService} from '../services/statistics.service';
 import {saveAs} from 'file-saver';
-import { AlertController } from '@ionic/angular';
+import {AlertController} from '@ionic/angular';
+import {BaseComponent} from '../base-component';
 
 @Component({
   selector: 'app-manage',
@@ -17,7 +18,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./manage.page.scss'],
 })
 
-export class ManagePage implements OnInit {
+export class ManagePage extends BaseComponent implements OnInit {
 
   @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
   @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
@@ -27,20 +28,20 @@ export class ManagePage implements OnInit {
   public currentFolder: Folder
   public subfolders: Folder[]
   public texts: Text[]
-  public isLoading = false;
   public username: string
   public showMultiSelect = false;
 
   constructor(private manageFolderService: ManageFolderService,
-    private manageFolderUIService: ManageFolderUIService,
-    private manageTextUIService: ManageTextUIService,
-    private statisticsService: StatisticsService,
-    private alertController: AlertController,
-    private router: Router,
-    private route: ActivatedRoute,
-    private alertManager: AlertManagerService,
-    private loaderService: LoaderService) {
+              private manageFolderUIService: ManageFolderUIService,
+              private manageTextUIService: ManageTextUIService,
+              private statisticsService: StatisticsService,
+              private alertController: AlertController,
+              private router: Router,
+              private route: ActivatedRoute,
+              private alertManager: AlertManagerService,
+              public loaderService: LoaderService) {
 
+    super(loaderService);
     Folder.setServiceProvider(manageFolderService);
     Text.setServiceProvider(manageFolderService);
 
@@ -55,8 +56,6 @@ export class ManagePage implements OnInit {
 
     this.subfolders = [];
     this.texts = [];
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
   }
 
   ngOnInit() { }
@@ -119,24 +118,26 @@ export class ManagePage implements OnInit {
   }
 
   toggleMultiSelect() {
-    if (this.showMultiSelect)
+    if (this.showMultiSelect) {
       this.uncheckAllItems();
+    }
     this.showMultiSelect = !this.showMultiSelect;
   }
 
   toggleSelectItem(e) {
-    if (e.target.nodeName == 'ION-CHECKBOX')
+    if (e.target.nodeName == 'ION-CHECKBOX') {
       return;
+    }
     const item = e.target.querySelector('.selectCheckbox');
     item.checked = !item.checked;
   }
 
   uncheckAllItems() {
-    this.setAllItemsCheckedState(false)
+    this.setAllItemsCheckedState(false);
   }
 
   checkAllItems() {
-    this.setAllItemsCheckedState(true)
+    this.setAllItemsCheckedState(true);
   }
 
   toggleAllItemsCheckedState() {
@@ -169,23 +170,24 @@ export class ManagePage implements OnInit {
     }
     const listElem = listParentElem.nativeElement.querySelector('ion-list');
     const checkboxes = listElem.querySelectorAll('.selectCheckbox');
-    let idsToDelete = [];
+    const idsToDelete = [];
     for (const checkbox of checkboxes) {
-      let li  = checkbox.parentNode;
+      const li = checkbox.parentNode;
       if (checkbox.checked) {
-        let index = Array.prototype.indexOf.call(listElem.childNodes, li);
-        let id = dataList[index].id;
+        const index = Array.prototype.indexOf.call(listElem.childNodes, li);
+        const id = dataList[index].id;
         idsToDelete.push(id);
       }
     }
 
     this.toggleMultiSelect();
 
-    if (this.currentFolder.is_sharedfolder)
+    if (this.currentFolder.is_sharedfolder) {
       return this.manageFolderService.deleteTexts(idsToDelete);
-    else
+    } else {
       return this.manageFolderService.deleteFolders(idsToDelete);
-    
+    }
+
   }
 
   async openDeleteSelectedItemsModal() {

@@ -10,6 +10,8 @@ import {TextServiceService} from './text-service.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
+import {BaseComponent} from 'src/app/base-component';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-record-view',
@@ -18,12 +20,11 @@ import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
 })
 
 
-export class RecordViewPage implements OnInit {
+export class RecordViewPage extends BaseComponent implements OnInit {
 
   public textTitle: string;
   public hasRecording: boolean;
   private textId: number;
-  public isLoading = false;
   public isUploadActive = false;
   public isRightToLeft: boolean;
 
@@ -34,25 +35,25 @@ export class RecordViewPage implements OnInit {
               private router: Router,
               public navCtrl: NavController,
               private alertService: AlertManagerService,
-              private loaderService: LoaderService,
+              public loaderService: LoaderService,
               private recordingUploadService: RecordingUploadService,
               private playbackService: RecordingPlaybackService,
               private speakTabNavService: SpeakTabNavService) {
 
+    super(loaderService);
+
     this.textService.reset();
 
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
-    this.textService.getSentenceHasRecording()
+    this.textService.getSentenceHasRecording().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((status) => {
           this.hasRecording = status;
           // console.log(status)
         });
-    this.textService.getTextTitle()
+    this.textService.getTextTitle().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((title) => this.textTitle = title);
-    this.textService.getIsRightToLeft()
+    this.textService.getIsRightToLeft().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((isRightToLeft) => this.isRightToLeft = isRightToLeft);
-    this.recordingUploadService.getIsUploadActive()
+    this.recordingUploadService.getIsUploadActive().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((isUploadActive) => this.isUploadActive = isUploadActive);
   }
 

@@ -6,9 +6,12 @@ import {
   HostListener,
   ViewChild,
   ElementRef,
+  OnDestroy,
 } from '@angular/core';
 import {TextServiceService} from '../text-service.service';
 import {AudioRecordingService} from '../audio-recording.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-recorder',
@@ -16,9 +19,11 @@ import {AudioRecordingService} from '../audio-recording.service';
   styleUrls: ['./recorder.component.scss'],
 })
 
-export class RecorderComponent implements OnInit {
+export class RecorderComponent implements OnInit, OnDestroy {
 
   @ViewChild('progresBar', {read: ElementRef}) progresBar: ElementRef
+
+  private ngUnsubscribe = new Subject<void>();
 
   public activeSentence: number;
   public totalSentenceNumber: number;
@@ -38,13 +43,15 @@ export class RecorderComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
     this.recordingService.stopMediaStream();
   }
 
   /* subscribe to all needed variables from the services
      and update the locale ones on change */
   private subscribeToServices(): void {
-    this.textService.getIsLoaded()
+    this.textService.getIsLoaded().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((isLoaded) => {
           if (isLoaded) {
             this.updateProgressBar();
@@ -52,24 +59,31 @@ export class RecorderComponent implements OnInit {
           }
         });
     this.textService.getActiveSentenceIndex()
+        .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((index) => {
           this.activeSentence = index;
         });
-    this.textService.getTotalSentenceNumber().subscribe((totalNumber) => {
-      this.totalSentenceNumber = totalNumber;
-      if (this.isLoaded) {
-        this.updateProgressBar();
-      }
-    });
-    this.textService.getFurthestSentenceIndex().subscribe((index) => {
-      this.furthestSentenceIndex = index;
-      if (this.isLoaded) {
-        this.updateProgressBar();
-      }
-    });
-    this.recordingService.getRecordingState().subscribe((status) => {
-      this.isRecording = status;
-    });
+    this.textService.getTotalSentenceNumber()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((totalNumber) => {
+          this.totalSentenceNumber = totalNumber;
+          if (this.isLoaded) {
+            this.updateProgressBar();
+          }
+        });
+    this.textService.getFurthestSentenceIndex()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((index) => {
+          this.furthestSentenceIndex = index;
+          if (this.isLoaded) {
+            this.updateProgressBar();
+          }
+        });
+    this.recordingService.getRecordingState()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((status) => {
+          this.isRecording = status;
+        });
   }
 
   private updateProgressBar(): void {

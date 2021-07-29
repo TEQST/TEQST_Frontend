@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {TextStateService} from 'src/app/services/text-state.service';
 
 @Component({
@@ -6,14 +8,22 @@ import {TextStateService} from 'src/app/services/text-state.service';
   templateUrl: './speaker-progress-text-view.component.html',
   styleUrls: ['./speaker-progress-text-view.component.scss'],
 })
-export class SpeakerProgressTextViewComponent implements OnInit {
+export class SpeakerProgressTextViewComponent implements OnInit, OnDestroy {
+
+  public ngUnsubscribe = new Subject<void>();
 
   public textTitle: string;
 
   constructor(private textStateService: TextStateService) {
-    textStateService.getTextTitle().subscribe((title) => this.textTitle = title);
+    textStateService.getTextTitle().pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((title) => this.textTitle = title);
   }
 
   ngOnInit() {}
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
 }

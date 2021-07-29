@@ -7,13 +7,14 @@ import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {LanguageService} from 'src/app/services/language.service';
 import {AgeValidator} from 'src/app/validators/age';
+import {BaseComponent} from 'src/app/base-component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage extends BaseComponent implements OnInit {
 
   public profileForm: FormGroup;
 
@@ -21,15 +22,15 @@ export class ProfilePage implements OnInit {
   allLangs: Language[] = [];
   allMenuLangs: Language[] = [];
 
-  public isLoading = false;
-
-
   constructor(public usermgmtService: UsermgmtService,
               public languageService: LanguageService,
               public navCtrl: NavController,
-              private loaderService: LoaderService,
+              public loaderService: LoaderService,
               private formBuilder: FormBuilder,
               private toastController: ToastController) {
+
+    super(loaderService);
+
     this.profileForm = formBuilder.group({
       username: [''],
       email: ['', Validators.email],
@@ -42,8 +43,6 @@ export class ProfilePage implements OnInit {
       menu_language_id: [''],
 
     });
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
   }
 
   // loads every time Page is loaded their content

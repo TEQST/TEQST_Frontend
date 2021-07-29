@@ -1,15 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TextStateService} from 'src/app/services/text-state.service';
 import {
   RecordingPlaybackService,
 } from 'src/app/services/recording-playback.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-playbar',
   templateUrl: './playbar.component.html',
   styleUrls: ['./playbar.component.scss'],
 })
-export class PlaybarComponent implements OnInit {
+export class PlaybarComponent implements OnInit, OnDestroy {
+
+  public ngUnsubscribe = new Subject<void>();
 
   public isPlaying = false;
   public isRecording = false;
@@ -24,14 +28,20 @@ export class PlaybarComponent implements OnInit {
     this.subscribeToServices();
   }
 
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   subscribeToServices(): void {
     /* subscribe to the isPlaying observable
        and update the local variable on change */
-    this.playbackService.getIsPlaying()
+    this.playbackService.getIsPlaying().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((state) => this.isPlaying = state);
-    this.textStateService.getRecordingId()
+    this.textStateService.getRecordingId().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((id) => this.recordingId = id);
     this.textStateService.getActiveSentenceIndex()
+        .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((index) => this.activeSentence = index);
   }
 

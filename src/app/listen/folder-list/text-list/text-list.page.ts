@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ModalController} from '@ionic/angular';
+import {takeUntil} from 'rxjs/operators';
+import {BaseComponent} from 'src/app/base-component';
 import {SharedFolder} from 'src/app/interfaces/shared-folder';
 import {ListenerService} from 'src/app/services/listener.service';
 import {LoaderService} from 'src/app/services/loader.service';
@@ -13,7 +15,7 @@ import {TimeStatsComponent}
   templateUrl: './text-list.page.html',
   styleUrls: ['./text-list.page.scss'],
 })
-export class TextListPage implements OnInit {
+export class TextListPage extends BaseComponent implements OnInit {
 
   @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
 
@@ -21,36 +23,34 @@ export class TextListPage implements OnInit {
   public folderId: string;
   public texts: any;
   folderName: any;
-  public isLoading = false;
   public sharedFolderData: SharedFolder;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private loaderService: LoaderService,
+              public loaderService: LoaderService,
               private modalController: ModalController,
               private listenerService: ListenerService) {
-
+    super(loaderService);
     const routeParams = this.router.getCurrentNavigation().extras.state;
     if (typeof routeParams !== 'undefined' && 'folderName' in routeParams) {
       this.folderName = routeParams.folderName;
     }
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
-
     this.publisherId = '';
     this.texts = [];
 
-    this.listenerService.sharedTextsList.subscribe((data) => {
-      this.sharedFolderData = data;
-      this.folderName = data.name;
-      this.texts = data.texts;
-      this.textListElem.nativeElement.classList.add('loaded');
-    });
+    this.listenerService.sharedTextsList.pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((data) => {
+          this.sharedFolderData = data;
+          this.folderName = data.name;
+          this.texts = data.texts;
+          this.textListElem.nativeElement.classList.add('loaded');
+        });
     // clear contents when data is being refreshed
-    this.listenerService.requestMade.subscribe((_) => {
-      this.texts = [];
-      this.textListElem.nativeElement.classList.remove('loaded');
-    });
+    this.listenerService.requestMade.pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((_) => {
+          this.texts = [];
+          this.textListElem.nativeElement.classList.remove('loaded');
+        });
   }
 
   ngOnInit() {

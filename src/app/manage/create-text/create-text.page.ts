@@ -1,18 +1,22 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ModalController, IonInput} from '@ionic/angular';
 import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {UsermgmtService} from 'src/app/services/usermgmt.service';
 import {LanguageService} from 'src/app/services/language.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-text',
   templateUrl: './create-text.page.html',
   styleUrls: ['./create-text.page.scss'],
 })
-export class CreateTextPage implements OnInit {
+export class CreateTextPage implements OnInit, OnDestroy {
 
   @ViewChild('titleInput', {static: false}) titleInput: IonInput;
   @ViewChild('selectFileWrapper', {static: false}) selectFileWrapper: object;
+
+  private ngUnsubscribe = new Subject<void>();
 
   public formValid: boolean;
   public titleValid: boolean;
@@ -52,17 +56,25 @@ export class CreateTextPage implements OnInit {
       }],
     });
 
-    this.createTextForm.valueChanges.subscribe(() => {
-      this.updateFormValidity();
-    });
+    this.createTextForm.valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(() => {
+          this.updateFormValidity();
+        });
     this.splitLinesValid = true;
   }
 
   ngOnInit() {
-    this.languageService.getLangs().subscribe((data: any) => {
-      this.availableLanguages = data;
-    });
+    this.languageService.getLangs().pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((data: any) => {
+          this.availableLanguages = data;
+        });
   }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
 
   dismiss() {
     // close the modal without passing data

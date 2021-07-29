@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
+import {BaseComponent} from '../base-component';
 import {AlertManagerService} from '../services/alert-manager.service';
 import {LoaderService} from '../services/loader.service';
 
@@ -10,18 +11,16 @@ import {LoaderService} from '../services/loader.service';
   styleUrls: ['./speak.page.scss'],
 })
 
-export class SpeakPage implements OnInit {
+export class SpeakPage extends BaseComponent implements OnInit {
 
   @ViewChild('publisherList', {read: ElementRef}) publisherListElem: ElementRef
 
   public publishers: any
-  public isLoading = false;
 
   constructor(private navService : SpeakTabNavService,
               private alertManager: AlertManagerService,
-              private loaderService: LoaderService) {
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
+              public loaderService: LoaderService) {
+    super(loaderService);
   }
 
   ngOnInit() { }

@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {BaseComponent} from '../base-component';
 import {AlertManagerService} from '../services/alert-manager.service';
 import {ListenerService} from '../services/listener.service';
 import {LoaderService} from '../services/loader.service';
@@ -8,17 +9,15 @@ import {LoaderService} from '../services/loader.service';
   templateUrl: './listen.page.html',
   styleUrls: ['./listen.page.scss'],
 })
-export class ListenPage implements OnInit {
+export class ListenPage extends BaseComponent implements OnInit {
   @ViewChild('publisherList', {read: ElementRef}) publisherListElem: ElementRef
 
   public publishers: any
-  public isLoading = false;
 
   constructor(private alertManager: AlertManagerService,
-              private loaderService: LoaderService,
+              public loaderService: LoaderService,
               private listenerService: ListenerService) {
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
+    super(loaderService);
   }
 
   ngOnInit() { }
