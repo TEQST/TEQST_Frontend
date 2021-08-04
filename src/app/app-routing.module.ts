@@ -6,7 +6,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 const routes: Routes = [
   {
     path: 'tabs',
-    loadChildren: './tabs/tabs.module#TabsPageModule',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
   },
   {
     path: 'speak/:publisherId/:folderId/:textId',
