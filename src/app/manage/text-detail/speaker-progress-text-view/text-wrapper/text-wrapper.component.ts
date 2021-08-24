@@ -1,9 +1,11 @@
-import {RouteStateService} from './../../../../services/route-state.service';
 import {ActivatedRoute} from '@angular/router';
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TextStateService} from 'src/app/services/text-state.service';
 import {takeUntil, map} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+
+import {RouteStateService} from 'src/app/services/route-state.service';
+import {TextStateService} from 'src/app/services/text-state.service';
+
 
 @Component({
   selector: 'app-text-wrapper',
@@ -22,7 +24,7 @@ export class TextWrapperComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private routeStateService: RouteStateService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscribeToServices();
     this.shareRouteParams();
   }
@@ -54,7 +56,7 @@ export class TextWrapperComponent implements OnInit, OnDestroy {
     this.textStateService.setActiveSentenceIndex(index);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
     this.routeStateService.updateSpeakerParamState(null);

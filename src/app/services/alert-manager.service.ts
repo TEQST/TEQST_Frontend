@@ -21,7 +21,7 @@ export class AlertManagerService {
 
   async presentGoBackAlert(
       header: string,
-      redirectURL: string = '/tabs/speak'): Promise<void> {
+      redirectURL = '/tabs/speak'): Promise<void> {
 
     if (this.alertActive) {
       return;
@@ -34,7 +34,7 @@ export class AlertManagerService {
         {
           text: 'OK',
           role: 'cancel',
-          handler: () => {
+          handler: (): void => {
             // Navigate back to speak tab
             this.navCtrl.navigateBack(redirectURL);
           },
@@ -58,7 +58,7 @@ export class AlertManagerService {
         {
           text: 'OK',
           role: 'cancel',
-          handler: () => {
+          handler: (): void => {
             // Navigate back to the login page
             this.navCtrl.navigateForward('/login');
             this.alertActive = false;
@@ -71,7 +71,7 @@ export class AlertManagerService {
   async showErrorAlert(
       status,
       msg,
-      redirectURL: string = '/tabs/speak'): Promise<void> {
+      redirectURL = '/tabs/speak'): Promise<void> {
 
     if (this.alertActive) {
       return;
@@ -83,7 +83,7 @@ export class AlertManagerService {
       buttons: [{
         role: 'cancel',
         text: 'Go back',
-        handler: () => {
+        handler: (): void => {
           this.navCtrl.navigateBack(redirectURL);
           this.alertActive = false;
         },
@@ -96,7 +96,7 @@ export class AlertManagerService {
   async showErrorAlertNoRedirection(
       header,
       msg,
-      reload: boolean = false): Promise<void> {
+      reload = false): Promise<void> {
 
     if (this.alertActive) {
       return;
@@ -108,7 +108,7 @@ export class AlertManagerService {
       buttons: [{
         role: 'cancel',
         text: 'OK',
-        handler: () => {
+        handler: (): void => {
           this.alertActive = false;
           if (reload === true) {
             window.location.reload();
@@ -133,12 +133,15 @@ export class AlertManagerService {
   async presentRecordingInfoAlert(): Promise<void> {
     this.alert = await this.alertController.create({
       header: 'Recording instruction',
-      message: 'Please first press the record button and then start to talk. If you are not sure if you have recorded correctly please select a recording and use the play function on the left to check your recording.',
+      message: `Please first press the record button and then start to talk. 
+        If you are not sure if you have recorded correctly
+        please select a recording and use the play function
+        on the left to check your recording.`,
       backdropDismiss: false,
       buttons: [{
         role: 'cancel',
         text: 'OK',
-        handler: () => {
+        handler: (): void => {
           this.alertActive = false;
         },
       }],

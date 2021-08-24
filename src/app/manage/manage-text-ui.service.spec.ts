@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ManageTextUIService } from './manage-text-ui.service';
+import {ManageTextUIService} from './manage-text-ui.service';
 
 describe('ManageTextUIService', () => {
   let service: ManageTextUIService;

@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { AlertManagerService } from '../services/alert-manager.service';
-import { ManageFolderService } from '../services/manage-folder.service';
-import { CreateTextPage } from './create-text/create-text.page';
-import { Text } from './manage.text';
+import {Injectable} from '@angular/core';
+import {AlertController, ModalController} from '@ionic/angular';
+
+import {AlertManagerService} from '../services/alert-manager.service';
+import {ManageFolderService} from '../services/manage-folder.service';
+import {CreateTextPage} from './create-text/create-text.page';
+import {Text} from './manage.text';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ManageTextUIService {
 
@@ -17,7 +18,7 @@ export class ManageTextUIService {
     private alertManager: AlertManagerService) { }
 
   // create text objects from the retrieved array of texts
-  async initTextList(currentFolder, callback) {
+  async initTextList(currentFolder, callback): Promise<void> {
     this.manageFolderService.getTextListFor(currentFolder.id)
         .subscribe(
             (data) => {
@@ -41,7 +42,8 @@ export class ManageTextUIService {
         );
   }
 
-  async openCreateTextModal(currentFolder, texts, successCallback) {
+  async openCreateTextModal(currentFolder, texts, successCallback)
+  :Promise<void> {
     const modal = await this.modalController.create({
       component: CreateTextPage,
       componentProps: {
@@ -49,23 +51,23 @@ export class ManageTextUIService {
       },
     });
     modal.onDidDismiss()
-      .then(async (returnData) => {
-        const params = returnData.data;
-        if (params) {
-          params['shared_folder'] = currentFolder.id;
-          this.manageFolderService.createText(params)
-              .subscribe(
-                  successCallback,
-                  (err) => this.alertManager.showErrorAlertNoRedirection(
-                      err.status,
-                      err.statusText),
-              );
-        }
-      });
+        .then(async (returnData) => {
+          const params = returnData.data;
+          if (params) {
+            params['shared_folder'] = currentFolder.id;
+            this.manageFolderService.createText(params)
+                .subscribe(
+                    successCallback,
+                    (err) => this.alertManager.showErrorAlertNoRedirection(
+                        err.status,
+                        err.statusText),
+                );
+          }
+        });
     await modal.present();
   }
 
-  async openDeleteTextAlert(text, successCallback) {
+  async openDeleteTextAlert(text, successCallback): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Attention!',
       message: `Do you really want to delete text "${text.title}"?`,
@@ -73,7 +75,7 @@ export class ManageTextUIService {
         'No',
         {
           text: 'Yes',
-          handler: async () => {
+          handler: async (): Promise<void> => {
             text.delete()
                 .subscribe(
                     successCallback,

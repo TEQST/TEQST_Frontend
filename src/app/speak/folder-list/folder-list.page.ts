@@ -6,7 +6,6 @@ import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {BaseComponent} from 'src/app/base-component';
 
-
 @Component({
   selector: 'app-folder-list',
   templateUrl: './folder-list.page.html',
@@ -36,11 +35,11 @@ export class FolderListPage extends BaseComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.publisherId = this.route.snapshot.paramMap.get('publisherId');
   }
 
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     this.folders = [];
     this.folderListElem.nativeElement.classList.remove('loaded');
 

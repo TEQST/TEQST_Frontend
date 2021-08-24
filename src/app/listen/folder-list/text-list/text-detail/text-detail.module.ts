@@ -1,3 +1,8 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+
 import {
   SpeakerProgressTextViewComponent,
 } from './speaker-progress-text-view/speaker-progress-text-view.component';
@@ -13,14 +18,7 @@ import {
 import {
   TextWrapperComponent,
 } from './speaker-progress-text-view/text-wrapper/text-wrapper.component';
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-
-import {IonicModule} from '@ionic/angular';
-
 import {TextDetailPageRoutingModule} from './text-detail-routing.module';
-
 import {TextDetailPage} from './text-detail.page';
 
 @NgModule({

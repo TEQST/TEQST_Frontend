@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+
 import {Constants} from '../constants';
 import {AuthenticationService} from './authentication.service';
 import {User} from '../interfaces/user';
-
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class ShareFolderService {
     public authenticationService: AuthenticationService) { }
 
 
-  getSharingSpeakers(sharedfolderId: number) {
+  getSharingSpeakers(sharedfolderId: number): Observable<JSON[]> {
     const url =
       this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
     return this.http.get<JSON[]>(url);
@@ -26,7 +27,7 @@ export class ShareFolderService {
   setSharingSpeakers(
       sharedfolderId: number,
       speakers: number[],
-      public_for_all: boolean) {
+      public_for_all: boolean): Observable<JSON> {
 
     const url = this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
     return this.http.put<JSON>(url, {
@@ -35,7 +36,7 @@ export class ShareFolderService {
     });
   }
 
-  getSharingListeners(sharedfolderId: number) {
+  getSharingListeners(sharedfolderId: number): Observable<JSON[]> {
     const url =
       this.SERVER_URL + `/api/pub/sharedfolders/${sharedfolderId}/listeners`;
     return this.http.get<JSON[]>(url);
@@ -43,7 +44,7 @@ export class ShareFolderService {
 
   setSharingListeners(
       sharedfolderId: number,
-      listeners: number[]) {
+      listeners: number[]): Observable<JSON> {
 
     const url = this.SERVER_URL +
       `/api/pub/sharedfolders/${sharedfolderId}/listeners/`;
@@ -52,12 +53,13 @@ export class ShareFolderService {
     });
   }
 
-  getAllUsers() {
+  getAllUsers(): Observable<User[]> {
     const url = this.SERVER_URL + `/api/users/`;
     return this.http.get<User[]>(url);
   }
 
-  filterLists(list, allUsers, searchTerm) {
+  filterLists(list, allUsers, searchTerm)
+  :{filteredList: User[]; filteredUsers: User[]} {
     const filteredList = list.filter((user) => {
       return user.username.toLowerCase()
           .startsWith(searchTerm.toLowerCase());

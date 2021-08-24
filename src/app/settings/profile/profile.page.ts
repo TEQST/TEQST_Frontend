@@ -1,9 +1,9 @@
-import {Language} from './../../interfaces/language';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
-import {UsermgmtService} from '../../services/usermgmt.service';
 import {NavController, ToastController} from '@ionic/angular';
-import {AlertManagerService} from 'src/app/services/alert-manager.service';
+
+import {UsermgmtService} from 'src/app/services/usermgmt.service';
+import {Language} from 'src/app/interfaces/language';
 import {LoaderService} from 'src/app/services/loader.service';
 import {LanguageService} from 'src/app/services/language.service';
 import {AgeValidator} from 'src/app/validators/age';
@@ -46,7 +46,7 @@ export class ProfilePage extends BaseComponent implements OnInit {
   }
 
   // loads every time Page is loaded their content
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadContent();
   }
 

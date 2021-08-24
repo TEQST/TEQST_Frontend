@@ -1,16 +1,18 @@
-import {LoaderService} from './../services/loader.service';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ManageFolderService} from 'src/app/services/manage-folder.service';
+import {AlertController} from '@ionic/angular';
+import {saveAs} from 'file-saver';
+
 import {Folder} from './manage.folder';
 import {Text} from './manage.text';
-import {AlertManagerService} from '../services/alert-manager.service';
+import {ManageFolderService} from 'src/app/services/manage-folder.service';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {StatisticsService} from 'src/app/services/statistics.service';
+import {LoaderService} from 'src/app/services/loader.service';
 import {ManageFolderUIService} from './manage-folder-ui.service';
 import {ManageTextUIService} from './manage-text-ui.service';
-import {StatisticsService} from '../services/statistics.service';
-import {saveAs} from 'file-saver';
-import {AlertController} from '@ionic/angular';
 import {BaseComponent} from '../base-component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-manage',
@@ -18,7 +20,7 @@ import {BaseComponent} from '../base-component';
   styleUrls: ['./manage.page.scss'],
 })
 
-export class ManagePage extends BaseComponent implements OnInit {
+export class ManagePage extends BaseComponent {
 
   @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
   @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
@@ -31,15 +33,15 @@ export class ManagePage extends BaseComponent implements OnInit {
   public username: string
   public showMultiSelect = false;
 
-  constructor(private manageFolderService: ManageFolderService,
+  constructor(public loaderService: LoaderService,
+              private manageFolderService: ManageFolderService,
               private manageFolderUIService: ManageFolderUIService,
               private manageTextUIService: ManageTextUIService,
               private statisticsService: StatisticsService,
               private alertController: AlertController,
               private router: Router,
               private route: ActivatedRoute,
-              private alertManager: AlertManagerService,
-              public loaderService: LoaderService) {
+              private alertManager: AlertManagerService) {
 
     super(loaderService);
     Folder.setServiceProvider(manageFolderService);
@@ -58,9 +60,7 @@ export class ManagePage extends BaseComponent implements OnInit {
     this.texts = [];
   }
 
-  ngOnInit() { }
-
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     this.subfolders = [];
     this.texts = [];
     this.folderListElem.nativeElement.classList.remove('loaded');
@@ -77,7 +77,7 @@ export class ManagePage extends BaseComponent implements OnInit {
     this.getFolderInfo();
   }
 
-  async getFolderInfo() {
+  async getFolderInfo(): Promise<void> {
     this.currentFolder.getSubfolderList()
         .subscribe(
             async (data) => {
@@ -112,19 +112,19 @@ export class ManagePage extends BaseComponent implements OnInit {
         );
   }
 
-  openCreateFolderModal() {
+  openCreateFolderModal(): void {
     this.manageFolderUIService.openCreateFolderModal(
         this.currentFolder, this.subfolders, () => this.getFolderInfo());
   }
 
-  toggleMultiSelect() {
+  toggleMultiSelect(): void {
     if (this.showMultiSelect) {
       this.uncheckAllItems();
     }
     this.showMultiSelect = !this.showMultiSelect;
   }
 
-  toggleSelectItem(e) {
+  toggleSelectItem(e): void {
     if (e.target.nodeName == 'ION-CHECKBOX') {
       return;
     }
@@ -132,17 +132,22 @@ export class ManagePage extends BaseComponent implements OnInit {
     item.checked = !item.checked;
   }
 
-  uncheckAllItems() {
+  uncheckAllItems(): void {
     this.setAllItemsCheckedState(false);
   }
 
-  checkAllItems() {
+  checkAllItems(): void {
     this.setAllItemsCheckedState(true);
   }
 
-  toggleAllItemsCheckedState() {
-    const container = this.currentFolder.is_sharedfolder ? this.textListElem : this.folderListElem;
-    for (const checkbox of container.nativeElement.querySelectorAll('.selectCheckbox')) {
+  getAllCheckboxes(): any {
+    const container = this.currentFolder.is_sharedfolder ?
+      this.textListElem : this.folderListElem;
+    return container.nativeElement.querySelectorAll('.selectCheckbox');
+  }
+
+  toggleAllItemsCheckedState(): void {
+    for (const checkbox of this.getAllCheckboxes()) {
       if (!checkbox.checked) {
         this.checkAllItems();
         return;
@@ -151,14 +156,13 @@ export class ManagePage extends BaseComponent implements OnInit {
     this.uncheckAllItems();
   }
 
-  setAllItemsCheckedState(checked) {
-    const container = this.currentFolder.is_sharedfolder ? this.textListElem : this.folderListElem;
-    for (const checkbox of container.nativeElement.querySelectorAll('.selectCheckbox')) {
+  setAllItemsCheckedState(checked): void {
+    for (const checkbox of this.getAllCheckboxes()) {
       checkbox.checked = checked;
     }
   }
 
-  deleteSelectedItems() {
+  deleteSelectedItems(): Observable<object> {
     let dataList = [];
     let listParentElem = null;
     if (this.currentFolder.is_sharedfolder) {
@@ -190,7 +194,7 @@ export class ManagePage extends BaseComponent implements OnInit {
 
   }
 
-  async openDeleteSelectedItemsModal() {
+  async openDeleteSelectedItemsModal(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Attention!',
       message: `Do you really want to delete all selected items?`,
@@ -198,7 +202,7 @@ export class ManagePage extends BaseComponent implements OnInit {
         'No',
         {
           text: 'Yes',
-          handler: async () => {
+          handler: async (): Promise<void> => {
             this.deleteSelectedItems()
                 .subscribe(
                     () => this.getFolderInfo(),
@@ -213,7 +217,7 @@ export class ManagePage extends BaseComponent implements OnInit {
     await alert.present();
   }
 
-  async openDeleteFolderAlert($event, folder) {
+  async openDeleteFolderAlert($event, folder): Promise<void> {
     // cancel click event to prevent opening the folder
     $event.preventDefault();
     $event.stopPropagation();
@@ -223,19 +227,19 @@ export class ManagePage extends BaseComponent implements OnInit {
     });
   }
 
-  openShareFolderModal() {
+  openShareFolderModal(): void {
     this.manageFolderUIService.openShareFolderModal(this.currentFolder);
   }
 
-  openFolderStatsModal() {
+  openFolderStatsModal(): void {
     this.manageFolderUIService.openFolderStatsModal(this.currentFolder);
   }
 
-  downloadFolder() {
+  downloadFolder(): void {
     this.manageFolderService.downloadFolder(this.currentFolder);
   }
 
-  openCreateTextModal() {
+  openCreateTextModal(): void {
     this.manageTextUIService.openCreateTextModal(
         this.currentFolder, this.texts, () => {
           if (!this.currentFolder.is_sharedfolder) {
@@ -246,7 +250,7 @@ export class ManagePage extends BaseComponent implements OnInit {
         });
   }
 
-  openDeleteTextAlert($event, text) {
+  openDeleteTextAlert($event, text): void {
     // cancel click event to prevent opening the text
     $event.preventDefault();
     $event.stopPropagation();
@@ -255,13 +259,13 @@ export class ManagePage extends BaseComponent implements OnInit {
     });
   }
 
-  initTexts() {
+  initTexts(): void {
     this.manageTextUIService.initTextList(this.currentFolder, (texts) => {
       this.texts = texts;
     });
   }
 
-  downloadstatistics() {
+  downloadstatistics(): void {
     this.statisticsService.downloadstatistics().subscribe((blob) => {
       saveAs(blob, 'statistics.csv');
     });

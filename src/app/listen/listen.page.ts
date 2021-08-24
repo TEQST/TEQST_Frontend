@@ -1,5 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {BaseComponent} from '../base-component';
+
 import {AlertManagerService} from '../services/alert-manager.service';
 import {ListenerService} from '../services/listener.service';
 import {LoaderService} from '../services/loader.service';
@@ -9,7 +10,7 @@ import {LoaderService} from '../services/loader.service';
   templateUrl: './listen.page.html',
   styleUrls: ['./listen.page.scss'],
 })
-export class ListenPage extends BaseComponent implements OnInit {
+export class ListenPage extends BaseComponent {
   @ViewChild('publisherList', {read: ElementRef}) publisherListElem: ElementRef
 
   public publishers: any
@@ -20,9 +21,7 @@ export class ListenPage extends BaseComponent implements OnInit {
     super(loaderService);
   }
 
-  ngOnInit() { }
-
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     this.publishers = [];
     this.publisherListElem.nativeElement.classList.remove('loaded');
 

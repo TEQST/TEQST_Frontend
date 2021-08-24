@@ -1,3 +1,4 @@
+import {Observable} from 'rxjs';
 import {ManageFolderService} from 'src/app/services/manage-folder.service';
 
 export class Folder {
@@ -7,7 +8,7 @@ export class Folder {
     name: string
     is_sharedfolder: boolean
 
-    static setServiceProvider(folderService) {
+    static setServiceProvider(folderService): void {
       this.folderService = folderService;
     }
 
@@ -17,15 +18,15 @@ export class Folder {
       this.is_sharedfolder = is_sharedFolder;
     }
 
-    getSubfolderList() {
+    getSubfolderList(): Observable<object> {
       return Folder.folderService.getSubfolderListFor(this.id);
     }
 
-    createSubfolder(name) {
+    createSubfolder(name): Observable<object> {
       return Folder.folderService.createFolder(this.id, name);
     }
 
-    delete() {
+    delete(): Observable<object> {
       return Folder.folderService.deleteFolder(this.id);
     }
 }

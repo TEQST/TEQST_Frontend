@@ -1,13 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-
 import {IonicModule} from '@ionic/angular';
 
 import {AccessGuard} from '../auth/access.guard';
 import {TabsPage} from './tabs.page';
 import {RouterModule, Routes} from '@angular/router';
-
+import {SpeakPageModule} from '../speak/speak.module';
+import {ManagePageModule} from '../manage/manage.module';
+import {ListenPageModule} from '../listen/listen.module';
+import {SettingsPageModule} from '../settings/settings.module';
 
 const routes: Routes = [
   {
@@ -21,25 +23,33 @@ const routes: Routes = [
       },
       {
         path: 'speak',
-        loadChildren: () => import('../speak/speak.module').then(m => m.SpeakPageModule),
+        loadChildren: ()
+        :Promise<SpeakPageModule> => import('../speak/speak.module')
+            .then((m) => m.SpeakPageModule),
         data: {requiresLogin: true},
         canActivate: [AccessGuard],
       },
       {
         path: 'manage',
-        loadChildren: () => import('../manage/manage.module').then(m => m.ManagePageModule),
+        loadChildren: ()
+        :Promise<ManagePageModule> => import('../manage/manage.module')
+            .then((m) => m.ManagePageModule),
         data: {requiresLogin: true, requiredRole: 'publisher'},
         canActivate: [AccessGuard],
       },
       {
         path: 'listen',
-        loadChildren: () => import('../listen/listen.module').then(m => m.ListenPageModule),
+        loadChildren: ()
+        :Promise<ListenPageModule> => import('../listen/listen.module')
+            .then((m) => m.ListenPageModule),
         data: {requiresLogin: true, requiredRole: 'listener'},
         canActivate: [AccessGuard],
       },
       {
         path: 'settings',
-        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule),
+        loadChildren: ()
+        :Promise<SettingsPageModule> => import('../settings/settings.module')
+            .then((m) => m.SettingsPageModule),
         data: {requiresLogin: true},
         canActivate: [AccessGuard],
       },

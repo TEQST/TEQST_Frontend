@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
 import {TextStateService} from 'src/app/services/text-state.service';
 import {
   RecordingPlaybackService,
 } from 'src/app/services/recording-playback.service';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-playbar',
@@ -14,9 +15,9 @@ import {takeUntil} from 'rxjs/operators';
 export class PlaybarComponent implements OnInit, OnDestroy {
 
   public ngUnsubscribe = new Subject<void>();
-
   public isPlaying = false;
   public isRecording = false;
+
   private recordingId: number;
   private activeSentence: number;
 
@@ -24,7 +25,7 @@ export class PlaybarComponent implements OnInit, OnDestroy {
     private playbackService: RecordingPlaybackService,
     private textStateService: TextStateService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscribeToServices();
   }
 

@@ -1,10 +1,11 @@
-import {AudioRecordingService} from './../audio-recording.service';
-import {TextServiceService} from './../text-service.service';
-import {RecordingPlaybackService}
-  from './../../../../../services/recording-playback.service';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+
+import {AudioRecordingService} from './../audio-recording.service';
+import {TextServiceService} from './../text-service.service';
+import {RecordingPlaybackService}
+  from 'src/app/services/recording-playback.service';
 
 @Component({
   selector: 'app-player',
@@ -25,7 +26,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     private textService: TextServiceService,
     private recordingService: AudioRecordingService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscribeToServices();
   }
 

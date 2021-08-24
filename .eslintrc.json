@@ -22,6 +22,6 @@
         "new-cap": "off",
         "camelcase": "off",
         "@typescript-eslint/explicit-function-return-type": "warn",
-        "linebreak-style": ["error", "windows"]
+        "@typescript-eslint/explicit-module-boundary-types": "off"
     }
 }

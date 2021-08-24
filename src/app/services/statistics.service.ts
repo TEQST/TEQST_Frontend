@@ -1,7 +1,8 @@
-import {TextStats} from './../interfaces/text-stats';
-import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+
+import {TextStats} from './../interfaces/text-stats';
 import {FolderStats} from '../interfaces/folder-stats';
 import {AuthenticationService} from './authentication.service';
 import {Constants} from '../constants';
@@ -12,7 +13,7 @@ import {Constants} from '../constants';
 export class StatisticsService {
 
   SERVER_URL = Constants.SERVER_URL;
-  
+
   constructor(
     private http: HttpClient,
     public authenticationService: AuthenticationService) { }
@@ -29,10 +30,10 @@ export class StatisticsService {
     return this.http.get<TextStats>(url.toString());
   }
 
-  public downloadstatistics(): Observable<Blob>{
+  public downloadstatistics(): Observable<Blob> {
     const url = this.SERVER_URL + `/api/pub/speakerstats/`;
     return this.http.get(url.toString(), {
-      responseType: 'blob'
+      responseType: 'blob',
     });
   }
 

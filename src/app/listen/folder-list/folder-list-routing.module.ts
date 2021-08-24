@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {TextListPageModule}
+  from 'src/app/speak/folder-list/text-list/text-list.module';
 
 import {FolderListPage} from './folder-list.page';
-import { TextListPage } from './text-list/text-list.page';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: ':folderId',
-    loadChildren: () => import('./text-list/text-list.module')
+    loadChildren: ()
+    :Promise<TextListPageModule> => import('./text-list/text-list.module')
         .then( (m) => m.TextListPageModule),
   },
 ];

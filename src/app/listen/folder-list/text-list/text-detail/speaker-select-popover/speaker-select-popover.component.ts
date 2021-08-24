@@ -1,4 +1,4 @@
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {NavParams, PopoverController} from '@ionic/angular';
 
@@ -14,10 +14,10 @@ export class SpeakerSelectPopoverComponent implements OnInit {
   private speakerSelected: boolean;
 
   constructor(private navParams: NavParams,
-    private router: Router,
-     private popoverController: PopoverController) { }
+              private router: Router,
+              private popoverController: PopoverController) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.speakers = this.navParams.data.speakers;
     this.navParams.data.selectedSpeaker.subscribe((speaker) => {
       this.selectedSpeaker = speaker;
@@ -36,7 +36,7 @@ export class SpeakerSelectPopoverComponent implements OnInit {
     this.dismissPopover();
   }
 
-  async dismissPopover() {
+  async dismissPopover(): Promise<void> {
     await this.popoverController.dismiss();
   }
 

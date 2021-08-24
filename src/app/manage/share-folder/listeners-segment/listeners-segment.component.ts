@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+
 import {User} from 'src/app/interfaces/user';
-import {ManageFolderService} from 'src/app/services/manage-folder.service';
 import {ShareFolderService} from 'src/app/services/share-folder.service';
 
 @Component({
@@ -14,18 +14,18 @@ export class ListenersSegmentComponent implements OnInit {
   public filteredListeners: User[];
   private allUsers: User[];
   public filteredUsers: User[];
-  private searchTerm: string = '';
+  private searchTerm = '';
 
   constructor(
     private shareFolderService: ShareFolderService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // reset Search term on each opening of the modal
     this.searchTerm = '';
     this.fetchUserLists();
   }
 
-  async fetchUserLists() {
+  async fetchUserLists(): Promise<void> {
     await this.shareFolderService.getSharingListeners(this.folderId)
         .toPromise()
         .then((sharedFolder) => {
@@ -42,20 +42,20 @@ export class ListenersSegmentComponent implements OnInit {
   }
 
   // update the search term on text input
-  onSearchTerm(event: CustomEvent) {
+  onSearchTerm(event: CustomEvent): void {
     this.searchTerm = event.detail.value;
     this.filterLists();
   }
 
   // filter user and speaker list based on the search term
-  filterLists() {
+  filterLists(): void {
     const filtered = this.shareFolderService
         .filterLists(this.listeners, this.allUsers, this.searchTerm);
     this.filteredListeners = filtered.filteredList;
     this.filteredUsers = filtered.filteredUsers;
   }
 
-  async addListener(user: User) {
+  async addListener(user: User): Promise<void> {
     // create a new array with just the listener ids
     const newListeners = this.listeners.map((listener) => listener.id);
     newListeners.push(user.id);
@@ -67,7 +67,7 @@ export class ListenersSegmentComponent implements OnInit {
     this.filterLists();
   }
 
-  async removeListener(speaker: User) {
+  async removeListener(speaker: User): Promise<void> {
     const oldSpeakerIds = this.listeners.map((listener) => listener.id);
     // remove the listeners from the array
     const newListenerIds = oldSpeakerIds.filter(

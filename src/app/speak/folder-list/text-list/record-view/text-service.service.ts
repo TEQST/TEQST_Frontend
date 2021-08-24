@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, ReplaySubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, ReplaySubject, Observable} from 'rxjs';
+
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {Constants} from 'src/app/constants';
-import {SentenceStatus} from './../../../../interfaces/sentence-status';
+import {SentenceStatus} from 'src/app/interfaces/sentence-status';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +37,7 @@ export class TextServiceService {
     private http: HttpClient,
     public authenticationService: AuthenticationService) { }
 
-  public reset() {
+  public reset(): void {
     this.sentences.next([]);
     this.sentencesRecordingStatus.next([]);
     this.activeSentenceIndex.next(1);
@@ -67,14 +68,17 @@ export class TextServiceService {
 
 
   // set the local variables to the data from the server
-  private setRecordingInfo(recordingInfo: object) {
+  private setRecordingInfo(recordingInfo: object): void {
     const index = recordingInfo['active_sentence'];
     this.nextActiveSentenceIndex = index;
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingInfo['id']);
-    this.sentencesRecordingStatus.next(recordingInfo['sentences_status'].sort((a, b) => {
-      return a.index - b.index; // sort the list in ascending order by index
-    }));
+    this.sentencesRecordingStatus
+        .next(recordingInfo['sentences_status']
+            .sort((a, b) => {
+              // sort the list in ascending order by index
+              return a.index - b.index;
+            }));
     this.initActiveSentenceIfReady();
   }
 
@@ -116,20 +120,23 @@ export class TextServiceService {
     });
   }
 
-  initActiveSentence() {
+  initActiveSentence(): void {
     /* when a text is finished,
        the active_sentence on the backend is totalSentenceNumber + 1
        so for the ui we have to set the active sentence
        to the smaller of those two values */
-    const firstSentenceIssue = this.sentencesRecordingStatus.getValue().find((sentenceStatus: SentenceStatus) => {
-      return sentenceStatus.status !== 'VALID';
-    });
+    const firstSentenceIssue = this.sentencesRecordingStatus.getValue()
+        .find((sentenceStatus: SentenceStatus) => {
+          return sentenceStatus.status !== 'VALID';
+        });
 
-    const sentenceIndex = firstSentenceIssue ? firstSentenceIssue.index : Math.min(this.nextActiveSentenceIndex, this.totalSentenceNumber.getValue());
+    const sentenceIndex = firstSentenceIssue ?
+        firstSentenceIssue.index : Math.min(this.nextActiveSentenceIndex,
+            this.totalSentenceNumber.getValue());
     this.setActiveSentenceIndex(sentenceIndex);
   }
 
-  initActiveSentenceIfReady() {
+  initActiveSentenceIfReady(): void {
     if (this.isTextFetched && this.isRecordingExistsChecked) {
       this.initActiveSentence();
       this.isLoaded.next(true);

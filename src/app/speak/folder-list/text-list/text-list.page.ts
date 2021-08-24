@@ -1,11 +1,11 @@
-import {TimeStatsComponent} from './time-stats/time-stats.component';
-import {SharedFolder} from './../../../interfaces/shared-folder';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ModalController} from '@ionic/angular';
 
+import {TimeStatsComponent} from './time-stats/time-stats.component';
+import {SharedFolder} from 'src/app/interfaces/shared-folder';
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
 import {LoaderService} from 'src/app/services/loader.service';
-import {ModalController} from '@ionic/angular';
 import {BaseComponent} from 'src/app/base-component';
 
 @Component({
@@ -45,22 +45,22 @@ export class TextListPage extends BaseComponent implements OnInit {
       this.textListElem.nativeElement.classList.add('loaded');
     });
     // clear contents when data is being refreshed
-    this.navService.requestMade.subscribe((_) => {
+    this.navService.requestMade.subscribe(() => {
       this.texts = [];
       this.textListElem.nativeElement.classList.remove('loaded');
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.publisherId = this.route.snapshot.paramMap.get('publisherId');
     this.folderId = this.route.snapshot.paramMap.get('folderId');
   }
 
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     this.navService.loadContentsOfSharedFolder(this.folderId);
   }
 
-  async presentTimeStats() {
+  async presentTimeStats(): Promise<void> {
     const popover = await this.modalController.create({
       component: TimeStatsComponent,
       componentProps: {
@@ -72,7 +72,7 @@ export class TextListPage extends BaseComponent implements OnInit {
   }
 
   // Truncate number to the specified amount of decimal places
-  truncateNumber(num, fixed) {
+  truncateNumber(num, fixed): string {
     const re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
     return num.toString().match(re)[0];
   }

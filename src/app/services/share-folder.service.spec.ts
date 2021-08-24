@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ShareFolderService } from './share-folder.service';
+import {ShareFolderService} from './share-folder.service';
 
 describe('ShareFolderService', () => {
   let service: ShareFolderService;

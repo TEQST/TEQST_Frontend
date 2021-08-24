@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+
 import {TextStateService} from 'src/app/services/text-state.service';
 
 @Component({

@@ -1,12 +1,14 @@
-import {ServicesAgreementComponent} from './services-agreement/services-agreement.component';
-import {Country} from './../../interfaces/country';
-import {UsermgmtService} from 'src/app/services/usermgmt.service';
-import {AgeValidator} from './../../validators/age';
-import {UsernameValidator} from './../../validators/username';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
 import {ModalController, NavController} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
+
+import {ServicesAgreementComponent}
+  from './services-agreement/services-agreement.component';
+import {Country} from './../../interfaces/country';
+import {UsermgmtService} from 'src/app/services/usermgmt.service';
+import {AgeValidator} from './../../validators/age';
+import {UsernameValidator} from './../../validators/username';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {LanguageService} from 'src/app/services/language.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
@@ -22,14 +24,13 @@ export class RegisterComponent implements OnInit {
   public allLangs = [];
   public stepOneForm: FormGroup;
   public stepTwoForm: FormGroup;
-
-  private countries : Country[] = [];
   public filteredCountries: Country[];
   public showCountryDropdown = false;
-
-  private accents = [];
   public filteredAccents = []
   public showAccentDropdown = false;
+
+  private countries : Country[] = [];
+  private accents = [];
 
   constructor(
     public navCtrl: NavController,
@@ -41,10 +42,11 @@ export class RegisterComponent implements OnInit {
     private usernameValidator: UsernameValidator,
     private modalController: ModalController,
     private usermgmtService: UsermgmtService) {
-    this.stepOneForm = formBuilder.group({
+
+    this.stepOneForm = this.formBuilder.group({
       username: ['',
         Validators.required,
-        usernameValidator.checkUsername.bind(usernameValidator),
+        this.usernameValidator.checkUsername.bind(this.usernameValidator),
       ],
       password: ['', Validators.required],
       birth_year: ['', [Validators.required, AgeValidator.checkAge]],
@@ -52,18 +54,18 @@ export class RegisterComponent implements OnInit {
       checkbox: [, Validators.requiredTrue],
     });
 
-    this.stepTwoForm = formBuilder.group({
+    this.stepTwoForm = this.formBuilder.group({
       email: ['', Validators.email],
       country: ['', Validators.required],
       accent: ['', Validators.required],
       education: ['', Validators.required],
       gender: ['', Validators.required],
     });
-    usermgmtService.getCountryList().then((list) => {
+    this.usermgmtService.getCountryList().then((list) => {
       this.countries = list;
       this.filteredCountries = list;
     });
-    usermgmtService.getAccents().subscribe((accents) => {
+    this.usermgmtService.getAccents().subscribe((accents) => {
       this.accents = accents;
       this.filteredAccents = accents;
     });
@@ -89,7 +91,6 @@ export class RegisterComponent implements OnInit {
     this.showCountryDropdown = false;
   }
 
-
   clearCountryDropdown(): void {
     this.closeCountryDropdown();
     this.stepTwoForm.patchValue({country: ''});
@@ -102,7 +103,6 @@ export class RegisterComponent implements OnInit {
   closeAccentDropdown(): void {
     this.showAccentDropdown = false;
   }
-
 
   get errorControl() {
     return this.stepOneForm.controls;
@@ -182,6 +182,5 @@ export class RegisterComponent implements OnInit {
     this.stepTwoForm.patchValue({accent: accent});
     this.closeAccentDropdown();
   }
-
 
 }

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AlertController, ModalController} from '@ionic/angular';
+
 import {AlertManagerService} from '../services/alert-manager.service';
 import {CreateFolderPage} from './create-folder/create-folder.page';
 import {FolderStatsPage} from './folder-stats/folder-stats.page';
@@ -17,7 +18,7 @@ export class ManageFolderUIService {
     private alertManager: AlertManagerService) { }
 
   // create folder objects from the given subfolderInfo data
-  initSubfolderList(subfolderInfo) {
+  initSubfolderList(subfolderInfo): any {
     const subfolders = [];
     for (const folderInfo of subfolderInfo) {
       const folder = new Folder(
@@ -27,7 +28,8 @@ export class ManageFolderUIService {
     return subfolders;
   }
 
-  async openCreateFolderModal(currentFolder, subfolders, successCallback) {
+  async openCreateFolderModal(currentFolder, subfolders, successCallback)
+  :Promise<void> {
     const modal = await this.modalController.create({
       component: CreateFolderPage,
       componentProps: {
@@ -50,7 +52,7 @@ export class ManageFolderUIService {
     await modal.present();
   }
 
-  async openDeleteFolderAlert(folder, successCallback) {
+  async openDeleteFolderAlert(folder, successCallback): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Attention!',
       message: `Do you really want to delete folder "${folder.name}"?`,
@@ -58,7 +60,7 @@ export class ManageFolderUIService {
         'No',
         {
           text: 'Yes',
-          handler: async () => {
+          handler: async (): Promise<void> => {
             folder.delete()
                 .subscribe(
                     successCallback,
@@ -73,7 +75,7 @@ export class ManageFolderUIService {
     await alert.present();
   }
 
-  async openShareFolderModal(currentFolder) {
+  async openShareFolderModal(currentFolder): Promise<void> {
     const modal = await this.modalController.create({
       component: ShareFolderPage,
       componentProps: {
@@ -85,7 +87,7 @@ export class ManageFolderUIService {
     return await modal.present();
   }
 
-  async openFolderStatsModal(currentFolder) {
+  async openFolderStatsModal(currentFolder): Promise<void> {
     const modal = await this.modalController.create({
       component: FolderStatsPage,
       componentProps: {

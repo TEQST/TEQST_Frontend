@@ -2,11 +2,11 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {takeUntil} from 'rxjs/operators';
+
 import {BaseComponent} from 'src/app/base-component';
 import {SharedFolder} from 'src/app/interfaces/shared-folder';
 import {ListenerService} from 'src/app/services/listener.service';
 import {LoaderService} from 'src/app/services/loader.service';
-import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
 import {TimeStatsComponent}
   from 'src/app/speak/folder-list/text-list/time-stats/time-stats.component';
 
@@ -22,12 +22,12 @@ export class TextListPage extends BaseComponent implements OnInit {
   public publisherId: string;
   public folderId: string;
   public texts: any;
-  folderName: any;
   public sharedFolderData: SharedFolder;
+  folderName: any;
 
-  constructor(private router: Router,
+  constructor(public loaderService: LoaderService,
+              private router: Router,
               private route: ActivatedRoute,
-              public loaderService: LoaderService,
               private modalController: ModalController,
               private listenerService: ListenerService) {
     super(loaderService);
@@ -47,22 +47,22 @@ export class TextListPage extends BaseComponent implements OnInit {
         });
     // clear contents when data is being refreshed
     this.listenerService.requestMade.pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((_) => {
+        .subscribe(() => {
           this.texts = [];
           this.textListElem.nativeElement.classList.remove('loaded');
         });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.publisherId = this.route.snapshot.paramMap.get('publisherId');
     this.folderId = this.route.snapshot.paramMap.get('folderId');
   }
 
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     this.listenerService.loadContentsOfSharedFolder(this.folderId);
   }
 
-  async presentTimeStats() {
+  async presentTimeStats(): Promise<void> {
     const popover = await this.modalController.create({
       component: TimeStatsComponent,
       componentProps: {

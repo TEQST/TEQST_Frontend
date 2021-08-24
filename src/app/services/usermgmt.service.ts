@@ -1,10 +1,12 @@
-import {Country} from './../interfaces/country';
-import {ProfileData} from './../interfaces/profile-data';
-import {User} from './../interfaces/user';
+
 import {Injectable, Injector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
 import {BehaviorSubject, Observable} from 'rxjs';
+
+import {Country} from './../interfaces/country';
+import {ProfileData} from './../interfaces/profile-data';
+import {User} from './../interfaces/user';
 import {AlertManagerService} from './alert-manager.service';
 import {RollbarService} from '../rollbar';
 import {LanguageService} from './language.service';
@@ -30,18 +32,18 @@ export class UsermgmtService {
               private injector: Injector) {}
 
   // check if username is available
-  checkUsername(username: string) {
+  checkUsername(username: string): Observable<object> {
     const url = this.SERVER_URL + '/api/users/checkname/?username=' + username;
     return this.http.get(url);
   }
 
   // notifies the Server about profile changes
-  updateProfile(dataToSend) {
+  updateProfile(dataToSend): Observable<object> {
     const url = this.SERVER_URL + '/api/user/';
     return this.http.put(url, dataToSend);
   }
 
-  patchProfile(dataToSend) {
+  patchProfile(dataToSend): Observable<object> {
     const url = this.SERVER_URL + '/api/user/';
     return this.http.patch(url, dataToSend);
   }
@@ -116,7 +118,7 @@ export class UsermgmtService {
     return this.http.get<string[]>(url);
   }
 
-  private getCountries(): Observable<Object> {
+  private getCountries(): Observable<object> {
     const url = this.SERVER_URL + '/api/countries/';
     return this.http.get(url);
   }

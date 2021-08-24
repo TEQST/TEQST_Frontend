@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ManageFolderUIService } from './manage-folder-ui.service';
+import {ManageFolderUIService} from './manage-folder-ui.service';
 
 describe('ManageFolderUIService', () => {
   let service: ManageFolderUIService;

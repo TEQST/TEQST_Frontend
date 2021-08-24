@@ -1,13 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild}
   from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ModalController} from '@ionic/angular';
-import {takeUntil} from 'rxjs/operators';
 import {BaseComponent} from 'src/app/base-component';
+
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {ListenerService} from 'src/app/services/listener.service';
 import {LoaderService} from 'src/app/services/loader.service';
-import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
 
 @Component({
   selector: 'app-folder-list',
@@ -22,13 +20,13 @@ export class FolderListPage extends BaseComponent implements OnInit {
   public folders: any
   publisherName: any;
 
-
   constructor(
+    public loaderService: LoaderService,
     private router: Router,
     private route: ActivatedRoute,
     private alertManager: AlertManagerService,
-    public loaderService: LoaderService,
     private listenerService: ListenerService) {
+
     super(loaderService);
     const routeParams = this.router.getCurrentNavigation().extras.state;
     if (typeof routeParams !== 'undefined' && 'publisherName' in routeParams) {
@@ -40,7 +38,7 @@ export class FolderListPage extends BaseComponent implements OnInit {
     this.publisherId = this.route.snapshot.paramMap.get('publisherId');
   }
 
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     this.folders = [];
     this.folderListElem.nativeElement.classList.remove('loaded');
 

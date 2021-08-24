@@ -1,6 +1,6 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {IonSlides, ModalController} from '@ionic/angular';
-import {ActivatedRoute} from '@angular/router';
+
 import {User} from 'src/app/interfaces/user';
 
 // // interface to handle the user objects better
@@ -20,7 +20,7 @@ import {User} from 'src/app/interfaces/user';
   styleUrls: ['./share-folder.page.scss'],
 })
 
-export class ShareFolderPage implements OnInit {
+export class ShareFolderPage {
 
   @Input() folderId: number;
   @Input() folderName: string;
@@ -28,28 +28,20 @@ export class ShareFolderPage implements OnInit {
   segment = 0;
 
   public isPublicForAll: boolean
-  private speakers: User[];
   public filteredSpeakers: User[];
-  private allUsers: User[];
   public filteredUsers: User[]
-  private searchTerm = '';
 
-  constructor(public viewCtrl: ModalController,
-    private route: ActivatedRoute) { }
+  constructor(public viewCtrl: ModalController) {}
 
-  ngOnInit() {
-
-  }
-
-  dismiss() {
+  dismiss(): void {
     this.viewCtrl.dismiss();
   }
 
-  async segmentChanged($event) {
+  async segmentChanged($event): Promise<void> {
     await this.slider.slideTo($event.detail.value);
   }
 
-  async slideChanged() {
+  async slideChanged(): Promise<void> {
     this.segment = await this.slider.getActiveIndex();
   }
 

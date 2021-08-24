@@ -15,7 +15,8 @@ import {takeUntil} from 'rxjs/operators';
   templateUrl: './sentence-wrapper.component.html',
   styleUrls: ['./sentence-wrapper.component.scss'],
 })
-export class SentenceWrapperComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class SentenceWrapperComponent
+implements OnInit, OnDestroy, AfterViewChecked {
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -36,11 +37,11 @@ export class SentenceWrapperComponent implements OnInit, OnDestroy, AfterViewChe
   @ViewChild('sentenceWrapper', {read: ElementRef}) sentenceWrapper: ElementRef
   @ViewChildren('sentenceDomElement') sentenceList: QueryList<ElementRef>;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscribeToServices();
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     if (this.newIndex) {
       this.scrollToSentence(this.activeSentence);
       this.newIndex = false;

@@ -1,10 +1,11 @@
-import {AlertManagerService} from './alert-manager.service';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from './authentication.service';
+import {BehaviorSubject, Observable} from 'rxjs';
+
 import {Constants} from '../constants';
+import {AlertManagerService} from './alert-manager.service';
+import {SentenceRecordingModel} from './../models/sentence-recording.model';
+import {AuthenticationService} from './authentication.service';
 import {
   RecordingUploadResponse,
 } from './../interfaces/recording-upload-response';
@@ -15,7 +16,6 @@ import {
 export class RecordingUploadService {
 
   private SERVER_URL = Constants.SERVER_URL;
-  private httpOptions;
 
   // array of tuple [sentenceRecording, isReUpload]
   private uploadQueue: [SentenceRecordingModel, boolean][] = [];
@@ -38,7 +38,7 @@ export class RecordingUploadService {
     }
   }
 
-  private uploadNextElement() {
+  private uploadNextElement(): void {
     this.isUploadActive.next(true);
     const queueElement = this.uploadQueue.shift();
     const isReUpload = queueElement[1];

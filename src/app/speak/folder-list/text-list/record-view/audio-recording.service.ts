@@ -1,21 +1,21 @@
-import {SentenceStatus} from './../../../../interfaces/sentence-status';
+import {Injectable} from '@angular/core';
+import {ToastController} from '@ionic/angular';
+import {Observable, Subject, BehaviorSubject} from 'rxjs';
+import * as RecordRTC from 'recordrtc';
+
+import {SentenceStatus} from 'src/app/interfaces/sentence-status';
 import {
   RecordingUploadResponse,
-} from './../../../../interfaces/recording-upload-response';
+} from 'src/app/interfaces/recording-upload-response';
 import {RecordingPlaybackService}
-  from './../../../../services/recording-playback.service';
+  from 'src/app/services/recording-playback.service';
 import {RecordingUploadService}
-  from './../../../../services/recording-upload.service';
+  from 'src/app/services/recording-upload.service';
 import {SentenceRecordingModel}
-  from './../../../../models/sentence-recording.model';
+  from 'src/app/models/sentence-recording.model';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
-import {Injectable} from '@angular/core';
-import {Observable, Subject, BehaviorSubject} from 'rxjs';
-
-import * as RecordRTC from 'recordrtc';
 import {TextServiceService} from './text-service.service';
 import {AuthenticationService} from 'src/app/services/authentication.service';
-import {ToastController} from '@ionic/angular';
 
 
 @Injectable({
@@ -41,7 +41,7 @@ export class AudioRecordingService {
   private sentenceHasRecording: boolean;
   private errorInPreviousRecording: boolean;
 
-  private recordingTimeoutLength: number = 180000; // 3 min = 3*60*1000=180000
+  private recordingTimeoutLength = 180000; // 3 min = 3*60*1000=180000
   private recordingTimeout;
 
   constructor(private textService: TextServiceService,
@@ -248,7 +248,7 @@ export class AudioRecordingService {
     this.startRecordingTimeout();
   }
 
-  updateSentenceRecordingStatus(sentenceStatus: RecordingUploadResponse) {
+  updateSentenceRecordingStatus(sentenceStatus: RecordingUploadResponse): void {
     const statusList = this.sentencesRecordingStatus;
     if (sentenceStatus === null || statusList === []) return;
 
@@ -278,17 +278,17 @@ export class AudioRecordingService {
          It might help to make a short pause at the beginning and the end.`);
   }
 
-  startRecordingTimeout() {
+  startRecordingTimeout(): void {
     this.recordingTimeout = setTimeout(() => {
       this.showRecordingTooLongToast();
     }, this.recordingTimeoutLength);
   }
 
-  stopRecordingTimeout() {
+  stopRecordingTimeout(): void {
     clearTimeout(this.recordingTimeout);
   }
 
-  async showRecordingTooLongToast() {
+  async showRecordingTooLongToast(): Promise<void> {
     const toast = await this.toastController.create({
       message:
        '<ion-icon name="hourglass-outline"></ion-icon><br>'+
@@ -301,5 +301,4 @@ export class AudioRecordingService {
     });
     toast.present();
   }
-
 }

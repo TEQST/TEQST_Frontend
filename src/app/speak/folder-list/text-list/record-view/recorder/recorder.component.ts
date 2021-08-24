@@ -1,5 +1,3 @@
-import {RecordingPlaybackService}
-  from './../../../../../services/recording-playback.service';
 import {
   Component,
   OnInit,
@@ -8,10 +6,13 @@ import {
   ElementRef,
   OnDestroy,
 } from '@angular/core';
-import {TextServiceService} from '../text-service.service';
-import {AudioRecordingService} from '../audio-recording.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+
+import {RecordingPlaybackService}
+  from 'src/app/services/recording-playback.service';
+import {TextServiceService} from '../text-service.service';
+import {AudioRecordingService} from '../audio-recording.service';
 
 @Component({
   selector: 'app-recorder',
@@ -38,11 +39,11 @@ export class RecorderComponent implements OnInit, OnDestroy {
     this.subscribeToServices();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.recordingService.requestUserAudio();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
     this.recordingService.stopMediaStream();
@@ -93,7 +94,7 @@ export class RecorderComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:keydown', ['$event'])
-  handleKeyboardInput($event: any) {
+  handleKeyboardInput($event: any): void {
     // check which key was pressed
     switch ($event.keyCode) {
       // spacebar will start or stop recording

@@ -1,19 +1,20 @@
-import {RouteStateService} from 'src/app/services/route-state.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PopoverController} from '@ionic/angular';
 import {Observable} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
+import {RouteStateService} from 'src/app/services/route-state.service';
 import {TextObject} from 'src/app/interfaces/text-object';
 import {SpeakerSelectPopoverComponent}
   from './speaker-select-popover/speaker-select-popover.component';
 import {RecordingStateModel} from 'src/app/models/recording-state.model';
 import {TextStats} from 'src/app/interfaces/text-stats';
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
-import {PopoverController} from '@ionic/angular';
 import {TextStateService} from 'src/app/services/text-state.service';
 import {ListenerService} from 'src/app/services/listener.service';
 import {BaseComponent} from 'src/app/base-component';
-import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-text-detail',
@@ -32,18 +33,18 @@ export class TextDetailPage extends BaseComponent implements OnInit {
   public selectedSpeaker: Observable<string>;
   private speakers: string[];
 
-  constructor(private listenerService: ListenerService,
+  constructor(public loaderService: LoaderService,
+              private listenerService: ListenerService,
               private route: ActivatedRoute,
               private router: Router,
               private alertManager: AlertManagerService,
-              public loaderService: LoaderService,
               private popoverController: PopoverController,
               private textStateService: TextStateService,
               private routeStateService: RouteStateService ) {
     super(loaderService);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const idString = this.route.snapshot.paramMap.get('textId');
     const id = isNaN(Number(idString)) ? null : parseInt(idString);
     let title = null;
@@ -64,7 +65,7 @@ export class TextDetailPage extends BaseComponent implements OnInit {
     this.getStats();
   }
 
-  async presentSpeakerSelect(ev: any) {
+  async presentSpeakerSelect(ev: any): Promise<void> {
     const popover = await this.popoverController.create({
       component: SpeakerSelectPopoverComponent,
       componentProps: {
@@ -78,7 +79,7 @@ export class TextDetailPage extends BaseComponent implements OnInit {
     return await popover.present();
   }
 
-  async getStats() {
+  async getStats(): Promise<void> {
     this.listenerService.getTextStats(this.text.id).subscribe((stats) => {
       this.textStats = stats;
       this.speakers = this.textStats.speakers.map((speaker) => {
@@ -92,7 +93,7 @@ export class TextDetailPage extends BaseComponent implements OnInit {
     });
   }
 
-  switchSpeaker(speakerName: string) {
+  switchSpeaker(speakerName: string): Promise<void> {
     const speakerStats =
       this.textStats.speakers.find((speaker) => speaker.name === speakerName);
     if (!speakerStats) {
@@ -106,7 +107,7 @@ export class TextDetailPage extends BaseComponent implements OnInit {
   }
 
   // TODO: check if ionViewWillEnter is the right lifecycle hook
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     this.listenerService.getTextInfo(this.text.id.toString())
         .subscribe(
             (textObject) => {

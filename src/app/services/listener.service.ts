@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Observable, Subject, Subscription} from 'rxjs';
+
 import {Constants} from '../constants';
 import {AuthenticationService} from './authentication.service';
-import {User} from '../interfaces/user';
 import {SharedFolder} from './../interfaces/shared-folder';
-import {Observable, Subject} from 'rxjs';
 import {AlertManagerService} from './alert-manager.service';
-import { TextObject } from '../interfaces/text-object';
-import { TextStats } from '../interfaces/text-stats';
+import {TextObject} from '../interfaces/text-object';
+import {TextStats} from '../interfaces/text-stats';
 
 @Injectable({
   providedIn: 'root',
@@ -23,21 +23,21 @@ export class ListenerService {
     public authenticationService: AuthenticationService,
     private alertService: AlertManagerService) { }
 
-  getPublisherList() {
+  getPublisherList(): Observable<JSON[]> {
     this.requestMade.next(true);
     const url =
       this.SERVER_URL + `/api/lstn/publishers/`;
     return this.http.get<JSON[]>(url);
   }
 
-  getFoldersOfPublisher(publisherId) {
+  getFoldersOfPublisher(publisherId): Observable<JSON[]> {
     this.requestMade.next(true);
     const url =
       this.SERVER_URL + `/api/lstn/publishers/${publisherId}/`;
     return this.http.get<JSON[]>(url);
   }
 
-  loadContentsOfSharedFolder(folderId: string) {
+  loadContentsOfSharedFolder(folderId: string): Subscription {
     this.requestMade.next(true);
     const url = this.SERVER_URL + `/api/lstn/sharedfolders/${folderId}/texts/`;
 
@@ -50,7 +50,7 @@ export class ListenerService {
     );
   }
 
-  getTextInfo(textId) {
+  getTextInfo(textId): Observable<TextObject> {
     this.requestMade.next(true);
     const url =
       this.SERVER_URL + `/api/lstn/texts/${textId}/`;

@@ -1,41 +1,28 @@
-ion-col.inner-col-setting {
-    max-width: 400px;
-    min-width: 300px;
-    padding: 0;
-}
 
-.max-height {
-    height: 100%;
-}
-
-ion-row.image-row {
-  // remove the height of the footer so the card and image are positioned the same way on login and register
-  height: calc(35% - 56px);
-  min-height: 114px;
-  margin-bottom: 5px;
-
-}
-ion-row.content-row {
-  height: calc(65% + 56px);
-
-}
-
-ion-card {
-  margin: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  .md {
-    --ion-item-background: #1e1e1e;
+ion-row {
+  &.content-row {
+    height: calc(65% + 56px);
+  }
+  &.image-row {
+    // remove the height of the footer so the card and image are positioned the same way on login and register
+    height: calc(35% - 56px);
+    min-height: 114px;
+    margin-bottom: 5px;
+  }
+  ion-col {
+    &.inner-col-setting {
+      max-width: 400px;
+      min-width: 300px;
+      padding: 0;
+    }
+    ion-card {
+      margin: 0;
+    }
   }
 }
 
-
-/* Tooltip container */
-.tooltip {
-  position: relative;
-  display: inline-block;
- 
+.max-height {
+  height: 100%;
 }
 
 /* Tooltip text */
@@ -53,18 +40,30 @@ ion-card {
   z-index: 1;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  transition-delay: 500ms;
-  visibility: visible;
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+
+  /* Show the tooltip text when you mouse over the tooltip container */
+  &:hover .tooltiptext {
+    transition-delay: 500ms;
+    visibility: visible;
+  }
+  .tooltiptext {
+    &.tooltip-right {
+      top: -5px;
+      left: 125%;
+    }
+    &.tooltip-left {
+      top: -5px;
+      right: 125%;
+    }
+  }
 }
 
-.tooltip-right {
-  top: -5px;
-  left: 125%;
-}
-
-.tooltip-left {
-  top: -5px;
-  right: 125%;
+@media (prefers-color-scheme: dark) {
+  .md {
+    --ion-item-background: #1e1e1e;
+  }
 }

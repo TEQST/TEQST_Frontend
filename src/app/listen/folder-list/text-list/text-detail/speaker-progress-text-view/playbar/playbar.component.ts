@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
 import {TextStateService} from 'src/app/services/text-state.service';
 import {
   RecordingPlaybackService,
 } from 'src/app/services/recording-playback.service';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-playbar',

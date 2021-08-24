@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { ServicesAgreementComponent } from './services-agreement.component';
+import {ServicesAgreementComponent} from './services-agreement.component';
 
 describe('ServicesAgreementComponent', () => {
   let component: ServicesAgreementComponent;
@@ -9,8 +9,8 @@ describe('ServicesAgreementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ServicesAgreementComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ServicesAgreementComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ServicesAgreementComponent);

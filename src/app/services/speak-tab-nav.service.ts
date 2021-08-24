@@ -1,9 +1,10 @@
-import {SharedFolder} from './../interfaces/shared-folder';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs';
+
 import {AuthenticationService} from './authentication.service';
 import {Constants} from '../constants';
-import {Subject} from 'rxjs';
+import {SharedFolder} from './../interfaces/shared-folder';
 import {AlertManagerService} from './alert-manager.service';
 
 

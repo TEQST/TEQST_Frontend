@@ -1,22 +1,12 @@
-import {TextObject} from './../interfaces/text-object';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import streamSaver from 'streamsaver';
 import {AuthenticationService} from './authentication.service';
 import {Constants} from '../constants';
 import {Folder} from '../manage/manage.folder';
-import streamSaver from 'streamsaver';
 import {AlertManagerService} from './alert-manager.service';
-
-interface User {
-  'id': number,
-  'username': string,
-  'education': string,
-  'gender': string,
-  'birth_year': number,
-  'languages': number[],
-  'country': null;
-}
+import {TextObject} from './../interfaces/text-object';
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +41,7 @@ export class ManageFolderService {
     return this.http.get(url);
   }
 
-  createFolder(parentId: string, folderName: string) {
+  createFolder(parentId: string, folderName: string): Observable<object> {
     const url = this.SERVER_URL + `/api/folders/`;
 
     return this.http.post(url,
@@ -62,17 +52,17 @@ export class ManageFolderService {
     );
   }
 
-  deleteFolder(folderId: string) {
+  deleteFolder(folderId: string): Observable<object> {
     const url = this.SERVER_URL + `/api/folders/${folderId}/`;
     return this.http.delete(url);
   }
 
-  deleteFolders(folderIds) {
+  deleteFolders(folderIds): Observable<object> {
     const url = this.SERVER_URL + `/api/pub/folders/delete/`;
     return this.http.post(url, folderIds);
   }
 
-  createText(params: any[]) {
+  createText(params: any[]): Observable<object> {
     const formData = new FormData();
     for (const param in params) {
       if ({}.hasOwnProperty.call(params, param)) {
@@ -91,12 +81,12 @@ export class ManageFolderService {
     return this.http.post(url, formData);
   }
 
-  deleteText(textId: string) {
+  deleteText(textId: string): Observable<object> {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/`;
     return this.http.delete(url);
   }
 
-  deleteTexts(textIds) {
+  deleteTexts(textIds): Observable<object> {
     const url = this.SERVER_URL + `/api/pub/texts/delete/`;
     return this.http.post(url, textIds);
   }
@@ -106,7 +96,7 @@ export class ManageFolderService {
     return this.http.get<TextObject>(url, {});
   }
 
-  downloadFolder(folder: Folder) {
+  downloadFolder(folder: Folder): void {
     const url = this.SERVER_URL + `/api/download/${folder.id}/`;
 
     const fileName = `${folder.name}_${folder.id}.zip`;
@@ -133,7 +123,7 @@ export class ManageFolderService {
           const writer = fileStream.getWriter();
 
           const reader = res.body.getReader();
-          const pump = () => reader.read()
+          const pump = (): Promise<void> => reader.read()
               .then((res) => {
                 if (res.done) {
                   writer.close();
