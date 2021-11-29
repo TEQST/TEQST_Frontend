@@ -21,6 +21,7 @@
         "require-jsdoc": "off",
         "new-cap": "off",
         "camelcase": "off",
+        "linebreak-style": "off",
         "@typescript-eslint/explicit-function-return-type": "warn",
         "@typescript-eslint/explicit-module-boundary-types": "off"
     }

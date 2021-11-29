@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import streamSaver from 'streamsaver';
 import {AuthenticationService} from './authentication.service';
@@ -7,6 +7,8 @@ import {Constants} from '../constants';
 import {Folder} from '../manage/manage.folder';
 import {AlertManagerService} from './alert-manager.service';
 import {TextObject} from './../interfaces/text-object';
+import {saveAs} from 'file-saver';
+
 
 @Injectable({
   providedIn: 'root',
@@ -69,7 +71,7 @@ export class ManageFolderService {
         const paramValue = params[param];
         if (param == 'textfile') {
           formData.append('textfile', paramValue, paramValue.name);
-        } else { 
+        } else {
           formData.append(param, paramValue);
         }
       }
@@ -100,49 +102,21 @@ export class ManageFolderService {
     const url = this.SERVER_URL + `/api/download/${folder.id}/`;
 
     const fileName = `${folder.name}_${folder.id}.zip`;
-    const fileStream = streamSaver.createWriteStream(fileName);
 
-    const errorTitle = 'Error while processing your download.';
-    const errorMsg = 'Please try again later!';
-
-    const options = {
-      headers: new Headers({'Authorization': localStorage.getItem('Token')}),
-    };
-    fetch(url, options)
-        .then((res) => {
-          const readableStream = res.body;
-
-          if (window.WritableStream && readableStream.pipeTo) {
-            return readableStream.pipeTo(fileStream)
-                .catch(() => {
-                  this.alertManager
-                      .showErrorAlertNoRedirection(errorTitle, errorMsg);
-                });
-          }
-
-          const writer = fileStream.getWriter();
-
-          const reader = res.body.getReader();
-          const pump = (): Promise<void> => reader.read()
-              .then((res) => {
-                if (res.done) {
-                  writer.close();
-                } else {
-                  writer.write(res.value).then(pump);
-                }
-              })
-              .catch(() => {
-                this.alertManager
-                    .showErrorAlertNoRedirection(errorTitle, errorMsg);
-              });
-          pump();
-        })
-        .catch(() => {
-          this.alertManager.showErrorAlertNoRedirection(
-              'No download available',
-              'No Speaker has finished a text of the current folder yet. ' +
+    this.http.get(url, {responseType: 'blob'}).subscribe((zipData) => {
+      const blob = new Blob([zipData], {
+        type: 'application/zip',
+      });
+      // save file locally
+      saveAs(blob, fileName);
+    },
+    (error: HttpErrorResponse) => {
+      this.alertManager.showErrorAlertNoRedirection(
+          'No download available',
+          'No Speaker has finished a text of the current folder yet. ' +
               'Please try again later.');
-        });
+    },
+    );
   }
 }
 
