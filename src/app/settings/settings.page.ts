@@ -1,29 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+
 import {LoaderService} from '../services/loader.service';
 import {AuthenticationService} from '../services/authentication.service';
+import {BaseComponent} from '../base-component';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
-
-  public isLoading = false;
+export class SettingsPage extends BaseComponent {
 
   constructor(public authenticationService: AuthenticationService,
-              private loaderService: LoaderService) {
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
-  }
-
-  ngOnInit() {
+              public loaderService: LoaderService) {
+    super(loaderService);
   }
 
   // calls logout Function of UsermgmtService
-  logout() {
+  logout(): void {
     this.authenticationService.logout();
   }
-
 
 }

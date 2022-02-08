@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import {ManageFolderService} from 'src/app/services/manage-folder.service';
 
 export class Text {
@@ -7,7 +8,7 @@ export class Text {
     title: string
     content: string
 
-    static setServiceProvider(folderService) {
+    static setServiceProvider(folderService): void {
       this.folderService = folderService;
     }
 
@@ -17,7 +18,7 @@ export class Text {
       this.content = content;
     }
 
-    delete() {
+    delete(): Observable<object> {
       return Text.folderService.deleteText(this.id);
     }
 }

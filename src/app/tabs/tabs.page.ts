@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {UsermgmtService} from '../services/usermgmt.service';
-
 import {ViewChild, ViewChildren, ElementRef} from '@angular/core';
 import {IonTabs, IonTabButton} from '@ionic/angular';
+
+import {UsermgmtService} from '../services/usermgmt.service';
 
 @Component({
   selector: 'app-tabs',
@@ -15,20 +15,24 @@ export class TabsPage implements OnInit {
   @ViewChildren(IonTabButton) tabbuttons: any;
 
   public isPublisher: boolean;
+  public isListener: boolean;
 
   constructor(public usermgmtService: UsermgmtService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.usermgmtService.getIsPublisher().subscribe((isPublisher: boolean) => {
       this.isPublisher = isPublisher;
     });
+    this.usermgmtService.getIsListener().subscribe((isListener: boolean) => {
+      this.isListener = isListener;
+    });
   }
 
-  onTouch(index) {
+  onTouch(index): void {
     this.tabs.select(this.tabbuttons.toArray()[index].tab);
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.tabbuttonsEl.forEach((tabbuttonEl, index) => {
       tabbuttonEl.onTouch = this.onTouch.bind(this, index);
       tabbuttonEl.nativeElement.addEventListener(
@@ -37,7 +41,7 @@ export class TabsPage implements OnInit {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.tabbuttonsEl.forEach((tabbuttonEl) => {
       tabbuttonEl.nativeElement
           .removeEventListener('touchend', tabbuttonEl.onTouch);

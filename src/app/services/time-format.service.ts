@@ -5,9 +5,7 @@ import {Injectable} from '@angular/core';
 })
 export class TimeFormatService {
 
-  constructor() { }
-
-  public getTimeString(num) {
+  public getTimeString(num): string {
     if (typeof num === 'undefined') return '00:00:00';
 
     const h = this.makeDoubleDigit(Math.floor(num / 3600));
@@ -17,7 +15,7 @@ export class TimeFormatService {
     return `${h}:${m}:${s}`;
   }
 
-  makeDoubleDigit(num) {
+  makeDoubleDigit(num): string {
     return num >= 10 ? num : '0' + num;
   }
 }

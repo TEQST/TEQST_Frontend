@@ -5,12 +5,7 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './documentation.page.html',
   styleUrls: ['./documentation.page.scss'],
 })
-export class DocumentationPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class DocumentationPage {
 
   scrollToElement(e): void {
     e.scrollIntoView({

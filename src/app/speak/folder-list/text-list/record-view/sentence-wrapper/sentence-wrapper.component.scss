@@ -1,24 +1,24 @@
 div {
-	opacity: 0.5;
+	opacity: 0.2;
 	padding: 5px;
-	font-size: large;
+	font-size: 1em;
 }
 
-.verticalLine, .verticalLineDone {
+.sentence {
 	padding: 5px 10px;
+	border-left: 8px solid var(--ion-color-primary);
 
 	&.active {
 		opacity: 1;
 		padding: 15px;
-		font-size: larger;
+		font-size: 1.4em;
 		font-weight: bold;
 	}
-}
-
-.verticalLine {
-  border-left: 8px solid #ff0000;
-}
-
-.verticalLineDone {
-  border-left: 8px solid Green;
+	&.done {
+		border-left: 8px solid green;
+	}
+	&.error {
+		border-left: 8px solid red;
+		background-color: red;
+	}
 }

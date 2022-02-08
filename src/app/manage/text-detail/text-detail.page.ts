@@ -1,19 +1,21 @@
-import {RouteStateService} from './../../services/route-state.service';
-import {Observable} from 'rxjs';
-import {TextObject} from './../../interfaces/text-object';
-import {SpeakerSelectPopoverComponent}
-  from './speaker-select-popover/speaker-select-popover.component';
-import {RecordingStateModel} from './../../models/recording-state.model';
-import {StatisticsService} from './../../services/statistics.service';
-import {TextStats} from './../../interfaces/text-stats';
+import {PopoverController} from '@ionic/angular';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
+import {TextObject} from 'src/app/interfaces/text-object';
+import {SpeakerSelectPopoverComponent}
+  from './speaker-select-popover/speaker-select-popover.component';
+import {RecordingStateModel} from 'src/app/models/recording-state.model';
+import {StatisticsService} from 'src/app/services/statistics.service';
+import {TextStats} from 'src/app/interfaces/text-stats';
+import {RouteStateService} from 'src/app/services/route-state.service';
 import {ManageFolderService} from 'src/app/services/manage-folder.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
-import {PopoverController} from '@ionic/angular';
 import {TextStateService} from 'src/app/services/text-state.service';
+import {BaseComponent} from 'src/app/base-component';
 
 @Component({
   selector: 'app-text-detail',
@@ -22,7 +24,7 @@ import {TextStateService} from 'src/app/services/text-state.service';
   providers: [TextStateService],
 })
 
-export class TextDetailPage implements OnInit {
+export class TextDetailPage extends BaseComponent implements OnInit {
 
   @ViewChild('content', {read: ElementRef}) contentElem: ElementRef
 
@@ -31,23 +33,20 @@ export class TextDetailPage implements OnInit {
   private textStats: TextStats;
   public selectedSpeaker: Observable<string>;
   private speakers: string[];
-  public isLoading = false;
 
-  constructor(private manageFolderService: ManageFolderService,
+  constructor(public loaderService: LoaderService,
+              private manageFolderService: ManageFolderService,
               private route: ActivatedRoute,
               private router: Router,
               private alertManager: AlertManagerService,
-              private loaderService: LoaderService,
               private statsService: StatisticsService,
               private popoverController: PopoverController,
               private textStateService: TextStateService,
               private routeStateService: RouteStateService ) {
-
-    this.loaderService.getIsLoading()
-        .subscribe((isLoading) => this.isLoading = isLoading);
+    super(loaderService);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const idString = this.route.snapshot.paramMap.get('textId');
     const id = isNaN(Number(idString)) ? null : parseInt(idString);
     let title = null;
@@ -68,7 +67,7 @@ export class TextDetailPage implements OnInit {
     this.getStats();
   }
 
-  async presentSpeakerSelect(ev: any) {
+  async presentSpeakerSelect(ev: any): Promise<void> {
     const popover = await this.popoverController.create({
       component: SpeakerSelectPopoverComponent,
       componentProps: {
@@ -82,20 +81,22 @@ export class TextDetailPage implements OnInit {
     return await popover.present();
   }
 
-  async getStats() {
+  async getStats(): Promise<void> {
     this.statsService.getTextStats(this.text.id).subscribe((stats) => {
       this.textStats = stats;
       this.speakers = this.textStats.speakers.map((speaker) => {
         return speaker.name;
       },
       );
-      this.selectedSpeaker.subscribe((speaker) => {
-        this.switchSpeaker(speaker);
-      });
+      this.selectedSpeaker
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((speaker) => {
+            this.switchSpeaker(speaker);
+          });
     });
   }
 
-  switchSpeaker(speakerName: string) {
+  switchSpeaker(speakerName: string): void {
     const speakerStats =
       this.textStats.speakers.find((speaker) => speaker.name === speakerName);
     if (!speakerStats) {
@@ -109,7 +110,7 @@ export class TextDetailPage implements OnInit {
   }
 
   // TODO: check if ionViewWillEnter is the right lifecycle hook
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     this.manageFolderService.getTextInfo(this.text.id.toString())
         .subscribe(
             (textObject) => {

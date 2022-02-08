@@ -1,9 +1,11 @@
-import {RouteStateService} from './../../../../services/route-state.service';
 import {ActivatedRoute} from '@angular/router';
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {TextStateService} from 'src/app/services/text-state.service';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {takeUntil, map} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+
+import {RouteStateService} from 'src/app/services/route-state.service';
+import {TextStateService} from 'src/app/services/text-state.service';
+
 
 @Component({
   selector: 'app-text-wrapper',
@@ -12,27 +14,29 @@ import {Subject} from 'rxjs';
 })
 export class TextWrapperComponent implements OnInit, OnDestroy {
 
-  private destroy = new Subject<void>();
+  private ngUnsubscribe = new Subject<void>();
   public sentences: string[] = [];
 
-  public furthestSentence: number = 1;
-  public activeSentence: number = 1;
+  public furthestSentence = 1;
+  public activeSentence = 1;
 
   constructor(private textStateService: TextStateService,
               private route: ActivatedRoute,
               private routeStateService: RouteStateService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscribeToServices();
     this.shareRouteParams();
   }
 
   private subscribeToServices(): void {
     this.textStateService.getFurthestSentenceIndex()
+        .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((index) => this.furthestSentence = index);
     this.textStateService.getActiveSentenceIndex()
+        .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((index) => this.activeSentence = index);
-    this.textStateService.getSentences()
+    this.textStateService.getSentences().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((sentences) => this.sentences = sentences);
   }
 
@@ -40,7 +44,7 @@ export class TextWrapperComponent implements OnInit, OnDestroy {
     this.route.paramMap
         .pipe(
             map((paramMap) => paramMap.get('speaker')),
-            takeUntil(this.destroy),
+            takeUntil(this.ngUnsubscribe),
         )
         .subscribe((speakerParam) =>
           this.routeStateService.updateSpeakerParamState(speakerParam));
@@ -52,9 +56,9 @@ export class TextWrapperComponent implements OnInit, OnDestroy {
     this.textStateService.setActiveSentenceIndex(index);
   }
 
-  ngOnDestroy() {
-    this.destroy.next();
-    this.destroy.complete();
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
     this.routeStateService.updateSpeakerParamState(null);
   }
 

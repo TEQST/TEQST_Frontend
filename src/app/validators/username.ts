@@ -1,6 +1,7 @@
-import {UsermgmtService} from './../services/usermgmt.service';
 import {Injectable} from '@angular/core';
 import {FormControl} from '@angular/forms';
+
+import {UsermgmtService} from './../services/usermgmt.service';
 
 @Injectable()
 export class UsernameValidator {

@@ -1,17 +1,21 @@
-import {RecordingPlaybackService}
-  from './../../../../services/recording-playback.service';
-import {RecordingUploadService}
-  from './../../../../services/recording-upload.service';
-import {SentenceRecordingModel}
-  from './../../../../models/sentence-recording.model';
-import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {Injectable} from '@angular/core';
+import {ToastController} from '@ionic/angular';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
-
 import * as RecordRTC from 'recordrtc';
+
+import {SentenceStatus} from 'src/app/interfaces/sentence-status';
+import {
+  RecordingUploadResponse,
+} from 'src/app/interfaces/recording-upload-response';
+import {RecordingPlaybackService}
+  from 'src/app/services/recording-playback.service';
+import {RecordingUploadService}
+  from 'src/app/services/recording-upload.service';
+import {SentenceRecordingModel}
+  from 'src/app/models/sentence-recording.model';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {TextServiceService} from './text-service.service';
 import {AuthenticationService} from 'src/app/services/authentication.service';
-import {ToastController} from '@ionic/angular';
 
 
 @Injectable({
@@ -22,20 +26,22 @@ export class AudioRecordingService {
 
 
   private stream: MediaStream;
-  private recorder;
+  private activeRecorder;
   private recorded = new Map<number, Blob>();
   private audio = new Audio();
 
   private recordingFailed$ = new Subject<string>();
   private isRecording$ = new BehaviorSubject<boolean>(false);
+  private sentencesRecordingStatus: SentenceStatus[]
   private isPlaying: boolean;
 
   private recordingId: number;
   private activeSentence: number;
   private furthestSentence: number;
   private sentenceHasRecording: boolean;
+  private errorInPreviousRecording: boolean;
 
-  private recordingTimeoutLength: number = 180000; // 3 min = 3*60*1000=180000
+  private recordingTimeoutLength = 180000; // 3 min = 3*60*1000=180000
   private recordingTimeout;
 
   constructor(private textService: TextServiceService,
@@ -45,6 +51,7 @@ export class AudioRecordingService {
               private playbackService: RecordingPlaybackService,
               public toastController: ToastController) {
     this.subscribeToServices();
+    this.alertService.presentRecordingInfoAlert();
   }
 
   /* subscribe to all needed variables from the services
@@ -60,6 +67,12 @@ export class AudioRecordingService {
     });
     this.textService.getSentenceHasRecording()
         .subscribe((value) => this.sentenceHasRecording = value);
+    this.textService.getSentencesRecordingStatus()
+        .subscribe((statusList) => {
+          this.sentencesRecordingStatus = statusList;
+        });
+    this.recordingUploadService.getLastUploadResponse()
+        .subscribe((status) => this.updateSentenceRecordingStatus(status));
     this.playbackService.getIsPlaying()
         .subscribe((state) => this.isPlaying = state);
   }
@@ -94,16 +107,14 @@ export class AudioRecordingService {
     }).catch((error) => {
       this.alertService.showErrorAlertNoRedirection(
           'No microphone access',
-          'Please allow access to your microphone '+
-          'to be able to start a recording.');
+          'Please allow access to your microphone ' +
+        'to be able to start a recording.');
       this.isRecording$.next(false);
     });
   }
 
   startRecording(): void {
-    if (this.recorder) {
-      return; // Recording is already running
-    } else if (this.isPlaying === true) {
+    if (this.isPlaying === true) {
       this.playbackService.stopAudioPlayback();
     }
     // Get mediaStream in case user declined it on page load
@@ -111,7 +122,7 @@ export class AudioRecordingService {
     if (this.isMediaStreamActive) {
 
       // set the quality properties of the recorder
-      this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
+      this.activeRecorder = new RecordRTC.StereoAudioRecorder(this.stream, {
         type: 'audio',
         mimeType: 'audio/wav',
         audioBitsPerSecond: 16000,
@@ -119,68 +130,98 @@ export class AudioRecordingService {
         numberOfAudioChannels: 1, // set mono recording
 
       });
-      this.recorder.record();
+      this.activeRecorder.record();
       this.startRecordingTimeout();
       this.isRecording$.next(true);
     }
   }
 
-  private saveRecording(index: number, blob: Blob): void {
+  private saveRecording(
+      index: number,
+      isReRecording: boolean,
+      blob: Blob): void {
+
     const sentenceRecording =
       new SentenceRecordingModel(this.recordingId, index, blob);
     // add recording to cache in case speaker wants to listen to it
     this.playbackService.addToCache(sentenceRecording);
-    this.uploadRecording(sentenceRecording);
+    this.uploadRecording(sentenceRecording, isReRecording);
   }
 
-  private uploadRecording(sentenceRecording: SentenceRecordingModel): void {
+  private uploadRecording(
+      sentenceRecording: SentenceRecordingModel,
+      isReRecording: boolean): void {
+
     this.recordingUploadService
-        .uploadRecording(sentenceRecording, this.sentenceHasRecording);
+        .uploadRecording(sentenceRecording, isReRecording);
   }
 
   stopRecording(): void {
     // check if recording is active if not do nothing
-    if (this.recorder) {
+    if (this.activeRecorder) {
+
+      // save the current state
+      const currentRecorder = this.activeRecorder;
+      const currentSentence = this.activeSentence;
+      const isReRecording = this.sentenceHasRecording;
+
       this.stopRecordingTimeout();
-      this.recorder.stop((blob: Blob) => {
-        this.saveRecording(this.activeSentence, blob);
-        if (this.activeSentence === this.furthestSentence) {
-          this.textService.increaseFurthestSentence();
-        }
-      }, () => {
-        this.recordingFailed$.next();
-      });
+
+      setTimeout(() => {
+        currentRecorder.stop((blob: Blob) => {
+          this.saveRecording(currentSentence, isReRecording, blob);
+        }, () => {
+          this.recordingFailed$.next();
+        });
+      }, 400);
+
       this.resetRecorder();
+      if (currentSentence === this.furthestSentence) {
+        this.textService.increaseFurthestSentence();
+      }
     }
 
   }
 
   resetRecorder(): void {
     this.isRecording$.next(false);
-    this.recorder = null;
+    if (this.errorInPreviousRecording === true) {
+      this.throwRecordingErrorAlert();
+    }
+    this.activeRecorder = null;
   }
 
   // save the current recording and start the next one
   nextRecording(): void {
-    if (this.recorder) {
-      this.stopRecordingTimeout();
-      this.recorder.stop((blob: Blob) => {
-        this.saveRecording(this.activeSentence, blob);
-        if (this.activeSentence === this.furthestSentence) {
-          this.textService.increaseFurthestSentence();
-        }
-        if (this.activeSentence >= this.furthestSentence - 1) {
-          this.resetRecorder();
-          this.startRecording();
-          this.textService.setNextSentenceActive();
-        } else {
-          this.resetRecorder();
-          this.textService.setNextSentenceActive();
-        }
+    this.stopRecordingTimeout();
+
+    if (this.errorInPreviousRecording === true) {
+      this.stopRecording();
+      return;
+    }
+
+    // save the current state
+    const currentSentence = this.activeSentence;
+    const currentRecorder = this.activeRecorder;
+    const isReRecording = this.sentenceHasRecording;
+
+    setTimeout(() => {
+      currentRecorder.stop((blob: Blob) => {
+        this.saveRecording(currentSentence, isReRecording, blob);
       }, () => {
-        this.resetRecorder();
         this.recordingFailed$.next();
       });
+    }, 400);
+
+    if (this.activeSentence === this.furthestSentence) {
+      this.textService.increaseFurthestSentence();
+    }
+    if (this.activeSentence >= this.furthestSentence - 1) {
+      this.startRecording();
+      this.textService.setNextSentenceActive();
+    } else {
+      this.resetRecorder();
+      this.textService.setNextSentenceActive();
     }
   }
 
@@ -202,22 +243,52 @@ export class AudioRecordingService {
   // abort the current recording and start a new one
   restartRecording(): void {
     this.stopRecordingTimeout();
-    this.recorder.stop();
-    this.recorder.record();
+    this.activeRecorder.stop();
+    this.activeRecorder.record();
     this.startRecordingTimeout();
   }
 
-  startRecordingTimeout() {
+  updateSentenceRecordingStatus(sentenceStatus: RecordingUploadResponse): void {
+    const statusList = this.sentencesRecordingStatus;
+    if (sentenceStatus === null || statusList === []) return;
+
+    if (sentenceStatus.valid !== 'VALID') {
+      this.errorInPreviousRecording = true;
+      if (this.isRecording$.getValue() === false) {
+        this.throwRecordingErrorAlert();
+      }
+    }
+
+    if (sentenceStatus.index === statusList.length + 1) {
+      statusList.push({
+        index: sentenceStatus.index,
+        status: sentenceStatus.valid,
+      });
+    } else {
+      statusList[sentenceStatus.index - 1].status = sentenceStatus.valid;
+    }
+    this.textService.setSentencesRecordingStatus(statusList);
+  }
+
+  throwRecordingErrorAlert(): void {
+    this.errorInPreviousRecording = false;
+    this.alertService.showErrorAlertNoRedirection('Issue with recording',
+        `It seems like there is an issue in a previous recording (marked red). 
+         You might have started talking to early.
+         It might help to make a short pause at the beginning and the end.`);
+  }
+
+  startRecordingTimeout(): void {
     this.recordingTimeout = setTimeout(() => {
       this.showRecordingTooLongToast();
     }, this.recordingTimeoutLength);
   }
 
-  stopRecordingTimeout() {
+  stopRecordingTimeout(): void {
     clearTimeout(this.recordingTimeout);
   }
 
-  async showRecordingTooLongToast() {
+  async showRecordingTooLongToast(): Promise<void> {
     const toast = await this.toastController.create({
       message:
        '<ion-icon name="hourglass-outline"></ion-icon><br>'+
@@ -230,5 +301,4 @@ export class AudioRecordingService {
     });
     toast.present();
   }
-
 }

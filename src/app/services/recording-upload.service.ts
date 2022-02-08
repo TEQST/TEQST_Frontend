@@ -1,10 +1,14 @@
-import {AlertManagerService} from './alert-manager.service';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from './authentication.service';
+import {BehaviorSubject, Observable} from 'rxjs';
+
 import {Constants} from '../constants';
+import {AlertManagerService} from './alert-manager.service';
+import {SentenceRecordingModel} from './../models/sentence-recording.model';
+import {AuthenticationService} from './authentication.service';
+import {
+  RecordingUploadResponse,
+} from './../interfaces/recording-upload-response';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +16,12 @@ import {Constants} from '../constants';
 export class RecordingUploadService {
 
   private SERVER_URL = Constants.SERVER_URL;
-  private httpOptions;
 
   // array of tuple [sentenceRecording, isReUpload]
   private uploadQueue: [SentenceRecordingModel, boolean][] = [];
   private isUploadActive = new BehaviorSubject<boolean>(false);
+  private lastUploadResponse =
+    new BehaviorSubject<RecordingUploadResponse>(null);
 
   constructor(
     private http: HttpClient,
@@ -33,7 +38,7 @@ export class RecordingUploadService {
     }
   }
 
-  private uploadNextElement() {
+  private uploadNextElement(): void {
     this.isUploadActive.next(true);
     const queueElement = this.uploadQueue.shift();
     const isReUpload = queueElement[1];
@@ -48,22 +53,22 @@ export class RecordingUploadService {
     if (isReUpload) {
       // replace existing sentence recording
       const url = sentenceRecordingUrl +
-                  sentenceRecording.recordingId +
-                  `/?index=${sentenceRecording.sentenceNumber}`;
-      this.http.put(
+        sentenceRecording.recordingId +
+        `/?index=${sentenceRecording.sentenceNumber}`;
+      this.http.put<RecordingUploadResponse>(
           url,
-          formData, this.httpOptions).subscribe( () => {
+          formData).subscribe((response) => {
+        this.lastUploadResponse.next(response);
         this.checkIfQueueIsFinished();
       }, () => this.uploadFailed());
     } else {
       // create a new sentence recording
       formData.append('recording', sentenceRecording.recordingId.toString());
       formData.append('index', sentenceRecording.sentenceNumber.toString());
-      this.http.post(
+      this.http.post<RecordingUploadResponse>(
           sentenceRecordingUrl,
-          formData,
-          this.httpOptions).subscribe( () => {
-
+          formData).subscribe((response) => {
+        this.lastUploadResponse.next(response);
         this.checkIfQueueIsFinished();
 
       }, () => this.uploadFailed());
@@ -92,5 +97,8 @@ export class RecordingUploadService {
     return this.isUploadActive.asObservable();
   }
 
+  public getLastUploadResponse(): Observable<RecordingUploadResponse> {
+    return this.lastUploadResponse.asObservable();
+  }
 
 }

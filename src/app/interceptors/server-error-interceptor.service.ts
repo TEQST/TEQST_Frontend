@@ -7,7 +7,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, retry, tap} from 'rxjs/operators';
+import {catchError, retry} from 'rxjs/operators';
 
 import {UsermgmtService} from 'src/app/services/usermgmt.service';
 import {AlertManagerService} from '../services/alert-manager.service';

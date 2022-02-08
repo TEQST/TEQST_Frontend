@@ -1,32 +1,43 @@
-a.login-redirect {
-  font-size:16px;
+ion-item {
+  --padding-top: 0;
+  --inner-padding-bottom: 0;
+
+  ion-checkbox {
+    margin: 0;
+  }
+  &#password-item {
+    --inner-padding-end: 0;
+    --padding-bottom: 6;
+  }
+}
+
+ion-button {
+  &.button-submit {
+    margin: 10px 7px;
+  }
+  &#toggle-password {
+    --ripple-color: transparent;
+    --background-hover: false;
+    height: 100%;
+    width: 4em;
+    margin: 0;
+    font-size: 16px;
+  }
+}
+
+ion-label.cbox-label {
+  margin-left: 1em;
+  font-size: 14px;
+  color: #737373;
+  cursor: pointer;
 }
 
 ion-card-content {
   margin-top: 10px;
-}
 
-ion-item {
-  --padding-top: 0;
-  --inner-padding-bottom: 0;
-}
-
-ion-item#password-item {
-  --inner-padding-end: 0;
-  --padding-bottom: 6;
-}
-
-ion-button#toggle-password {
-  --ripple-color: transparent;
-  --background-hover: false;
-  height: 100%;
-  width: 4em;
-  margin: 0;
-  font-size: 16px;
-}
-
-.button-submit {
-  margin: 10px 7px;
+  a.login-redirect {
+    font-size: 16px;
+  }
 }
 
 .error {
@@ -43,4 +54,18 @@ ion-button#toggle-password {
   width: 100%;
   text-align: left;
   padding: 5px 16px;
+}
+
+.country-dropdown-container {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 73%; // better would be 100% - 2 * item-height but item-height(--min-height) is not accessible from outside the item
+}
+
+.accent-dropdown-container {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 60%; // better would be 100% - 3 * item-height but item-height(--min-height) is not accessible from outside the item
 }

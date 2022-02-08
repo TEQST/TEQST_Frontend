@@ -11,10 +11,65 @@ ion-fab-button {
     height: 60px;
 }
 
-ion-button.delete {
+.fix-padding{
+    padding-bottom: 80px;
+}
+
+ion-checkbox {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 9px;
+}
+
+ion-button.delete, #multiSelectToolbar .actions ion-button {
     height: 25px;
 }
 
-.fix-padding{
-    padding-bottom: 80px;
+#contentTitleWrapper, #multiSelectToolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+#multiSelectToolbar .actions,
+#folderList ion-button.delete,
+#textList ion-button.delete,
+ion-checkbox.selectCheckbox {
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s ease opacity, 0s .2s linear visibility;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: .2s ease opacity
+    }
+}
+
+#multiSelectToolbar {
+    .actions {
+        position: absolute;
+        overflow: hidden;
+        width: 140px;
+        right: 60px;
+        margin-top: 21px;
+        margin-right: 5px;
+        padding-left: 20px;
+        background-color: var(--ion-background-color);
+        border-radius: 20px;
+    }
+
+    #toggleMultiSelect {
+        --background: transparent;
+        color: var(--ion-color-dark);
+        margin-right: 10px;
+        margin-top: 18px;
+    }
+}
+
+#folderList, #textList {
+    ion-button.delete, ion-checkbox.selectCheckbox {
+        position: absolute;
+        right: 17px;
+    }
 }

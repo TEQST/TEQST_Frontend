@@ -1,4 +1,5 @@
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
@@ -8,6 +9,7 @@ import {
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
+
 import {LoaderService} from '../services/loader.service';
 
 @Injectable({
@@ -43,10 +45,13 @@ export class LoaderInterceptorService implements HttpInterceptor {
             }
           },
           error: (err) => {
-            this.removeRequest(request);
+            if (err instanceof HttpErrorResponse) {
+              this.removeRequest(request);
+            }
           },
           complete: () => {
-            this.removeRequest(request);
+            // is called every time when the observable is completed
+            // this.removeRequest(request);
           },
         }),
     );

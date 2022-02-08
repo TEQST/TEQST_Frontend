@@ -39,6 +39,7 @@ export class AuthenticationService {
           const userData = loginResponse['user'] as User;
           this.usermgmtService.initLoggingData(userData.id, userData.username);
           this.usermgmtService.isPublisher.next(userData.is_publisher);
+          this.usermgmtService.isListener.next(userData.is_listener);
           menuLanguage = userData.menu_language.short;
           this.languageService.updateMenuLanguage(menuLanguage);
           this.dataFromServer = JSON.stringify(loginResponse);

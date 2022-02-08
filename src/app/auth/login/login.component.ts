@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 
@@ -7,7 +7,7 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   public showPassword = false;
 
@@ -15,10 +15,8 @@ export class LoginComponent implements OnInit {
     public navCtrl: NavController,
     public authenticationService: AuthenticationService) {}
 
-  ngOnInit() { }
-
   // gets Username and Password and calls with those login in UsermgmtService
-  performLogin(form) {
+  performLogin(form): void {
     this.authenticationService.login(form.value);
   }
 }

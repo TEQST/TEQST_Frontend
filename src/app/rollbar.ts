@@ -1,6 +1,4 @@
 import * as Rollbar from 'rollbar';
-
-
 import {
   Injectable,
   Inject,
@@ -40,6 +38,6 @@ export class RollbarErrorHandler implements ErrorHandler {
   }
 }
 
-export function rollbarFactory() {
+export function rollbarFactory(): Rollbar {
   return new Rollbar(rollbarConfig);
 }

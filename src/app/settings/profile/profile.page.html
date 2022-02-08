@@ -33,12 +33,12 @@
 
     <ion-item>
       <ion-label position="stacked">{{'Country' | translate}}:</ion-label>
-      <ion-input formControlName="country"></ion-input>
+      <ion-input formControlName="country" disabled="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">{{'Accent' | translate}}:</ion-label>
-      <ion-input formControlName="accent"></ion-input>
+      <ion-input formControlName="accent" disabled="true"></ion-input>
     </ion-item>
 
 
@@ -51,18 +51,20 @@
 
     <ion-item>
       <ion-label position="stacked">{{'Education Level' | translate}}:</ion-label>
-      <ion-select formControlName="education">
+      <ion-select formControlName="education" disabled="true">
         <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
         <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
         <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
+        <ion-select-option value="N">{{'Prefer not to say' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">{{'Gender' | translate}}:</ion-label>
-      <ion-select formControlName="gender">
+      <ion-select formControlName="gender" disabled="true">
         <ion-select-option value="F">{{'Female' | translate}}</ion-select-option>
         <ion-select-option value="M">{{'Male' | translate}}</ion-select-option>
+        <ion-select-option value="N">{{'Prefer not to say' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
 

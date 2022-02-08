@@ -1,9 +1,13 @@
+import {DirectivesModule} from './../directives/directives.module';
 import {
   MenuLanguageSelectorComponent,
 } from './menu-language-selector/menu-language-selector.component';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {
+  ServicesAgreementComponent,
+} from './register/services-agreement/services-agreement.component';
 
 import {IonicModule} from '@ionic/angular';
 
@@ -22,12 +26,14 @@ import {TranslateModule} from '@ngx-translate/core';
     AuthPageRoutingModule,
     TranslateModule,
     ReactiveFormsModule,
+    DirectivesModule,
   ],
   declarations: [
     AuthPage,
     MenuLanguageSelectorComponent,
     LoginComponent,
     RegisterComponent,
+    ServicesAgreementComponent,
   ],
 })
 export class AuthPageModule {}
