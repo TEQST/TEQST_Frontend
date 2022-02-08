@@ -136,7 +136,7 @@ export class AudioRecordingService {
     // add recording to cache in case speaker wants to listen to it
 
     this.playbackService.addToCache(sentenceRecording);
-    // this.uploadRecording(sentenceRecording);
+    this.uploadRecording(sentenceRecording);
   }
 
   private uploadRecording(sentenceRecording: SentenceRecordingModel): void {
