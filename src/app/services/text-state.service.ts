@@ -15,8 +15,6 @@ export class TextStateService {
   private isRightToLeft = new BehaviorSubject<boolean>(false);
   private recordingId = new ReplaySubject<number>(1);
 
-  constructor() { }
-
   public setText(text: TextObject): void {
     this.textTitle.next(text.title);
     this.totalSentenceNumber.next(text.content.length);
@@ -24,7 +22,7 @@ export class TextStateService {
     this.isRightToLeft.next(text.is_right_to_left);
   }
 
-  public setRecordingState(recordingState: RecordingStateModel) {
+  public setRecordingState(recordingState: RecordingStateModel): void {
     const index = recordingState.activeSentence;
     this.furthestSentenceIndex.next(index);
     this.recordingId.next(recordingState.recordingId);

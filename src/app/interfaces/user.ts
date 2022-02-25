@@ -1,5 +1,6 @@
 import {Language} from './language';
 
+
 export interface User {
     id: number;
     username: string;
@@ -11,4 +12,5 @@ export interface User {
     accent: string;
     country: string;
     is_publisher: boolean;
+    is_listener: boolean;
 }

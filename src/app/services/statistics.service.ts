@@ -1,7 +1,8 @@
-import {TextStats} from './../interfaces/text-stats';
-import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+
+import {TextStats} from './../interfaces/text-stats';
 import {FolderStats} from '../interfaces/folder-stats';
 import {AuthenticationService} from './authentication.service';
 import {Constants} from '../constants';
@@ -27,6 +28,13 @@ export class StatisticsService {
   public getTextStats(textId: number): Observable<TextStats> {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/stats/`;
     return this.http.get<TextStats>(url.toString());
+  }
+
+  public downloadstatistics(): Observable<Blob> {
+    const url = this.SERVER_URL + `/api/pub/speakerstats/`;
+    return this.http.get(url.toString(), {
+      responseType: 'blob',
+    });
   }
 
 }

@@ -1,22 +1,14 @@
-import {TextObject} from './../interfaces/text-object';
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import streamSaver from 'streamsaver';
 import {AuthenticationService} from './authentication.service';
 import {Constants} from '../constants';
 import {Folder} from '../manage/manage.folder';
-import streamSaver from 'streamsaver';
 import {AlertManagerService} from './alert-manager.service';
+import {TextObject} from './../interfaces/text-object';
+import {saveAs} from 'file-saver';
 
-interface User {
-  'id': number,
-  'username': string,
-  'education': string,
-  'gender': string,
-  'birth_year': number,
-  'languages': number[],
-  'country': null
-}
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +43,7 @@ export class ManageFolderService {
     return this.http.get(url);
   }
 
-  createFolder(parentId: string, folderName: string) {
+  createFolder(parentId: string, folderName: string): Observable<object> {
     const url = this.SERVER_URL + `/api/folders/`;
 
     return this.http.post(url,
@@ -62,12 +54,17 @@ export class ManageFolderService {
     );
   }
 
-  deleteFolder(folderId: string) {
+  deleteFolder(folderId: string): Observable<object> {
     const url = this.SERVER_URL + `/api/folders/${folderId}/`;
     return this.http.delete(url);
   }
 
-  createText(params: any[]) {
+  deleteFolders(folderIds): Observable<object> {
+    const url = this.SERVER_URL + `/api/pub/folders/delete/`;
+    return this.http.post(url, folderIds);
+  }
+
+  createText(params: any[]): Observable<object> {
     const formData = new FormData();
     for (const param in params) {
       if ({}.hasOwnProperty.call(params, param)) {
@@ -86,85 +83,40 @@ export class ManageFolderService {
     return this.http.post(url, formData);
   }
 
-  deleteText(textId: string) {
+  deleteText(textId: string): Observable<object> {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/`;
     return this.http.delete(url);
   }
 
+  deleteTexts(textIds): Observable<object> {
+    const url = this.SERVER_URL + `/api/pub/texts/delete/`;
+    return this.http.post(url, textIds);
+  }
+
   getTextInfo(textId: string): Observable<TextObject> {
     const url = this.SERVER_URL + `/api/pub/texts/${textId}/`;
-    return this.http.get<TextObject>(url, { });
+    return this.http.get<TextObject>(url, {});
   }
 
-  getSpeakers(sharedfolderId: number) {
-    const url =
-    this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
-    return this.http.get<JSON[]>(url);
-  }
-
-  setSpeakers(
-      sharedfolderId: number,
-      speakers: number[],
-      public_for_all: boolean) {
-
-    const url = this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
-    return this.http.put<JSON>(url, {
-      speaker_ids: speakers,
-      public: public_for_all});
-  }
-
-  getAllUsers() {
-    const url = this.SERVER_URL + `/api/users/`;
-    return this.http.get<User[]>(url);
-  }
-
-  downloadFolder(folder: Folder) {
+  downloadFolder(folder: Folder): void {
     const url = this.SERVER_URL + `/api/download/${folder.id}/`;
 
     const fileName = `${folder.name}_${folder.id}.zip`;
-    const fileStream = streamSaver.createWriteStream(fileName);
 
-    const errorTitle = 'Error while processing your download.';
-    const errorMsg = 'Please try again later!';
-
-    const options = {
-      headers: new Headers({'Authorization': localStorage.getItem('Token')}),
-    };
-    fetch(url, options)
-        .then((res) => {
-          const readableStream = res.body;
-
-          if (window.WritableStream && readableStream.pipeTo) {
-            return readableStream.pipeTo(fileStream)
-                .catch(() => {
-                  this.alertManager
-                      .showErrorAlertNoRedirection(errorTitle, errorMsg);
-                });
-          }
-
-          const writer = fileStream.getWriter();
-
-          const reader = res.body.getReader();
-          const pump = () => reader.read()
-              .then((res) => {
-                if (res.done) {
-                  writer.close();
-                } else {
-                  writer.write(res.value).then(pump);
-                }
-              })
-              .catch(() => {
-                this.alertManager
-                    .showErrorAlertNoRedirection(errorTitle, errorMsg);
-              });
-          pump();
-        })
-        .catch(() => {
-          this.alertManager.showErrorAlertNoRedirection(
-              'No download available',
-              'No Speaker has finished a text of the current folder yet. ' +
+    this.http.get(url, {responseType: 'blob'}).subscribe((zipData) => {
+      const blob = new Blob([zipData], {
+        type: 'application/zip',
+      });
+      // save file locally
+      saveAs(blob, fileName);
+    },
+    (error: HttpErrorResponse) => {
+      this.alertManager.showErrorAlertNoRedirection(
+          'No download available',
+          'No Speaker has finished a text of the current folder yet. ' +
               'Please try again later.');
-        });
+    },
+    );
   }
 }
 

@@ -1,8 +1,9 @@
-import {Language} from './../interfaces/language';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
+import {Observable} from 'rxjs';
+
+import {Language} from '../interfaces/language';
 import {Constants} from '../constants';
 
 @Injectable({
@@ -25,13 +26,13 @@ export class LanguageService {
   }
 
 
-  putMenuLanguageLocalStorage() {
+  putMenuLanguageLocalStorage(): void {
     localStorage.setItem('MenuLanguage', this.menuLanguage);
   }
-  putMenuLanguageLocalStorageWithParam(lang: string) {
+  putMenuLanguageLocalStorageWithParam(lang: string): void {
     localStorage.setItem('MenuLanguage', lang);
   }
-  async getAllMenuLanguages() {
+  async getAllMenuLanguages(): Promise<Language[]> {
     const allMenuLangs: Language[] = [];
     await this.getLangs().toPromise().then((dataReturnFromServer: any) => {
       for (const singleLanguage of dataReturnFromServer) {
@@ -53,7 +54,7 @@ export class LanguageService {
       this.translate.use(lang);
     }
   }
-  updateMenuLanguage(temporalMenuLanguage) {
+  updateMenuLanguage(temporalMenuLanguage): void {
     if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') ||
         localStorage.getItem('MenuLanguage') === null) {
       this.menuLanguage = temporalMenuLanguage;

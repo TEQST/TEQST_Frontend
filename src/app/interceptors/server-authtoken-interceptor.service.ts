@@ -3,7 +3,9 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
+  HttpEvent,
 } from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 
 @Injectable({
@@ -11,9 +13,9 @@ import {
 })
 export class ServerAuthtokenInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  intercept(request: HttpRequest<any>, next: HttpHandler)
+    :Observable<HttpEvent<any>> {
 
-  intercept(request: HttpRequest<any>, next: HttpHandler) {
     const authToken = localStorage.getItem('Token');
     let authReq;
     if (request.headers.get('Content-Type') !== null ||

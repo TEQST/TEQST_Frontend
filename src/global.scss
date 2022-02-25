@@ -80,8 +80,10 @@ ion-icon {
     min-width: 1em;
 }
 
-ion-toolbar ion-button {
-    transition: .3s ease opacity;
+ion-toolbar {
+    ion-buttons, ion-button  {
+        transition: .3s ease opacity;
+    }
 }
 
 .fadeInWhenLoaded {
@@ -118,7 +120,9 @@ ion-toolbar ion-button {
 }
 
 .disabled {
-    pointer-events: none;
+    &, * {
+        pointer-events: none;
+    }
     opacity: 0.5;
 }
 

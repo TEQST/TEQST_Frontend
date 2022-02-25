@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {RecordViewPageModule} from './record-view/record-view.module';
 
 import {TextListPage} from './text-list.page';
 
@@ -10,7 +11,8 @@ const routes: Routes = [
   },
   {
     path: ':textId',
-    loadChildren: () => import('./record-view/record-view.module')
+    loadChildren: ()
+    :Promise<RecordViewPageModule> => import('./record-view/record-view.module')
         .then( (m) => m.RecordViewPageModule),
   },
 ];

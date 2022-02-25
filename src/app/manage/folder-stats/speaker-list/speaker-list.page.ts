@@ -1,5 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NavParams, IonNav, ModalController} from '@ionic/angular';
+
 import {FolderStats} from 'src/app/interfaces/folder-stats';
 import {StatisticsService} from 'src/app/services/statistics.service';
 import {SpeakerDetailPage} from '../speaker-detail/speaker-detail.page';
@@ -10,7 +11,7 @@ import {SpeakerDetailPage} from '../speaker-detail/speaker-detail.page';
   templateUrl: './speaker-list.page.html',
   styleUrls: ['./speaker-list.page.scss'],
 })
-export class SpeakerListPage implements OnInit {
+export class SpeakerListPage {
 
   @ViewChild('content', {read: ElementRef}) contentElem: ElementRef
 
@@ -35,9 +36,7 @@ export class SpeakerListPage implements OnInit {
         });
   }
 
-  ngOnInit() {}
-
-  addCompletedCountToSpeakers(folderStats) {
+  addCompletedCountToSpeakers(folderStats): void {
     for (const speaker of folderStats.speakers) {
       let completedTextsCount = 0;
       for (const text of speaker.texts) {
@@ -49,7 +48,7 @@ export class SpeakerListPage implements OnInit {
     }
   }
 
-  showDetail(speaker) {
+  showDetail(speaker): void {
     this.navComponent.push(SpeakerDetailPage, {
       folderName: this.folderStats.name,
       folderId: this.folderStats.id,
@@ -57,7 +56,7 @@ export class SpeakerListPage implements OnInit {
     });
   }
 
-  dismiss() {
+  dismiss(): void {
     this.viewCtrl.dismiss();
   }
 

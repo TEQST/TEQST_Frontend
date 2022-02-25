@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavParams} from '@ionic/angular';
+
 import {TimeFormatService} from 'src/app/services/time-format.service';
 
 @Component({
@@ -7,7 +8,7 @@ import {TimeFormatService} from 'src/app/services/time-format.service';
   templateUrl: './speaker-detail.page.html',
   styleUrls: ['./speaker-detail.page.scss'],
 })
-export class SpeakerDetailPage implements OnInit {
+export class SpeakerDetailPage {
   folderName: string
   folderId: string
   speaker: any
@@ -20,5 +21,4 @@ export class SpeakerDetailPage implements OnInit {
     this.speaker = navParams.get('speaker');
   }
 
-  ngOnInit() { }
 }

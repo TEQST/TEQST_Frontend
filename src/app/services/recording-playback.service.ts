@@ -1,7 +1,7 @@
-import {BehaviorSubject, Observable} from 'rxjs';
-import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {AuthenticationService} from './authentication.service';
 import {Constants} from '../constants';
 
@@ -11,16 +11,13 @@ import {Constants} from '../constants';
 export class RecordingPlaybackService {
 
   private SERVER_URL = Constants.SERVER_URL;
-
   private cacheSize = 10;
   private cache: SentenceRecordingModel[] = [];
-
   private audio = new Audio();
   private isPlaying = new BehaviorSubject<boolean>(false);
 
-  constructor(
-    private http: HttpClient,
-    public authenticationService: AuthenticationService) { }
+  constructor(public authenticationService: AuthenticationService,
+              private http: HttpClient) { }
 
   public async playSentenceRecording(
       recordingId: number,

@@ -1,6 +1,5 @@
 import {FolderStats} from './../../interfaces/folder-stats';
-import {StatisticsService} from './../../services/statistics.service';
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {ModalController, IonNav} from '@ionic/angular';
 import {SpeakerListPage} from './speaker-list/speaker-list.page';
 
@@ -9,7 +8,7 @@ import {SpeakerListPage} from './speaker-list/speaker-list.page';
   templateUrl: './folder-stats.page.html',
   styleUrls: ['./folder-stats.page.scss'],
 })
-export class FolderStatsPage implements OnInit {
+export class FolderStatsPage {
 
   @Input() folderId: number;
   @Input() folderName: string;
@@ -19,9 +18,7 @@ export class FolderStatsPage implements OnInit {
 
   constructor(private viewCtrl: ModalController) { }
 
-  ngOnInit() {}
-
-  ionViewWillEnter() {
+  ionViewWillEnter(): void {
     this.navComponent.push(SpeakerListPage, {
       navComponent: this.navComponent,
       viewCtrl: this.viewCtrl,

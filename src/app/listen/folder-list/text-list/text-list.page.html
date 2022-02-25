@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/listen"></ion-back-button>
+    </ion-buttons>
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-select">
+  <h1>{{'Texts in' | translate}} {{folderName}}</h1>
+  <ion-list #textList class="fadeInWhenLoaded">
+    <ion-item button *ngFor="let text of texts" routerLink="/tabs/listen/{{publisherId}}/{{folderId}}/{{text.id}}" [state]="{title:
+      text.title}">
+      <ion-icon name="reader" color="dark" class="textIcon"></ion-icon> {{text.title}}
+    </ion-item>
+  </ion-list>
+</ion-content>
