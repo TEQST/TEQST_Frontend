@@ -38,8 +38,10 @@ export class AccessGuard implements CanActivate {
        Otherwise just redirect him to the login page */
     if (requiresLogin) {
       if (!this.authService.isLoggedIn()) {
-        this.router.navigate(['/login'], {queryParams: {next: state.url}});
-        return false;
+        if (state.url !== '/admin') {
+          this.router.navigate(['/login'], {queryParams: {next: state.url}});
+          return false;
+        }
       }
     }
     // Only allow access to the route if the user is publisher

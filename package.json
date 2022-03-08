@@ -49,7 +49,7 @@
     "@angular-devkit/build-angular": "^12.1.4",
     "@angular-devkit/core": "^12.1.4",
     "@angular-devkit/schematics": "^12.1.4",
-    "@angular/cli": "^12.1.4",
+    "@angular/cli": "12.2.16",
     "@angular/compiler": "^12.1.4",
     "@angular/compiler-cli": "^12.1.4",
     "@angular/language-service": "^12.1.4",
