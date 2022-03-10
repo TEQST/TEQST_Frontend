@@ -4,6 +4,10 @@
 ### Install the Ionic Framework and Angular
 npm install -g @ionic/cli\
 npm i -D -E @angular/cli
+
+### Install npm dependencies
+npm install
+
 ### Run a development server at http://localhost:8100
 ionic serve
 ### Run a development server that can be accessed inside the same LAN
