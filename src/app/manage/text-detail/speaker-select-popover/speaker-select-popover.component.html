@@ -1,6 +1,7 @@
 <ion-list color="dark">
   <ion-radio-group [(ngModel)]="selectedSpeaker">
-    <ion-item *ngFor="let speaker of speakers" (click)="changeSpeaker(speaker)">
+    <ion-searchbar #searchbar (ionInput)="handleSearch($event)"></ion-searchbar>
+    <ion-item *ngFor="let speaker of filteredSpeakers" (click)="changeSpeaker(speaker)">
       <ion-label>{{speaker}}</ion-label>
       <ion-radio mode="ios" color="dark" slot="end" value="{{speaker}}"></ion-radio>
     </ion-item>
