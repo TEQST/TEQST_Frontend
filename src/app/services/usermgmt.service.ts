@@ -84,8 +84,7 @@ export class UsermgmtService {
 
   // returns boolean if a user is a listener
   getIsListener(): Observable<boolean> {
-    // this.isListener.next(JSON.parse(localStorage.getItem('isListener')));
-    this.isListener.next(false);
+    this.isListener.next(JSON.parse(localStorage.getItem('isListener')));
     return this.isListener.asObservable();
   }
 
