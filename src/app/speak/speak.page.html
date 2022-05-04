@@ -2,6 +2,12 @@
   <ion-toolbar>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
     <ion-img src="../../assets/img/logo.png"></ion-img>
+    <!-- <ion-buttons slot="end">
+      <ion-button color="primary">
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    
   </ion-toolbar>
 </ion-header>
 
@@ -17,5 +23,23 @@
         <ion-icon name="person" class="person"></ion-icon> {{ pub.username }}
       </ion-item>
     </ion-list>
+
+      <ion-button id="info-trigger" expand="block" fill="clear">Where are my Tasks?</ion-button>
+    <ion-popover trigger="info-trigger" alignment="center" side="bottom">
+      <ng-template>
+        <ion-content>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Info</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              You can only see tasks which correspond to your language(s).
+              Make sure to enter your language(s) in your profile.
+            </ion-card-content>
+          </ion-card>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+
   </div>
 </ion-content>
