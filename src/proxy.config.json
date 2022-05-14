@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://i13pc108.ira.uka.de",
+    "target": "teqst-live.dataforlearningmachines.com",
     "secure": true,
     "logLevel": "debug",
     "changeOrigin": true
