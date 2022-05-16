@@ -4,8 +4,12 @@
       <ion-back-button *ngIf="currentFolder.id" defaultHref="tabs/manage"></ion-back-button>
     </ion-buttons>
     <ion-img *ngIf="currentFolder.name == '/'" src="../../assets/img/logo.png"></ion-img>
-    <ion-buttons *ngIf="currentFolder.name == '/'" slot="end">
-      <ion-button color="primary" (click)="downloadstatistics()">
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="openFilterModal()">
+        <ion-icon *ngIf="isFilterActive" name="filter"></ion-icon>
+        <ion-icon *ngIf="!isFilterActive" name="filter-outline"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="currentFolder.name == '/'" color="primary" (click)="downloadstatistics()">
         <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -33,18 +37,6 @@
       <span *ngIf="currentFolder.name != '/'">{{currentFolder.name}}</span>
     </h1>
     <div id="multiSelectToolbar">
-      <p id="filter-select-label">Filter:</p>
-      <ion-select value="none" okText="Ok" cancelText="Cancel">
-        <ion-select-option value="none">None</ion-select-option>
-        <ion-select-option value="accent">By accent</ion-select-option>
-        <ion-select-option value="country">By country</ion-select-option>
-      </ion-select>
-      <ion-select value="none" okText="Ok" cancelText="Cancel">
-        <ion-select-option value="none">English</ion-select-option>
-        <ion-select-option value="accent">German</ion-select-option>
-        <ion-select-option value="country">French
-        </ion-select-option>
-      </ion-select>
       <div class="actions" [class.active]="showMultiSelect">
         <ion-button class="delete" color="danger" (click)="openDeleteSelectedItemsModal()">
           <ion-icon name="trash"></ion-icon>

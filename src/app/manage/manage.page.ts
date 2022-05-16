@@ -32,6 +32,7 @@ export class ManagePage extends BaseComponent {
   public texts: Text[]
   public username: string
   public showMultiSelect = false;
+  public isFilterActive = false;
 
   constructor(public loaderService: LoaderService,
               private manageFolderService: ManageFolderService,
@@ -225,6 +226,10 @@ export class ManagePage extends BaseComponent {
     this.manageFolderUIService.openDeleteFolderAlert(folder, () => {
       this.getFolderInfo();
     });
+  }
+
+  openFilterModal(): void {
+    this.manageFolderUIService.openFilterModal();
   }
 
   openShareFolderModal(): void {

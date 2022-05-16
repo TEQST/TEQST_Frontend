@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filter folders and texts by</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Country</ion-label>
+    <ion-checkbox slot="start"></ion-checkbox>
+    <ion-select multiple slot="end" value="none" okText="Ok" cancelText="Cancel">
+      <ion-select-option value="none">Germany</ion-select-option>
+      <ion-select-option value="accent">USA</ion-select-option>
+      <ion-select-option value="country">France</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Accent</ion-label>
+    <ion-checkbox slot="start"></ion-checkbox>
+    <ion-select multiple slot="end" value="none" okText="Ok" cancelText="Cancel">
+      <ion-select-option value="none">German</ion-select-option>
+      <ion-select-option value="accent">English</ion-select-option>
+      <ion-select-option value="country">French</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-button (click)="dismiss()" color="primary">Cancel</ion-button>
+    <ion-button (click)="dismiss()" color="primary">Apply</ion-button>
+  </ion-row>
+</ion-footer>
