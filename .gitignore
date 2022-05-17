@@ -31,3 +31,5 @@ npm-debug.log*
 /plugins
 /www
 typings/cordova-typings.d.ts
+
+proxy.config.json
