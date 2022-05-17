@@ -23,20 +23,19 @@ import {TextDetailPageRoutingModule} from './text-detail-routing.module';
 import {TextDetailPage} from './text-detail.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TextDetailPageRoutingModule,
-  ],
-  declarations: [
-    TextDetailPage,
-    TextWrapperComponent,
-    BasicTextViewComponent,
-    SpeakerSelectPopoverComponent,
-    PlaybarComponent,
-    SpeakerProgressTextViewComponent,
-  ],
-  entryComponents: [SpeakerSelectPopoverComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        TextDetailPageRoutingModule,
+    ],
+    declarations: [
+        TextDetailPage,
+        TextWrapperComponent,
+        BasicTextViewComponent,
+        SpeakerSelectPopoverComponent,
+        PlaybarComponent,
+        SpeakerProgressTextViewComponent,
+    ]
 })
 export class TextDetailPageModule {}

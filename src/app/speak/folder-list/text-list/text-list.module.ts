@@ -9,17 +9,16 @@ import {TextListPageRoutingModule} from './text-list-routing.module';
 import {TextListPage} from './text-list.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TextListPageRoutingModule,
-    TranslateModule,
-  ],
-  declarations: [
-    TextListPage,
-    TimeStatsComponent,
-  ],
-  entryComponents: [TimeStatsComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        TextListPageRoutingModule,
+        TranslateModule,
+    ],
+    declarations: [
+        TextListPage,
+        TimeStatsComponent,
+    ]
 })
 export class TextListPageModule {}

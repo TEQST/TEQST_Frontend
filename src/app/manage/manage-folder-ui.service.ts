@@ -3,6 +3,7 @@ import {AlertController, ModalController} from '@ionic/angular';
 
 import {AlertManagerService} from '../services/alert-manager.service';
 import {CreateFolderPage} from './create-folder/create-folder.page';
+import { FilterFolderPage } from './filter-folder/filter-folder.page';
 import {FolderStatsPage} from './folder-stats/folder-stats.page';
 import {Folder} from './manage.folder';
 import {ShareFolderPage} from './share-folder/share-folder.page';
@@ -73,6 +74,13 @@ export class ManageFolderUIService {
       ],
     });
     await alert.present();
+  }
+
+  async openFilterModal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: FilterFolderPage,
+    });
+    return await modal.present();
   }
 
   async openShareFolderModal(currentFolder): Promise<void> {

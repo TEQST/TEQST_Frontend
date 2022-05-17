@@ -4,8 +4,12 @@
       <ion-back-button *ngIf="currentFolder.id" defaultHref="tabs/manage"></ion-back-button>
     </ion-buttons>
     <ion-img *ngIf="currentFolder.name == '/'" src="../../assets/img/logo.png"></ion-img>
-    <ion-buttons *ngIf="currentFolder.name == '/'" slot="end">
-      <ion-button color="primary" (click)="downloadstatistics()">
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="openFilterModal()">
+        <ion-icon *ngIf="isFilterActive" name="filter"></ion-icon>
+        <ion-icon *ngIf="!isFilterActive" name="filter-outline"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="currentFolder.name == '/'" color="primary" (click)="downloadstatistics()">
         <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
