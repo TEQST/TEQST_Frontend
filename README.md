@@ -8,6 +8,19 @@ npm i -D -E @angular/cli
 ### Install npm dependencies
 npm install
 
+### Gitignored parts of the setup
+Example for src/proxy.config.json:
+```javascript
+{
+    "/api/*": {
+      "target": "http://127.0.0.1:8000",
+      "secure": true,
+      "logLevel": "debug",
+      "changeOrigin": true
+    }
+}
+```
+
 ### Run a development server at http://localhost:8100
 ionic serve
 ### Run a development server that can be accessed inside the same LAN
