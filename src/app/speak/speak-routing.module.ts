@@ -9,10 +9,14 @@ const routes: Routes = [
     component: SpeakPage,
   },
   {
-    path: ':publisherId',
-    loadChildren: () => import('./folder-list/folder-list.module')
-        .then( (m) => m.FolderListPageModule),
+    path: ':folderUid',
+    component: SpeakPage,
   },
+  // {
+  //   path: ':publisherId',
+  //   loadChildren: () => import('./folder-list/folder-list.module')
+  //       .then( (m) => m.FolderListPageModule),
+  // },
 ];
 
 @NgModule({

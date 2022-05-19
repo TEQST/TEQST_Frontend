@@ -1,30 +1,49 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="canGoBack" defaultHref="tabs/speak"></ion-back-button>
+    </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
-    <ion-img src="../../assets/img/logo.png"></ion-img>
+    <ion-img *ngIf="current_uid == root_uid" src="../../assets/img/logo.png"></ion-img>
     <!-- <ion-buttons slot="end">
       <ion-button color="primary">
         <ion-icon name="information-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons> -->
-    
+    <ion-buttons slot="end">
+      <!-- <ion-button id="statsBtn" [class.disabled]="!sharedFolderData" color="primary" (click)="presentTimeStats()">
+        <ion-icon name="alarm"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="no-select">
-  <h1>{{'Select a publisher' | translate}}</h1>
-  <div #publisherList class="fadeInWhenLoaded">
-    <ion-list *ngIf="this.publishers != null">
-      <ion-item button routerLink="/tabs/speak/public">
-        <ion-icon name="earth" class="public"></ion-icon> {{'Public' | translate}}
-      </ion-item>
-      <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}"
-        [state]="{publisherName: pub.username}">
-        <ion-icon name="person" class="person"></ion-icon> {{ pub.username }}
+  <h1>{{ currentFolder.name }}</h1>
+  <div #folderList id="folderList" class="fadeInWhenLoaded">
+    <p>{{ current_uid }}</p>
+    <ion-list *ngIf="subfolders.length > 0">
+      <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/speak', folder.uid]"
+        [queryParams]="{r: root_uid}">
+        <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
       </ion-item>
     </ion-list>
+  </div>
 
-      <ion-button id="info-trigger" expand="block" fill="clear">Where are my Tasks?</ion-button>
+  <div #textList class="fadeInWhenLoaded">
+    <ion-list *ngIf="texts.length > 0">
+      <ion-item button *ngFor="let text of texts" routerLink="/speak/text/{{text.id}}">
+        <ion-icon name="reader" [color]="(text.words_finished/text.words_total) === 1 ? 'success' : 'dark'" class="textIcon"></ion-icon>
+        <ion-label>
+          {{ text.title }}
+          <p> {{text.words_finished}}/{{text.words_total}} Words ({{ truncateNumber(text.words_finished/text.words_total, 2)| percent}}) </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- <ion-button id="info-trigger" expand="block" fill="clear">Where are my Tasks?</ion-button>
     <ion-popover trigger="info-trigger" alignment="center" side="bottom">
       <ng-template>
         <ion-content>
@@ -39,7 +58,6 @@
           </ion-card>
         </ion-content>
       </ng-template>
-    </ion-popover>
+    </ion-popover> -->
 
-  </div>
 </ion-content>
