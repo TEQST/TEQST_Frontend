@@ -19,13 +19,14 @@ import { TimeStatsComponent } from './folder-list/text-list/time-stats/time-stat
 export class SpeakPage extends BaseComponent implements OnInit {
 
   @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
+  @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
 
   // public publishers: any
-  public currentFolder: Folder
-  public subfolders: Folder[]
-  public texts: Text[]
+  public currentFolder: Folder = new Folder('asdf', 'MYFolder', null)
+  public subfolders: Folder[] = [];
+  public texts: Text[] = [];
   public root_uid: string;
-  public current_uid: string;
+  public current_uid = 'asdf';
   public canGoBack: boolean;
   
 
@@ -40,43 +41,70 @@ export class SpeakPage extends BaseComponent implements OnInit {
 
     this.subfolders = [];
     this.canGoBack = false;
+    this.current_uid = 'asdf';
   }
 
   ngOnInit(): void {
+    // test: 5?root=fcc6fa34-5f49-4d4d-855a-d98f13b63465
     this.current_uid = this.route.snapshot.paramMap.get('folderUid');
-    this.root_uid = this.route.snapshot.queryParamMap.get('r');
-    console.log(this.root_uid);
-    if (this.root_uid == null) {
-      this.root_uid = '00000';
-      this.current_uid = this.root_uid;
-      const url = this.router.createUrlTree(
-          [`tabs/speak/${this.current_uid}`],
-          {queryParams: {r: this.root_uid}},
-      ).toString();
-      this.location.go(url);
+    this.root_uid = this.route.snapshot.queryParamMap.get('root');
+    console.log('current uid');
+    console.log(this.current_uid);
+    if (this.current_uid == null || this.root_uid == null) {
+      console.log('GONNA REDIRECT');
+      this.router.navigateByUrl(
+          '/tabs/speak/1?root=409b11ef-460f-4794-aeaf-d5e9a320e39e');
     }
+    // this.root_uid = this.route.snapshot.queryParamMap.get('root');
+    // console.log(this.root_uid);
+    // if (this.root_uid == null) {
+    //   this.root_uid = '00000';
+    //   this.current_uid = this.root_uid;
+    //   const url = this.router.createUrlTree(
+    //       [`tabs/speak/${this.current_uid}`],
+    //       {queryParams: {root: this.root_uid}},
+    //   ).toString();
+    //   this.location.go(url);
+    // }
   }
 
   ionViewWillEnter(): void {
     this.loadCurrentFolder();
     this.folderListElem.nativeElement.classList.add('loaded');
+    this.textListElem.nativeElement.classList.add('loaded');
   }
 
   loadCurrentFolder() {
-    console.log('load');
-    this.canGoBack = true;
-    this.currentFolder = new Folder(this.current_uid, '');
+    console.log('making rrequest with');
     console.log(this.current_uid);
-    if (this.current_uid == 'asdf') {
-      this.subfolders = [
-        new Folder('8df98s0r', 'Kindergeschichten'),
-        new Folder('asdf678', 'Jugendgeschichten'),
-      ];
-    } else {
-      this.subfolders = [
-        new Folder('asdf', 'Romane'),
-      ];
-    }
+    console.log(this.root_uid);
+    this.navService.getFolderInfo(this.current_uid, this.root_uid).subscribe(
+        (res) => {
+          console.log(res);
+          this.currentFolder = new Folder(
+              res['id'], res['name'], res['parent']);
+          this.canGoBack = res['parent'] == null ? false : true;
+          if (res['subfolder'].length == 0) {
+            this.loadTexts();
+            return;
+          }
+          this.subfolders = res['subfolder'].map((f) => {
+            return new Folder(f.id, f.name, this.current_uid);
+          });
+        },
+        (err) => {
+          console.log(err);
+        },
+    );
+    console.log('load');
+  }
+
+  loadTexts() {
+    this.navService.loadContentsOfSharedFolder(
+        this.current_uid, this.root_uid).subscribe((res) => {
+      console.log(res);
+      this.texts = res['texts'];
+    });
   }
 
   // async presentTimeStats(): Promise<void> {

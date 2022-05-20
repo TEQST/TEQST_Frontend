@@ -276,4 +276,8 @@ export class ManagePage extends BaseComponent {
     });
   }
 
+  createLink() {
+    // TODO
+  }
+
 }

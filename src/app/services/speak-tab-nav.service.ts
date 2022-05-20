@@ -23,6 +23,12 @@ constructor(
   public authenticationService: AuthenticationService,
   private alertService: AlertManagerService) { }
 
+getFolderInfo(id, root_uid) {
+  this.requestMade.next(true);
+  const url = this.SERVER_URL + `/api/spk/folders/${id}/?root=${root_uid}`;
+  return this.http.get(url);
+}
+
 getPublisherList() {
   this.requestMade.next(true);
   const url = this.SERVER_URL + '/api/publishers/';
@@ -41,17 +47,19 @@ getPublicFolders() {
   return this.http.get(url);
 }
 
-loadContentsOfSharedFolder(folderId: string) {
+loadContentsOfSharedFolder(folderId: string, root_id: string) {
   this.requestMade.next(true);
-  const url = this.SERVER_URL + `/api/spk/sharedfolders/${folderId}/`;
+  const url = this.SERVER_URL +
+    `/api/spk/sharedfolders/${folderId}/?root=${root_id}`;
 
-  return this.http.get<SharedFolder>(url).subscribe(
-      (data) => {
-        this.sharedTextsList.next(data);
-      },
-      (err) => this.alertService
-          .showErrorAlert(err.status, err.statusText),
-  );
+  return this.http.get(url);
+  // return this.http.get<SharedFolder>(url).subscribe(
+  //     (data) => {
+  //       this.sharedTextsList.next(data);
+  //     },
+  //     (err) => this.alertService
+  //         .showErrorAlert(err.status, err.statusText),
+  // );
 }
 getInfoForSharedfolder(folderId: string) {
   const url = this.SERVER_URL + `/api/spk/sharedfolders/${folderId}/`;

@@ -58,10 +58,16 @@
         (click)="showMultiSelect ? toggleSelectItem($event) : null"
         [state]="{folderName: folder.name}">
         <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
-        <ion-button class="delete" [class.active]="!showMultiSelect" color="danger" slot="end"
-          (click)="openDeleteFolderAlert($event, folder)">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
+        <ion-buttons class="delete" [class.active]="!showMultiSelect" slot="end">
+          <ion-button color="danger"
+            (click)="openDeleteFolderAlert($event, folder)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button
+            (click)="createLink()">
+            <ion-icon name="link" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
         <ion-checkbox class="selectCheckbox" [class.active]="showMultiSelect" slot="end"></ion-checkbox>
       </ion-item>
     </ion-list>

@@ -4,14 +4,16 @@ export class Folder {
 
     name: string
     uid: string
+    parent: number
 
     // static setServiceProvider(folderService): void {
     //   this.folderService = folderService;
     // }
 
-    constructor(uid, name) {
+    constructor(uid, name, parent) {
       this.name = name;
       this.uid = uid;
+      this.parent = parent;
     }
 
     // getSubfolderList(): Observable<object> {

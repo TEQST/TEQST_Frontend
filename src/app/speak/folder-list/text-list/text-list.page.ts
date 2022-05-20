@@ -57,7 +57,7 @@ export class TextListPage extends BaseComponent implements OnInit {
   }
 
   async ionViewWillEnter(): Promise<void> {
-    this.navService.loadContentsOfSharedFolder(this.folderId);
+    // this.navService.loadContentsOfSharedFolder(this.folderId);
   }
 
   async presentTimeStats(): Promise<void> {

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button *ngIf="canGoBack" defaultHref="tabs/speak"></ion-back-button>
+      <ion-back-button *ngIf="canGoBack" defaultHref="tabs/speak/{{currentFolder.parent}}?root={{root_uid}}"></ion-back-button>
     </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
     <ion-img *ngIf="current_uid == root_uid" src="../../assets/img/logo.png"></ion-img>
@@ -22,10 +22,10 @@
 <ion-content class="no-select">
   <h1>{{ currentFolder.name }}</h1>
   <div #folderList id="folderList" class="fadeInWhenLoaded">
-    <p>{{ current_uid }}</p>
+    
     <ion-list *ngIf="subfolders.length > 0">
       <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/speak', folder.uid]"
-        [queryParams]="{r: root_uid}">
+        [queryParams]="{root: root_uid}">
         <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
       </ion-item>
     </ion-list>
@@ -33,7 +33,8 @@
 
   <div #textList class="fadeInWhenLoaded">
     <ion-list *ngIf="texts.length > 0">
-      <ion-item button *ngFor="let text of texts" routerLink="/speak/text/{{text.id}}">
+      <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/speak/text', text.id]"
+        [queryParams]="{root: root_uid}">
         <ion-icon name="reader" [color]="(text.words_finished/text.words_total) === 1 ? 'success' : 'dark'" class="textIcon"></ion-icon>
         <ion-label>
           {{ text.title }}

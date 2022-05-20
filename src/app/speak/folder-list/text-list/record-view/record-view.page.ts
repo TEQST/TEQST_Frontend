@@ -83,7 +83,7 @@ export class RecordViewPage extends BaseComponent implements OnInit {
 
     const url = this.router.url;
     const folderId = url.split('/')[3];
-    this.speakTabNavService.loadContentsOfSharedFolder(folderId);
+    // this.speakTabNavService.loadContentsOfSharedFolder(folderId);
   }
 
   // listen for the browser back button press
