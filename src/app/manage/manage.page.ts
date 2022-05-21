@@ -281,7 +281,7 @@ export class ManagePage extends BaseComponent {
     $event.preventDefault();
     $event.stopPropagation();
     const link = `${location.protocol}//
-      ${location.host}/tabs/speak?root=${folder.uid}`;
+      ${location.host}/tabs/speak/${folder.id}?root=${folder.uid}`;
     navigator.clipboard.writeText(link);
     const toast = await this.toastController.create({
       message: 'The link was copied to your clipboard!',

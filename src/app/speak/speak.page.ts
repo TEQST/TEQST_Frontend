@@ -50,11 +50,21 @@ export class SpeakPage extends BaseComponent implements OnInit {
     this.root_uid = this.route.snapshot.queryParamMap.get('root');
     console.log('current uid');
     console.log(this.current_uid);
-    if (this.current_uid == null || this.root_uid == null) {
-      console.log('GONNA REDIRECT');
-      this.router.navigateByUrl(
-          '/tabs/speak/1?root=409b11ef-460f-4794-aeaf-d5e9a320e39e');
+    console.log('root uid');
+    console.log(this.root_uid);
+
+    if (this.current_uid == null) {
+      if (this.root_uid != null) {
+        this.current_uid = this.root_uid;
+      } else {
+        // TODO: load root folder and adjust url
+      }
     }
+    // if (this.current_uid == null || this.root_uid == null) {
+    //   console.log('GONNA REDIRECT');
+    //   this.router.navigateByUrl(
+    //       '/tabs/speak/1?root=409b11ef-460f-4794-aeaf-d5e9a320e39e');
+    // }
     // this.root_uid = this.route.snapshot.queryParamMap.get('root');
     // console.log(this.root_uid);
     // if (this.root_uid == null) {
@@ -75,7 +85,7 @@ export class SpeakPage extends BaseComponent implements OnInit {
   }
 
   loadCurrentFolder() {
-    console.log('making rrequest with');
+    console.log('making request with');
     console.log(this.current_uid);
     console.log(this.root_uid);
     this.navService.getFolderInfo(this.current_uid, this.root_uid).subscribe(
