@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import {saveAs} from 'file-saver';
 
 import {Folder} from './manage.folder';
@@ -40,6 +40,7 @@ export class ManagePage extends BaseComponent {
               private manageTextUIService: ManageTextUIService,
               private statisticsService: StatisticsService,
               private alertController: AlertController,
+              public toastController: ToastController,
               private router: Router,
               private route: ActivatedRoute,
               private alertManager: AlertManagerService) {
@@ -54,7 +55,7 @@ export class ManagePage extends BaseComponent {
     if (typeof routeParams !== 'undefined' && 'folder' in routeParams) {
       this.currentFolder = routeParams.folder;
     } else {
-      this.currentFolder = new Folder(null, '', false);
+      this.currentFolder = new Folder(null, null, '', false);
     }
 
     this.subfolders = [];
@@ -276,8 +277,20 @@ export class ManagePage extends BaseComponent {
     });
   }
 
-  createLink() {
-    // TODO
+  async createLink($event, folder): Promise<void> {
+    $event.preventDefault();
+    $event.stopPropagation();
+    const link = `${location.protocol}//
+      ${location.host}/tabs/speak?root=${folder.uid}`;
+    navigator.clipboard.writeText(link);
+    const toast = await this.toastController.create({
+      message: 'The link was copied to your clipboard!',
+      icon: 'checkmark',
+      color: 'success',
+      position: 'bottom',
+      animated: true,
+      duration: 1000,
+    });
+    await toast.present();
   }
-
 }

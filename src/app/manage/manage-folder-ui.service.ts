@@ -23,7 +23,10 @@ export class ManageFolderUIService {
     const subfolders = [];
     for (const folderInfo of subfolderInfo) {
       const folder = new Folder(
-          folderInfo.id, folderInfo.name, folderInfo.is_sharedfolder);
+          folderInfo.id,
+          folderInfo.root,
+          folderInfo.name,
+          folderInfo.is_sharedfolder);
       subfolders.push(folder);
     }
     return subfolders;

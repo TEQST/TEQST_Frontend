@@ -5,6 +5,7 @@ export class Folder {
     static folderService: ManageFolderService
 
     id: string
+    uid: string
     name: string
     is_sharedfolder: boolean
 
@@ -12,8 +13,9 @@ export class Folder {
       this.folderService = folderService;
     }
 
-    constructor(id, name, is_sharedFolder) {
+    constructor(id, uid, name, is_sharedFolder) {
       this.id = id;
+      this.uid = uid;
       this.name = name;
       this.is_sharedfolder = is_sharedFolder;
     }
