@@ -34,3 +34,4 @@ npm-debug.log*
 typings/cordova-typings.d.ts
 
 proxy.config.json
+constants.ts
