@@ -10,7 +10,7 @@ npm install
 
 ### Gitignored parts of the setup
 Example for src/proxy.config.json:
-```javascript
+```json
 {
     "/api/*": {
       "target": "http://127.0.0.1:8000",
@@ -18,6 +18,14 @@ Example for src/proxy.config.json:
       "logLevel": "debug",
       "changeOrigin": true
     }
+}
+```
+
+Example for src/app/constants.ts:
+```typescript
+export class Constants {
+    public static SERVER_URL = '';
+    public static REQUEST_TIMEOUT = 30000;
 }
 ```
 
