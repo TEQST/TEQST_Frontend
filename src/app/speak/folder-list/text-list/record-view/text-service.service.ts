@@ -29,6 +29,8 @@ export class TextServiceService {
 
   // Url Information
   private textId: number;
+  private root_uid: string;
+  private sharedfolderId: number;
   private isTextFetched: boolean;
   private isRecordingExistsChecked: boolean;
   private nextActiveSentenceIndex: number;
@@ -54,13 +56,15 @@ export class TextServiceService {
 
   private fetchText(): void {
     // fetch TextData from Server
-    const textUrl = this.SERVER_URL + `/api/spk/texts/${this.textId}/`;
+    const textUrl = this.SERVER_URL +
+        `/api/spk/texts/${this.textId}?root=${this.root_uid}`;
 
     this.http.get(textUrl, {}).subscribe((text) => {
       this.textTitle.next(text['title']);
       this.totalSentenceNumber.next(text['content'].length);
       this.sentences.next(text['content']);
       this.isRightToLeft.next(text['is_right_to_left']);
+      this.sharedfolderId = parseInt(text['shared_folder']);
       this.isTextFetched = true;
       this.initActiveSentenceIfReady();
     });
@@ -111,6 +115,7 @@ export class TextServiceService {
       text: this.textId,
       TTS_permission: textToSpeech,
       SR_permission: speechRecognition,
+      root: this.root_uid,
     };
 
     const postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
@@ -183,8 +188,13 @@ export class TextServiceService {
     return this.isLoaded.asObservable();
   }
 
+  getSharedFolderId() {
+    return this.sharedfolderId;
+  }
+
   // fetch a new text from the server based on the given id
-  setTextId(id: number): void {
+  setIds(root_uid: string, id: number): void {
+    this.root_uid = root_uid;
     this.textId = id;
     this.fetchText();
   }

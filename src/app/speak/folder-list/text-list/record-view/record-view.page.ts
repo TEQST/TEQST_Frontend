@@ -25,6 +25,7 @@ export class RecordViewPage extends BaseComponent implements OnInit {
   public textTitle: string;
   public hasRecording: boolean;
   private textId: number;
+  private root_uid: string;
   public isUploadActive = false;
   public isRightToLeft: boolean;
 
@@ -61,14 +62,20 @@ export class RecordViewPage extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     // get text id based on the current url
-    const textId = parseInt(this.route.snapshot.paramMap.get('textId'), 10);
+    const textId = parseInt(this.route.snapshot.paramMap.get('textId'));
+    // get root_uid
+    this.root_uid = this.route.snapshot.queryParamMap.get('root');
+    if (this.root_uid == null) {
+      this.router.navigate(['/tabs/speak']);
+    }
     // check if its a number
     if (isNaN(textId)) {
       this.alertService.presentGoBackAlert('Invalid Text ID');
       return;
     }
+    // we should make sure that textId and root_uid have values here
     this.textId = textId;
-    this.textService.setTextId(this.textId);
+    this.textService.setIds(this.root_uid, this.textId);
     /* if no text recording info exists present,
        an alert to give needed permissions */
     this.textService.checkIfRecordingInfoExists().then((result) => {
@@ -78,11 +85,15 @@ export class RecordViewPage extends BaseComponent implements OnInit {
     }, () => this.alertService.presentGoBackAlert('No Access'));
   }
 
-  public handleBackButton(): void {
+  public handleBackButton($event): void {
+    $event.preventDefault();
+    $event.stopPropagation();
     this.stopAllMedia();
-
-    const url = this.router.url;
-    const folderId = url.split('/')[3];
+    const sharedFolderId = this.textService.getSharedFolderId();
+    this.navCtrl.navigateBack(
+        `/tabs/speak/${sharedFolderId}?root=${this.root_uid}`);
+    // const url = this.router.url;
+    // const folderId = url.split('/')[3];
     // this.speakTabNavService.loadContentsOfSharedFolder(folderId);
   }
 

@@ -26,9 +26,8 @@ export class SpeakPage extends BaseComponent implements OnInit {
   public subfolders: Folder[] = [];
   public texts: Text[] = [];
   public root_uid: string;
-  public current_uid = 'asdf';
+  public current_id = 'asdf';
   public canGoBack: boolean;
-  
 
   constructor(private navService : SpeakTabNavService,
               private alertManager: AlertManagerService,
@@ -41,30 +40,30 @@ export class SpeakPage extends BaseComponent implements OnInit {
 
     this.subfolders = [];
     this.canGoBack = false;
-    this.current_uid = 'asdf';
+    this.current_id = 'asdf';
   }
 
   ngOnInit(): void {
     // test: 5?root=fcc6fa34-5f49-4d4d-855a-d98f13b63465
-    this.current_uid = this.route.snapshot.paramMap.get('folderUid');
+    this.current_id = this.route.snapshot.paramMap.get('folderUid');
     this.root_uid = this.route.snapshot.queryParamMap.get('root');
     console.log('current uid');
-    console.log(this.current_uid);
+    console.log(this.current_id);
     console.log('root uid');
     console.log(this.root_uid);
 
-    if (this.current_uid == null) {
-      if (this.root_uid != null) {
-        this.current_uid = this.root_uid;
-      } else {
-        // TODO: load root folder and adjust url
-      }
-    }
-    // if (this.current_uid == null || this.root_uid == null) {
-    //   console.log('GONNA REDIRECT');
-    //   this.router.navigateByUrl(
-    //       '/tabs/speak/1?root=409b11ef-460f-4794-aeaf-d5e9a320e39e');
+    // if (this.current_id == null) {
+    //   if (this.root_uid != null) {
+    //     this.current_id = this.root_uid;
+    //   } else {
+    //     // TODO: load root folder and adjust url
+    //   }
     // }
+    if (this.current_id == null || this.root_uid == null) {
+      console.log('GONNA REDIRECT');
+      this.router.navigateByUrl(
+          '/tabs/speak/1?root=409b11ef-460f-4794-aeaf-d5e9a320e39e');
+    }
     // this.root_uid = this.route.snapshot.queryParamMap.get('root');
     // console.log(this.root_uid);
     // if (this.root_uid == null) {
@@ -86,9 +85,9 @@ export class SpeakPage extends BaseComponent implements OnInit {
 
   loadCurrentFolder() {
     console.log('making request with');
-    console.log(this.current_uid);
+    console.log(this.current_id);
     console.log(this.root_uid);
-    this.navService.getFolderInfo(this.current_uid, this.root_uid).subscribe(
+    this.navService.getFolderInfo(this.current_id, this.root_uid).subscribe(
         (res) => {
           console.log(res);
           this.currentFolder = new Folder(
@@ -99,7 +98,7 @@ export class SpeakPage extends BaseComponent implements OnInit {
             return;
           }
           this.subfolders = res['subfolder'].map((f) => {
-            return new Folder(f.id, f.name, this.current_uid);
+            return new Folder(f.id, f.name, this.current_id);
           });
         },
         (err) => {
@@ -111,7 +110,7 @@ export class SpeakPage extends BaseComponent implements OnInit {
 
   loadTexts() {
     this.navService.loadContentsOfSharedFolder(
-        this.current_uid, this.root_uid).subscribe((res) => {
+        this.current_id, this.root_uid).subscribe((res) => {
       console.log(res);
       this.texts = res['texts'];
     });
