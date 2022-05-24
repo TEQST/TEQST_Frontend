@@ -10,7 +10,7 @@ const routes: Routes = [
     component: SpeakPage,
   },
   {
-    path: ':folderUid',
+    path: 'link/:folderUid',
     component: SpeakPage,
   },
   // {

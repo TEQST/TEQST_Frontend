@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button *ngIf="canGoBack" defaultHref="tabs/speak/{{currentFolder.parent}}?root={{root_uid}}"></ion-back-button>
+      <ion-back-button *ngIf="canGoBack" defaultHref="tabs/speak/link/{{currentFolder.parent}}?root={{root_uid}}"></ion-back-button>
     </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
-    <ion-img *ngIf="current_uid == root_uid" src="../../assets/img/logo.png"></ion-img>
+    <ion-img src="../../assets/img/logo.png"></ion-img>
     <!-- <ion-buttons slot="end">
       <ion-button color="primary">
         <ion-icon name="information-circle-outline"></ion-icon>
@@ -24,7 +24,7 @@
   <div #folderList id="folderList" class="fadeInWhenLoaded">
     
     <ion-list *ngIf="subfolders.length > 0">
-      <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/speak', folder.uid]"
+      <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/speak/link', folder.uid]"
         [queryParams]="{root: root_uid}">
         <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
       </ion-item>

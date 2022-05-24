@@ -62,7 +62,7 @@ export class SpeakPage extends BaseComponent implements OnInit {
     if (this.current_id == null || this.root_uid == null) {
       console.log('GONNA REDIRECT');
       this.router.navigateByUrl(
-          '/tabs/speak/1?root=409b11ef-460f-4794-aeaf-d5e9a320e39e');
+          '/tabs/speak/link/1?root=409b11ef-460f-4794-aeaf-d5e9a320e39e');
     }
     // this.root_uid = this.route.snapshot.queryParamMap.get('root');
     // console.log(this.root_uid);
