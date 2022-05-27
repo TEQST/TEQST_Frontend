@@ -58,6 +58,8 @@ export class AuthenticationService {
           }
         }, (error: any) => {
           // calls AlertService when server sends error code
+          // This effectively never gets called since the Backend responds
+          // with a 401 status code which is handled by the interceptor.
           this.alertService.showErrorAlertNoRedirection(
               'Wrong Input',
               'Invalid Password or Username');
