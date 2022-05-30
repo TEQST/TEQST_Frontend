@@ -119,5 +119,5 @@
 
 <ion-card-content>
   <ng-container>{{'Already have an Account?' | translate}}</ng-container>
-  <p><a routerLink="/login" class="login-redirect">{{'Login here' | translate }}</a></p>
+  <p><a [routerLink]="['/login']" [queryParams]="qParams" class="login-redirect">{{'Login here' | translate }}</a></p>
 </ion-card-content>
