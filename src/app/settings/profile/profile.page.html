@@ -23,12 +23,12 @@
 
     <ion-item>
       <ion-label position="stacked">{{'Email' | translate}}:</ion-label>
-      <ion-input formControlName="email"></ion-input>
+      <ion-input formControlName="email" (focusout)="saveProfileData()" (keydown)="saveIfEnter($event)"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">{{'Birthyear' | translate}}:</ion-label>
-      <ion-input formControlName="birth_year" inputmode="decimal"></ion-input>
+      <ion-input formControlName="birth_year" inputmode="decimal" disabled="true"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -44,6 +44,7 @@
 
     <ion-item>
       <ion-label position="stacked">{{'Languages' | translate}}:</ion-label>
+      <!-- <ion-select (ionChange)="saveProfileIfBla($event);" multiple="true" formControlName="language_ids"> -->
       <ion-select multiple="true" formControlName="language_ids">
         <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
       </ion-select>

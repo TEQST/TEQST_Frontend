@@ -72,21 +72,48 @@ export class ProfilePage extends BaseComponent implements OnInit {
   }
 
   saveProfileData(): void {
+    if (!this.profileForm.valid) {
+      this.presentSaveFailToast();
+      return;
+    }
+    console.log('FORM VALID');
     this.usermgmtService.updateProfile(this.profileForm.value).subscribe(() => {
       this.languageService.setMenuLanguage(
           this.profileForm.value.menu_language_id,
       );
       this.presentSavedToast();
-    },
-    );
+    }, (err) => {
+      console.log(err);
+      this.presentSaveFailToast();
+    });
   }
 
   async presentSavedToast(): Promise<void> {
     const toast = await this.toastController.create({
       message: 'Your profile has been updated.',
       duration: 2000,
+      color: 'success',
     });
     toast.present();
+  }
+
+  async presentSaveFailToast(): Promise<void> {
+    const toast = await this.toastController.create({
+      message: 'The data you entered is invalid.',
+      duration: 2000,
+      color: 'danger',
+    });
+    toast.present();
+  }
+
+  saveIfEnter($event): void {
+    if ($event.code == 'Enter') {
+      this.saveProfileData();
+    }
+  }
+
+  saveProfileIfBla($event) {
+    console.log($event);
   }
 
 }
