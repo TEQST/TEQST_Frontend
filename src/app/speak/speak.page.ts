@@ -9,6 +9,7 @@ import {Folder} from './speak.folder';
 import {Location} from '@angular/common';
 import { ModalController } from '@ionic/angular';
 import { TimeStatsComponent } from './folder-list/text-list/time-stats/time-stats.component';
+import { Constants } from '../constants';
 
 @Component({
   selector: 'app-speak',
@@ -22,12 +23,14 @@ export class SpeakPage extends BaseComponent implements OnInit {
   @ViewChild('textList', {read: ElementRef}) textListElem: ElementRef
 
   // public publishers: any
-  public currentFolder: Folder = new Folder('asdf', 'MYFolder', null)
+  public currentFolder: Folder = new Folder('', 'Folder', null)
   public subfolders: Folder[] = [];
   public texts: Text[] = [];
   public root_uid: string;
   public current_id = 'asdf';
   public canGoBack: boolean;
+  private defaultId: string;
+  private defaultRootId: string;
 
   constructor(private navService : SpeakTabNavService,
               private alertManager: AlertManagerService,
@@ -41,6 +44,8 @@ export class SpeakPage extends BaseComponent implements OnInit {
     this.subfolders = [];
     this.canGoBack = false;
     this.current_id = 'asdf';
+    this.defaultId = Constants.DEFAULT_ID;
+    this.defaultRootId = Constants.DEFAULT_ROOT_ID;
   }
 
   ngOnInit(): void {
@@ -60,9 +65,9 @@ export class SpeakPage extends BaseComponent implements OnInit {
     //   }
     // }
     if (this.current_id == null || this.root_uid == null) {
-      console.log('GONNA REDIRECT');
+      // console.log('GONNA REDIRECT');
       this.router.navigateByUrl(
-          '/tabs/speak/link/1?root=409b11ef-460f-4794-aeaf-d5e9a320e39e');
+          '/tabs/speak/link/' + this.defaultId + '?root=' + this.defaultRootId);
     }
     // this.root_uid = this.route.snapshot.queryParamMap.get('root');
     // console.log(this.root_uid);

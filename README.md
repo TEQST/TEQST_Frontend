@@ -26,6 +26,8 @@ Example for src/app/constants.ts:
 export class Constants {
     public static SERVER_URL = '';
     public static REQUEST_TIMEOUT = 30000;
+    public static DEFAULT_ID = '1';
+    public static DEFAULT_ROOT_ID = '409b11ef-460f-4794-aeaf-d5e9a320e39e';
 }
 ```
 
