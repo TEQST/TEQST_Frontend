@@ -28,7 +28,7 @@
     Please enter the year in the format YYYY. Example: 1992
   </div>
   <ion-item lines="full">
-    <ion-label position="floating">{{'Language' | translate}}</ion-label>
+    <ion-label position="floating">{{'What Languages do you speak?' | translate}}</ion-label>
     <ion-select multiple="true" formControlName="language_ids">
       <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
     </ion-select>
@@ -54,13 +54,13 @@
     
     <ion-item lines="full">
       <ion-label position="floating">{{'Email' | translate}}: </ion-label>
-      <ion-input  formControlName="email"></ion-input>
+      <ion-input formControlName="email"></ion-input>
     </ion-item>
   
     <!-- Country -->
     <ion-item id="country" lines="full" (click)="openCountryDropdown()">
-      <ion-label position="floating">{{'Country' | translate}}: </ion-label>
-      <ion-input id="country" formControlName="country" (ionFocus)="openCountryDropdown()" (ionChange)="filterCountries($event)"></ion-input>
+      <ion-label position="floating">{{'Country of residence' | translate}}: </ion-label>
+      <ion-input id="country" formControlName="country" autocomplete="none" (ionFocus)="openCountryDropdown()" (ionChange)="filterCountries($event)"></ion-input>
     </ion-item>
     <div id="country" *ngIf="showCountryDropdown" class="country-dropdown-container" (clickOutside)="clearCountryDropdown()">
       <ion-content>
@@ -74,8 +74,8 @@
 
     <!-- Accent -->
     <ion-item id="accent" lines="full" (click)="openAccentDropdown()">
-      <ion-label position="floating">{{'Accent' | translate}}: </ion-label>
-      <ion-input id="accent" formControlName="accent" (ionFocus)="openAccentDropdown()" (ionChange)="filterAccents($event)"></ion-input>
+      <ion-label position="floating">{{'Accent (Mother tongue)' | translate}}: </ion-label>
+      <ion-input id="accent" formControlName="accent" autocomplete="none" (ionFocus)="openAccentDropdown()" (ionChange)="filterAccents($event)"></ion-input>
     </ion-item>
     <div id="accent" *ngIf="showAccentDropdown" class="accent-dropdown-container" (clickOutside)="closeAccentDropdown()">
       <div *ngIf="filteredAccents.length === 0">
