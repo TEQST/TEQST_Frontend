@@ -16,5 +16,5 @@
 </form>
 <ion-card-content>
   {{"Don't have an Account yet?" | translate }}
-  <p><a routerLink="/register" class="register-redirect">{{'Register here' | translate }}</a></p>
+  <p><a [routerLink]="['/register']" [queryParams]="qParams" class="register-redirect">{{'Register here' | translate }}</a></p>
 </ion-card-content>

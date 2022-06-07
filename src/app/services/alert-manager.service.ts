@@ -44,6 +44,28 @@ export class AlertManagerService {
     await this.alert.present();
   }
 
+  async presentLoginFailedAlert(): Promise<void> {
+    if (this.alertActive) {
+      return;
+    }
+    this.alertActive = true;
+    this.alert = await this.alertController.create({
+      header: 'Login Failed',
+      subHeader: 'Invalid credentials',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          handler: (): void => {
+            // Navigate back to the login page
+            this.navCtrl.navigateForward('/login');
+            this.alertActive = false;
+          },
+        }],
+    });
+    await this.alert.present();
+  }
+
   async presentNotLoggedInAlert(): Promise<void> {
     // not logged in alert is the most dominant alert so dismiss any other one
     if (this.alertActive) {

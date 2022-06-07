@@ -58,6 +58,8 @@ export class AuthenticationService {
           }
         }, (error: any) => {
           // calls AlertService when server sends error code
+          // This effectively never gets called since the Backend responds
+          // with a 401 status code which is handled by the interceptor.
           this.alertService.showErrorAlertNoRedirection(
               'Wrong Input',
               'Invalid Password or Username');
@@ -65,16 +67,17 @@ export class AuthenticationService {
   }
 
   // creates a new User with the sended Data
-  register2(dataToSend, logInData): void {
-    const url = this.SERVER_URL + '/api/auth/register/';
-    this.http.post(url, dataToSend).subscribe(() => {
-      this.login(logInData);
-    }, (error: any) => {
-      this.alertService.showErrorAlertNoRedirection('Username already exists',
-          'A user with that username already exists, ' +
-          'please choose another username');
-    });
-  }
+  // DEPRECATED, not used
+  // register2(dataToSend, logInData): void {
+  //   const url = this.SERVER_URL + '/api/auth/register/';
+  //   this.http.post(url, dataToSend).subscribe(() => {
+  //     this.login(logInData);
+  //   }, (error: any) => {
+  //     this.alertService.showErrorAlertNoRedirection('Username already exists',
+  //         'A user with that username already exists, ' +
+  //         'please choose another username');
+  //   });
+  // }
 
   register(registrationData: RegisterForm): Observable<object> {
     const url =this.SERVER_URL + '/api/auth/register/';

@@ -12,6 +12,7 @@ import {UsernameValidator} from './../../validators/username';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {LanguageService} from 'src/app/services/language.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +30,8 @@ export class RegisterComponent implements OnInit {
   public filteredAccents = []
   public showAccentDropdown = false;
 
+  public qParams = {};
+
   private countries : Country[] = [];
   private accents = [];
 
@@ -41,7 +44,8 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private usernameValidator: UsernameValidator,
     private modalController: ModalController,
-    private usermgmtService: UsermgmtService) {
+    private usermgmtService: UsermgmtService,
+    private route: ActivatedRoute) {
 
     this.stepOneForm = this.formBuilder.group({
       username: ['',
@@ -72,6 +76,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const next = this.route.snapshot.queryParamMap.get('next');
+    this.qParams = next ? {next}: {};
     this.getAllLangs();
   }
 
