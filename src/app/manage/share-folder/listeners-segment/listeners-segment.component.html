@@ -1,8 +1,8 @@
-<ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'Search for User' | translate}}">
+<ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'manage.shareFolderModal.listenersSegment.searchbarPlaceholder' | translate}}">
 </ion-searchbar>
 <ion-list>
   <ion-list-header>
-    <ion-label>{{'Added Listeners' | translate}}</ion-label>
+    <ion-label>{{'manage.shareFolderModal.listenersSegment.addedListenersLabel' | translate}}</ion-label>
   </ion-list-header>
   <ion-item *ngFor="let listener of filteredListeners">
     <ion-label>{{listener.username}}</ion-label>
@@ -13,7 +13,7 @@
 </ion-list>
 <ion-list>
   <ion-list-header>
-    <ion-label>{{'All Users' | translate}}</ion-label>
+    <ion-label>{{'manage.shareFolderModal.listenersSegment.allUsersLabel' | translate}}</ion-label>
   </ion-list-header>
   <ion-item *ngFor="let user of filteredUsers">
     <ion-label>{{user.username}}</ion-label>

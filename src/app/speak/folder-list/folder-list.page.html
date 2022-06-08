@@ -9,8 +9,8 @@
 
 <ion-content class="no-select">
   <div *ngIf="this.publisherId != null">
-    <h1 *ngIf="this.publisherId != 'public'">{{'Folders by' | translate}} {{publisherName}}</h1>
-    <h1 *ngIf="this.publisherId == 'public'">{{'Public folders' | translate}}</h1>
+    <h1 *ngIf="this.publisherId != 'public'">{{'speak.folderList.personalFolderContentTitle' | translate}} {{publisherName}}</h1>
+    <h1 *ngIf="this.publisherId == 'public'">{{'speak.folderList.publicFolderContentTitle' | translate}}</h1>
   </div>
   <ion-list #folderList class="fadeInWhenLoaded">
     <ion-item button *ngFor="let folder of folders" routerLink="/tabs/speak/{{publisherId}}/{{folder.id}}"

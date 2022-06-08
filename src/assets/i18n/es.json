@@ -1,62 +1,148 @@
 {
-	"0-6 years": "0-6 años",
-	"6-12 years": "6-12 años",
-	"Accent": "Acento",
-	"Added Speaker": "Orador agregado",
-	"All Users": "Todos los usuarios",
-	"Already have an Account?": "¿Ya tienes una cuenta?",
-	"Birthyear": "Año de nacimiento",
-	"Completed texts": "Textos completados",
-	"Country": "País",
-	"Create a new folder": "Crear una nueva carpeta",
-	"Create a new text": "Crea un nuevo texto",
-	"Create folder": "Crear carpeta",
-	"Create text": "Crear texto",
-	"Detailed statistics for": "Estadísticas detalladas para",
-	"Don't have an Account yet?": "¿Aún no tienes una cuenta?",
-	"Education Level": "Nivel de Educación",
-	"Female": "Hembra",
-	"Finished Sentences": "Oraciones terminadas",
-	"Folders by": "Carpetas por",
-	"Folders of": "Carpetas de",
-	"Gender": "Género",
-	"Language": "Idioma",
-	"Languages": "Idiomas",
-	"Login": "Iniciar sesión",
-	"Login here": "Entre aquí",
-	"Logout": "Cerrar sesión",
-	"Male": "Masculino",
-	"Maximum lines per text": "Máximo de líneas por texto",
-	"Menu Language": "Idioma del menú",
-	"Next": "Siguiente",
-	"No statistics to display. Please share the folder to a speaker.": "No hay estadísticas para mostrar. Comparta la carpeta con un orador.",
-	"Password": "Contraseña",
-	"Profile": "Perfil",
-	"Profile Settings": "Configuración de perfil",
-	"Public": "Público",
-	"Public folders": "Carpetas públicas",
-	"Public for everyone": "Público para todos",
-	"Recording time": "Tiempo de grabación",
-	"Recording time by text": "Tiempo de grabación por texto",
-	"Recording time for": "Tiempo de grabación para",
-	"Register": "Registrarse",
-	"Register here": "Registrar aquí",
-	"Save changes": "Guardar cambios",
-	"Search for User": "Buscar usuario",
-	"Select One": "Seleccione uno",
-	"Select Speaker for": "Seleccionar altavoz para",
-	"Select a publisher": "Seleccione una editorial",
-	"Settings": "Configuraciones",
-	"Split into multiple texts": "Dividir en varios textos",
-	"Statistics for": "Estadísticas para",
-	"Text Content": "Contenido del texto",
-	"Texts in": "Textos en",
-	"Title": "Título",
-	"Total recording time": "Tiempo total de grabación",
-	"Username": "Nombre de usuario",
-	"Year of birth": "Año de nacimiento",
-	"including re-recordings": "incluyendo regrabaciones",
-	"more than 12 years": "mas de 12 años",
-	"texts": "textos",
-	"without re-recordings": "sin regrabaciones"
+	"username": "Nombre de usuario",
+	"password": "Contraseña",
+	"email": "Correo electrónico",
+	"yearOfBirth": "Año de nacimiento",
+	"countryOfResidence": "País de residencia",
+	"accent": "Acento (lengua materna)",
+	"educationLevel": "Nivel educativo",
+	"educationLevel_0_6": "0-6 años",
+	"educationLevel_6_12": "6-12 años",
+	"educationLevel_12+": "más de 12 años",
+	"educationLevel_unknown": "Prefiero no decirlo",
+	"gender": "Género",
+	"male": "masculino",
+	"female": "Mujer",
+	"gender_diverse": "Prefiero no decirlo",
+	"auth": {
+		"login": {
+			"loginBtn": "Iniciar sesión",
+			"noAccountYetLabel": "¿Aún no tienes una cuenta?",
+			"registerLink": "Regístrese aquí"
+		},
+		"register": {
+			"usernameRequiredErrorMsg": "El nombre de usuario es obligatorio.",
+			"checkingUsernameMsg": "Comprobando nombre de usuario...",
+			"usernameTakenErrorMsg": "El nombre de usuario ya está en uso.",
+			"yearOfBirthErrorMsg": "Por favor ingrese el año en el formato AAAA. Ejemplo: 1992",
+			"spokenLanguagesLabel": "¿Qué idiomas hablas?",
+			"acceptServiceAgreementLabel": [
+				"Acepto el ",
+				"Acuerdo de servicios",
+				""
+			],
+			"nextBtn": "Siguiente",
+			"addNewAccentLabel": "Agregar nuevo acento",
+			"registerBtn": "Registrarse",
+			"alreadyHasAccountLabel": "¿Ya tienes una cuenta?",
+			"loginLink": "Inicia sesión aquí"
+		},
+		"footerToolbar": {
+			"changeLanguageBtnTooltip": "Cambiar idioma",
+			"documentationBtnTooltip": "¿Necesita ayuda?",
+			"adminPageBtnTooltip": "Página de administración"
+		}
+	},
+	"listen": {
+		"contentTitle": "Seleccione un editor",
+		"folderList": {
+			"contentTitle": "Carpetas por"
+		},
+		"textList": {
+			"contentTitle": "Textos en"
+		},
+		"textDetail": {
+			"selectedSpeakerLabel": "Orador:"
+		}
+	},
+	"manage": {
+		"contentTitle": "Carpetas de",
+		"textDetail": {
+			"selectedSpeakerLabel": "Orador:"
+		},
+		"createFolderModal": {
+			"modalTitle": "Crear una nueva carpeta",
+			"folderNameLabel": "Título",
+			"createBtn": "Crear carpeta"
+		},
+		"createTextModal": {
+			"modalTitle": "Crear un nuevo texto",
+			"textNameLabel": "Título",
+			"textContentLabel": "Contenido de texto",
+			"languageLabel": "Idioma",
+			"splitTextLabel": "Dividir en varios textos",
+			"splitTextMaxLinesLabel": "Líneas máximas por texto",
+			"createTextBtn": "Crear texto"
+		},
+		"folderStatsModal": {
+			"speakerList": {
+				"modalTitle": "Estadísticas para",
+				"textsCountSpan": "textos",
+				"folderNotSharedErrorMsg": "No hay estadísticas para mostrar. Comparta la carpeta con un orador"
+			},
+			"speakerDetail": {
+				"modalTitle": "Estadísticas detalladas para",
+				"completedTextsLabel": "Textos completados",
+				"totalRecordingTimeLabel": "Tiempo total de grabación",
+				"includeRerecordingsLabel": "incluyendo regrabaciones",
+				"excludeRerecordingsLabel": "sin regrabaciones",
+				"recordingTimeByTextLabel": "Tiempo de grabación por texto",
+				"finishedSentencesLabel": "Oraciones terminadas",
+				"recordingTimeLabel": "Tiempo de grabación"
+			}
+		},
+		"shareFolderModal": {
+			"modalTitle": "Opciones para compartir para",
+			"speakersSegmentLabel": "Altavoces",
+			"listenersSegmentLabel": "Oyentes",
+			"listenersSegment": {
+				"searchbarPlaceholder": "Buscar usuario",
+				"addedListenersLabel": "Oyentes agregados",
+				"allUsersLabel": "Todos los usuarios"
+			},
+			"speakersSegment": {
+				"searchbarPlaceholder": "Buscar usuario",
+				"publicForEveryoneLabel": "Público para todos",
+				"addedSpeakersLabel": "Oradores agregados",
+				"allUsersLabel": "Todos los usuarios"
+			}
+		}
+	},
+	"speak": {
+		"textProgresWords": "palabras",
+		"folderList": {
+			"personalFolderContentTitle": "Carpetas por",
+			"publicFolderContentTitle": "Carpetas públicas"
+		},
+		"textList": {
+			"contentTitle": "Textos en"
+		},
+		"timeStatsModal": {
+			"modalTitle": "Tiempo de grabación para",
+			"includeRerecordingsLabel": "incluyendo regrabaciones",
+			"excludeRerecordingsLabel": "sin regrabaciones"
+		},
+		"recordView": {
+			"uploadingMsg": "Subiendo... &nbsp;"
+		}
+	},
+	"settings": {
+		"logoutBtn": "Cerrar sesión",
+		"contentTitle": "Configuración",
+		"profileSettingsLabel": "Configuración de perfil",
+		"profile": {
+			"saveBtn": "Guardar cambios",
+			"contentTitle": "Perfil",
+			"spokenLanguagesLabel": "Idiomas hablados",
+			"menuLanguageLabel": "Idioma del menú"
+		}
+	},
+	"pageNotFound": {
+		"title": "404 Página no encontrada",
+		"text": [
+			"¿Estás perdido? Haz clic en ",
+			"aquí",
+			"¡para ir al tablero!"
+		]
+	}
 }

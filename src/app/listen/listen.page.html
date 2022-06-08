@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content class="no-select">
-  <h1>{{'Select a publisher' | translate}}</h1>
+  <h1>{{'listen.contentTitle' | translate}}</h1>
   <div #publisherList class="fadeInWhenLoaded">
     <ion-list *ngIf="this.publishers != null">
       <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/listen/{{pub.id}}"

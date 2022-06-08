@@ -38,7 +38,7 @@
         <ion-icon name="reader" [color]="(text.words_finished/text.words_total) === 1 ? 'success' : 'dark'" class="textIcon"></ion-icon>
         <ion-label>
           {{ text.title }}
-          <p> {{text.words_finished}}/{{text.words_total}} Words ({{ truncateNumber(text.words_finished/text.words_total, 2)| percent}}) </p>
+          <p> {{text.words_finished}}/{{text.words_total}} {{speak.textProgresWords | translate}} ({{ truncateNumber(text.words_finished/text.words_total, 2)| percent}}) </p>
         </ion-label>
       </ion-item>
     </ion-list>

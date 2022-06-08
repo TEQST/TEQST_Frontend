@@ -1,62 +1,148 @@
 {
-	"0-6 years": "0-6年",
-	"6-12 years": "6-12年",
-	"Accent": "口音",
-	"Added Speaker": "新增演講者",
-	"All Users": "全部用戶",
-	"Already have an Account?": "已經有一個帳戶？",
-	"Birthyear": "出生年",
-	"Completed texts": "完成的文本",
-	"Country": "國家",
-	"Create a new folder": "新建一個文件夾",
-	"Create a new text": "建立新文字",
-	"Create folder": "創建文件夾",
-	"Create text": "建立文字",
-	"Detailed statistics for": "詳細統計",
-	"Don't have an Account yet?": "還沒有賬戶嗎？",
-	"Education Level": "教育程度",
-	"Female": "女",
-	"Finished Sentences": "完成的句子",
-	"Folders by": "資料夾",
-	"Folders of": "文件夾",
-	"Gender": "性別",
-	"Language": "語言",
-	"Languages": "語言",
-	"Login": "登錄",
-	"Login here": "在此登錄",
-	"Logout": "登出",
-	"Male": "男",
-	"Maximum lines per text": "每個文本最大行數",
-	"Menu Language": "菜單語言",
-	"Next": "下一個",
-	"No statistics to display. Please share the folder to a speaker.": "沒有統計數據可顯示。 請將該文件夾共享給揚聲器。",
-	"Password": "密碼",
-	"Profile": "個人資料",
-	"Profile Settings": "個人資料設置",
-	"Public": "上市",
-	"Public folders": "公用文件夾",
-	"Public for everyone": "對所有人公開",
-	"Recording time": "錄音時間",
-	"Recording time by text": "文字記錄時間",
-	"Recording time for": "記錄時間",
-	"Register": "寄存器",
-	"Register here": "在這裡註冊",
-	"Save changes": "保存更改",
-	"Search for User": "搜索用戶",
-	"Select One": "選擇一個",
-	"Select Speaker for": "選擇揚聲器",
-	"Select a publisher": "選擇一個發布者",
-	"Settings": "設定值",
-	"Split into multiple texts": "拆分成多個文本",
-	"Statistics for": "的統計",
-	"Text Content": "文字內容",
-	"Texts in": "中的文字",
-	"Title": "標題",
-	"Total recording time": "總記錄時間",
-	"Username": "用戶名",
-	"Year of birth": "出生年份",
-	"including re-recordings": "包括重新錄音",
-	"more than 12 years": "超過12年",
-	"texts": "文字",
-	"without re-recordings": "無需重新錄製"
+	"username": "用戶名",
+	"password": "密碼",
+	"email": "電子郵件",
+	"yearOfBirth": "出生年份",
+	"countryOfResidence": "居住國",
+	"accent": "口音（母語）",
+	"educationLevel": "教育程度",
+	"educationLevel_0_6": "0-6 歲",
+	"educationLevel_6_12": "6-12 歲",
+	"educationLevel_12+": "12 年以上",
+	"educationLevel_unknown": "不想說",
+	"gender": "性別",
+	"male": "男",
+	"female": "女",
+	"gender_diverse": "不想說",
+	"auth": {
+		"login": {
+			"loginBtn": "登錄",
+			"noAccountYetLabel": "還沒有賬戶？",
+			"registerLink": "在這裡註冊"
+		},
+		"register": {
+			"usernameRequiredErrorMsg": "用戶名是必填項。",
+			"checkingUsernameMsg": "正在檢查用戶名...",
+			"usernameTakenErrorMsg": "用戶名已被佔用。",
+			"yearOfBirthErrorMsg": "請以 YYYY 格式輸入年份。例如:1992",
+			"spokenLanguagesLabel": "你說什麼語言？",
+			"acceptServiceAgreementLabel": [
+				"我接受 ",
+				"服務協議",
+				""
+			],
+			"nextBtn": "下一個",
+			"addNewAccentLabel": "添加新口音",
+			"registerBtn": "註冊",
+			"alreadyHasAccountLabel": "已經有賬戶了？",
+			"loginLink": "在這裡登錄"
+		},
+		"footerToolbar": {
+			"changeLanguageBtnTooltip": "更改語言",
+			"documentationBtnTooltip": "需要幫助嗎？",
+			"adminPageBtnTooltip": "管理頁面"
+		}
+	},
+	"listen": {
+		"contentTitle": "選擇出版商",
+		"folderList": {
+			"contentTitle": "文件夾依據"
+		},
+		"textList": {
+			"contentTitle": "文本輸入"
+		},
+		"textDetail": {
+			"selectedSpeakerLabel": "演講者:"
+		}
+	},
+	"manage": {
+		"contentTitle": "文件夾",
+		"textDetail": {
+			"selectedSpeakerLabel": "演講者:"
+		},
+		"createFolderModal": {
+			"modalTitle": "新建文件夾",
+			"folderNameLabel": "標題",
+			"createBtn": "創建文件夾"
+		},
+		"createTextModal": {
+			"modalTitle": "創建一個新文本",
+			"textNameLabel": "標題",
+			"textContentLabel": "文本內容",
+			"languageLabel": "語言",
+			"splitTextLabel": "拆分成多個文本",
+			"splitTextMaxLinesLabel": "每個文本的最大行數",
+			"createTextBtn": "創建文本"
+		},
+		"folderStatsModal": {
+			"speakerList": {
+				"modalTitle": "統計數據",
+				"textsCountSpan": "文本",
+				"folderNotSharedErrorMsg": "沒有要顯示的統計信息。請將文件夾分享給揚聲器。"
+			},
+			"speakerDetail": {
+				"modalTitle": "詳細統計信息",
+				"completedTextsLabel": "已完成的文本",
+				"totalRecordingTimeLabel": "總錄製時間",
+				"includeRerecordingsLabel": "包括重新錄製",
+				"excludeRerecordingsLabel": "沒有重新錄製",
+				"recordingTimeByTextLabel": "文字記錄時間",
+				"finishedSentencesLabel": "完成的句子",
+				"recordingTimeLabel": "錄製時間"
+			}
+		},
+		"shareFolderModal": {
+			"modalTitle": "共享選項",
+			"speakersSegmentLabel": "演講者",
+			"listenersSegmentLabel": "監聽器",
+			"listenersSegment": {
+				"searchbarPlaceholder": "搜索用戶",
+				" addedListenersLabel": "添加的監聽器",
+				"allUsersLabel": "所有用戶"
+			},
+			"speakersSegment": {
+				"searchbarPlaceholder": "搜索用戶",
+				"publicForEveryoneLabel": "為所有人公開",
+				" addedSpeakersLabel": "添加的揚聲器",
+				"allUsersLabel": "所有用戶"
+			}
+		}
+	},
+	"speak": {
+		"textProgresWords": "單詞",
+		"folderList": {
+			"personalFolderContentTitle": "文件夾依據",
+			"publicFolderContentTitle": "公共文件夾"
+		},
+		"textList": {
+			"contentTitle": "文本輸入"
+		},
+		"timeStatsModal": {
+			"modalTitle": "錄製時間為",
+			"includeRerecordingsLabel": "包括重新錄製",
+			"excludeRerecordingsLabel": "沒有重新錄製"
+		},
+		"recordView": {
+			"uploadingMsg": "正在上傳... &nbsp;"
+		}
+	},
+	"settings": {
+		"logoutBtn": "註銷",
+		"contentTitle": "設置",
+		"profileSettingsLabel": "配置文件設置",
+		"profile": {
+			"saveBtn": "保存更改",
+			"contentTitle": "個人資料",
+			"spokenLanguagesLabel": "口語",
+			"menuLanguageLabel": "菜單語言"
+		}
+	},
+	"pageNotFound": {
+		"title": "404 頁面未找到",
+		"text": [
+			"你迷路了嗎？點擊",
+			"這裡",
+			"去儀表板"
+		]
+	}
 }

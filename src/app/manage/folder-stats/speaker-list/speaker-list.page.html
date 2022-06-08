@@ -1,6 +1,6 @@
 <ion-header class="no-select">
   <ion-toolbar>
-    <ion-title>{{'Statistics for' | translate}} {{folderName}}</ion-title>
+    <ion-title>{{'manage.folderStatsModal.speakerList.modalTitle' | translate}} {{folderName}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
@@ -18,7 +18,7 @@
             <h2>{{speaker.name}}</h2>
           </ion-label>
           <span class="progress-text ion-float-right">
-            {{speaker.completedTextsCount}} / {{speaker.texts.length}} {{"texts" | translate}}
+            {{speaker.completedTextsCount}} / {{speaker.texts.length}} {{'manage.folderStatsModal.speakerList.textsCountSpan' | translate}}
           </span>
           <ion-icon [ngClass]="{'hidden' : !(speaker.completedTextsCount === speaker.texts.length)}"
             class="ion-float-right" color="success" name="checkmark-circle"></ion-icon>
@@ -26,8 +26,8 @@
       </ion-list>
       <!-- Message shown, when folder has not been shared -->
       <div *ngIf="folderStats.speakers.length === 0" class="vertical-center-container">
-        <ion-text class="vertical-center-content" color="medium">
-          <span>{{"No statistics to display. Please share the folder to a speaker." | translate}}</span>
+        <ion-text class="vertical-center-content ion-padding" color="medium">
+          <span>{{'manage.folderStatsModal.speakerList.folderNotSharedErrorMsg' | translate}}</span>
         </ion-text>
       </div>
     </div>

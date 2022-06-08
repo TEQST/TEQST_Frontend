@@ -1,15 +1,15 @@
 <div *ngIf="isPublicForAll != null">
   <ion-list>
     <ion-item>
-      <ion-label>{{'Public for everyone' | translate}}</ion-label>
+      <ion-label>{{'manage.shareFolderModal.speakersSegment.publicForEveryoneLabel' | translate}}</ion-label>
       <ion-toggle (ionChange)="handleFolderPublicityToggle($event)" [checked]="isPublicForAll"></ion-toggle>
     </ion-item>
   </ion-list>
-  <ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'Search for User' | translate}}">
+  <ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'manage.shareFolderModal.searchbarPlaceholder' | translate}}">
   </ion-searchbar>
   <ion-list>
     <ion-list-header>
-      <ion-label>{{'Added Speaker' | translate}}</ion-label>
+      <ion-label>{{'manage.shareFolderModal.speakersSegment.addedSpeakersLabel' | translate}}</ion-label>
     </ion-list-header>
     <ion-item *ngFor="let speaker of filteredSpeakers">
       <ion-label>{{speaker.username}}</ion-label>
@@ -20,7 +20,7 @@
   </ion-list>
   <ion-list>
     <ion-list-header>
-      <ion-label>{{'All Users' | translate}}</ion-label>
+      <ion-label>{{'manage.shareFolderModal.speakersSegment.allUsersLabel' | translate}}</ion-label>
     </ion-list-header>
     <ion-item *ngFor="let user of filteredUsers">
       <ion-label>{{user.username}}</ion-label>

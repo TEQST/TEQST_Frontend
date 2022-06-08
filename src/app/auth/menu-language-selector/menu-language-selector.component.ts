@@ -17,6 +17,7 @@ export class MenuLanguageSelectorComponent {
               private languageService: LanguageService) {
 
     this.menuLanguages = navParams.get('menuLanguages');
+    console.log(this.menuLanguages)
     this.language = this.languageService.getMenuLanguage();
   }
 
