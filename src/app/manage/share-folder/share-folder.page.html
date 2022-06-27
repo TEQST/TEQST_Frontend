@@ -1,6 +1,6 @@
 <ion-header class="no-select">
   <ion-toolbar>
-    <ion-title>{{'Sharing options for' | translate}} {{folderName}}</ion-title>
+    <ion-title>{{'manage.shareFolderModal.modalTitle' | translate}} {{folderName}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
@@ -11,13 +11,13 @@
     <ion-segment-button value="0">
       <ion-label>
         <ion-icon name="mic-outline"></ion-icon>
-        Speakers
+        {{'manage.shareFolderModal.speakersSegmentLabel' | translate}}
       </ion-label>
     </ion-segment-button>
     <ion-segment-button value="1">
       <ion-label>
         <ion-icon name="ear-outline"></ion-icon>
-        Listeners
+        {{'manage.shareFolderModal.speakersSegmentLabel' | translate}}
       </ion-label>
     </ion-segment-button>
   </ion-segment>

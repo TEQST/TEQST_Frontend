@@ -22,19 +22,19 @@
 <ion-footer class="no-select">
   <ion-toolbar>
     <ion-buttons slot="start" class="tooltip">
-      <span class="tooltiptext tooltip-right">Admin Page</span>
+      <span class="tooltiptext tooltip-right">{{'auth.footerToolbar.adminPageBtnTooltip' | translate}}</span>
       <ion-button (click)="redirect()">
         <ion-icon name="build-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end" class="tooltip">
-      <span class="tooltiptext tooltip-left">Need Help?</span>
+      <span class="tooltiptext tooltip-left">{{'auth.footerToolbar.documentationBtnTooltip' | translate}}</span>
       <ion-button (click)="redirectToHelp()">
         <ion-icon slot="start" name="help-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end" class="tooltip">
-      <span class="tooltiptext tooltip-left">Change Language</span>
+      <span class="tooltiptext tooltip-left">{{'auth.footerToolbar.changeLanguageBtnTooltip' | translate}}</span>
       <ion-button (click)="presentMenuLanguages($event)">
         <ion-icon slot="start" name="globe"></ion-icon>
       </ion-button>

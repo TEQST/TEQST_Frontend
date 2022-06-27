@@ -1,62 +1,147 @@
 {
-	"0-6 years": "0-6年",
-	"6-12 years": "6-12年",
-	"Accent": "口音",
-	"Added Speaker": "新增演讲者",
-	"All Users": "全部用户",
-	"Already have an Account?": "已经有一个帐户？",
-	"Birthyear": "出生年",
-	"Completed texts": "完成的文本",
-	"Country": "国家",
-	"Create a new folder": "新建一个文件夹",
-	"Create a new text": "建立新文字",
-	"Create folder": "创建文件夹",
-	"Create text": "建立文字",
-	"Detailed statistics for": "详细统计",
-	"Don't have an Account yet?": "还没有账户吗？",
-	"Education Level": "教育程度",
-	"Female": "女",
-	"Finished Sentences": "完成的句子",
-	"Folders by": "资料夹",
-	"Folders of": "文件夹",
-	"Gender": "性别",
-	"Language": "语言",
-	"Languages": "语言",
-	"Login": "登录",
-	"Login here": "在此登录",
-	"Logout": "登出",
-	"Male": "男",
-	"Maximum lines per text": "每个文本最大行数",
-	"Menu Language": "菜单语言",
-	"Next": "下一个",
-	"No statistics to display. Please share the folder to a speaker.": "没有统计数据可显示。 请将该文件夹共享给扬声器。",
-	"Password": "密码",
-	"Profile": "个人资料",
-	"Profile Settings": "个人资料设置",
-	"Public": "上市",
-	"Public folders": "公用文件夹",
-	"Public for everyone": "对所有人公开",
-	"Recording time": "录音时间",
-	"Recording time by text": "文字记录时间",
-	"Recording time for": "记录时间",
-	"Register": "寄存器",
-	"Register here": "在这里注册",
-	"Save changes": "保存更改",
-	"Search for User": "搜索用户",
-	"Select One": "选择一个",
-	"Select Speaker for": "选择扬声器",
-	"Select a publisher": "选择发布者",
-	"Settings": "设定值",
-	"Split into multiple texts": "拆分成多个文本",
-	"Statistics for": "的统计",
-	"Text Content": "文字内容",
-	"Texts in": "中的文字",
-	"Title": "标题",
-	"Total recording time": "总记录时间",
-	"Username": "用户名",
-	"Year of birth": "出生年份",
-	"including re-recordings": "包括重新录音",
-	"more than 12 years": "超过12年",
-	"texts": "文字",
-	"without re-recordings": "无需重新录音"
+	"username": "用户名",
+	"password": "密码",
+	"email": "电子邮件",
+	"yearOfBirth": "出生年份",
+	"countryOfResidence": "居住国",
+	"accent": "口音（母语）",
+	"educationLevel": "教育程度",
+	"educationLevel_0_6": "0-6 岁",
+	"educationLevel_6_12": "6-12 岁",
+	"educationLevel_12+": "12 年以上",
+	"educationLevel_unknown": "不想说",
+	"gener": "性别",
+	"male": "男",
+	"female": "女",
+	"gender_diverse": "不想说",
+	"auth": {
+		"login": {
+			"loginBtn": "登录",
+			"noAccountYetLabel": "还没有账户？",
+			"registerLink": "在这里注册"
+		},
+		"register": {
+			"usernameRequiredErrorMsg": "用户名是必填项。",
+			"checkingUsernameMsg": "正在检查用户名...",
+			"usernameTakenErrorMsg": "用户名已被占用。",
+			"yearOfBirthErrorMsg": "请以 YYYY 格式输入年份。例如:1992",
+			"spokenLanguagesLabel": "你说什么语言？",
+			"acceptServiceAgreement": [
+				"我接受",
+				"服务协议"
+			],
+			"nextBtn": "下一个",
+			"addNewAccentLabel": "添加新口音",
+			"registerBtn": "注册",
+			"alreadyHasAccountLabel": "已经有账户了？",
+			"loginLink": "在这里登录"
+		},
+		"footerToolbar": {
+			"changeLanguageBtnTooltip": "更改语言",
+			"documentationBtnTooltip": "需要帮助吗？",
+			"adminPageBtnTooltip": "管理页面"
+		}
+	},
+	"listen": {
+		"contentTitle": "选择出版商",
+		"folerList": {
+			"contentTitle": "文件夹依据"
+		},
+		"textList": {
+			"contentTitle": "文本输入"
+		},
+		"textDetail": {
+			"selectedSpeakerLabel": "演讲者:"
+		}
+	},
+	"manage": {
+		"contentTitle": "文件夹",
+		"textDetail": {
+			"selectedSpeakerLabel": "演讲者:"
+		},
+		"createFolderModal": {
+			"modalTitle": "新建文件夹",
+			"folderNameLabel": "标题",
+			"createBtn": "创建文件夹"
+		},
+		"createTextModal": {
+			"modalTitle": "创建一个新文本",
+			"textNameLabel": "标题",
+			"textContentLabel": "文本内容",
+			"languageLabel": "语言",
+			"splitTextLabel": "拆分成多个文本",
+			"splitTextMaxLinesLabel": "每个文本的最大行数",
+			"createTextBtn": "创建文本"
+		},
+		"folerStatsModal": {
+			"speakerList": {
+				"modalTitle": "统计数据",
+				"textsCountSpan": "文本",
+				"folderNotSharedErrorMsg": "没有要显示的统计信息。请将文件夹分享给扬声器。"
+			},
+			"speakerDetail": {
+				"modalTitle": "详细统计信息",
+				"completedTextsLabel": "已完成的文本",
+				"totalRecordingTimeLabel": "总录制时间",
+				"includeRerecordingsLabel": "包括重新录制",
+				"excludeRerecordingsLabel": "没有重新录制",
+				"recordingTimeByTextLabel": "文字记录时间",
+				"finishedSentencesLabel": "完成的句子",
+				"recordingTimeLabel": "录制时间"
+			}
+		},
+		"shareFolderModal": {
+			"modalTitle": "共享选项",
+			"speakersSegmentLabel": "演讲者",
+			"listenersSegmentLabel": "监听器",
+			"listenersSegment": {
+				"searchbarPlaceholder": "搜索用户",
+				" addedListenersLabel": "添加的监听器",
+				"allUsersLabel": "所有用户"
+			},
+			"speakersSegment": {
+				"searchbarPlaceholder": "搜索用户",
+				"publicForEveryoneLabel": "为所有人公开",
+				" addedSpeakersLabel": "添加的扬声器",
+				"allUsersLabel": "所有用户"
+			}
+		}
+	},
+	"speak": {
+		"textProgresWords": "单词",
+		"folderList": {
+			"personalFolderContentTitle": "文件夹依据",
+			"publicFolderContentTitle": "公共文件夹"
+		},
+		"textList": {
+			"contentTitle": "文本输入"
+		},
+		"timeStatsModal": {
+			"modalTitle": "录制时间为",
+			"includeRerecordingsLabel": "包括重新录制",
+			"excludeRerecordingsLabel": "没有重新录制"
+		},
+		"recordView": {
+			"uploadingMsg": "正在上传... &nbsp;"
+		}
+	},
+	"settings": {
+		"logoutBtn": "注销",
+		"contentTitle": "设置",
+		"profileSettingsLabel": "配置文件设置",
+		"profile": {
+			"saveBtn": "保存更改",
+			"contentTitle": "个人资料",
+			"spokenLanguagesLabel": "口语",
+			"menuLanguageLabel": "菜单语言"
+		}
+	},
+	"pageNotFound": {
+		"title": "404 页面未找到",
+		"text": [
+			"你迷路了吗？点击",
+			"这里",
+			"去仪表板！"
+		]
+	}
 }

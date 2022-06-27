@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/manage/{{folderId}}"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{"Detailed statistics for" | translate}} {{speaker.name}}</ion-title>
+    <ion-title>{{'manage.folderStatsModal.speakerDetail.modalTitle' | translate}} {{speaker.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,29 +11,29 @@
   <ion-list>
     <ion-item>
       <ion-label>
-        {{"Completed texts" | translate}}
+        {{'manage.folderStatsModal.speakerDetail.completedTextsLabel' | translate}}
       </ion-label>
       <span class="ion-float-right">
         {{speaker.completedTextsCount}} / {{speaker.texts.length}}
       </span>
     </ion-item>
   </ion-list>
-  <h3>{{"Total recording time" | translate}}</h3>
+  <h3>{{'manage.folderStatsModal.speakerDetail.totalRecordingTimeLabel' | translate}}</h3>
   <ion-list>
     <ion-item>
-      <ion-label>{{'including re-recordings' | translate}}</ion-label>
+      <ion-label>{{'manage.folderStatsModal.speakerDetail.includeRerecordingsLabel' | translate}}</ion-label>
       <span class="ion-float-right">
         {{timeFormat.getTimeString(speaker.rec_time_with_rep)}}
       </span>
     </ion-item>
     <ion-item>
-      <ion-label>{{'without re-recordings' | translate}}</ion-label>
+      <ion-label>{{'manage.folderStatsModal.speakerDetail.excludeRerecordingsLabel' | translate}}</ion-label>
       <span class="ion-float-right">
         {{timeFormat.getTimeString(speaker.rec_time_without_rep)}}
       </span>
     </ion-item>
   </ion-list>
-  <h3>{{"Recording time by text" | translate}}</h3>
+  <h3>{{'manage.folderStatsModal.speakerDetail.recordingTimeByTextLabel' | translate}}</h3>
   <ion-list>
     <ion-card *ngFor="let text of speaker.texts">
       <ion-card-header>
@@ -44,22 +44,22 @@
       </ion-card-header>
       <ion-list>
         <ion-item>
-          <ion-label>{{"Finished Sentences" | translate}}</ion-label>
+          <ion-label>{{'manage.folderStatsModal.speakerDetail.finishedSentencesLabel' | translate}}</ion-label>
           <span class="ion-float-right">
             {{text.finished}} / {{text.total}}
           </span>
         </ion-item>
       </ion-list>
-      <h4>{{"Recording time" | translate}}</h4>
+      <h4>{{'manage.folderStatsModal.speakerDetail.recordingTimeLabel' | translate}}</h4>
       <ion-list class="textRecordingStats">
         <ion-item>
-          <ion-label>{{'including re-recordings' | translate}}</ion-label>
+          <ion-label>{{'manage.folderStatsModal.speakerDetail.includeRerecordingsLabel' | translate}}</ion-label>
           <span class="ion-float-right">
             {{timeFormat.getTimeString(text.rec_time_with_rep)}}
           </span>
         </ion-item>
         <ion-item>
-          <ion-label>{{'without re-recordings' | translate}}</ion-label>
+          <ion-label>{{'manage.folderStatsModal.speakerDetail.excludeRerecordingsLabel' | translate}}</ion-label>
           <span class="ion-float-right">
             {{timeFormat.getTimeString(text.rec_time_without_rep)}}
           </span>

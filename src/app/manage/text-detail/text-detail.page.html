@@ -6,7 +6,7 @@
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
     <ion-buttons slot="end">
       <ion-button (click)="presentSpeakerSelect($event)">
-        <ion-label>Speaker: {{selectedSpeaker | async}}</ion-label>
+        <ion-label>{{manage.textDetail.selectedSpeakerLabel}} {{selectedSpeaker | async}}</ion-label>
         <ion-icon name="caret-down-outline"></ion-icon>
       </ion-button>
     </ion-buttons>

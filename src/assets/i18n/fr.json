@@ -1,62 +1,148 @@
 {
-	"0-6 years": "0 à 6 ans",
-	"6-12 years": "6-12 ans",
-	"Accent": "Accent",
-	"Added Speaker": "Haut-parleur ajouté",
-	"All Users": "Tous les utilisateurs",
-	"Already have an Account?": "Vous avez déjà un compte?",
-	"Birthyear": "Année de naissance",
-	"Completed texts": "Textes complétés",
-	"Country": "Pays",
-	"Create a new folder": "Créer un nouveau dossier",
-	"Create a new text": "Créer un nouveau texte",
-	"Create folder": "Créer le dossier",
-	"Create text": "Créer du texte",
-	"Detailed statistics for": "Statistiques détaillées pour",
-	"Don't have an Account yet?": "Vous n'avez pas encore de compte?",
-	"Education Level": "niveau d'éducation",
-	"Female": "Femme",
-	"Finished Sentences": "Phrases terminées",
-	"Folders by": "Dossiers par",
-	"Folders of": "Dossiers de",
-	"Gender": "Le sexe",
-	"Language": "Langue",
-	"Languages": "Langues",
-	"Login": "S'identifier",
-	"Login here": "Connectez-vous ici",
-	"Logout": "Se déconnecter",
-	"Male": "Mâle",
-	"Maximum lines per text": "",
-	"Menu Language": "Nombre maximum de lignes par texte",
-	"Next": "Suivant",
-	"No statistics to display. Please share the folder to a speaker.": "Aucune statistique à afficher. Veuillez partager le dossier avec un orateur.",
-	"Password": "Mot de passe",
-	"Profile": "Profil",
-	"Profile Settings": "Paramètres de profil",
-	"Public": "Public",
-	"Public folders": "Dossiers publics",
-	"Public for everyone": "Public pour tous",
-	"Recording time": "Temps d'enregistrement",
-	"Recording time by text": "Temps d'enregistrement par texte",
-	"Recording time for": "Durée d'enregistrement pour",
-	"Register": "S'inscrire",
-	"Register here": "Inscrivez-vous ici",
-	"Save changes": "Sauvegarder les modifications",
-	"Search for User": "Rechercher un utilisateur",
-	"Select One": "Sélectionnez-en un",
-	"Select Speaker for": "Sélectionnez Haut-parleur pour",
-	"Select a publisher": "Sélectionnez un éditeur",
-	"Settings": "Paramètres",
-	"Split into multiple texts": "Divisé en plusieurs textes",
-	"Statistics for": "Statistiques pour",
-	"Text Content": "Contenu du texte",
-	"Texts in": "Textes en",
-	"Title": "Titre",
-	"Total recording time": "Durée totale d'enregistrement",
-	"Username": "Nom d'utilisateur",
-	"Year of birth": "Année de naissance",
-	"including re-recordings": "y compris les réenregistrements",
-	"more than 12 years": "plus de 12 ans",
-	"texts": "les textes",
-	"without re-recordings": "sans réenregistrements"
+	"username": "Nom d'utilisateur",
+	"password": "Mot de passe",
+	"email": "E-mail",
+	"yearOfBirth": "Année de naissance",
+	"countryOfResidence": "Pays de résidence",
+	"accent": "Accent (langue maternelle)",
+	"educationLevel": "Niveau d'éducation",
+	"educationLevel_0_6": "0-6 ans",
+	"educationLevel_6_12": "6-12 ans",
+	"educationLevel_12+": "plus de 12 ans",
+	"educationLevel_unknown": "Je préfère ne pas dire",
+	"gender": "Sexe",
+	"male": "Homme",
+	"female": "Femme",
+	"gender_diverse": "Je préfère ne pas dire",
+	"auth": {
+		"login": {
+			"loginBtn": "Connexion",
+			"noAccountYetLabel": "Vous n'avez pas encore de compte ?",
+			"registerLink": "Inscrivez-vous ici"
+		},
+		"register": {
+			"usernameRequiredErrorMsg": "Le nom d'utilisateur est requis.",
+			"checkingUsernameMsg": "Vérification du nom d'utilisateur...",
+			"usernameTakenErrorMsg": "Le nom d'utilisateur est déjà pris.",
+			"yearOfBirthErrorMsg": "Veuillez saisir l'année au format AAAA. Exemple : 1992",
+			"spokenLanguagesLabel": "Quelles langues parlez-vous ?",
+			"accepteServiceAgreementLabel": [
+				"J'accepte le ",
+				"Accord de services",
+				""
+			],
+			"nextBtn": "Suivant",
+			"addNewAccentLabel": "Ajouter un nouvel accent",
+			"registerBtn": "S'inscrire",
+			"alreadyHasAccountLabel": "Vous avez déjà un compte ?",
+			"loginLink": "Connexion ici"
+		},
+		"footerToolbar": {
+			"changeLanguageBtnTooltip": "Changer de langue",
+			"documentationBtnTooltip": "Besoin d'aide ?",
+			"adminPageBtnTooltip": "Page d'administration"
+		}
+	},
+	"listen": {
+		"contentTitle": "Sélectionnez un éditeur",
+		"folderList": {
+			"contentTitle": "Dossiers par"
+		},
+		"textList": {
+			"contentTitle": "Textes dans"
+		},
+		"textDetail": {
+			"selectedSpeakerLabel": "Orateur :"
+		}
+	},
+	"manage": {
+		"contentTitle": "Dossiers de",
+		"textDetail": {
+			"selectedSpeakerLabel": "Orateur :"
+		},
+		"createFolderModal": {
+			"modalTitle": "Créer un nouveau dossier",
+			"folderNameLabel": "Titre",
+			"createBtn": "Créer un dossier"
+		},
+		"createTextModal": {
+			"modalTitle": "Créer un nouveau texte",
+			"textNameLabel": "Titre",
+			"textContentLabel": "Contenu du texte",
+			"languageLabel": "Langue",
+			"splitTextLabel": "Diviser en plusieurs textes",
+			"splitTextMaxLinesLabel": "Lignes maximum par texte",
+			"createTextBtn": "Créer du texte"
+		},
+		"folderStatsMoal": {
+			"speakerList": {
+				"modalTitle": "Statistiques pour",
+				"textsCountSpan": "textes",
+				"folderNotSharedErrorMsg": "Aucune statistique à afficher. Veuillez partager le dossier avec un haut-parleur."
+			},
+			"speakerDetail": {
+				"modalTitle": "Statistiques détaillées pour",
+				"completedTextsLabel": "Textes complétés",
+				"totalRecordingTimeLabel": "Durée totale d'enregistrement",
+				"includeRerecordingsLabel": "y compris les réenregistrements",
+				"excludeRerecordingsLabel": "sans ré-enregistrements",
+				"recordingTimeByTextLabel": "Enregistrement de l'heure par texte",
+				"finishSentencesLabel": "Phrases terminées",
+				"recordingTimeLabel": "Heure d'enregistrement"
+			}
+		},
+		"shareFolderModal": {
+			"modalTitle": "Options de partage pour",
+			"speakersSegmentLabel": "Intervenants",
+			"listenersSegmentLabel": "Écouteurs",
+			"listenersSegment": {
+				"searchbarPlaceholder": "Rechercher un utilisateur",
+				"addedListenersLabel": "Auditeurs ajoutés",
+				"allUsersLabel": "Tous les utilisateurs"
+			},
+			"speakersSegment": {
+				"searchbarPlaceholder": "Rechercher un utilisateur",
+				"publicForEveryoneLabel": "Public pour tous",
+				"addedSpeakersLabel": "Haut-parleurs ajoutés",
+				"allUsersLabel": "Tous les utilisateurs"
+			}
+		}
+	},
+	"speak": {
+		"textProgresWords": "mots",
+		"folerList": {
+			"personalFolderContentTitle": "Dossiers par",
+			"publicFolderContentTitle": "Dossiers publics"
+		},
+		"textList": {
+			"contentTitle": "Textes dans"
+		},
+		"timeStatsModal": {
+			"modalTitle": "Durée d'enregistrement pour",
+			"includeRerecordingsLabel": "y compris les réenregistrements",
+			"excludeRerecordingsLabel": "sans réenregistrements"
+		},
+		"recordView": {
+			"uploadingMsg": "Téléchargement... &nbsp;"
+		}
+	},
+	"settings": {
+		"logoutBtn": "Déconnexion",
+		"contentTitle": "Paramètres",
+		"profileSettingsLabel": "Paramètres du profil",
+		"profile": {
+			"saveBtn": "Enregistrer les modifications",
+			"contentTitle": "Profil",
+			"spokenLanguagesLabel": "Langues parlées",
+			"menuLanguageLabel": "Langue des menus"
+		}
+	},
+	"pageNotFound": {
+		"title": "Page 404 introuvable",
+		"texte": [
+			"Vous êtes perdu ? Cliquez",
+			"ici",
+			" pour aller au tableau de bord !"
+		]
+	}
 }

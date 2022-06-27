@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="no-select">
-  <h1>{{'Texts in' | translate}} {{folderName}}</h1>
+  <h1>{{'listen.textList.contentTitle | translate}} {{folderName}}</h1>
   <ion-list #textList class="fadeInWhenLoaded">
     <ion-item button *ngFor="let text of texts" routerLink="/tabs/listen/{{publisherId}}/{{folderId}}/{{text.id}}" [state]="{title:
       text.title}">

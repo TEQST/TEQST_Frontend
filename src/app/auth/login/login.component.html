@@ -1,10 +1,10 @@
 <form #form="ngForm" (ngSubmit)="performLogin(form)" (keydown.enter)="form.valid ? performLogin(form) : undefined">
   <ion-item lines="full">
-    <ion-label position="floating" for="username">{{ 'Username' | translate }}</ion-label>
+    <ion-label position="floating" for="username">{{ 'username' | translate }}</ion-label>
     <ion-input name="username" type="text" autocomplete="username" id="username" ngModel required></ion-input>
   </ion-item>
   <ion-item id="password-item" lines="full">
-    <ion-label position="floating" for="password">{{ 'Password' | translate }}</ion-label>
+    <ion-label position="floating" for="password">{{ 'password' | translate }}</ion-label>
     <ion-button id="toggle-password" fill="clear" slot="end" (click)="showPassword = !showPassword">
       <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
     </ion-button>
@@ -12,9 +12,9 @@
       ngModel required></ion-input>
   </ion-item>
   <ion-button class="button-submit" type="submit" [disabled]="form.invalid" expand="block">
-    {{'Login' | translate}}</ion-button>
+    {{'auth.login.loginBtn' | translate}}</ion-button>
 </form>
 <ion-card-content>
-  {{"Don't have an Account yet?" | translate }}
-  <p><a [routerLink]="['/register']" [queryParams]="qParams" class="register-redirect">{{'Register here' | translate }}</a></p>
+  {{'auth.login.noAccountYetLabel' | translate }}
+  <p><a [routerLink]="['/register']" [queryParams]="qParams" class="register-redirect">{{'auth.login.registerLink' | translate }}</a></p>
 </ion-card-content>

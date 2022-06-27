@@ -28,6 +28,7 @@ export class AuthPage extends BaseComponent {
 
   async presentMenuLanguages(ev: any): Promise<void> {
     const menulanguages = await this.languageService.getAllMenuLanguages();
+    console.log(menulanguages)
     const popover = await this.popoverController.create({
       component: MenuLanguageSelectorComponent,
       componentProps: {
