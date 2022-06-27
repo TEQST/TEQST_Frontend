@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AlertController, ModalController} from '@ionic/angular';
 
 import {AlertManagerService} from '../services/alert-manager.service';
+import { AddListenerPage } from './add-listener/add-listener.page';
 import {CreateFolderPage} from './create-folder/create-folder.page';
 import { FilterFolderPage } from './filter-folder/filter-folder.page';
 import {FolderStatsPage} from './folder-stats/folder-stats.page';
@@ -91,6 +92,17 @@ export class ManageFolderUIService {
       component: ShareFolderPage,
       componentProps: {
         // pass variables to the modal
+        folderId: currentFolder.id,
+        folderName: currentFolder.name,
+      },
+    });
+    return await modal.present();
+  }
+
+  async openAddListenerModal(currentFolder): Promise<void> {
+    const modal = await this.modalController.create({
+      component: AddListenerPage,
+      componentProps: {
         folderId: currentFolder.id,
         folderName: currentFolder.name,
       },

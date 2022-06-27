@@ -9,6 +9,9 @@
         <ion-icon *ngIf="isFilterActive" name="filter"></ion-icon>
         <ion-icon *ngIf="!isFilterActive" name="filter-outline"></ion-icon>
       </ion-button> -->
+      <ion-button color="primary" (click)="openAddListenerModal()">
+        <ion-icon name="ear"></ion-icon>
+      </ion-button>
       <ion-button *ngIf="currentFolder.name == '/'" color="primary" (click)="downloadstatistics()">
         <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
       </ion-button>
