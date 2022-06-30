@@ -12,6 +12,7 @@ import { SelectListenerPageModule }
   from './select-listener/select-listener.module';
 import { SelectSpeakerPageModule }
   from './select-speaker/select-speaker.module';
+import { ManageListeningsPageModule } from './manage-listenings/manage-listenings.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { SelectSpeakerPageModule }
     TranslateModule,
     SelectListenerPageModule,
     SelectSpeakerPageModule,
+    ManageListeningsPageModule,
   ],
   declarations: [AddListenerPage]
 })

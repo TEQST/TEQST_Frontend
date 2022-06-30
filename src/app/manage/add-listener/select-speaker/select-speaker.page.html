@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>select-speaker</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
-
-</ion-content>
+<ion-footer class="ion-text-end">
+  <ion-button color="primary" (click)="createListening()">Finish</ion-button>
+</ion-footer>

@@ -8,11 +8,15 @@ const routes: Routes = [
     path: '',
     component: AddListenerPage,
   },
-  {
-    path: 'select-speaker',
-    loadChildren: () => import('./select-speaker/select-speaker.module')
-        .then((m) => m.SelectSpeakerPageModule),
-  },
+  // {
+  //   path: 'select-speaker',
+  //   loadChildren: () => import('./select-speaker/select-speaker.module')
+  //       .then((m) => m.SelectSpeakerPageModule),
+  // },
+  // {
+  //   path: 'manage-listenings',
+  //   loadChildren: () => import('./manage-listenings/manage-listenings.module').then( m => m.ManageListeningsPageModule)
+  // },
 ];
 
 @NgModule({

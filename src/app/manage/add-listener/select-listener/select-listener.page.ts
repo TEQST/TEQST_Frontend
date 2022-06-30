@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IonNav, NavParams } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { ShareFolderService } from 'src/app/services/share-folder.service';
+import { ListenerDataService } from '../listener-data.service';
+import { ManageListeningsPage } from '../manage-listenings/manage-listenings.page';
 import { SelectSpeakerPage } from '../select-speaker/select-speaker.page';
 
 @Component({
@@ -11,8 +13,6 @@ import { SelectSpeakerPage } from '../select-speaker/select-speaker.page';
 })
 export class SelectListenerPage implements OnInit {
 
-  public folderId: number;
-  public folderName: string;
   private listeners: User[];
   public filteredListeners: User[];
   private allUsers: User[];
@@ -22,16 +22,16 @@ export class SelectListenerPage implements OnInit {
 
 
   constructor(public navParams: NavParams,
-              private shareFolderService: ShareFolderService) {
+              private shareFolderService: ShareFolderService,
+              private listenerData: ListenerDataService) {
 
     this.navComponent = navParams.get('navComponent');
-    this.folderId = navParams.get('folderId');
-    this.folderName = navParams.get('folderName');
   }
 
   ngOnInit(): void {
     // reset Search term on each opening of the modal
     this.searchTerm = '';
+    
     this.fetchUserLists();
   }
 
@@ -73,6 +73,7 @@ export class SelectListenerPage implements OnInit {
     // const newListeners = this.listeners.map((listener) => listener.id);
     // newListeners.push(user.id);
     this.listeners.push(user);
+    this.listenerData.setListeners(this.listeners);
     this.filterLists();
   }
 
@@ -82,6 +83,7 @@ export class SelectListenerPage implements OnInit {
     // const newListenerIds = oldSpeakerIds.filter(
     //     (speakerid) => speakerid != speaker.id);
     this.listeners = this.listeners.filter((user) => user.id != speaker.id);
+    this.listenerData.setListeners(this.listeners);
     this.filterLists();
   }
 
@@ -91,6 +93,16 @@ export class SelectListenerPage implements OnInit {
   //     listeners: this.listeners,
   //   });
   // }
+
+  showSelectSpeaker(): void {
+    this.navComponent.push(SelectSpeakerPage, {
+      navComponent: this.navComponent,
+    });
+  }
+
+  showManageListenings(): void {
+    this.navComponent.push(ManageListeningsPage);
+  }
 
 }
 

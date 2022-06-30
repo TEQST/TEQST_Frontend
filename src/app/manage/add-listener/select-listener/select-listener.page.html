@@ -1,3 +1,10 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'manage.addListenerModal.selectListener.searchbarPlaceholder' | translate}}">
 </ion-searchbar>
 <ion-list>
@@ -22,3 +29,6 @@
     </ion-button>
   </ion-item>
 </ion-list>
+<ion-footer class="ion-text-end">
+    <ion-button color="primary" (click)="showSelectSpeaker()">Next</ion-button>
+</ion-footer>
