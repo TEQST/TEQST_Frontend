@@ -32,8 +32,9 @@ export class SelectSpkSpkSegComponent implements OnInit {
           this.allUsers = allUsers;
           this.filteredUsers = allUsers;
         });
-    this.speakers = [];
-    this.filteredSpeakers = [];
+    const spks = this.listenerData.getSpeakers();
+    this.speakers = spks;
+    this.filteredSpeakers = spks;
     this.filterLists();
   }
 

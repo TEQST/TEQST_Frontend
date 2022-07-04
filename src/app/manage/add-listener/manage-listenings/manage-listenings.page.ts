@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IonNav, NavParams, ModalController } from '@ionic/angular';
+import { IonNav, NavParams, ModalController, AlertController } from '@ionic/angular';
+import { AlertManagerService } from 'src/app/services/alert-manager.service';
 import { ShareFolderService } from 'src/app/services/share-folder.service';
 import { ListenerDataService } from '../listener-data.service';
 import { SelectListenerPage } from '../select-listener/select-listener.page';
@@ -20,6 +21,8 @@ export class ManageListeningsPage implements OnInit {
     public listenerData: ListenerDataService,
     private shareFolderService: ShareFolderService,
     private viewCtrl: ModalController,
+    private alertController: AlertController,
+    private alertManagerService: AlertManagerService,
   ) {
     this.navComponent = navParams.get('navComponent');
 
@@ -46,6 +49,10 @@ export class ManageListeningsPage implements OnInit {
     this.fetchListenings();
   }
 
+  ionViewWillEnter(): void {
+    this.fetchListenings();
+  }
+
   async fetchListenings() {
     const folderId = this.listenerData.getFolderId();
     await this.shareFolderService.getListenings(folderId)
@@ -67,10 +74,43 @@ export class ManageListeningsPage implements OnInit {
     });
   }
 
-  openListening(i) {
+  openListening(listening): void {
     this.listenerData.setCreating(false);
-    // TODO assign the data to the service
-    console.log(i);
+    // assign the data to the service
+    this.listenerData.setListeningId(listening.id);
+    this.listenerData.setListeners(listening.listeners);
+    this.listenerData.setSpeakers(listening.speakers);
+    this.listenerData.setAccents(listening.accents);
+    this.navComponent.push(SelectListenerPage, {
+      navComponent: this.navComponent,
+    });
+  }
+
+  deleteListening(listeningId): void {
+    this.shareFolderService.deleteListening(listeningId)
+        .subscribe((res) => {
+          this.fetchListenings();
+        }, (err) => {
+          this.alertManagerService.showErrorAlertNoRedirection(
+              err.status,
+              err.statusText,
+          );
+        });
+  }
+
+  async openDeleteListeningAlert(listeningId): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Attention!',
+      message: `Do you really want to revoke this listening access?`,
+      buttons: [
+        'No',
+        {
+          text: 'Yes',
+          handler: (): void => this.deleteListening(listeningId),
+        },
+      ],
+    });
+    await alert.present();
   }
 
   getStringOfUsernames(users) {

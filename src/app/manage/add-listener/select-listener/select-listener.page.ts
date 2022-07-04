@@ -48,8 +48,9 @@ export class SelectListenerPage implements OnInit {
           this.allUsers = allUsers;
           this.filteredUsers = allUsers;
         });
-    this.listeners = [];
-    this.filteredListeners = [];
+    const lns = this.listenerData.getListeners();
+    this.listeners = lns;
+    this.filteredListeners = lns;
     this.filterLists();
   }
 

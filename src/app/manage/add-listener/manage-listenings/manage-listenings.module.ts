@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ManageListeningsPageRoutingModule } from './manage-listenings-routing.module';
 
 import { ManageListeningsPage } from './manage-listenings.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ManageListeningsPageRoutingModule
+    ManageListeningsPageRoutingModule,
+    TranslateModule,
   ],
   declarations: [ManageListeningsPage]
 })

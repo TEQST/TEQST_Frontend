@@ -31,8 +31,9 @@ export class SelectSpkAccSegComponent implements OnInit {
           this.allAccents = allAccents;
           this.filteredAllAccents = allAccents;
         });
-    this.selectedAccents = [];
-    this.filteredSelectedAccents = [];
+    const accents = this.listenerData.getAccents();
+    this.selectedAccents = accents;
+    this.filteredSelectedAccents = accents;
     this.filterAccents();
   }
 

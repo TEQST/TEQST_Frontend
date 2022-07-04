@@ -69,6 +69,21 @@ export class ShareFolderService {
     });
   }
 
+  updateListening(
+      listeningId, listenerIds, speakerIds, accents): Observable<JSON> {
+    const url = this.SERVER_URL + `/api/pub/listeners/${listeningId}/`;
+    return this.http.put<JSON>(url, {
+      listeners: listenerIds,
+      speakers: speakerIds,
+      accents: accents,
+    });
+  }
+
+  deleteListening(listeningId): Observable<JSON> {
+    const url = this.SERVER_URL + `/api/pub/listeners/${listeningId}/`;
+    return this.http.delete<JSON>(url);
+  }
+
   getAllUsers(): Observable<User[]> {
     const url = this.SERVER_URL + `/api/users/`;
     return this.http.get<User[]>(url);

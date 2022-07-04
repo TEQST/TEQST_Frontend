@@ -37,9 +37,8 @@ export class SelectSpeakerPage implements OnInit {
     this.segment = await this.slider.getActiveIndex();
   }
 
-  createListening() {
-    console.log('backend api call');
-    const folderId = this.listenerData.getFolderId();
+  getValidatedListeningData()
+  :{listenerIds: number[], speakerIds: number[], accents: string[]} {
     const listeners = this.listenerData.getListeners();
     if (listeners.length == 0) {
       alert('must have at least one listener');
@@ -53,27 +52,45 @@ export class SelectSpeakerPage implements OnInit {
     }
     const listenerIds = listeners.map((listener) => listener.id);
     const speakerIds = speakers.map((speaker) => speaker.id);
-    console.log(folderId);
-    console.log(listenerIds);
-    console.log(speakerIds);
-    console.log(accents);
+    return {
+      listenerIds: listenerIds,
+      speakerIds: speakerIds,
+      accents: accents,
+    };
+  }
+
+  createListening(): void {
+    console.log('backend api call');
+    const folderId = this.listenerData.getFolderId();
+    const data = this.getValidatedListeningData();
 
     this.shareFolderService.createListening(
-        folderId, listenerIds, speakerIds, accents,
+        folderId, data.listenerIds, data.speakerIds, data.accents,
     ).subscribe((res) => {
       console.log('worked');
+      this.navComponent.popToRoot();
     }, (err) => {
       console.log('error!!');
     });
 
-    this.navComponent.popToRoot();
+    
     // this.navComponent.push(ManageListeningsPage, {
     //   navComponent: this.navComponent,
     // })
   }
 
-  updateListening() {
+  updateListening(): void {
     console.log('update listening');
+    const listeningId = this.listenerData.getListeningId();
+    const data = this.getValidatedListeningData();
+    this.shareFolderService.updateListening(
+        listeningId, data.listenerIds, data.speakerIds, data.accents
+    ).subscribe((res) => {
+      console.log('worked');
+      this.navComponent.popToRoot();
+    }, (err) => {
+      alert('could not create listening');
+    });
   }
 
 }
