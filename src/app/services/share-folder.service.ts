@@ -53,9 +53,30 @@ export class ShareFolderService {
     });
   }
 
+  getListenings(folderId: number): Observable<JSON[]> {
+    const url = this.SERVER_URL + `/api/pub/listeners/?folder=${folderId}`;
+    return this.http.get<JSON[]>(url);
+  }
+
+  createListening(
+      folderId, listenerIds, speakerIds, accents): Observable<JSON> {
+    const url = this.SERVER_URL + `/api/pub/listeners/`;
+    return this.http.post<JSON>(url, {
+      folder: folderId,
+      listeners: listenerIds,
+      speakers: speakerIds,
+      accents: accents,
+    });
+  }
+
   getAllUsers(): Observable<User[]> {
     const url = this.SERVER_URL + `/api/users/`;
     return this.http.get<User[]>(url);
+  }
+
+  getAllAccents(): Observable<string[]> {
+    const url = this.SERVER_URL + `/api/accents/`;
+    return this.http.get<string[]>(url);
   }
 
   filterLists(list, allUsers, searchTerm)
@@ -74,6 +95,24 @@ export class ShareFolderService {
       return false;
     });
     return {filteredList, filteredUsers};
+  }
+
+  filterAccentLists(accents, allAccents, searchTerm)
+  :{filteredAccents: string[]; filteredAllAccents: string[]} {
+    const filteredAccents = accents.filter((accent) => {
+      return accent.toLowerCase()
+          .startsWith(searchTerm.toLowerCase());
+    });
+    const filteredAllAccents = allAccents.filter((accent) => {
+      if (accent.toLowerCase()
+          .startsWith(searchTerm.toLowerCase())) {
+        // remove all users already listed in the first list
+        return filteredAccents
+            .findIndex((selAcc) => selAcc === accent) === -1;
+      }
+      return false;
+    });
+    return {filteredAccents, filteredAllAccents};
   }
 
 }

@@ -5,7 +5,26 @@
     </ion-buttons>
     <ion-title>select-speaker</ion-title>
   </ion-toolbar>
+  <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+    <ion-segment-button value="0">
+      <ion-label>{{'manage.addListenerModal.byAccents' | translate}}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label>{{'manage.addListenerModal.bySpeakers' | translate}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
+<ion-content>
+  <ion-slides #slides (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <app-select-spk-acc-seg></app-select-spk-acc-seg>
+    </ion-slide>
+    <ion-slide>
+      <app-select-spk-spk-seg></app-select-spk-spk-seg>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
 <ion-footer class="ion-text-end">
-  <ion-button color="primary" (click)="createListening()">Finish</ion-button>
+  <ion-button *ngIf="creating" color="primary" (click)="createListening()">Finish</ion-button>
+  <ion-button *ngIf="!creating" color="primary" (click)="updateListening()">Update</ion-button>
 </ion-footer>

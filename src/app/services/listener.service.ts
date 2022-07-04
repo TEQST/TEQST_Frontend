@@ -23,17 +23,18 @@ export class ListenerService {
     public authenticationService: AuthenticationService,
     private alertService: AlertManagerService) { }
 
-  getPublisherList(): Observable<JSON[]> {
+
+  getSharedFolders(): Observable<JSON[]> {
     this.requestMade.next(true);
     const url =
-      this.SERVER_URL + `/api/lstn/publishers/`;
+      this.SERVER_URL + `/api/lstn/folders`;
     return this.http.get<JSON[]>(url);
   }
 
-  getFoldersOfPublisher(publisherId): Observable<JSON[]> {
+  getSubfoldersOf(folderId: string): Observable<JSON[]> {
     this.requestMade.next(true);
     const url =
-      this.SERVER_URL + `/api/lstn/publishers/${publisherId}/`;
+      this.SERVER_URL + `/api/lstn/folders/${folderId}`;
     return this.http.get<JSON[]>(url);
   }
 

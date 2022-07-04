@@ -8,13 +8,21 @@
 </ion-header>
 
 <ion-content class="no-select">
-  <div *ngIf="this.publisherId != null">
-    <h1 *ngIf="this.publisherId != 'public'">{{'listen.folderList.contentTitle' | translate}} {{publisherName}}</h1>
+  <div #folderList id="folderList" class="fadeInWhenLoaded">
+    <ion-list *ngIf="subfolders.length > 0">
+      <ion-item button *ngFor="let folder of subfolders"
+        [routerLink]="['/tabs/listen', folder.id]" [state]="{folderName: folder.name}">
+        <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
+      </ion-item>
+    </ion-list>
   </div>
-  <ion-list #folderList class="fadeInWhenLoaded">
-    <ion-item button *ngFor="let folder of folders" routerLink="/tabs/listen/{{publisherId}}/{{folder.id}}"
-      [state]="{folderName: folder.name}">
-      <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
-    </ion-item>
-  </ion-list>
+
+  <div #textList id="textList">
+    <ion-list *ngIf="texts.length > 0" class="fix-padding">
+      <ion-item button *ngFor="let text of texts"
+        [routerLink]="['/tabs/manage/text', text.id]">
+        <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

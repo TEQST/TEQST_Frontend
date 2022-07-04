@@ -16,9 +16,8 @@ export class FolderListPage extends BaseComponent implements OnInit {
 
   @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
 
-  public publisherId: string
-  public folders: any
-  publisherName: any;
+  public folderId: string
+  public subfolders: any
 
   constructor(
     public loaderService: LoaderService,
@@ -29,24 +28,23 @@ export class FolderListPage extends BaseComponent implements OnInit {
 
     super(loaderService);
     const routeParams = this.router.getCurrentNavigation().extras.state;
-    if (typeof routeParams !== 'undefined' && 'publisherName' in routeParams) {
-      this.publisherName = routeParams.publisherName;
+    if (typeof routeParams !== 'undefined' && 'folderId' in routeParams) {
+      this.folderId = routeParams.folderId;
     }
   }
 
   ngOnInit():void {
-    this.publisherId = this.route.snapshot.paramMap.get('publisherId');
+    this.folderId = this.route.snapshot.paramMap.get('folderId');
   }
 
   async ionViewWillEnter(): Promise<void> {
-    this.folders = [];
+    this.subfolders = [];
     this.folderListElem.nativeElement.classList.remove('loaded');
 
-    this.listenerService.getFoldersOfPublisher(this.publisherId)
+    this.listenerService.getSubfoldersOf(this.folderId)
         .subscribe(
             (data) => {
-              this.publisherName = data['username'];
-              this.folders = data['freedfolders'];
+              console.log(data)
               this.folderListElem.nativeElement.classList.add('loaded');
             },
             (err) => this.alertManager
