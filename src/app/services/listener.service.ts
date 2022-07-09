@@ -8,6 +8,7 @@ import {SharedFolder} from './../interfaces/shared-folder';
 import {AlertManagerService} from './alert-manager.service';
 import {TextObject} from '../interfaces/text-object';
 import {TextStats} from '../interfaces/text-stats';
+import { FolderDetail } from '../interfaces/folder-detail';
 
 @Injectable({
   providedIn: 'root',
@@ -31,24 +32,25 @@ export class ListenerService {
     return this.http.get<JSON[]>(url);
   }
 
-  getSubfoldersOf(folderId: string): Observable<JSON[]> {
+  getFolderDetail(folderId: string): Observable<FolderDetail> {
     this.requestMade.next(true);
     const url =
-      this.SERVER_URL + `/api/lstn/folders/${folderId}`;
-    return this.http.get<JSON[]>(url);
+      this.SERVER_URL + `/api/lstn/folders/${folderId}/`;
+    return this.http.get<FolderDetail>(url);
   }
 
-  loadContentsOfSharedFolder(folderId: string): Subscription {
+  loadContentsOfSharedFolder(folderId: string): Observable<JSON> {
     this.requestMade.next(true);
     const url = this.SERVER_URL + `/api/lstn/sharedfolders/${folderId}/texts/`;
 
-    return this.http.get<SharedFolder>(url).subscribe(
-        (data) => {
-          this.sharedTextsList.next(data);
-        },
-        (err) => this.alertService
-            .showErrorAlert(err.status, err.statusText),
-    );
+    return this.http.get<JSON>(url);
+    // return this.http.get<SharedFolder>(url).subscribe(
+    //     (data) => {
+    //       this.sharedTextsList.next(data);
+    //     },
+    //     (err) => this.alertService
+    //         .showErrorAlert(err.status, err.statusText),
+    // );
   }
 
   getTextInfo(textId): Observable<TextObject> {

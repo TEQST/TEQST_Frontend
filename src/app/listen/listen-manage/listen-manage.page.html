@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="currentFolder.id" defaultHref="tabs/listen"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-img *ngIf="currentFolder.name == '/'" src="../../assets/img/logo.png"></ion-img> -->
+    <ion-buttons slot="end">
+      <!-- <ion-button color="primary" (click)="openFilterModal()">
+        <ion-icon *ngIf="isFilterActive" name="filter"></ion-icon>
+        <ion-icon *ngIf="!isFilterActive" name="filter-outline"></ion-icon>
+      </ion-button> -->
+      <!-- <ion-button color="primary" (click)="openAddListenerModal()">
+        <ion-icon name="ear"></ion-icon>
+      </ion-button> -->
+      <!-- <ion-button *ngIf="currentFolder.name == '/'" color="primary" (click)="downloadstatistics()">
+        <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-buttons *ngIf="currentFolder.is_sharedfolder" slot="end">
+      <!-- <ion-button color="primary" (click)="openShareFolderModal()">
+        <ion-icon name="cloudy"></ion-icon>
+      </ion-button> -->
+      <ion-button color="primary" (click)="openFolderStatsModal()">
+        <ion-icon name="stats-chart"></ion-icon>
+      </ion-button>
+      <!-- <ion-button color="primary" (click)="downloadFolder()">
+        <ion-icon name="download"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="contentTitleWrapper">
+    <h1>
+      <span>{{currentFolder.name}}</span>
+    </h1>
+  </div>
+  <div #folderList id="folderList" class="fadeInWhenLoaded">
+    <ion-list *ngIf="currentFolder.subfolder.length > 0">
+      <ion-item button *ngFor="let folder of currentFolder.subfolder"
+        [routerLink]="['/tabs/listen', folder.id]" 
+        [state]="{folderName: folder.name}">
+        <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div #textList id="textList">
+    <ion-list *ngIf="texts.length > 0" class="fix-padding">
+      <ion-item button *ngFor="let text of texts"
+        [routerLink]="['/tabs/listen/text', text.id]"
+        [state]="{title: text.title}">
+        <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

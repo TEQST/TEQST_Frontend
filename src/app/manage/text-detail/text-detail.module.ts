@@ -21,6 +21,7 @@ import {
 } from './speaker-progress-text-view/text-wrapper/text-wrapper.component';
 import {TextDetailPageRoutingModule} from './text-detail-routing.module';
 import {TextDetailPage} from './text-detail.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import {TextDetailPage} from './text-detail.page';
         FormsModule,
         IonicModule,
         TextDetailPageRoutingModule,
+        TranslateModule,
     ],
     declarations: [
         TextDetailPage,

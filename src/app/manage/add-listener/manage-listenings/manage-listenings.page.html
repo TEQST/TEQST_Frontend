@@ -14,7 +14,7 @@
       {{getStringOfUsernames(ln.listeners)}}
       <ion-buttons slot="end">
         <ion-button color="danger"
-            (click)="openDeleteListeningAlert(ln.id)">
+            (click)="openDeleteListeningAlert($event, ln.id)">
             <ion-icon name="trash" slot="icon-only"></ion-icon>
           </ion-button>
       </ion-buttons>

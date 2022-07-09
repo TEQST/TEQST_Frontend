@@ -41,7 +41,7 @@ export class FolderListPage extends BaseComponent implements OnInit {
     this.subfolders = [];
     this.folderListElem.nativeElement.classList.remove('loaded');
 
-    this.listenerService.getSubfoldersOf(this.folderId)
+    this.listenerService.getFolderDetail(this.folderId)
         .subscribe(
             (data) => {
               console.log(data)

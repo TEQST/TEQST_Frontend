@@ -73,7 +73,7 @@ export class SelectSpeakerPage implements OnInit {
       console.log('error!!');
     });
 
-    
+
     // this.navComponent.push(ManageListeningsPage, {
     //   navComponent: this.navComponent,
     // })

@@ -10,11 +10,22 @@ const routes: Routes = [
     component: ListenPage,
   },
   {
-    path: ':publisherId',
-    loadChildren: ():
-    Promise<FolderListPageModule> => import('./folder-list/folder-list.module')
-        .then( (m) => m.FolderListPageModule),
+    path: ':folderId',
+    loadChildren: () => import('./listen-manage/listen-manage.module')
+        .then( m => m.ListenManagePageModule)
   },
+  {
+    path: 'text/:textId',
+    loadChildren: () => import('./folder-list/text-list/text-detail/text-detail.module')
+        .then( (m) => m.TextDetailPageModule)
+  }
+
+  // {
+  //   path: ':publisherId',
+  //   loadChildren: ():
+  //   Promise<FolderListPageModule> => import('./folder-list/folder-list.module')
+  //       .then( (m) => m.FolderListPageModule),
+  // },
 ];
 
 @NgModule({

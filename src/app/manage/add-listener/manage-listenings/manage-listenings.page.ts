@@ -98,7 +98,8 @@ export class ManageListeningsPage implements OnInit {
         });
   }
 
-  async openDeleteListeningAlert(listeningId): Promise<void> {
+  async openDeleteListeningAlert(event, listeningId): Promise<void> {
+    event.stopPropagation();
     const alert = await this.alertController.create({
       header: 'Attention!',
       message: `Do you really want to revoke this listening access?`,
