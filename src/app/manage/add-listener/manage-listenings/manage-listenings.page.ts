@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IonNav, NavParams, ModalController, AlertController } from '@ionic/angular';
 import { AlertManagerService } from 'src/app/services/alert-manager.service';
 import { ShareFolderService } from 'src/app/services/share-folder.service';
@@ -12,6 +12,7 @@ import { SelectListenerPage } from '../select-listener/select-listener.page';
   styleUrls: ['./manage-listenings.page.scss'],
 })
 export class ManageListeningsPage implements OnInit {
+  @ViewChild('listeningList', {read: ElementRef}) listeningListElem: ElementRef
 
   public navComponent: IonNav;
   public listenings = [];
@@ -20,7 +21,7 @@ export class ManageListeningsPage implements OnInit {
     public navParams: NavParams,
     public listenerData: ListenerDataService,
     private shareFolderService: ShareFolderService,
-    private viewCtrl: ModalController,
+    public viewCtrl: ModalController,
     private alertController: AlertController,
     private alertManagerService: AlertManagerService,
   ) {
@@ -59,11 +60,8 @@ export class ManageListeningsPage implements OnInit {
         .toPromise()
         .then((listenings) => {
           this.listenings = listenings;
+          this.listeningListElem.nativeElement.classList.add('loaded');
         });
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
   }
 
   addListening() {

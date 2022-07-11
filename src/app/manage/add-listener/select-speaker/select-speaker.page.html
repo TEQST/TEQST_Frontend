@@ -3,14 +3,19 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>select-speaker</ion-title>
+    <ion-title>{{'manage.addListenerModal.selectSpeaker.title' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="viewCtrl.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
     <ion-segment-button value="0">
-      <ion-label>{{'manage.addListenerModal.byAccents' | translate}}</ion-label>
+      <ion-label>{{'manage.addListenerModal.selectSpeaker.byAccents' | translate}}</ion-label>
     </ion-segment-button>
     <ion-segment-button value="1">
-      <ion-label>{{'manage.addListenerModal.bySpeakers' | translate}}</ion-label>
+      <ion-label>{{'manage.addListenerModal.selectSpeaker.byUsernames' | translate}}</ion-label>
     </ion-segment-button>
   </ion-segment>
 </ion-header>
@@ -25,6 +30,6 @@
   </ion-slides>
 </ion-content>
 <ion-footer class="ion-text-end">
-  <ion-button *ngIf="creating" color="primary" (click)="createListening()">Finish</ion-button>
-  <ion-button *ngIf="!creating" color="primary" (click)="updateListening()">Update</ion-button>
+  <ion-button *ngIf="creating" color="primary" (click)="createListening()">{{'manage.addListenerModal.selectSpeaker.finish' | translate}}</ion-button>
+  <ion-button *ngIf="!creating" color="primary" (click)="updateListening()">{{'manage.addListenerModal.selectSpeaker.update' | translate}}</ion-button>
 </ion-footer>

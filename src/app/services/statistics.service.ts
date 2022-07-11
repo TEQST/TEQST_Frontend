@@ -19,9 +19,10 @@ export class StatisticsService {
     public authenticationService: AuthenticationService) { }
 
 
-  public getSharedFolderStats(sharedFolderId: number): Observable<FolderStats> {
+  public getSharedFolderStats(sharedFolderId: number, role: 'pub' | 'lstn')
+  : Observable<FolderStats> {
     const url = this.SERVER_URL +
-      `/api/pub/sharedfolders/${sharedFolderId}/stats/`;
+      `/api/${role}/sharedfolders/${sharedFolderId}/stats/`;
     return this.http.get<FolderStats>(url.toString());
   }
 

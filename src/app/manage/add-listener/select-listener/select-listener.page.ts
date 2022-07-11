@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IonNav, NavParams } from '@ionic/angular';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { IonNav, ModalController, NavParams } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { ShareFolderService } from 'src/app/services/share-folder.service';
 import { ListenerDataService } from '../listener-data.service';
@@ -12,6 +12,7 @@ import { SelectSpeakerPage } from '../select-speaker/select-speaker.page';
   styleUrls: ['./select-listener.page.scss'],
 })
 export class SelectListenerPage implements OnInit {
+  @ViewChild('userLists', {read: ElementRef}) userListsElem: ElementRef
 
   private listeners: User[];
   public filteredListeners: User[];
@@ -23,7 +24,8 @@ export class SelectListenerPage implements OnInit {
 
   constructor(public navParams: NavParams,
               private shareFolderService: ShareFolderService,
-              private listenerData: ListenerDataService) {
+              private listenerData: ListenerDataService,
+              public viewCtrl: ModalController) {
 
     this.navComponent = navParams.get('navComponent');
   }
@@ -52,6 +54,7 @@ export class SelectListenerPage implements OnInit {
     this.listeners = lns;
     this.filteredListeners = lns;
     this.filterLists();
+    this.userListsElem.nativeElement.classList.add('loaded');
   }
 
   // update the search term on text input

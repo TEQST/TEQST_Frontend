@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 import { ShareFolderService } from 'src/app/services/share-folder.service';
 import { ListenerDataService } from '../../listener-data.service';
@@ -9,6 +9,7 @@ import { ListenerDataService } from '../../listener-data.service';
   styleUrls: ['./select-spk-spk-seg.component.scss'],
 })
 export class SelectSpkSpkSegComponent implements OnInit {
+  @ViewChild('userLists', {read: ElementRef}) userListsElem: ElementRef
 
   private speakers: User[];
   public filteredSpeakers: User[];
@@ -36,6 +37,8 @@ export class SelectSpkSpkSegComponent implements OnInit {
     this.speakers = spks;
     this.filteredSpeakers = spks;
     this.filterLists();
+    this.userListsElem.nativeElement.classList.add('loaded');
+
   }
 
   onSearchTerm(event: CustomEvent): void {

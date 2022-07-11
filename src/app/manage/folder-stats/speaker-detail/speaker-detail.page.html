@@ -1,7 +1,10 @@
 <ion-header class="no-select">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/manage/{{folderId}}"></ion-back-button>
+      <!-- <ion-back-button defaultHref="tabs/manage/{{folderId}}"></ion-back-button> -->
+      <!-- This page is also used by the listen tab, therefore no defaultref, bc
+      it would have to be parameterized, plus it also doesn't really make sense here anyway. -->
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>{{'manage.folderStatsModal.speakerDetail.modalTitle' | translate}} {{speaker.name}}</ion-title>
   </ion-toolbar>

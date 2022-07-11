@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IonNav, IonSlides, NavParams} from '@ionic/angular';
+import {IonNav, IonSlides, ModalController, NavParams} from '@ionic/angular';
 import { ShareFolderService } from 'src/app/services/share-folder.service';
 import {ListenerDataService} from '../listener-data.service';
 import {ManageListeningsPage} from '../manage-listenings/manage-listenings.page';
@@ -19,6 +19,7 @@ export class SelectSpeakerPage implements OnInit {
 
   constructor(
     public navParams: NavParams,
+    public viewCtrl: ModalController,
     private listenerData: ListenerDataService,
     private shareFolderService: ShareFolderService,
   ) {

@@ -1,15 +1,16 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{'manage.addListenerModal.manageListenings.title' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="viewCtrl.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-text-end">
-    <ion-button color="primary" (click)="dismiss()">Cancel</ion-button>
-    <ion-button color="primary" (click)="addListening()"><ion-icon name="add"></ion-icon></ion-button>
-  </div>
-  <ion-list>
+  <ion-list #listeningList class="fadeInWhenLoaded">
     <ion-item button *ngFor="let ln of listenings" (click)="openListening(ln)">
       {{getStringOfUsernames(ln.listeners)}}
       <ion-buttons slot="end">
@@ -20,4 +21,10 @@
       </ion-buttons>
     </ion-item>
   </ion-list>
+  <ion-text color="medium" class="ion-padding" *ngIf="listenings.length == 0">{{'manage.addListenerModal.manageListenings.noListeningAvailable' | translate}}</ion-text>
 </ion-content>
+
+<ion-footer>
+  <ion-button color="primary" (click)="dismiss()">{{'manage.addListenerModal.manageListenings.cancel' | translate}}</ion-button>
+  <ion-button color="primary" (click)="addListening()"><ion-icon name="add"></ion-icon></ion-button>
+</ion-footer>

@@ -117,6 +117,7 @@ export class ManageFolderUIService {
         // pass variables to the modal
         folderId: currentFolder.id,
         folderName: currentFolder.name,
+        role: 'pub',
       },
     });
     return await modal.present();

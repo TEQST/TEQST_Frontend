@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ShareFolderService } from 'src/app/services/share-folder.service';
 import { ListenerDataService } from '../../listener-data.service';
 
@@ -8,6 +8,7 @@ import { ListenerDataService } from '../../listener-data.service';
   styleUrls: ['./select-spk-acc-seg.component.scss'],
 })
 export class SelectSpkAccSegComponent implements OnInit {
+  @ViewChild('userLists', {read: ElementRef}) userListsElem: ElementRef
 
   private selectedAccents: string[];
   public filteredSelectedAccents: string[];
@@ -35,6 +36,7 @@ export class SelectSpkAccSegComponent implements OnInit {
     this.selectedAccents = accents;
     this.filteredSelectedAccents = accents;
     this.filterAccents();
+    this.userListsElem.nativeElement.classList.add('loaded');
   }
 
   onSearchTerm(event: CustomEvent): void {

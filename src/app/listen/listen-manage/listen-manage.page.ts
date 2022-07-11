@@ -1,8 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import {BaseComponent} from 'src/app/base-component';
 import {FolderDetail} from 'src/app/interfaces/folder-detail';
 import {TextBasic} from 'src/app/interfaces/text-basic';
+import { FolderStatsPage } from 'src/app/manage/folder-stats/folder-stats.page';
 import {ListenerService} from 'src/app/services/listener.service';
 import {LoaderService} from 'src/app/services/loader.service';
 
@@ -24,6 +26,7 @@ export class ListenManagePage extends BaseComponent implements OnInit {
     public loaderService: LoaderService,
     private listenerService: ListenerService,
     private route: ActivatedRoute,
+    private modalController: ModalController,
   ) {
     super(loaderService);
     this.currentFolder = {
@@ -66,8 +69,16 @@ export class ListenManagePage extends BaseComponent implements OnInit {
         });
   }
 
-  openFolderStatsModal(): void {
-
+  async openFolderStatsModal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: FolderStatsPage,
+      componentProps: {
+        folderId: this.currentFolder.id,
+        folderName: this.currentFolder.name,
+        role: 'lstn',
+      },
+    });
+    return await modal.present();
   }
 
 }

@@ -12,6 +12,7 @@ export class FolderStatsPage {
 
   @Input() folderId: number;
   @Input() folderName: string;
+  @Input() role: 'pub' | 'lstn';
   @ViewChild('navComponent', {static: false}) navComponent: IonNav
 
   public folderStats: FolderStats;
@@ -25,6 +26,7 @@ export class FolderStatsPage {
       viewCtrl: this.viewCtrl,
       folderId: this.folderId,
       folderName: this.folderName,
+      role: this.role,
     });
   }
 

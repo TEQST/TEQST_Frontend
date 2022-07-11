@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {ListenPage} from './listen.page';
-import {FolderListPageModule} from './folder-list/folder-list.module';
+// import {FolderListPageModule} from './folder-list/folder-list.module';
 
 const routes: Routes = [
   {
@@ -16,9 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'text/:textId',
-    loadChildren: () => import('./folder-list/text-list/text-detail/text-detail.module')
+    loadChildren: () => import('./listen-manage/text-detail/text-detail.module')
         .then( (m) => m.TextDetailPageModule)
-  }
+  },
 
   // {
   //   path: ':publisherId',

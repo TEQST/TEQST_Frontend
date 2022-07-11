@@ -1,4 +1,10 @@
+
+
 app-select-spk-spk-seg, app-select-spk-acc-seg {
     width: 100%;
     text-align: left;
+}
+
+ion-header, ion-content, ion-footer {
+    background-color: var(--ion-background-color, #fff);
 }

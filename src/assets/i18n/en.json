@@ -44,7 +44,7 @@
 		}
 	},
 	"listen": {
-		"contentTitle": "Select a publisher",
+		"contentTitle": "Select a folder",
 		"folderList": {
 			"contentTitle": "Folders by"
 		},
@@ -105,6 +105,37 @@
 				"publicForEveryoneLabel": "Public for everyone",
 				"addedSpeakersLabel": "Added speakers",
 				"allUsersLabel": "All users"
+			}
+		},
+		"addListenerModal": {
+			"manageListenings": {
+				"title": "Listening Permissions",
+				"noListeningAvailable": "No Listening Permissions",
+				"cancel": "Cancel"
+			},
+			"selectListener": {
+				"title": "Select Listener",
+				"searchbarPlaceholder": "Search for user",
+				"addedListenersLabel": "Added listeners",
+				"allUsersLabel": "All users",
+				"next": "Next"
+			},
+			"selectSpeaker": {
+				"title": "Select speaker",
+				"byAccents": "By Accent",
+				"byUsernames": "By Username",
+				"finish": "Finish",
+				"update": "Update",
+				"speakerSegment": {
+					"searchbarPlaceholder": "Search for user",
+					"addedSpeakersLabel": "Added speakers",
+					"allUsersLabel": "All users"
+				},
+				"accentSegment": {
+					"searchbarPlaceholder": "Search for accent",
+					"addedAccentsLabel": "Added accents",
+					"allAccentsLabel": "All accents"
+				}
 			}
 		}
 	},
