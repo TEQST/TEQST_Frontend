@@ -4,7 +4,7 @@
       <ion-back-button (click)="handleBackButton($event)" defaultHref="tabs/speak"></ion-back-button>
     </ion-buttons>
     <ion-item lines="none" slot="end" *ngIf="isUploadActive">
-      <ion-label>{{speak.recordView.uploadingMsg | translate}}</ion-label>
+      <ion-label>{{'speak.recordView.uploadingMsg' | translate}}</ion-label>
       <ion-spinner color="primary"></ion-spinner>
     </ion-item>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>

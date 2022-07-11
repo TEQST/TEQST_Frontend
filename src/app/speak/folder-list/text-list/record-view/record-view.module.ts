@@ -9,6 +9,7 @@ import {SentenceWrapperComponent}
   from './sentence-wrapper/sentence-wrapper.component';
 import {RecorderComponent} from './recorder/recorder.component';
 import {PlayerComponent} from './player/player.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import {PlayerComponent} from './player/player.component';
     FormsModule,
     IonicModule,
     RecordViewPageRoutingModule,
+    TranslateModule,
   ],
   declarations: [
     RecordViewPage,
