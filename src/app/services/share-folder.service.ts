@@ -94,6 +94,11 @@ export class ShareFolderService {
     return this.http.get<string[]>(url);
   }
 
+  getRecentLinks(): Observable<JSON[]> {
+    const url = this.SERVER_URL + `/api/spk/recent-folders/`;
+    return this.http.get<JSON[]>(url);
+  }
+
   filterLists(list, allUsers, searchTerm)
   :{filteredList: User[]; filteredUsers: User[]} {
     const filteredList = list.filter((user) => {

@@ -25,6 +25,11 @@ const routes: Routes = [
         './folder-list/text-list/record-view/record-view.module')
         .then( (m) => m.RecordViewPageModule),
   },
+  {
+    path: 'recent-links',
+    loadChildren: () => import('./recent-links/recent-links.module').then( m => m.RecentLinksPageModule)
+  },
+
 ];
 
 @NgModule({

@@ -66,8 +66,9 @@ export class SpeakPage extends BaseComponent implements OnInit {
     // }
     if (this.current_id == null || this.root_uid == null) {
       // console.log('GONNA REDIRECT');
-      this.router.navigateByUrl(
-          '/tabs/speak/link/' + this.defaultId + '?root=' + this.defaultRootId);
+      // this.router.navigateByUrl(
+      //  '/tabs/speak/link/' + this.defaultId + '?root=' + this.defaultRootId);
+      this.router.navigateByUrl('/tabs/speak/recent-links');
     }
     // this.root_uid = this.route.snapshot.queryParamMap.get('root');
     // console.log(this.root_uid);
@@ -83,6 +84,8 @@ export class SpeakPage extends BaseComponent implements OnInit {
   }
 
   ionViewWillEnter(): void {
+    // TODO: make a check here for the validity of the id and root id
+    //       and navigate to recent links if they're invalid
     this.loadCurrentFolder();
     this.folderListElem.nativeElement.classList.add('loaded');
     this.textListElem.nativeElement.classList.add('loaded');
@@ -92,6 +95,9 @@ export class SpeakPage extends BaseComponent implements OnInit {
     console.log('making request with');
     console.log(this.current_id);
     console.log(this.root_uid);
+    if (this.current_id == null || this.root_uid == null) {
+      this.router.navigateByUrl('/tabs/speak/recent-links');
+    }
     this.navService.getFolderInfo(this.current_id, this.root_uid).subscribe(
         (res) => {
           console.log(res);
