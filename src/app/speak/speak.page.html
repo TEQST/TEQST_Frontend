@@ -1,10 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/speak/recent-links">
+        <ion-icon slot="start" name="home"></ion-icon>
+      </ion-button>
       <ion-back-button *ngIf="canGoBack" defaultHref="tabs/speak/link/{{currentFolder.parent}}?root={{root_uid}}"></ion-back-button>
     </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
-    <ion-img src="../../assets/img/logo.png"></ion-img>
     <!-- <ion-buttons slot="end">
       <ion-button color="primary">
         <ion-icon name="information-circle-outline"></ion-icon>

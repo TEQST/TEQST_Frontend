@@ -104,6 +104,7 @@ export class SpeakPage extends BaseComponent implements OnInit {
           this.currentFolder = new Folder(
               res['id'], res['name'], res['parent']);
           this.canGoBack = res['parent'] == null ? false : true;
+          console.log(this.canGoBack)
           if (res['subfolder'].length == 0) {
             this.loadTexts();
             return;

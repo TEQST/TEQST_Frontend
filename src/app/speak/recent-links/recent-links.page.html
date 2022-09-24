@@ -8,6 +8,7 @@
   <h1>Recent Folders</h1>
   <ion-list>
     <ion-item button *ngFor="let folder of recentFolders" (click)="openFolder(folder.folder.id, folder.folder.root)">
+      <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon>
       <ion-label>
         <h2>{{ folder.folder.name }}</h2>
         <p>{{ folder.folder.path }}</p>
