@@ -9,6 +9,7 @@ import {Folder} from 'src/app/speak/speak.folder';
 import {Location} from '@angular/common';
 import { ModalController } from '@ionic/angular';
 import { Constants } from 'src/app/constants';
+import { TimeStatsComponent } from '../time-stats/time-stats.component';
 
 @Component({
   selector: 'app-folder-content',
@@ -30,6 +31,8 @@ export class FolderContentPage extends BaseComponent implements OnInit {
   public canGoBack: boolean;
   private defaultId: string;
   private defaultRootId: string;
+  private folderName: string
+  private timestats = [];
 
   constructor(private navService : SpeakTabNavService,
               private alertManager: AlertManagerService,
@@ -124,20 +127,22 @@ export class FolderContentPage extends BaseComponent implements OnInit {
         this.current_id, this.root_uid).subscribe((res) => {
       console.log('load texts')
       console.log(res);
+      this.folderName = res['name'];
+      this.timestats = res['timestats'];
       this.texts = res['texts'];
     });
   }
 
-  // async presentTimeStats(): Promise<void> {
-  //   const popover = await this.modalController.create({
-  //     component: TimeStatsComponent,
-  //     componentProps: {
-  //       timestats: this.sharedFolderData.timestats,
-  //       folderName: this.sharedFolderData.name,
-  //     },
-  //   });
-  //   return await popover.present();
-  // }
+  async presentTimeStats(): Promise<void> {
+    const popover = await this.modalController.create({
+      component: TimeStatsComponent,
+      componentProps: {
+        timestats: this.timestats,
+        folderName: this.folderName,
+      },
+    });
+    return await popover.present();
+  }
 
   // Truncate number to the specified amount of decimal places
   truncateNumber(num, fixed): string {
