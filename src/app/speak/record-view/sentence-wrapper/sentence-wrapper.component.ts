@@ -1,5 +1,5 @@
 import {RecordingPlaybackService}
-  from './../../../../../services/recording-playback.service';
+  from 'src/app/services/recording-playback.service';
 import {
   Component, OnInit, ElementRef,
   QueryList, ViewChildren, AfterViewChecked, ViewChild, OnDestroy,

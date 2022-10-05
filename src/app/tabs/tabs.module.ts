@@ -10,7 +10,6 @@ import {SpeakPageModule} from '../speak/speak.module';
 import {ManagePageModule} from '../manage/manage.module';
 import {ListenPageModule} from '../listen/listen.module';
 import {SettingsPageModule} from '../settings/settings.module';
-import {RecentLinksPageModule} from '../speak/recent-links/recent-links.module';
 
 const routes: Routes = [
   {
@@ -21,15 +20,6 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/speak',
         pathMatch: 'full',
-      },
-      {
-        path: 'speak',
-        loadChildren: ()
-        :Promise<RecentLinksPageModule> => import(
-            '../speak/recent-links/recent-links.module')
-            .then((m) => m.RecentLinksPageModule),
-        data: {requiresLogin: true},
-        canActivate: [AccessGuard],
       },
       {
         path: 'speak',

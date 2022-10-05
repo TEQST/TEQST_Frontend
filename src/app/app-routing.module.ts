@@ -8,7 +8,7 @@ import {DocumentationPageModule}
 import {ListenPageModule} from './listen/listen.module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {RecordViewPageModule}
-  from './speak/folder-list/text-list/record-view/record-view.module';
+  from './speak/record-view/record-view.module';
 import {TabsPageModule} from './tabs/tabs.module';
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'speak/:publisherId/:folderId/:textId',
     loadChildren: ()
     :Promise<RecordViewPageModule> =>
-      import('./speak/folder-list/text-list/record-view/record-view.module')
+      import('./speak/record-view/record-view.module')
           .then( (m) => m.RecordViewPageModule),
   },
   {

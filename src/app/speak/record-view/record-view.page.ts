@@ -4,9 +4,9 @@ import {AlertController, NavController} from '@ionic/angular';
 import {takeUntil} from 'rxjs/operators';
 
 import {RecordingPlaybackService}
-  from './../../../../services/recording-playback.service';
+  from 'src/app/services/recording-playback.service';
 import {RecordingUploadService}
-  from './../../../../services/recording-upload.service';
+  from 'src/app/services/recording-upload.service';
 import {AudioRecordingService} from './audio-recording.service';
 import {TextServiceService} from './text-service.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';

@@ -1,36 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button routerLink="/tabs/speak/recent-links">
-        <ion-icon slot="start" name="home"></ion-icon>
-      </ion-button>
-      <ion-back-button *ngIf="canGoBack" defaultHref="tabs/speak/link/{{currentFolder.parent}}?root={{root_uid}}"></ion-back-button>
-    </ion-buttons>
-    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+    <ion-img src="../../assets/img/logo.png"></ion-img>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="no-select">
-  <h1>{{ currentFolder.name }}</h1>
-  <div #folderList id="folderList" class="fadeInWhenLoaded">
-    <ion-list *ngIf="subfolders.length > 0">
-      <ion-item button *ngFor="let folder of subfolders" [routerLink]="['/tabs/speak/link', folder.uid]"
-        [queryParams]="{root: root_uid}">
-        <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
-      </ion-item>
-    </ion-list>
-  </div>
-
-  <div #textList class="fadeInWhenLoaded">
-    <ion-list *ngIf="texts.length > 0">
-      <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/speak/text', text.id]"
-        [queryParams]="{root: root_uid}">
-        <ion-icon name="reader" [color]="(text.words_finished/text.words_total) === 1 ? 'success' : 'dark'" class="textIcon"></ion-icon>
-        <ion-label>
-          {{ text.title }}
-          <p> {{text.words_finished}}/{{text.words_total}} {{'speak.textProgresWords' | translate}} ({{ truncateNumber(text.words_finished/text.words_total, 2)| percent}}) </p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
+<ion-content>
+  <h1>Recent Folders</h1>
+  <ion-list>
+    <ion-item button *ngFor="let folder of recentFolders" (click)="openFolder(folder.folder.id, folder.folder.root)">
+      <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon>
+      <ion-label>
+        <h2>{{ folder.folder.name }}</h2>
+        <p>{{ folder.folder.path }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

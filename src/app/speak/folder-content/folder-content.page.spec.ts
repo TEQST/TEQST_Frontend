@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { RecentLinksPage } from './recent-links.page';
+import { FolderContentPage } from './folder-content.page';
 
-describe('RecentLinksPage', () => {
-  let component: RecentLinksPage;
-  let fixture: ComponentFixture<RecentLinksPage>;
+describe('FolderContentPage', () => {
+  let component: FolderContentPage;
+  let fixture: ComponentFixture<FolderContentPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecentLinksPage ],
+      declarations: [ FolderContentPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RecentLinksPage);
+    fixture = TestBed.createComponent(FolderContentPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

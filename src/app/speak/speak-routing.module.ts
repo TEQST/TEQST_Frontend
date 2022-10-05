@@ -1,6 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import { RecordViewPageModule } from './folder-list/text-list/record-view/record-view.module';
+import {FolderContentPageModule}
+  from './folder-content/folder-content.module';
+import {FolderContentPage} from './folder-content/folder-content.page';
+import {RecordViewPageModule}
+  from './record-view/record-view.module';
 
 import {SpeakPage} from './speak.page';
 
@@ -11,7 +15,11 @@ const routes: Routes = [
   },
   {
     path: 'link/:folderUid',
-    component: SpeakPage,
+    component: FolderContentPage,
+    loadChildren: ()
+    :Promise<FolderContentPageModule> => import(
+        './folder-content/folder-content.module')
+        .then( (m) => m.FolderContentPageModule),
   },
   // {
   //   path: ':publisherId',
@@ -22,14 +30,9 @@ const routes: Routes = [
     path: 'text/:textId',
     loadChildren: ()
     :Promise<RecordViewPageModule> => import(
-        './folder-list/text-list/record-view/record-view.module')
+        './record-view/record-view.module')
         .then( (m) => m.RecordViewPageModule),
   },
-  {
-    path: 'recent-links',
-    loadChildren: () => import('./recent-links/recent-links.module').then( m => m.RecentLinksPageModule)
-  },
-
 ];
 
 @NgModule({

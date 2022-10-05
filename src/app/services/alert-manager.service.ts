@@ -143,6 +143,7 @@ export class AlertManagerService {
   }
 
   async presentNoInternetAlert(): Promise<void> {
+    return
     this.noInternetAlert = await this.alertController.create({
       header: 'No Internet',
       message: 'Please restore the connection to the internet',
