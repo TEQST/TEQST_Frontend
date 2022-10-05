@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-select">
   <h1>Recent Folders</h1>
   <ion-list>
     <ion-item button *ngFor="let folder of recentFolders" (click)="openFolder(folder.folder.id, folder.folder.root)">
@@ -15,4 +15,7 @@
       </ion-label>
     </ion-item>
   </ion-list>
+  <ion-note *ngIf="recentFolders.length == 0" class="ion-padding">
+    {{'speak.noSharedFolders' | translate}}
+  </ion-note>
 </ion-content>

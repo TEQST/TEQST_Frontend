@@ -14,7 +14,7 @@ import {LoaderService} from 'src/app/services/loader.service';
 export class ListenPage extends BaseComponent {
   @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
 
-  public folders: any;
+  public folders: any = [];
 
   constructor(
     public loaderService: LoaderService,

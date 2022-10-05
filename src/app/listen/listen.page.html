@@ -14,5 +14,7 @@
       <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
     </ion-item>
   </ion-list>
-
+  <ion-note *ngIf="folders.length == 0" class="ion-padding">
+    {{'listen.noSharedFolders' | translate}}
+  </ion-note>
 </ion-content>

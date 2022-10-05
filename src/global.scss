@@ -86,6 +86,10 @@ ion-toolbar {
     }
 }
 
+ion-note {
+    margin: 5px;
+}
+
 .fadeInWhenLoaded {
     opacity: 0!important;
     transition: .3s ease opacity;

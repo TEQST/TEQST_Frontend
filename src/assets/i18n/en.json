@@ -45,6 +45,7 @@
 	},
 	"listen": {
 		"contentTitle": "Select a folder",
+		"noSharedFolders": "Recordings you can listen to will be shown here.",
 		"folderList": {
 			"contentTitle": "Folders by"
 		},
@@ -141,6 +142,7 @@
 	},
 	"speak": {
 		"textProgresWords": "words",
+		"noSharedFolders": "Your recently opened links will be listed here.",
 		"folderList": {
 			"personalFolderContentTitle": "Folders by",
 			"publicFolderContentTitle": "Public folders"
