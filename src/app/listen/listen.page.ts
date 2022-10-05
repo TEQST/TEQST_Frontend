@@ -1,6 +1,5 @@
 import {Component, ElementRef, ViewChild}
   from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
 import {BaseComponent} from 'src/app/base-component';
 
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
@@ -15,12 +14,10 @@ import {LoaderService} from 'src/app/services/loader.service';
 export class ListenPage extends BaseComponent {
   @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
 
-  public folders: any
+  public folders: any;
 
   constructor(
     public loaderService: LoaderService,
-    private router: Router,
-    private route: ActivatedRoute,
     private alertManager: AlertManagerService,
     private listenerService: ListenerService) {
 
@@ -34,7 +31,6 @@ export class ListenPage extends BaseComponent {
     this.listenerService.getSharedFolders()
         .subscribe(
             (data) => {
-              console.log(data)
               this.folders = data;
               this.folderListElem.nativeElement.classList.add('loaded');
             },

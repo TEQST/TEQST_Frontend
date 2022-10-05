@@ -25,7 +25,6 @@ export class SpeakPage extends BaseComponent implements OnInit {
   ngOnInit() {
     this.shareFolderService.getRecentLinks().subscribe(
         (res) => {
-          console.log(res);
           this.recentFolders = res;
         // TODO assign to this.recentFolders
         },

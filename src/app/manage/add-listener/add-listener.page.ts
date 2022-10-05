@@ -1,10 +1,8 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ModalController, IonNav} from '@ionic/angular';
-import {User} from 'src/app/interfaces/user';
+import {IonNav} from '@ionic/angular';
 import {ListenerDataService} from './listener-data.service';
-import { ManageListeningsPage } from './manage-listenings/manage-listenings.page';
-import {SelectListenerPage} from './select-listener/select-listener.page';
-import {SelectSpeakerPage} from './select-speaker/select-speaker.page';
+import {ManageListeningsPage}
+  from './manage-listenings/manage-listenings.page';
 
 @Component({
   selector: 'app-add-listener',
@@ -26,10 +24,8 @@ export class AddListenerPage implements OnInit {
   }
 
   ionViewWillEnter(): void {
-    console.log(this.navComponent);
     this.navComponent.push(ManageListeningsPage, {
       navComponent: this.navComponent,
-      // viewCtrl: this.viewCtrl,
     });
   }
 }

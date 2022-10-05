@@ -2,14 +2,11 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
 import {BaseComponent} from 'src/app/base-component';
-import {AlertManagerService} from 'src/app/services/alert-manager.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Folder} from 'src/app/speak/speak.folder';
-import {Location} from '@angular/common';
-import { ModalController } from '@ionic/angular';
-import { Constants } from 'src/app/constants';
-import { TimeStatsComponent } from '../time-stats/time-stats.component';
+import {ModalController} from '@ionic/angular';
+import {TimeStatsComponent} from '../time-stats/time-stats.component';
 
 @Component({
   selector: 'app-folder-content',
@@ -29,60 +26,28 @@ export class FolderContentPage extends BaseComponent implements OnInit {
   public root_uid: string;
   public current_id = 'asdf';
   public canGoBack: boolean;
-  private defaultId: string;
-  private defaultRootId: string;
   private folderName: string
   private timestats = [];
 
   constructor(private navService : SpeakTabNavService,
-              private alertManager: AlertManagerService,
               public loaderService: LoaderService,
               private router: Router,
               private route: ActivatedRoute,
-              private location: Location,
               private modalController: ModalController) {
     super(loaderService);
 
     this.subfolders = [];
     this.canGoBack = false;
     this.current_id = 'asdf';
-    this.defaultId = Constants.DEFAULT_ID;
-    this.defaultRootId = Constants.DEFAULT_ROOT_ID;
   }
 
   ngOnInit(): void {
-    // test: 5?root=fcc6fa34-5f49-4d4d-855a-d98f13b63465
     this.current_id = this.route.snapshot.paramMap.get('folderUid');
     this.root_uid = this.route.snapshot.queryParamMap.get('root');
-    console.log('current uid');
-    console.log(this.current_id);
-    console.log('root uid');
-    console.log(this.root_uid);
 
-    // if (this.current_id == null) {
-    //   if (this.root_uid != null) {
-    //     this.current_id = this.root_uid;
-    //   } else {
-    //     // TODO: load root folder and adjust url
-    //   }
-    // }
     if (this.current_id == null || this.root_uid == null) {
-      // console.log('GONNA REDIRECT');
-      // this.router.navigateByUrl(
-      //  '/tabs/speak/link/' + this.defaultId + '?root=' + this.defaultRootId);
-      this.router.navigateByUrl('/tabs/speak/recent-links');
+      this.router.navigateByUrl('/tabs/speak');
     }
-    // this.root_uid = this.route.snapshot.queryParamMap.get('root');
-    // console.log(this.root_uid);
-    // if (this.root_uid == null) {
-    //   this.root_uid = '00000';
-    //   this.current_uid = this.root_uid;
-    //   const url = this.router.createUrlTree(
-    //       [`tabs/speak/${this.current_uid}`],
-    //       {queryParams: {root: this.root_uid}},
-    //   ).toString();
-    //   this.location.go(url);
-    // }
   }
 
   ionViewWillEnter(): void {
@@ -93,20 +58,15 @@ export class FolderContentPage extends BaseComponent implements OnInit {
     this.textListElem.nativeElement.classList.add('loaded');
   }
 
-  loadCurrentFolder() {
-    console.log('making request with');
-    console.log(this.current_id);
-    console.log(this.root_uid);
+  loadCurrentFolder(): void {
     if (this.current_id == null || this.root_uid == null) {
       this.router.navigateByUrl('/tabs/speak/recent-links');
     }
     this.navService.getFolderInfo(this.current_id, this.root_uid).subscribe(
         (res) => {
-          console.log(res);
           this.currentFolder = new Folder(
               res['id'], res['name'], res['parent']);
           this.canGoBack = res['parent'] == null ? false : true;
-          console.log(this.canGoBack)
           if (res['subfolder'].length == 0) {
             this.loadTexts();
             return;
@@ -119,14 +79,11 @@ export class FolderContentPage extends BaseComponent implements OnInit {
           console.log(err);
         },
     );
-    console.log('load');
   }
 
-  loadTexts() {
+  loadTexts(): void {
     this.navService.loadContentsOfSharedFolder(
         this.current_id, this.root_uid).subscribe((res) => {
-      console.log('load texts')
-      console.log(res);
       this.folderName = res['name'];
       this.timestats = res['timestats'];
       this.texts = res['texts'];

@@ -188,7 +188,7 @@ export class TextServiceService {
     return this.isLoaded.asObservable();
   }
 
-  getSharedFolderId() {
+  getSharedFolderId(): number {
     return this.sharedfolderId;
   }
 
