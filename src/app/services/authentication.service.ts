@@ -1,14 +1,15 @@
-import {RegisterForm} from './../interfaces/register-form';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
+import {ActivatedRoute} from '@angular/router';
+
+import {RegisterForm} from 'src/app/interfaces/register-form';
+import {User} from 'src/app/interfaces/user';
+import {Constants} from 'src/app/constants';
 import {AlertManagerService} from './alert-manager.service';
 import {LanguageService} from './language.service';
-import {User} from '../interfaces/user';
 import {UsermgmtService} from './usermgmt.service';
-import {Constants} from '../constants';
-import {ActivatedRoute} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -56,7 +57,7 @@ export class AuthenticationService {
           } else {
             this.navCtrl.navigateForward('/tabs/speak');
           }
-        }, (error: any) => {
+        }, () => {
           // calls AlertService when server sends error code
           // This effectively never gets called since the Backend responds
           // with a 401 status code which is handled by the interceptor.
@@ -66,24 +67,10 @@ export class AuthenticationService {
         });
   }
 
-  // creates a new User with the sended Data
-  // DEPRECATED, not used
-  // register2(dataToSend, logInData): void {
-  //   const url = this.SERVER_URL + '/api/auth/register/';
-  //   this.http.post(url, dataToSend).subscribe(() => {
-  //     this.login(logInData);
-  //   }, (error: any) => {
-  //     this.alertService.showErrorAlertNoRedirection('Username already exists',
-  //         'A user with that username already exists, ' +
-  //         'please choose another username');
-  //   });
-  // }
-
   register(registrationData: RegisterForm): Observable<object> {
     const url =this.SERVER_URL + '/api/auth/register/';
     return this.http.post(url, registrationData);
   }
-
 
   // redirect to login, and loging out
   logout(): void {

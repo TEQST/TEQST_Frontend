@@ -1,4 +1,4 @@
 export interface SentenceStatus {
     index: number;
-    status: string; //Should maybe be an enum?
+    status: string; // Should maybe be an enum?
 }

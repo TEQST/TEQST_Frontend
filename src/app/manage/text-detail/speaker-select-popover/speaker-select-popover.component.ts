@@ -1,5 +1,6 @@
 import {Router} from '@angular/router';
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild}
+  from '@angular/core';
 import {NavParams, PopoverController} from '@ionic/angular';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

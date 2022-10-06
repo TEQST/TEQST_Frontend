@@ -1,9 +1,10 @@
-import {RouteStateService} from 'src/app/services/route-state.service';
 import {ActivatedRoute} from '@angular/router';
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TextStateService} from 'src/app/services/text-state.service';
 import {takeUntil, map} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+
+import {RouteStateService} from 'src/app/services/route-state.service';
+import {TextStateService} from 'src/app/services/text-state.service';
 
 @Component({
   selector: 'app-text-wrapper',

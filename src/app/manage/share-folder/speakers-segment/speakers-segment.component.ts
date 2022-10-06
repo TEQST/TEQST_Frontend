@@ -3,7 +3,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from 'src/app/interfaces/user';
 import {ShareFolderService} from 'src/app/services/share-folder.service';
 
-
 @Component({
   selector: 'speakers-segment',
   templateUrl: './speakers-segment.component.html',

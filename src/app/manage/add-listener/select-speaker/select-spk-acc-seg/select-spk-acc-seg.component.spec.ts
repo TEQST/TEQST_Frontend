@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { SelectSpkAccSegComponent } from './select-spk-acc-seg.component';
+import {SelectSpkAccSegComponent} from './select-spk-acc-seg.component';
 
 describe('SelectSpkAccSegComponent', () => {
   let component: SelectSpkAccSegComponent;
@@ -9,8 +9,8 @@ describe('SelectSpkAccSegComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectSpkAccSegComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SelectSpkAccSegComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SelectSpkAccSegComponent);

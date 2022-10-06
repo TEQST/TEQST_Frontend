@@ -11,7 +11,7 @@ import {CreateFolderPageModule} from './create-folder/create-folder.module';
 import {CreateTextPageModule} from './create-text/create-text.module';
 import {ShareFolderPageModule} from './share-folder/share-folder.module';
 import {TextDetailPageModule} from './text-detail/text-detail.module';
-import { AddListenerPageModule } from './add-listener/add-listener.module';
+import {AddListenerPageModule} from './add-listener/add-listener.module';
 
 
 @NgModule({

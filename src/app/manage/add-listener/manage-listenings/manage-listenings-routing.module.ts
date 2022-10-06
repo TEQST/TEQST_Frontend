@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { ManageListeningsPage } from './manage-listenings.page';
+import {ManageListeningsPage} from './manage-listenings.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ManageListeningsPage
-  }
+    component: ManageListeningsPage,
+  },
 ];
 
 @NgModule({

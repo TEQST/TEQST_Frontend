@@ -1,10 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import {ModalController} from '@ionic/angular';
+
 import {BaseComponent} from 'src/app/base-component';
 import {FolderDetail} from 'src/app/interfaces/folder-detail';
 import {TextBasic} from 'src/app/interfaces/text-basic';
-import { FolderStatsPage } from 'src/app/manage/folder-stats/folder-stats.page';
+import {FolderStatsPage} from 'src/app/manage/folder-stats/folder-stats.page';
 import {ListenerService} from 'src/app/services/listener.service';
 import {LoaderService} from 'src/app/services/loader.service';
 

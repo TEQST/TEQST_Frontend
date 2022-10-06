@@ -1,8 +1,8 @@
-
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {
   SpeakerProgressTextViewComponent,
@@ -21,23 +21,22 @@ import {
 } from './speaker-progress-text-view/text-wrapper/text-wrapper.component';
 import {TextDetailPageRoutingModule} from './text-detail-routing.module';
 import {TextDetailPage} from './text-detail.page';
-import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        TextDetailPageRoutingModule,
-        TranslateModule,
-    ],
-    declarations: [
-        TextDetailPage,
-        TextWrapperComponent,
-        BasicTextViewComponent,
-        SpeakerSelectPopoverComponent,
-        PlaybarComponent,
-        SpeakerProgressTextViewComponent,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    TextDetailPageRoutingModule,
+    TranslateModule,
+  ],
+  declarations: [
+    TextDetailPage,
+    TextWrapperComponent,
+    BasicTextViewComponent,
+    SpeakerSelectPopoverComponent,
+    PlaybarComponent,
+    SpeakerProgressTextViewComponent,
+  ],
 })
 export class TextDetailPageModule {}

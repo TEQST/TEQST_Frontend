@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonNav, IonSlides, ModalController, NavParams} from '@ionic/angular';
-import { ShareFolderService } from 'src/app/services/share-folder.service';
+import {ShareFolderService} from 'src/app/services/share-folder.service';
 import {ListenerDataService} from '../listener-data.service';
-import {ManageListeningsPage} from '../manage-listenings/manage-listenings.page';
 
 @Component({
   selector: 'app-select-speaker',
@@ -26,7 +25,7 @@ export class SelectSpeakerPage implements OnInit {
     this.navComponent = navParams.get('navComponent');
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.creating = this.listenerData.getCreating();
   }
 
@@ -85,7 +84,7 @@ export class SelectSpeakerPage implements OnInit {
     const listeningId = this.listenerData.getListeningId();
     const data = this.getValidatedListeningData();
     this.shareFolderService.updateListening(
-        listeningId, data.listenerIds, data.speakerIds, data.accents
+        listeningId, data.listenerIds, data.speakerIds, data.accents,
     ).subscribe((res) => {
       console.log('worked');
       this.navComponent.popToRoot();

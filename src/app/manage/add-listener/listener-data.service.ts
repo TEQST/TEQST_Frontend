@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+
 import {User} from 'src/app/interfaces/user';
 
 @Injectable({
@@ -12,8 +13,6 @@ export class ListenerDataService {
   private listeners: User[];
   private speakers: User[];
   private accents: string[];
-
-  constructor() { }
 
   wipeSelectableData(): void {
     this.listeners = [];

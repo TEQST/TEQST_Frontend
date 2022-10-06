@@ -1,20 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
 
-import { IonicModule } from '@ionic/angular';
-
-import { ListenManagePageRoutingModule } from './listen-manage-routing.module';
-
-import { ListenManagePage } from './listen-manage.page';
+import {ListenManagePageRoutingModule} from './listen-manage-routing.module';
+import {ListenManagePage} from './listen-manage.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListenManagePageRoutingModule
+    ListenManagePageRoutingModule,
   ],
-  declarations: [ListenManagePage]
+  declarations: [ListenManagePage],
 })
 export class ListenManagePageModule {}

@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { ListenManagePage } from './listen-manage.page';
+import {ListenManagePage} from './listen-manage.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListenManagePage
-  }
+    component: ListenManagePage,
+  },
 ];
 
 @NgModule({

@@ -7,7 +7,7 @@ import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
   templateUrl: './create-folder.page.html',
   styleUrls: ['./create-folder.page.scss'],
 })
-export class CreateFolderPage implements OnInit {
+export class CreateFolderPage {
 
   @Input() parentId: any
   @ViewChild('folderNameInput', {static: false}) folderNameInput: IonInput
@@ -31,8 +31,6 @@ export class CreateFolderPage implements OnInit {
     this.folderNameValid = false;
   }
 
-  ngOnInit() { }
-
   folderNameValidator(control: FormControl) {
     const folderName = control.value;
     this.folderNameValid = (this.validatorPattern.test(folderName) &&
@@ -45,7 +43,7 @@ export class CreateFolderPage implements OnInit {
     }
   }
 
-  submitForm() {
+  submitForm(): void {
     const formData = this.createFolderForm.value;
     // close the modal passing its data
     this.viewCtrl.dismiss({
@@ -53,7 +51,7 @@ export class CreateFolderPage implements OnInit {
     });
   }
 
-  dismissForm() {
+  dismissForm(): void {
     // close the modal without passing data
     this.viewCtrl.dismiss();
   }

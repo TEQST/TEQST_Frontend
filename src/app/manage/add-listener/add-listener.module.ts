@@ -1,18 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
-
-import { AddListenerPageRoutingModule } from './add-listener-routing.module';
-
-import { AddListenerPage } from './add-listener.page';
-import { TranslateModule } from '@ngx-translate/core';
-import { SelectListenerPageModule }
+import {AddListenerPageRoutingModule} from './add-listener-routing.module';
+import {AddListenerPage} from './add-listener.page';
+import {SelectListenerPageModule}
   from './select-listener/select-listener.module';
-import { SelectSpeakerPageModule }
+import {SelectSpeakerPageModule}
   from './select-speaker/select-speaker.module';
-import { ManageListeningsPageModule } from './manage-listenings/manage-listenings.module';
+import {ManageListeningsPageModule}
+  from './manage-listenings/manage-listenings.module';
 
 @NgModule({
   imports: [
@@ -25,6 +24,6 @@ import { ManageListeningsPageModule } from './manage-listenings/manage-listening
     SelectSpeakerPageModule,
     ManageListeningsPageModule,
   ],
-  declarations: [AddListenerPage]
+  declarations: [AddListenerPage],
 })
 export class AddListenerPageModule {}

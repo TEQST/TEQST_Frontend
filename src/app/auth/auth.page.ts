@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {NavController, PopoverController} from '@ionic/angular';
 
-import {LoaderService} from './../services/loader.service';
-import {LanguageService} from '../services/language.service';
+import {LoaderService} from 'src/app/services/loader.service';
+import {LanguageService} from 'src/app/services/language.service';
 import {
   MenuLanguageSelectorComponent,
 } from './menu-language-selector/menu-language-selector.component';
-import {Constants} from '../constants';
-import {BaseComponent} from '../base-component';
+import {Constants} from 'src/app/constants';
+import {BaseComponent} from 'src/app/base-component';
 
 @Component({
   selector: 'app-auth',
@@ -28,7 +28,6 @@ export class AuthPage extends BaseComponent {
 
   async presentMenuLanguages(ev: any): Promise<void> {
     const menulanguages = await this.languageService.getAllMenuLanguages();
-    console.log(menulanguages)
     const popover = await this.popoverController.create({
       component: MenuLanguageSelectorComponent,
       componentProps: {

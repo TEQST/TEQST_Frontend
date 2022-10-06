@@ -1,5 +1,6 @@
-import {AlertManagerService} from './alert-manager.service';
 import {Injectable} from '@angular/core';
+
+import {AlertManagerService} from './alert-manager.service';
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
+
 import {ManageFolderService} from 'src/app/services/manage-folder.service';
 
 export class Text {

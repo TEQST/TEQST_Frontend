@@ -10,8 +10,8 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 
 import {UsermgmtService} from 'src/app/services/usermgmt.service';
-import {AlertManagerService} from '../services/alert-manager.service';
-import {RollbarService} from '../rollbar';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {RollbarService} from 'src/app/rollbar';
 
 @Injectable({
   providedIn: 'root',

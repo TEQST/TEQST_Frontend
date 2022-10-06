@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { SelectSpeakerPage } from './select-speaker.page';
+import {SelectSpeakerPage} from './select-speaker.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SelectSpeakerPage
-  }
+    component: SelectSpeakerPage,
+  },
 ];
 
 @NgModule({

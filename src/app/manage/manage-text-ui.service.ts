@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AlertController, ModalController} from '@ionic/angular';
 
-import {AlertManagerService} from '../services/alert-manager.service';
-import {ManageFolderService} from '../services/manage-folder.service';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {ManageFolderService} from 'src/app/services/manage-folder.service';
 import {CreateTextPage} from './create-text/create-text.page';
 import {Text} from './manage.text';
 

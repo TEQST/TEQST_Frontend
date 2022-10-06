@@ -1,7 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertController, ToastController} from '@ionic/angular';
 import {saveAs} from 'file-saver';
+import {Observable} from 'rxjs';
 
 import {Folder} from './manage.folder';
 import {Text} from './manage.text';
@@ -11,8 +12,7 @@ import {StatisticsService} from 'src/app/services/statistics.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {ManageFolderUIService} from './manage-folder-ui.service';
 import {ManageTextUIService} from './manage-text-ui.service';
-import {BaseComponent} from '../base-component';
-import { Observable } from 'rxjs';
+import {BaseComponent} from 'src/app/base-component';
 
 @Component({
   selector: 'app-manage',
@@ -32,7 +32,6 @@ export class ManagePage extends BaseComponent {
   public texts: Text[]
   public username: string
   public showMultiSelect = false;
-  public isFilterActive = false;
 
   constructor(public loaderService: LoaderService,
               private manageFolderService: ManageFolderService,
@@ -227,10 +226,6 @@ export class ManagePage extends BaseComponent {
     this.manageFolderUIService.openDeleteFolderAlert(folder, () => {
       this.getFolderInfo();
     });
-  }
-
-  openFilterModal(): void {
-    this.manageFolderUIService.openFilterModal();
   }
 
   openShareFolderModal(): void {

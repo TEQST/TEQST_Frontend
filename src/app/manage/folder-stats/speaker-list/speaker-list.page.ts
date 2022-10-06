@@ -5,7 +5,6 @@ import {FolderStats} from 'src/app/interfaces/folder-stats';
 import {StatisticsService} from 'src/app/services/statistics.service';
 import {SpeakerDetailPage} from '../speaker-detail/speaker-detail.page';
 
-
 @Component({
   selector: 'app-speaker-list',
   templateUrl: './speaker-list.page.html',

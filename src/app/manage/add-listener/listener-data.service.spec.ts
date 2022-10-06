@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ListenerDataService } from './listener-data.service';
+import {ListenerDataService} from './listener-data.service';
 
 describe('ListenerDataService', () => {
   let service: ListenerDataService;

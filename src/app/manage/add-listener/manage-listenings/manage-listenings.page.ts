@@ -1,16 +1,18 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IonNav, NavParams, ModalController, AlertController } from '@ionic/angular';
-import { AlertManagerService } from 'src/app/services/alert-manager.service';
-import { ShareFolderService } from 'src/app/services/share-folder.service';
-import { ListenerDataService } from '../listener-data.service';
-import { SelectListenerPage } from '../select-listener/select-listener.page';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {IonNav, NavParams, ModalController, AlertController}
+  from '@ionic/angular';
 
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {ShareFolderService} from 'src/app/services/share-folder.service';
+import {ListenerDataService} from '../listener-data.service';
+import {SelectListenerPage} from '../select-listener/select-listener.page';
 
 @Component({
   selector: 'app-manage-listenings',
   templateUrl: './manage-listenings.page.html',
   styleUrls: ['./manage-listenings.page.scss'],
 })
+
 export class ManageListeningsPage implements OnInit {
   @ViewChild('listeningList', {read: ElementRef}) listeningListElem: ElementRef
 
@@ -26,27 +28,10 @@ export class ManageListeningsPage implements OnInit {
     private alertManagerService: AlertManagerService,
   ) {
     this.navComponent = navParams.get('navComponent');
-
-    // this.listenings = [
-    //   {
-    //     listeners: [
-    //       {id: '12348', name: 'Tom'},
-    //       {id: '24123', name: 'Sarah'},
-    //       {id: '51942', name: 'Bob'},
-    //     ],
-    //     speakers: [
-    //       {id: '59592', name: 'Joachim'},
-    //       {id: '12335', name: 'Anna'},
-    //       {id: '05912', name: 'Lisa'},
-    //     ],
-    //     accents: ['badisch', 'schwäbisch', 'bayrisch'],
-    //   },
-    // ];
   }
 
-  
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchListenings();
   }
 
@@ -54,7 +39,7 @@ export class ManageListeningsPage implements OnInit {
     this.fetchListenings();
   }
 
-  async fetchListenings() {
+  async fetchListenings(): Promise<void> {
     const folderId = this.listenerData.getFolderId();
     await this.shareFolderService.getListenings(folderId)
         .toPromise()
@@ -64,7 +49,7 @@ export class ManageListeningsPage implements OnInit {
         });
   }
 
-  addListening() {
+  addListening(): void {
     this.listenerData.setCreating(true);
     this.listenerData.wipeSelectableData();
     this.navComponent.push(SelectListenerPage, {
@@ -86,7 +71,7 @@ export class ManageListeningsPage implements OnInit {
 
   deleteListening(listeningId): void {
     this.shareFolderService.deleteListening(listeningId)
-        .subscribe((res) => {
+        .subscribe(() => {
           this.fetchListenings();
         }, (err) => {
           this.alertManagerService.showErrorAlertNoRedirection(
@@ -112,7 +97,7 @@ export class ManageListeningsPage implements OnInit {
     await alert.present();
   }
 
-  getStringOfUsernames(users) {
+  getStringOfUsernames(users): string {
     return users.map((user) => user.username).join(', ');
   }
 }

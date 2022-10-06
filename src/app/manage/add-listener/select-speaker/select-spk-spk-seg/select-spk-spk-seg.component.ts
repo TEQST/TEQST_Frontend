@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { User } from 'src/app/interfaces/user';
-import { ShareFolderService } from 'src/app/services/share-folder.service';
-import { ListenerDataService } from '../../listener-data.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {User} from 'src/app/interfaces/user';
+import {ShareFolderService} from 'src/app/services/share-folder.service';
+import {ListenerDataService} from '../../listener-data.service';
 
 @Component({
   selector: 'app-select-spk-spk-seg',
@@ -22,7 +22,7 @@ export class SelectSpkSpkSegComponent implements OnInit {
     private listenerData: ListenerDataService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchUserLists();
   }
 
@@ -38,7 +38,6 @@ export class SelectSpkSpkSegComponent implements OnInit {
     this.filteredSpeakers = spks;
     this.filterLists();
     this.userListsElem.nativeElement.classList.add('loaded');
-
   }
 
   onSearchTerm(event: CustomEvent): void {

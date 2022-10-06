@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ShareFolderService } from 'src/app/services/share-folder.service';
-import { ListenerDataService } from '../../listener-data.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+
+import {ShareFolderService} from 'src/app/services/share-folder.service';
+import {ListenerDataService} from '../../listener-data.service';
 
 @Component({
   selector: 'app-select-spk-acc-seg',
@@ -21,7 +22,7 @@ export class SelectSpkAccSegComponent implements OnInit {
     private listenerData: ListenerDataService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchAccentLists();
   }
 

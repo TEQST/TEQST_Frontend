@@ -1,6 +1,7 @@
-import {FolderStats} from './../../interfaces/folder-stats';
 import {Component, Input, ViewChild} from '@angular/core';
 import {ModalController, IonNav} from '@ionic/angular';
+
+import {FolderStats} from 'src/app/interfaces/folder-stats';
 import {SpeakerListPage} from './speaker-list/speaker-list.page';
 
 @Component({

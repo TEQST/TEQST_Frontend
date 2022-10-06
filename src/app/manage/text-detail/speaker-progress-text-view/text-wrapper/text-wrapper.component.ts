@@ -6,7 +6,6 @@ import {Subject} from 'rxjs';
 import {RouteStateService} from 'src/app/services/route-state.service';
 import {TextStateService} from 'src/app/services/text-state.service';
 
-
 @Component({
   selector: 'app-text-wrapper',
   templateUrl: './text-wrapper.component.html',

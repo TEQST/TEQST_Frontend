@@ -1,10 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { IonNav, ModalController, NavParams } from '@ionic/angular';
-import { User } from 'src/app/interfaces/user';
-import { ShareFolderService } from 'src/app/services/share-folder.service';
-import { ListenerDataService } from '../listener-data.service';
-import { ManageListeningsPage } from '../manage-listenings/manage-listenings.page';
-import { SelectSpeakerPage } from '../select-speaker/select-speaker.page';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {IonNav, ModalController, NavParams} from '@ionic/angular';
+
+import {User} from 'src/app/interfaces/user';
+import {ShareFolderService} from 'src/app/services/share-folder.service';
+import {ListenerDataService} from '../listener-data.service';
+import {ManageListeningsPage}
+  from '../manage-listenings/manage-listenings.page';
+import {SelectSpeakerPage} from '../select-speaker/select-speaker.page';
 
 @Component({
   selector: 'app-select-listener',
@@ -21,7 +23,6 @@ export class SelectListenerPage implements OnInit {
   private searchTerm = '';
   public navComponent: IonNav
 
-
   constructor(public navParams: NavParams,
               private shareFolderService: ShareFolderService,
               private listenerData: ListenerDataService,
@@ -33,17 +34,11 @@ export class SelectListenerPage implements OnInit {
   ngOnInit(): void {
     // reset Search term on each opening of the modal
     this.searchTerm = '';
-    
+
     this.fetchUserLists();
   }
 
   async fetchUserLists(): Promise<void> {
-    // await this.shareFolderService.getSharingListeners(this.folderId)
-    //     .toPromise()
-    //     .then((sharedFolder) => {
-    //       this.listeners = sharedFolder['listeners'];
-    //       this.filteredListeners = sharedFolder['listeners'];
-    //     });
     await this.shareFolderService.getAllUsers()
         .toPromise()
         .then((allUsers) => {
@@ -74,29 +69,16 @@ export class SelectListenerPage implements OnInit {
 
   async addListener(user: User): Promise<void> {
     // create a new array with just the listener ids
-    // const newListeners = this.listeners.map((listener) => listener.id);
-    // newListeners.push(user.id);
     this.listeners.push(user);
     this.listenerData.setListeners(this.listeners);
     this.filterLists();
   }
 
   async removeListener(speaker: User): Promise<void> {
-    // const oldSpeakerIds = this.listeners.map((listener) => listener.id);
-    // // remove the listeners from the array
-    // const newListenerIds = oldSpeakerIds.filter(
-    //     (speakerid) => speakerid != speaker.id);
     this.listeners = this.listeners.filter((user) => user.id != speaker.id);
     this.listenerData.setListeners(this.listeners);
     this.filterLists();
   }
-
-  // showSelectSpeaker(): void {
-  //   this.navComponent.push(SelectSpeakerPage, {
-  //     folderId: this.folderId,
-  //     listeners: this.listeners,
-  //   });
-  // }
 
   showSelectSpeaker(): void {
     this.navComponent.push(SelectSpeakerPage, {
@@ -109,12 +91,3 @@ export class SelectListenerPage implements OnInit {
   }
 
 }
-
-  
-  // showDetail(speaker): void {
-  //   this.navComponent.push(SpeakerDetailPage, {
-  //     folderName: this.folderStats.name,
-  //     folderId: this.folderStats.id,
-  //     speaker,
-  //   });
-  // }gonavigateToSelectSpeakerSelectSpeakerPage

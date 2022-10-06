@@ -1,18 +1,18 @@
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
 import {ModalController, NavController} from '@ionic/angular';
+import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 
 import {ServicesAgreementComponent}
   from './services-agreement/services-agreement.component';
-import {Country} from './../../interfaces/country';
+import {Country} from 'src/app/interfaces/country';
 import {UsermgmtService} from 'src/app/services/usermgmt.service';
-import {AgeValidator} from './../../validators/age';
-import {UsernameValidator} from './../../validators/username';
+import {AgeValidator} from 'src/app/validators/age';
+import {UsernameValidator} from 'src/app/validators/username';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {LanguageService} from 'src/app/services/language.service';
 import {AlertManagerService} from 'src/app/services/alert-manager.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -75,17 +75,17 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const next = this.route.snapshot.queryParamMap.get('next');
     this.qParams = next ? {next}: {};
     this.getAllLangs();
   }
 
-  nextStep() {
+  nextStep(): void {
     this.currentRegisterStep = 2;
   }
 
-  previousStep() {
+  previousStep(): void {
     this.currentRegisterStep = 1;
   }
 
@@ -114,7 +114,7 @@ export class RegisterComponent implements OnInit {
     return this.stepOneForm.controls;
   }
 
-  performRegister() {
+  performRegister(): void {
     // combine the value object of the forms into one
     const registrationData = {
       ...this.stepOneForm.value,
@@ -151,7 +151,7 @@ export class RegisterComponent implements OnInit {
   }
 
   // sets allLAngs[] to all Languages ever created by an Admin
-  getAllLangs() {
+  getAllLangs(): void {
     this.languageService.getLangs().subscribe((dataReturnFromServer: any) => {
       this.allLangs = dataReturnFromServer;
     });
