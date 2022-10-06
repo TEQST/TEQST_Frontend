@@ -32,6 +32,7 @@ export class ManagePage extends BaseComponent {
   public texts: Text[]
   public username: string
   public showMultiSelect = false;
+  public deleteSelectionButtonDisabled = true;
 
   constructor(public loaderService: LoaderService,
               private manageFolderService: ManageFolderService,
@@ -131,14 +132,17 @@ export class ManagePage extends BaseComponent {
     }
     const item = e.target.querySelector('.selectCheckbox');
     item.checked = !item.checked;
+    this.updateDeleteButtonDisabledState();
   }
 
   uncheckAllItems(): void {
     this.setAllItemsCheckedState(false);
+    this.deleteSelectionButtonDisabled = true;
   }
 
   checkAllItems(): void {
     this.setAllItemsCheckedState(true);
+    this.updateDeleteButtonDisabledState();
   }
 
   getAllCheckboxes(): any {
@@ -155,6 +159,7 @@ export class ManagePage extends BaseComponent {
       }
     }
     this.uncheckAllItems();
+    this.updateDeleteButtonDisabledState();
   }
 
   setAllItemsCheckedState(checked): void {
@@ -163,18 +168,23 @@ export class ManagePage extends BaseComponent {
     }
   }
 
-  deleteSelectedItems(): Observable<object> {
-    let dataList = [];
-    let listParentElem = null;
-    if (this.currentFolder.is_sharedfolder) {
-      dataList = this.texts;
-      listParentElem = this.textListElem;
-    } else {
-      dataList = this.subfolders;
-      listParentElem = this.folderListElem;
-    }
+  getCheckboxDomElements() {
+    const listParentElem =
+      this.currentFolder.is_sharedfolder ?
+      this.textListElem : this.folderListElem;
     const listElem = listParentElem.nativeElement.querySelector('ion-list');
     const checkboxes = listElem.querySelectorAll('.selectCheckbox');
+    return checkboxes;
+  }
+
+  deleteSelectedItems(): Observable<object> {
+    const checkboxes = this.getCheckboxDomElements();
+    const listParentElem =
+      this.currentFolder.is_sharedfolder ?
+      this.textListElem : this.folderListElem;
+    const listElem = listParentElem.nativeElement.querySelector('ion-list');
+    const dataList =
+      this.currentFolder.is_sharedfolder ? this.texts : this.subfolders;
     const idsToDelete = [];
     for (const checkbox of checkboxes) {
       const li = checkbox.parentNode;
@@ -193,6 +203,17 @@ export class ManagePage extends BaseComponent {
       return this.manageFolderService.deleteFolders(idsToDelete);
     }
 
+  }
+
+  updateDeleteButtonDisabledState() {
+    const checkboxes = this.getCheckboxDomElements();
+    let disabled = true;
+    for (const checkbox of checkboxes) {
+      if (checkbox.checked) {
+        disabled = false;
+      }
+    }
+    this.deleteSelectionButtonDisabled = disabled;
   }
 
   async openDeleteSelectedItemsModal(): Promise<void> {
