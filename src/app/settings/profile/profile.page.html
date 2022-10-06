@@ -3,12 +3,6 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/settings"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="primary" id="save" [disabled]="!profileForm.valid" (click)="saveProfileData()">
-        {{'settings.profile.saveBtn' | translate}}
-        <ion-icon name="checkmark-circle"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
@@ -16,14 +10,14 @@
 <ion-content class="no-select">
   <h1>{{'settings.profile.contentTitle' | translate}}</h1>
   <form [formGroup]="profileForm">
-    <ion-item>
+    <ion-item disabled>
       <ion-label id="username" position="stacked">{{'username' | translate}}:</ion-label>
       <ion-input formControlName="username" readonly></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item (focusout)="saveProfileData()">
       <ion-label position="stacked">{{'email' | translate}}:</ion-label>
-      <ion-input formControlName="email" (focusout)="saveProfileData()" (keydown)="saveIfEnter($event)"></ion-input>
+      <ion-input formControlName="email" (keydown)="saveIfEnter($event)"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -44,7 +38,7 @@
 
     <ion-item>
       <ion-label position="stacked">{{'settings.profile.spokenLanguagesLabel' | translate}}:</ion-label>
-      <ion-select multiple="true" formControlName="language_ids">
+      <ion-select multiple="true" formControlName="language_ids" (ionChange)="saveProfileData()">
         <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -71,7 +65,7 @@
 
     <ion-item>
       <ion-label position="stacked">{{'settings.profile.menuLanguageLabel' | translate}}:</ion-label>
-      <ion-select formControlName="menu_language_id">
+      <ion-select formControlName="menu_language_id" (ionChange)="saveProfileData()">
         <ion-select-option *ngFor="let lang of allMenuLangs" value="{{lang?.short}}">{{lang.native_name}}
         </ion-select-option>
       </ion-select>
