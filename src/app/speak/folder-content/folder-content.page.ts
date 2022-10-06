@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
 import {BaseComponent} from 'src/app/base-component';
 import {LoaderService} from 'src/app/services/loader.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Folder} from 'src/app/speak/speak.folder';
-import {ModalController} from '@ionic/angular';
 import {TimeStatsComponent} from '../time-stats/time-stats.component';
 
 @Component({

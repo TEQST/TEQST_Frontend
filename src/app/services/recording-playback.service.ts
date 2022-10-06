@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {SentenceRecordingModel} from './../models/sentence-recording.model';
+
+import {Constants} from 'src/app/constants';
+import {SentenceRecordingModel} from 'src/app/models/sentence-recording.model';
 import {AuthenticationService} from './authentication.service';
-import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',

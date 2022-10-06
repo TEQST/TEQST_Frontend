@@ -2,13 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 
-import {Constants} from '../constants';
+import {Constants} from 'src/app/constants';
+import {SentenceRecordingModel} from 'src/app/models/sentence-recording.model';
+import {RecordingUploadResponse}
+  from 'src/app/interfaces/recording-upload-response';
 import {AlertManagerService} from './alert-manager.service';
-import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {AuthenticationService} from './authentication.service';
-import {
-  RecordingUploadResponse,
-} from './../interfaces/recording-upload-response';
 
 @Injectable({
   providedIn: 'root',
@@ -73,8 +72,6 @@ export class RecordingUploadService {
 
       }, () => this.uploadFailed());
     }
-
-
   }
 
   private checkIfQueueIsFinished(): void {

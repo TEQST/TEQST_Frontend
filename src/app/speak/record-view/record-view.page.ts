@@ -92,9 +92,6 @@ export class RecordViewPage extends BaseComponent implements OnInit {
     const sharedFolderId = this.textService.getSharedFolderId();
     this.navCtrl.navigateBack(
         `/tabs/speak/link/${sharedFolderId}?root=${this.root_uid}`);
-    // const url = this.router.url;
-    // const folderId = url.split('/')[3];
-    // this.speakTabNavService.loadContentsOfSharedFolder(folderId);
   }
 
   // listen for the browser back button press

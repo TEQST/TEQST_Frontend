@@ -4,11 +4,6 @@ export class CountryValidator {
 
   static checkCountry(control: FormControl): any {
 
-
-    // if (Object.values(obj).indexOf(control.value) === -1) {
-    //   console.log('has test1');
-    // }
-
     if (isNaN(control.value)) {
       return {
         'not a number': true,

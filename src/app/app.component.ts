@@ -25,14 +25,15 @@ export class AppComponent implements OnInit {
   ) {
     this.initializeApp();
   }
-  ngOnInit() {
+
+  ngOnInit(): void {
     if (localStorage.getItem('MenuLanguage') != null) {
       this.languageService
           .setMenuLanguage(localStorage.getItem('MenuLanguage'));
     }
   }
 
-  initializeApp() {
+  initializeApp(): void {
     this.translate.setDefaultLang('en');
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
+
 import {ShareFolderService} from 'src/app/services/share-folder.service';
-import {BaseComponent} from '../base-component';
-import { LoaderService } from '../services/loader.service';
+import {BaseComponent} from 'src/app/base-component';
+import {LoaderService} from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-speak',
@@ -22,7 +23,7 @@ export class SpeakPage extends BaseComponent implements OnInit {
     super(loaderService);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.shareFolderService.getRecentLinks().subscribe(
         (res) => {
           this.recentFolders = res;
@@ -34,7 +35,7 @@ export class SpeakPage extends BaseComponent implements OnInit {
     );
   }
 
-  openFolder(id, root_id) {
+  openFolder(id, root_id): void {
     this.router.navigateByUrl(
         '/tabs/speak/link/' + id + '?root=' + root_id);
   }

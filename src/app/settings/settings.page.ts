@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 
-import {LoaderService} from '../services/loader.service';
-import {AuthenticationService} from '../services/authentication.service';
-import {BaseComponent} from '../base-component';
+import {LoaderService} from 'src/app/services/loader.service';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {BaseComponent} from 'src/app/base-component';
 
 @Component({
   selector: 'app-settings',

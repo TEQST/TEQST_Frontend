@@ -1,21 +1,19 @@
-
 import {Injectable, Injector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
 import {BehaviorSubject, Observable} from 'rxjs';
 
-import {Country} from './../interfaces/country';
-import {ProfileData} from './../interfaces/profile-data';
-import {User} from './../interfaces/user';
+import {Constants} from 'src/app/constants';
+import {Country} from 'src/app/interfaces/country';
+import {ProfileData} from 'src/app/interfaces/profile-data';
+import {User} from 'src/app/interfaces/user';
+import {RollbarService} from 'src/app/rollbar';
 import {AlertManagerService} from './alert-manager.service';
-import {RollbarService} from '../rollbar';
 import {LanguageService} from './language.service';
-import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
 })
-
 
 export class UsermgmtService {
 
@@ -136,8 +134,6 @@ export class UsermgmtService {
             });
       }
     }
-
     return countryList;
-
   }
 }

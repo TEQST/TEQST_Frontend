@@ -2,11 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 
+import {Constants} from 'src/app/constants';
 import {AuthenticationService} from './authentication.service';
-import {Constants} from '../constants';
-import {SharedFolder} from './../interfaces/shared-folder';
-import {AlertManagerService} from './alert-manager.service';
-
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +17,7 @@ public requestMade = new Subject<any>();
 
 constructor(
   private http: HttpClient,
-  public authenticationService: AuthenticationService,
-  private alertService: AlertManagerService) { }
+  public authenticationService: AuthenticationService) { }
 
 getFolderInfo(id, root_uid) {
   this.requestMade.next(true);
@@ -50,19 +46,8 @@ getPublicFolders() {
 loadContentsOfSharedFolder(folderId: string, root_id: string) {
   this.requestMade.next(true);
   const url = this.SERVER_URL +
-    `/api/spk/sharedfolders/${folderId}/?root=${root_id}`;
-
+      `/api/spk/sharedfolders/${folderId}/?root=${root_id}`;
   return this.http.get(url);
-  // return this.http.get<SharedFolder>(url).subscribe(
-  //     (data) => {
-  //       this.sharedTextsList.next(data);
-  //     },
-  //     (err) => this.alertService
-  //         .showErrorAlert(err.status, err.statusText),
-  // );
 }
-getInfoForSharedfolder(folderId: string) {
-  const url = this.SERVER_URL + `/api/spk/sharedfolders/${folderId}/`;
 
-}
 }

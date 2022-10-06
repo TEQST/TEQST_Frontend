@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import streamSaver from 'streamsaver';
-import {AuthenticationService} from './authentication.service';
-import {Constants} from '../constants';
-import {Folder} from '../manage/manage.folder';
-import {AlertManagerService} from './alert-manager.service';
-import {TextObject} from './../interfaces/text-object';
 import {saveAs} from 'file-saver';
 
+import {Constants} from 'src/app/constants';
+import {TextObject} from 'src/app/interfaces/text-object';
+import {Folder} from 'src/app/manage/manage.folder';
+import {AuthenticationService} from './authentication.service';
+import {AlertManagerService} from './alert-manager.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +25,6 @@ export class ManageFolderService {
 
   getFolderInfoFor(folderId: string): Observable<object> {
     const url = this.SERVER_URL + `/api/folders/${folderId}/`;
-
     return this.http.get(url);
   }
 
@@ -76,10 +74,7 @@ export class ManageFolderService {
         }
       }
     }
-
-
     const url = this.SERVER_URL + `/api/pub/texts/`;
-
     return this.http.post(url, formData);
   }
 
@@ -110,7 +105,7 @@ export class ManageFolderService {
       // save file locally
       saveAs(blob, fileName);
     },
-    (error: HttpErrorResponse) => {
+    () => {
       this.alertManager.showErrorAlertNoRedirection(
           'No download available',
           'No Speaker has finished a text of the current folder yet. ' +

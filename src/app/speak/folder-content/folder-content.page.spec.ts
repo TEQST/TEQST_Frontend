@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { FolderContentPage } from './folder-content.page';
+import {FolderContentPage} from './folder-content.page';
 
 describe('FolderContentPage', () => {
   let component: FolderContentPage;
@@ -9,8 +9,8 @@ describe('FolderContentPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FolderContentPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [FolderContentPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FolderContentPage);

@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { FolderContentPage } from './folder-content.page';
+import {FolderContentPage} from './folder-content.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FolderContentPage
-  }
+    component: FolderContentPage,
+  },
 ];
 
 @NgModule({

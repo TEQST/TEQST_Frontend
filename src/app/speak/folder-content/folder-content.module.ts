@@ -1,14 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { IonicModule } from '@ionic/angular';
-
-
-import { FolderContentPageRoutingModule } from './folder-content-routing.module';
-
-import { FolderContentPage } from './folder-content.page';
-import { TranslateModule } from '@ngx-translate/core';
+import {FolderContentPageRoutingModule} from './folder-content-routing.module';
+import {FolderContentPage} from './folder-content.page';
 
 @NgModule({
   imports: [
@@ -18,6 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
     FolderContentPageRoutingModule,
   ],
-  declarations: [FolderContentPage]
+  declarations: [FolderContentPage],
 })
 export class FolderContentPageModule {}

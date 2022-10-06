@@ -2,10 +2,10 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {TextStats} from './../interfaces/text-stats';
-import {FolderStats} from '../interfaces/folder-stats';
+import {Constants} from 'src/app/constants';
+import {TextStats} from 'src/app/interfaces/text-stats';
+import {FolderStats} from 'src/app/interfaces/folder-stats';
 import {AuthenticationService} from './authentication.service';
-import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,6 @@ export class StatisticsService {
   constructor(
     private http: HttpClient,
     public authenticationService: AuthenticationService) { }
-
 
   public getSharedFolderStats(sharedFolderId: number, role: 'pub' | 'lstn')
   : Observable<FolderStats> {

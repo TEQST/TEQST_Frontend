@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+
 import {FolderContentPageModule}
   from './folder-content/folder-content.module';
 import {FolderContentPage} from './folder-content/folder-content.page';
@@ -21,11 +22,6 @@ const routes: Routes = [
         './folder-content/folder-content.module')
         .then( (m) => m.FolderContentPageModule),
   },
-  // {
-  //   path: ':publisherId',
-  //   loadChildren: () => import('./folder-list/folder-list.module')
-  //       .then( (m) => m.FolderListPageModule),
-  // },
   {
     path: 'text/:textId',
     loadChildren: ()

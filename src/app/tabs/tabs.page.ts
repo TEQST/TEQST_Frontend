@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ViewChild, ViewChildren, ElementRef} from '@angular/core';
 import {IonTabs, IonTabButton} from '@ionic/angular';
 
-import {UsermgmtService} from '../services/usermgmt.service';
+import {UsermgmtService} from 'src/app/services/usermgmt.service';
 
 @Component({
   selector: 'app-tabs',
