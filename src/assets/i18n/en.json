@@ -93,7 +93,7 @@
 			}
 		},
 		"shareFolderModal": {
-			"modalTitle": "Sharing options for",
+			"modalTitle": "Speakers for ",
 			"speakersSegmentLabel": "Speakers",
 			"listenersSegmentLabel": "Listeners",
 			"listenersSegment": {

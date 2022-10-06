@@ -21,7 +21,7 @@
       </ion-buttons>
     </ion-item>
   </ion-list>
-  <ion-text color="medium" class="ion-padding" *ngIf="listenings.length == 0">{{'manage.addListenerModal.manageListenings.noListeningAvailable' | translate}}</ion-text>
+  <ion-note class="ion-padding no-select" *ngIf="listenings.length == 0">{{'manage.addListenerModal.manageListenings.noListeningAvailable' | translate}}</ion-note>
 </ion-content>
 
 <ion-footer>

@@ -8,8 +8,6 @@ import {ShareFolderPageRoutingModule} from './share-folder-routing.module';
 import {ShareFolderPage} from './share-folder.page';
 import {SpeakersSegmentComponent}
   from './speakers-segment/speakers-segment.component';
-import {ListenersSegmentComponent}
-  from './listeners-segment/listeners-segment.component';
 
 @NgModule({
   imports: [
@@ -22,7 +20,6 @@ import {ListenersSegmentComponent}
   declarations: [
     ShareFolderPage,
     SpeakersSegmentComponent,
-    ListenersSegmentComponent,
   ],
 })
 export class ShareFolderPageModule { }

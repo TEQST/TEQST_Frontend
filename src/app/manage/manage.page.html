@@ -8,9 +8,6 @@
     </ion-buttons>
     <ion-img *ngIf="currentFolder.name == '/'" src="../../assets/img/logo.png"></ion-img>
     <ion-buttons slot="end">
-      <ion-button color="primary" (click)="openAddListenerModal()">
-        <ion-icon name="ear"></ion-icon>
-      </ion-button>
       <ion-button *ngIf="currentFolder.name == '/'" color="primary" (click)="downloadstatistics()">
         <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
       </ion-button>
@@ -101,6 +98,11 @@
           <ion-icon name="reader" color="dark"></ion-icon>
         </ion-fab-button>
       </ion-fab-list>
+    </ion-fab>
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+      <ion-fab-button color="primary" (click)="openAddListenerModal()">
+        <ion-icon name="ear"></ion-icon>
+      </ion-fab-button>
     </ion-fab>
   </div>
 
