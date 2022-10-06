@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
+      <ion-button *ngIf="currentFolder.name != '/'" routerLink="/tabs/manage">
+        <ion-icon slot="start" name="home"></ion-icon>
+      </ion-button>
       <ion-back-button *ngIf="currentFolder.id" defaultHref="tabs/manage"></ion-back-button>
     </ion-buttons>
     <ion-img *ngIf="currentFolder.name == '/'" src="../../assets/img/logo.png"></ion-img>
