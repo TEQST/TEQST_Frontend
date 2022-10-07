@@ -38,7 +38,7 @@
 
     <ion-item>
       <ion-label position="stacked">{{'settings.profile.spokenLanguagesLabel' | translate}}:</ion-label>
-      <ion-select multiple="true" formControlName="language_ids" (ionChange)="saveProfileData()">
+      <ion-select multiple="true" formControlName="language_ids">
         <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -65,7 +65,7 @@
 
     <ion-item>
       <ion-label position="stacked">{{'settings.profile.menuLanguageLabel' | translate}}:</ion-label>
-      <ion-select formControlName="menu_language_id" (ionChange)="saveProfileData()">
+      <ion-select formControlName="menu_language_id">
         <ion-select-option *ngFor="let lang of allMenuLangs" value="{{lang?.short}}">{{lang.native_name}}
         </ion-select-option>
       </ion-select>

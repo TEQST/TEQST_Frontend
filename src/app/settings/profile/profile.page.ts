@@ -18,7 +18,6 @@ export class ProfilePage extends BaseComponent implements OnInit {
 
   public profileForm: FormGroup;
 
-
   allLangs: Language[] = [];
   allMenuLangs: Language[] = [];
 
@@ -31,7 +30,7 @@ export class ProfilePage extends BaseComponent implements OnInit {
 
     super(loaderService);
 
-    this.profileForm = formBuilder.group({
+    this.profileForm = this.formBuilder.group({
       username: [''],
       email: ['', Validators.email],
       birth_year: ['', [Validators.required, AgeValidator.checkAge]],
@@ -41,7 +40,6 @@ export class ProfilePage extends BaseComponent implements OnInit {
       accent: [''],
       language_ids: [[]],
       menu_language_id: [''],
-
     });
   }
 
@@ -51,16 +49,14 @@ export class ProfilePage extends BaseComponent implements OnInit {
   }
 
   private async loadContent(): Promise<void> {
-
+    // load menu languages
     await this.languageService.getAllMenuLanguages().then((menuLanguages)=> {
       this.allMenuLangs = menuLanguages;
     });
-
+    // load spoken languages
     await this.languageService.getLangs().toPromise().then((languages) => {
       this.allLangs = languages;
     });
-
-
     this.usermgmtService.getProfileData().subscribe((profileData) => {
       const formData = {
         ...profileData,
@@ -68,7 +64,23 @@ export class ProfilePage extends BaseComponent implements OnInit {
         language_ids: profileData.languages.map((lang) => lang.short),
       };
       this.profileForm.patchValue(formData);
+      this.addFormChangeEvents();
     });
+  }
+
+  addFormChangeEvents(): void {
+    this.profileForm.get('language_ids').valueChanges
+        .subscribe(() => {
+          setTimeout(() => { // wait for next tick since value hasn't been updated see https://www.tektutorialshub.com/angular/valuechanges-in-angular-forms/
+            this.saveProfileData();
+          });
+        });
+    this.profileForm.get('menu_language_id').valueChanges
+        .subscribe(() => {
+          setTimeout(() => { // wait for next tick since value hasn't been updated see https://www.tektutorialshub.com/angular/valuechanges-in-angular-forms/
+            this.saveProfileData();
+          });
+        });
   }
 
   saveProfileData(): void {
@@ -76,14 +88,12 @@ export class ProfilePage extends BaseComponent implements OnInit {
       this.presentSaveFailToast();
       return;
     }
-    console.log('FORM VALID');
     this.usermgmtService.updateProfile(this.profileForm.value).subscribe(() => {
       this.languageService.setMenuLanguage(
           this.profileForm.value.menu_language_id,
       );
       this.presentSavedToast();
-    }, (err) => {
-      console.log(err);
+    }, () => {
       this.presentSaveFailToast();
     });
   }
@@ -110,10 +120,6 @@ export class ProfilePage extends BaseComponent implements OnInit {
     if ($event.code == 'Enter') {
       this.saveProfileData();
     }
-  }
-
-  saveProfileIfBla($event) {
-    console.log($event);
   }
 
 }
