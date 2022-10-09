@@ -7,6 +7,7 @@ import {BaseComponent} from 'src/app/base-component';
 import {LoaderService} from 'src/app/services/loader.service';
 import {Folder} from 'src/app/speak/speak.folder';
 import {TimeStatsComponent} from '../time-stats/time-stats.component';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
 
 @Component({
   selector: 'app-folder-content',
@@ -33,7 +34,8 @@ export class FolderContentPage extends BaseComponent implements OnInit {
               public loaderService: LoaderService,
               private router: Router,
               private route: ActivatedRoute,
-              private modalController: ModalController) {
+              private modalController: ModalController,
+              private alertManager: AlertManagerService) {
     super(loaderService);
 
     this.subfolders = [];
@@ -51,8 +53,6 @@ export class FolderContentPage extends BaseComponent implements OnInit {
   }
 
   ionViewWillEnter(): void {
-    // TODO: make a check here for the validity of the id and root id
-    //       and navigate to recent links if they're invalid
     this.loadCurrentFolder();
     this.folderListElem.nativeElement.classList.add('loaded');
     this.textListElem.nativeElement.classList.add('loaded');
@@ -76,7 +76,13 @@ export class FolderContentPage extends BaseComponent implements OnInit {
           });
         },
         (err) => {
-          console.log(err);
+          if (err.status = 403) {
+            this.alertManager.showErrorAlert(err.status, 'Invalid link!');
+          } else {
+            this.alertManager.showErrorAlert(err.status,
+                'Please try again later!');
+            console.log(err);
+          }
         },
     );
   }
