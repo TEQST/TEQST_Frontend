@@ -1,14 +1,12 @@
 # TEQST_Frontend
 ### This repository contains the frontend code of [TEQST](https://github.com/TEQST/TEQST)
 ## Setup
-### Install the Ionic Framework and Angular
+### Install the Ionic Framework, Angular and other dependencies
 npm install -g @ionic/cli\
 npm i -D -E @angular/cli
-
-### Install npm dependencies
 npm install
 
-### Gitignored parts of the setup
+### Add the gitignored files to the project
 Example for src/proxy.config.json:
 ```json
 {
@@ -35,8 +33,11 @@ ionic serve
 ionic serve --external\
 \
 *The IP-address to connect to will be written in the terminal output as "External: IP"*
-## Compile for production
+### Compile for production
 ionic build --prod\
 \
 *The output html files will be written to TEQST_Frontend/www\
 Copy them onto a webserver to provide the frontend to users.*
+
+## Developer Guide
+The [developer guide](https://github.com/TEQST/TEQST_Frontend/wiki/Guide-for-Developers) contains more information for Frontend Development of TEQST.
