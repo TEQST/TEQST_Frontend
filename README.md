@@ -3,7 +3,7 @@
 ## Setup
 ### Install the Ionic Framework, Angular and other dependencies
 npm install -g @ionic/cli\
-npm i -D -E @angular/cli
+npm i -D -E @angular/cli\
 npm install
 
 ### Add the gitignored files to the project
