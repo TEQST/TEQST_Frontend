@@ -37,6 +37,8 @@ export class AccessGuard implements CanActivate {
        the user has to be authenticated
        to navigate to the specified route
        Otherwise just redirect him to the login page */
+
+    // redirect user to login page if he is not logged in
     if (requiresLogin) {
       if (!this.authService.isLoggedIn()) {
         if (state.url !== '/admin') {

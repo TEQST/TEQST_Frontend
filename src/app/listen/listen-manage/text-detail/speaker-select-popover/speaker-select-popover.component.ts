@@ -11,6 +11,7 @@ export class SpeakerSelectPopoverComponent implements OnInit {
 
   public speakers = [''];
   public selectedSpeaker: string;
+
   private speakerSelected: boolean;
 
   constructor(private navParams: NavParams,

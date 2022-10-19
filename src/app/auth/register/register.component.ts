@@ -21,16 +21,17 @@ import {AlertManagerService} from 'src/app/services/alert-manager.service';
 })
 export class RegisterComponent implements OnInit {
   public showPassword = false;
+  public showCountryDropdown = false;
+  public showAccentDropdown = false;
+  // query parameter for redirection
+  // when user clicks on link without being logged in
+  public qParams = {};
   public currentRegisterStep = 1;
-  public allLangs = [];
   public stepOneForm: FormGroup;
   public stepTwoForm: FormGroup;
+  public allLangs = [];
   public filteredCountries: Country[];
-  public showCountryDropdown = false;
   public filteredAccents = []
-  public showAccentDropdown = false;
-
-  public qParams = {};
 
   private countries : Country[] = [];
   private accents = [];
@@ -77,16 +78,16 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     const next = this.route.snapshot.queryParamMap.get('next');
-    this.qParams = next ? {next}: {};
+    this.qParams = next ? {next}: {}; // convert to object
     this.getAllLangs();
-  }
-
-  nextStep(): void {
-    this.currentRegisterStep = 2;
   }
 
   previousStep(): void {
     this.currentRegisterStep = 1;
+  }
+
+  nextStep(): void {
+    this.currentRegisterStep = 2;
   }
 
   openCountryDropdown(): void {
@@ -128,7 +129,6 @@ export class RegisterComponent implements OnInit {
       }
     }
 
-
     // change country name to country short
     const countryObj = this.countries.find((country) => {
       return country.english_name === registrationData.country;
@@ -142,7 +142,7 @@ export class RegisterComponent implements OnInit {
 
     this.authenticationService.register(registrationData).subscribe(() => {
       this.authenticationService.login(loginData);
-    }, (error: any) => {
+    }, () => {
       this.currentRegisterStep = 1;
       this.alertService.showErrorAlertNoRedirection('Username already exists',
           `A user with that username already exists, 
@@ -175,7 +175,8 @@ export class RegisterComponent implements OnInit {
   public filterAccents(event: CustomEvent): void {
     const searchTerm = event.detail.value;
     this.filteredAccents = this.accents.filter((accent) => {
-      return accent.toLowerCase().startsWith(searchTerm.toLowerCase());
+      return accent.toLowerCase()
+          .startsWith(searchTerm.toLowerCase());
     });
   }
 

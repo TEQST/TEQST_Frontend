@@ -23,8 +23,8 @@ export class RecordingUploadService {
     new BehaviorSubject<RecordingUploadResponse>(null);
 
   constructor(
-    private http: HttpClient,
     public authenticationService: AuthenticationService,
+    private http: HttpClient,
     private alertService: AlertManagerService) { }
 
   public uploadRecording(
@@ -42,9 +42,7 @@ export class RecordingUploadService {
     const queueElement = this.uploadQueue.shift();
     const isReUpload = queueElement[1];
     const sentenceRecording = queueElement[0];
-
     const audioFile = new File([sentenceRecording.audioBlob], 'recording.wav');
-
     const formData = new FormData();
     formData.append('audiofile', audioFile);
     const sentenceRecordingUrl = this.SERVER_URL + '/api/sentencerecordings/';

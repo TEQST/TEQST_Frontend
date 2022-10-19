@@ -35,12 +35,12 @@ export class ManagePage extends BaseComponent {
   public deleteSelectionButtonDisabled = true;
 
   constructor(public loaderService: LoaderService,
+              public toastController: ToastController,
               private manageFolderService: ManageFolderService,
               private manageFolderUIService: ManageFolderUIService,
               private manageTextUIService: ManageTextUIService,
               private statisticsService: StatisticsService,
               private alertController: AlertController,
-              public toastController: ToastController,
               private router: Router,
               private route: ActivatedRoute,
               private alertManager: AlertManagerService) {

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Input} from '@angular/core';
+import {Component, ViewChild, Input} from '@angular/core';
 import {ModalController, IonInput} from '@ionic/angular';
 import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
 
@@ -19,8 +19,8 @@ export class CreateFolderPage {
   private validatorPattern = new RegExp('^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$')
   private existingFolderNames: string[]
 
-  constructor(private formBuilder: FormBuilder,
-              public viewCtrl: ModalController) {
+  constructor(public viewCtrl: ModalController,
+              private formBuilder: FormBuilder) {
 
     this.createFolderForm = this.formBuilder.group({
       folderName: ['', (control) => {

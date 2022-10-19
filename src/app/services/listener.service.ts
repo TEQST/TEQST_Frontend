@@ -18,8 +18,8 @@ export class ListenerService {
   public sharedTextsList = new Subject<any>()
 
   constructor(
-    private http: HttpClient,
-    public authenticationService: AuthenticationService) { }
+    public authenticationService: AuthenticationService,
+    private http: HttpClient) { }
 
 
   getSharedFolders(): Observable<JSON[]> {

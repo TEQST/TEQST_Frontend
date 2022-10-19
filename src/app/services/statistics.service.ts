@@ -15,8 +15,8 @@ export class StatisticsService {
   SERVER_URL = Constants.SERVER_URL;
 
   constructor(
-    private http: HttpClient,
-    public authenticationService: AuthenticationService) { }
+    public authenticationService: AuthenticationService,
+    private http: HttpClient) { }
 
   public getSharedFolderStats(sharedFolderId: number, role: 'pub' | 'lstn')
   : Observable<FolderStats> {

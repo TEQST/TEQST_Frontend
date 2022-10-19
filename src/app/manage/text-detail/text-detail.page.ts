@@ -30,8 +30,9 @@ export class TextDetailPage extends BaseComponent implements OnInit {
 
   public text: TextObject;
   public recordingState: RecordingStateModel;
-  private textStats: TextStats;
   public selectedSpeaker: Observable<string>;
+
+  private textStats: TextStats;
   private speakers: string[];
 
   constructor(public loaderService: LoaderService,

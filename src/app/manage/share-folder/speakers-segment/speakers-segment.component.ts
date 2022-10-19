@@ -11,16 +11,17 @@ import {ShareFolderService} from 'src/app/services/share-folder.service';
 export class SpeakersSegmentComponent implements OnInit {
 
   @Input() folderId: number;
+
   public isPublicForAll: boolean;
-  private speakers: User[];
   public filteredSpeakers: User[];
-  private allUsers: User[];
   public filteredUsers: User[];
+
+  private allUsers: User[];
+  private speakers: User[];
   private searchTerm = '';
 
   constructor(
     private shareFolderService: ShareFolderService) { }
-
 
   ngOnInit(): void {
     // reset Search term on each opening of the modal

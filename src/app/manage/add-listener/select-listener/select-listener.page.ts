@@ -16,12 +16,13 @@ import {SelectSpeakerPage} from '../select-speaker/select-speaker.page';
 export class SelectListenerPage implements OnInit {
   @ViewChild('userLists', {read: ElementRef}) userListsElem: ElementRef
 
-  private listeners: User[];
-  public filteredListeners: User[];
-  private allUsers: User[];
-  public filteredUsers: User[];
-  private searchTerm = '';
   public navComponent: IonNav
+  public filteredListeners: User[];
+  public filteredUsers: User[];
+
+  private listeners: User[];
+  private allUsers: User[];
+  private searchTerm = '';
 
   constructor(public navParams: NavParams,
               private shareFolderService: ShareFolderService,
@@ -34,7 +35,6 @@ export class SelectListenerPage implements OnInit {
   ngOnInit(): void {
     // reset Search term on each opening of the modal
     this.searchTerm = '';
-
     this.fetchUserLists();
   }
 
@@ -64,7 +64,6 @@ export class SelectListenerPage implements OnInit {
         .filterLists(this.listeners, this.allUsers, this.searchTerm);
     this.filteredListeners = filtered.filteredList;
     this.filteredUsers = filtered.filteredUsers;
-    console.log(this.filteredUsers);
   }
 
   async addListener(user: User): Promise<void> {

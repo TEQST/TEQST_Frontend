@@ -3,8 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable} from 'rxjs';
 
-import {Language} from '../interfaces/language';
-import {Constants} from '../constants';
+import {Language} from 'src/app/interfaces/language';
+import {Constants} from 'src/app/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -18,13 +18,11 @@ export class LanguageService {
     this.menuLanguage = localStorage.getItem('MenuLanguage');
   }
 
-
   // returns all speakable Languages created by an admin
   getLangs(): Observable<Language[]> {
     const url = this.SERVER_URL + '/api/langs/';
     return this.http.get<Language[]>(url);
   }
-
 
   putMenuLanguageLocalStorage(): void {
     localStorage.setItem('MenuLanguage', this.menuLanguage);
@@ -32,6 +30,7 @@ export class LanguageService {
   putMenuLanguageLocalStorageWithParam(lang: string): void {
     localStorage.setItem('MenuLanguage', lang);
   }
+
   async getAllMenuLanguages(): Promise<Language[]> {
     const allMenuLangs: Language[] = [];
     await this.getLangs().toPromise().then((dataReturnFromServer: any) => {
@@ -47,6 +46,7 @@ export class LanguageService {
   getMenuLanguage(): string {
     return this.menuLanguage;
   }
+
   setMenuLanguage(lang: string): void {
     if (lang !== null && lang !== undefined) {
       this.menuLanguage = lang;
@@ -54,6 +54,7 @@ export class LanguageService {
       this.translate.use(lang);
     }
   }
+
   updateMenuLanguage(temporalMenuLanguage): void {
     if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') ||
         localStorage.getItem('MenuLanguage') === null) {

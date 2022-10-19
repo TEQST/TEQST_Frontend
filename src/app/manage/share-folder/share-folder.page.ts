@@ -1,5 +1,5 @@
-import {Component, Input, ViewChild} from '@angular/core';
-import {IonSlides, ModalController} from '@ionic/angular';
+import {Component, Input} from '@angular/core';
+import {ModalController} from '@ionic/angular';
 
 import {User} from 'src/app/interfaces/user';
 

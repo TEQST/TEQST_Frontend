@@ -18,10 +18,9 @@ export class ManageFolderService {
   SERVER_URL = Constants.SERVER_URL;
 
   constructor(
-    private http: HttpClient,
     public authenticationService: AuthenticationService,
+    private http: HttpClient,
     private alertManager: AlertManagerService) { }
-
 
   getFolderInfoFor(folderId: string): Observable<object> {
     const url = this.SERVER_URL + `/api/folders/${folderId}/`;

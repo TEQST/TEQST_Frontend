@@ -8,7 +8,6 @@ import {Country} from 'src/app/interfaces/country';
 import {ProfileData} from 'src/app/interfaces/profile-data';
 import {User} from 'src/app/interfaces/user';
 import {RollbarService} from 'src/app/rollbar';
-import {AlertManagerService} from './alert-manager.service';
 import {LanguageService} from './language.service';
 
 @Injectable({
@@ -25,7 +24,6 @@ export class UsermgmtService {
 
   constructor(public http: HttpClient,
               public navCtrl: NavController,
-              private alertService: AlertManagerService,
               public languageService: LanguageService,
               private injector: Injector) {}
 
