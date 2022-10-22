@@ -249,10 +249,6 @@ export class ManagePage extends BaseComponent {
     });
   }
 
-  openShareFolderModal(): void {
-    this.manageFolderUIService.openShareFolderModal(this.currentFolder);
-  }
-
   openAddListenerModal(): void {
     this.manageFolderUIService.openAddListenerModal(this.currentFolder);
   }

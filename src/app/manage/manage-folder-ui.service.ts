@@ -6,7 +6,6 @@ import {AddListenerPage} from './add-listener/add-listener.page';
 import {CreateFolderPage} from './create-folder/create-folder.page';
 import {FolderStatsPage} from './folder-stats/folder-stats.page';
 import {Folder} from './manage.folder';
-import {ShareFolderPage} from './share-folder/share-folder.page';
 
 @Injectable({
   providedIn: 'root',
@@ -77,18 +76,6 @@ export class ManageFolderUIService {
       ],
     });
     await alert.present();
-  }
-
-  async openShareFolderModal(currentFolder): Promise<void> {
-    const modal = await this.modalController.create({
-      component: ShareFolderPage,
-      componentProps: {
-        // pass variables to the modal
-        folderId: currentFolder.id,
-        folderName: currentFolder.name,
-      },
-    });
-    return await modal.present();
   }
 
   async openAddListenerModal(currentFolder): Promise<void> {
