@@ -10,7 +10,7 @@
     <ion-buttons slot="end">
       <ion-button id="statsBtn" *ngIf="texts.length > 0" [class.disabled]="texts == []" color="primary"
         (click)="presentTimeStats()">
-        <ion-icon name="stats-chart"></ion-icon>
+        <ion-icon name="alarm"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
