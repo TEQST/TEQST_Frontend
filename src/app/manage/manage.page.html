@@ -42,7 +42,7 @@
           <ion-icon name="checkmark-done"></ion-icon>
         </ion-button>
       </div>
-      <ion-button [class.active]="showMultiSelect" id="toggleMultiSelect" (click)="toggleMultiSelect()" fill="clear">
+      <ion-button [class.active]="showMultiSelect" id="toggleMultiSelect" (click)="toggleMultiSelect()" fill="clear" [disabled]="subfolders.length == 0 && texts.length == 0">
         <ion-icon *ngIf="!showMultiSelect" name="checkbox-outline"></ion-icon>
         <ion-icon *ngIf="showMultiSelect" name="checkbox"></ion-icon>
       </ion-button>
