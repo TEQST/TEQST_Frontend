@@ -24,22 +24,21 @@ export class RecordViewPage extends BaseComponent implements OnInit {
 
   public textTitle: string;
   public hasRecording: boolean;
-  private textId: number;
-  private root_uid: string;
   public isUploadActive = false;
   public isRightToLeft: boolean;
 
-  constructor(private route: ActivatedRoute,
+  private textId: number;
+  private root_uid: string;
+
+  constructor(public navCtrl: NavController,
+              public loaderService: LoaderService,
+              private route: ActivatedRoute,
               private textService: TextServiceService,
               private audioService: AudioRecordingService,
-              private alertController: AlertController,
               private router: Router,
-              public navCtrl: NavController,
               private alertService: AlertManagerService,
-              public loaderService: LoaderService,
               private recordingUploadService: RecordingUploadService,
-              private playbackService: RecordingPlaybackService,
-              private speakTabNavService: SpeakTabNavService) {
+              private playbackService: RecordingPlaybackService) {
 
     super(loaderService);
 

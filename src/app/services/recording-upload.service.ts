@@ -22,10 +22,9 @@ export class RecordingUploadService {
   private lastUploadResponse =
     new BehaviorSubject<RecordingUploadResponse>(null);
 
-  constructor(
-    public authenticationService: AuthenticationService,
-    private http: HttpClient,
-    private alertService: AlertManagerService) { }
+  constructor(public authenticationService: AuthenticationService,
+              private http: HttpClient,
+              private alertService: AlertManagerService) {}
 
   public uploadRecording(
       sentenceRecording: SentenceRecordingModel,

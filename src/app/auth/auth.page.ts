@@ -18,11 +18,11 @@ export class AuthPage extends BaseComponent {
 
   SERVER_URL = Constants.SERVER_URL;
 
-  constructor(
-    public navCtrl: NavController,
-    public popoverController: PopoverController,
-    public languageService: LanguageService,
-    public loaderService: LoaderService) {
+  constructor(public navCtrl: NavController,
+              public popoverController: PopoverController,
+              public languageService: LanguageService,
+              public loaderService: LoaderService) {
+
     super(loaderService);
   }
 

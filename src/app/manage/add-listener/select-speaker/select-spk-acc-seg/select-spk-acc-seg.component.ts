@@ -11,16 +11,15 @@ import {ListenerDataService} from '../../listener-data.service';
 export class SelectSpkAccSegComponent implements OnInit {
   @ViewChild('userLists', {read: ElementRef}) userListsElem: ElementRef
 
-  private selectedAccents: string[];
   public filteredSelectedAccents: string[];
-  private allAccents: string[];
   public filteredAllAccents: string[];
+
+  private allAccents: string[];
+  private selectedAccents: string[];
   private searchTerm = '';
 
-  constructor(
-    private shareFolderService: ShareFolderService,
-    private listenerData: ListenerDataService,
-  ) { }
+  constructor(private shareFolderService: ShareFolderService,
+              private listenerData: ListenerDataService) {}
 
   ngOnInit(): void {
     this.fetchAccentLists();

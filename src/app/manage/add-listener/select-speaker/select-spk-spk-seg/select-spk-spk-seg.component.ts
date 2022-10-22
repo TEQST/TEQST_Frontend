@@ -11,16 +11,15 @@ import {ListenerDataService} from '../../listener-data.service';
 export class SelectSpkSpkSegComponent implements OnInit {
   @ViewChild('userLists', {read: ElementRef}) userListsElem: ElementRef
 
-  private speakers: User[];
   public filteredSpeakers: User[];
-  private allUsers: User[];
   public filteredUsers: User[];
-  private searchTerm = '';
 
-  constructor(
-    private shareFolderService: ShareFolderService,
-    private listenerData: ListenerDataService,
-  ) { }
+  private searchTerm = '';
+  private speakers: User[];
+  private allUsers: User[];
+
+  constructor(private shareFolderService: ShareFolderService,
+              private listenerData: ListenerDataService) {}
 
   ngOnInit(): void {
     this.fetchUserLists();

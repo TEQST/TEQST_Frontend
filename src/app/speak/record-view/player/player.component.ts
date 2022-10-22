@@ -15,16 +15,14 @@ import {RecordingPlaybackService}
 export class PlayerComponent implements OnInit, OnDestroy {
 
   public ngUnsubscribe = new Subject<void>();
-
   public isPlaying = false;
   public isRecording = false;
   private recordingId: number;
   private activeSentence: number;
 
-  constructor(
-    private playbackService: RecordingPlaybackService,
-    private textService: TextServiceService,
-    private recordingService: AudioRecordingService) {}
+  constructor(private playbackService: RecordingPlaybackService,
+              private textService: TextServiceService,
+              private recordingService: AudioRecordingService) {}
 
   ngOnInit(): void {
     this.subscribeToServices();

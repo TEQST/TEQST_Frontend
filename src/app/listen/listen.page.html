@@ -7,7 +7,7 @@
 
 <ion-content class="no-select">
   <h1>{{'listen.contentTitle' | translate}}</h1>
-  
+
   <ion-list #folderList class="fadeInWhenLoaded">
     <ion-item button *ngFor="let folder of folders" routerLink="/tabs/listen/{{folder.id}}"
       [state]="{folderName: folder.name}">

@@ -25,9 +25,9 @@ export class SelectListenerPage implements OnInit {
   private searchTerm = '';
 
   constructor(public navParams: NavParams,
+              public viewCtrl: ModalController,
               private shareFolderService: ShareFolderService,
-              private listenerData: ListenerDataService,
-              public viewCtrl: ModalController) {
+              private listenerData: ListenerDataService) {
 
     this.navComponent = navParams.get('navComponent');
   }

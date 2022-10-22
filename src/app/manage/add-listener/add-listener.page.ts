@@ -18,7 +18,7 @@ export class AddListenerPage implements OnInit {
 
   public step = 0;
 
-  constructor(private listenerData: ListenerDataService) { }
+  constructor(private listenerData: ListenerDataService) {}
 
   ngOnInit(): void {
     this.listenerData.setFolderId(this.folderId);

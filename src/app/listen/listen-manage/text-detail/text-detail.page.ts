@@ -28,9 +28,10 @@ export class TextDetailPage extends BaseComponent implements OnInit {
   @ViewChild('content', {read: ElementRef}) contentElem: ElementRef
 
   public text: TextObject;
-  public recordingState: RecordingStateModel;
-  private textStats: TextStats;
   public selectedSpeaker: Observable<string>;
+  public recordingState: RecordingStateModel;
+
+  private textStats: TextStats;
   private speakers: string[];
 
   constructor(public loaderService: LoaderService,
@@ -41,6 +42,7 @@ export class TextDetailPage extends BaseComponent implements OnInit {
               private popoverController: PopoverController,
               private textStateService: TextStateService,
               private routeStateService: RouteStateService ) {
+
     super(loaderService);
   }
 

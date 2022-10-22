@@ -13,6 +13,7 @@ export class SettingsPage extends BaseComponent {
 
   constructor(public authenticationService: AuthenticationService,
               public loaderService: LoaderService) {
+
     super(loaderService);
   }
 

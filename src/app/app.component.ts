@@ -15,14 +15,14 @@ import {LanguageService} from './services/language.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private translate: TranslateService,
-    private languageService: LanguageService,
-    private connectionService: InternetConnectionService,
-  ) {
+
+  constructor(private platform: Platform,
+              private splashScreen: SplashScreen,
+              private statusBar: StatusBar,
+              private translate: TranslateService,
+              private languageService: LanguageService,
+              private connectionService: InternetConnectionService) {
+
     this.initializeApp();
   }
 

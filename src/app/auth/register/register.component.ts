@@ -36,17 +36,16 @@ export class RegisterComponent implements OnInit {
   private countries : Country[] = [];
   private accents = [];
 
-  constructor(
-    public navCtrl: NavController,
-    public http: HttpClient,
-    public authenticationService: AuthenticationService,
-    public languageService: LanguageService,
-    private alertService: AlertManagerService,
-    private formBuilder: FormBuilder,
-    private usernameValidator: UsernameValidator,
-    private modalController: ModalController,
-    private usermgmtService: UsermgmtService,
-    private route: ActivatedRoute) {
+  constructor(public navCtrl: NavController,
+              public http: HttpClient,
+              public authenticationService: AuthenticationService,
+              public languageService: LanguageService,
+              private alertService: AlertManagerService,
+              private formBuilder: FormBuilder,
+              private usernameValidator: UsernameValidator,
+              private modalController: ModalController,
+              private usermgmtService: UsermgmtService,
+              private route: ActivatedRoute) {
 
     this.stepOneForm = this.formBuilder.group({
       username: ['',

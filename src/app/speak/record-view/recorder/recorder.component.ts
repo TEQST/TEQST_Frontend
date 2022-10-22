@@ -24,8 +24,6 @@ export class RecorderComponent implements OnInit, OnDestroy {
 
   @ViewChild('progresBar', {read: ElementRef}) progresBar: ElementRef
 
-  private ngUnsubscribe = new Subject<void>();
-
   public activeSentence: number;
   public totalSentenceNumber: number;
   public furthestSentenceIndex: number;
@@ -33,9 +31,12 @@ export class RecorderComponent implements OnInit, OnDestroy {
   public isRecording = false;
   public isLoaded = false;
 
+  private ngUnsubscribe = new Subject<void>();
+
   constructor(private textService: TextServiceService,
               private recordingService: AudioRecordingService,
               private playbackService: RecordingPlaybackService) {
+
     this.subscribeToServices();
   }
 

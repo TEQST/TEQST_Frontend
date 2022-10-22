@@ -1,4 +1,5 @@
-h3, h4 {
+h3,
+h4 {
     padding-left: 15px;
 }
 
@@ -22,12 +23,15 @@ ion-card {
     ion-card-header {
         background-color: #eee;
     }
+
     ion-card-title {
         font-size: 1.3em;
     }
+
     ion-list.textRecordingStats {
         padding-top: 2px;
     }
+
     ion-item:last-child {
         --border-color: transparent;
     }

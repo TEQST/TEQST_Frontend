@@ -14,10 +14,9 @@ export class TimeStatsComponent implements OnInit {
   public timeStats: TimeStats;
   public folderName: string;
 
-  constructor(
-    private navParams: NavParams,
-    private modalCtrl: ModalController,
-    public timeFormat: TimeFormatService) { }
+  constructor(public timeFormat: TimeFormatService,
+              private navParams: NavParams,
+              private modalCtrl: ModalController) {}
 
   ngOnInit(): void {
     this.timeStats = this.navParams.data.timestats;

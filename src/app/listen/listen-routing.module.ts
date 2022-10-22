@@ -11,12 +11,12 @@ const routes: Routes = [
   {
     path: ':folderId',
     loadChildren: () => import('./listen-manage/listen-manage.module')
-        .then( m => m.ListenManagePageModule)
+        .then( (m) => m.ListenManagePageModule),
   },
   {
     path: 'text/:textId',
     loadChildren: () => import('./listen-manage/text-detail/text-detail.module')
-        .then( (m) => m.TextDetailPageModule)
+        .then( (m) => m.TextDetailPageModule),
   },
 ];
 

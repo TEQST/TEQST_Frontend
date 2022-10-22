@@ -16,12 +16,11 @@ export class SelectSpeakerPage implements OnInit {
   public navComponent: IonNav;
   public creating: boolean;
 
-  constructor(
-    public navParams: NavParams,
-    public viewCtrl: ModalController,
-    private listenerData: ListenerDataService,
-    private shareFolderService: ShareFolderService,
-  ) {
+  constructor(public navParams: NavParams,
+              public viewCtrl: ModalController,
+              private listenerData: ListenerDataService,
+              private shareFolderService: ShareFolderService) {
+
     this.navComponent = navParams.get('navComponent');
   }
 

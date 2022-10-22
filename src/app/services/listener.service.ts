@@ -19,7 +19,7 @@ export class ListenerService {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private http: HttpClient) { }
+    private http: HttpClient) {}
 
 
   getSharedFolders(): Observable<JSON[]> {

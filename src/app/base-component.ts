@@ -10,12 +10,12 @@ export class BaseComponent implements OnDestroy {
   public isLoading = false;
 
   constructor(public loaderService: LoaderService) {
+
     this.loaderService.getIsLoading().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((isLoading) => {
           this.isLoading = isLoading;
         });
   }
-
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();

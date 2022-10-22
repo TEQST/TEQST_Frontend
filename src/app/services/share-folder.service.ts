@@ -13,9 +13,8 @@ export class ShareFolderService {
 
   SERVER_URL = Constants.SERVER_URL;
 
-  constructor(
-    public authenticationService: AuthenticationService,
-    private http: HttpClient) { }
+  constructor(public authenticationService: AuthenticationService,
+              private http: HttpClient) { }
 
   getSharingSpeakers(sharedfolderId: number): Observable<JSON[]> {
     const url =

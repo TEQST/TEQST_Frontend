@@ -22,8 +22,7 @@
   </div>
   <div #folderList id="folderList" class="fadeInWhenLoaded">
     <ion-list *ngIf="currentFolder.subfolder.length > 0">
-      <ion-item button *ngFor="let folder of currentFolder.subfolder"
-        [routerLink]="['/tabs/listen', folder.id]" 
+      <ion-item button *ngFor="let folder of currentFolder.subfolder" [routerLink]="['/tabs/listen', folder.id]"
         [state]="{folderName: folder.name}">
         <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
       </ion-item>
@@ -32,8 +31,7 @@
 
   <div #textList id="textList">
     <ion-list *ngIf="texts.length > 0" class="fix-padding">
-      <ion-item button *ngFor="let text of texts"
-        [routerLink]="['/tabs/listen/text', text.id]"
+      <ion-item button *ngFor="let text of texts" [routerLink]="['/tabs/listen/text', text.id]"
         [state]="{title: text.title}">
         <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}
       </ion-item>

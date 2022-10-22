@@ -14,10 +14,9 @@ export class LoginComponent implements OnInit {
   public showPassword = false;
   public qParams = {};
 
-  constructor(
-    public navCtrl: NavController,
-    public authenticationService: AuthenticationService,
-    private route: ActivatedRoute) {}
+  constructor(public navCtrl: NavController,
+              public authenticationService: AuthenticationService,
+              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const next = this.route.snapshot.queryParamMap.get('next');

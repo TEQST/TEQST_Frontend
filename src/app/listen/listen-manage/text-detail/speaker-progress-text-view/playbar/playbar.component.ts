@@ -20,9 +20,8 @@ export class PlaybarComponent implements OnInit, OnDestroy {
   private activeSentence: number;
   private ngUnsubscribe = new Subject<void>();
 
-  constructor(
-    private playbackService: RecordingPlaybackService,
-    private textStateService: TextStateService) {}
+  constructor(private playbackService: RecordingPlaybackService,
+              private textStateService: TextStateService) {}
 
   ngOnInit(): void {
     this.subscribeToServices();

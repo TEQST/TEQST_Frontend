@@ -16,7 +16,7 @@ export class ManageFolderUIService {
   constructor(
     private alertController: AlertController,
     private modalController: ModalController,
-    private alertManager: AlertManagerService) { }
+    private alertManager: AlertManagerService) {}
 
   // create folder objects from the given subfolderInfo data
   initSubfolderList(subfolderInfo): any {

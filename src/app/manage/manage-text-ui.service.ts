@@ -11,11 +11,10 @@ import {Text} from './manage.text';
 })
 export class ManageTextUIService {
 
-  constructor(
-    private manageFolderService: ManageFolderService,
-    private alertController: AlertController,
-    private modalController: ModalController,
-    private alertManager: AlertManagerService) { }
+  constructor(private manageFolderService: ManageFolderService,
+              private alertController: AlertController,
+              private modalController: ModalController,
+              private alertManager: AlertManagerService) {}
 
   // create text objects from the retrieved array of texts
   async initTextList(currentFolder, callback): Promise<void> {

@@ -13,11 +13,11 @@ import {TextStateService} from 'src/app/services/text-state.service';
 })
 export class TextWrapperComponent implements OnInit, OnDestroy {
 
-  private ngUnsubscribe = new Subject<void>();
-  
   public sentences: string[] = [];
   public furthestSentence = 1;
   public activeSentence = 1;
+
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(private textStateService: TextStateService,
               private route: ActivatedRoute,

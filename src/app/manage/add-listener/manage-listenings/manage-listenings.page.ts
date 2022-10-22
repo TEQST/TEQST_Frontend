@@ -19,14 +19,13 @@ export class ManageListeningsPage implements OnInit {
   public navComponent: IonNav;
   public listenings = [];
 
-  constructor(
-    public navParams: NavParams,
-    public listenerData: ListenerDataService,
-    public viewCtrl: ModalController,
-    private shareFolderService: ShareFolderService,
-    private alertController: AlertController,
-    private alertManagerService: AlertManagerService,
-  ) {
+  constructor(public navParams: NavParams,
+              public listenerData: ListenerDataService,
+              public viewCtrl: ModalController,
+              private shareFolderService: ShareFolderService,
+              private alertController: AlertController,
+              private alertManagerService: AlertManagerService) {
+
     this.navComponent = navParams.get('navComponent');
   }
 

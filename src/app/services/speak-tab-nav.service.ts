@@ -15,9 +15,8 @@ SERVER_URL = Constants.SERVER_URL;
 public sharedTextsList = new Subject<any>()
 public requestMade = new Subject<any>();
 
-constructor(
-  private http: HttpClient,
-  public authenticationService: AuthenticationService) { }
+constructor(private http: HttpClient,
+            public authenticationService: AuthenticationService) { }
 
 getFolderInfo(id, root_uid) {
   this.requestMade.next(true);

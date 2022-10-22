@@ -38,11 +38,10 @@ export class CreateTextPage implements OnInit, OnDestroy {
   private textSplitLinesDefault = 30;
   private ngUnsubscribe = new Subject<void>();
 
-  constructor(private formBuilder: FormBuilder,
-              private viewCtrl: ModalController,
-              public usermgmtService: UsermgmtService,
-              public languageService: LanguageService) {
-
+  constructor(public usermgmtService: UsermgmtService,
+              public languageService: LanguageService,
+              private formBuilder: FormBuilder,
+              private viewCtrl: ModalController) {
 
     this.createTextForm = this.formBuilder.group({
       title: ['', (control): {textTitle: boolean} => {

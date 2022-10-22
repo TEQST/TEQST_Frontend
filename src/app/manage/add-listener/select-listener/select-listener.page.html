@@ -12,7 +12,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar (ionChange)="onSearchTerm($event)" animated placeholder="{{'manage.addListenerModal.selectListener.searchbarPlaceholder' | translate}}">
+  <ion-searchbar (ionChange)="onSearchTerm($event)" animated
+    placeholder="{{'manage.addListenerModal.selectListener.searchbarPlaceholder' | translate}}">
   </ion-searchbar>
   <div #userLists class="fadeInWhenLoaded">
     <ion-list>
@@ -41,5 +42,6 @@
 </ion-content>
 
 <ion-footer class="ion-text-end">
-    <ion-button color="primary" (click)="showSelectSpeaker()">{{'manage.addListenerModal.selectListener.next' | translate}}</ion-button>
+  <ion-button color="primary" (click)="showSelectSpeaker()">{{'manage.addListenerModal.selectListener.next' |
+    translate}}</ion-button>
 </ion-footer>

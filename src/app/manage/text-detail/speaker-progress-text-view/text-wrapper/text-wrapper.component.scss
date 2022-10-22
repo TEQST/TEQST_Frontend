@@ -4,7 +4,8 @@ div {
 	font-size: large;
 }
 
-.verticalLine, .verticalLineDone {
+.verticalLine,
+.verticalLineDone {
 	padding: 5px 10px;
 
 	&.active {
@@ -16,9 +17,9 @@ div {
 }
 
 .verticalLine {
-  border-left: 8px solid #ff0000;
+	border-left: 8px solid #ff0000;
 }
 
 .verticalLineDone {
-  border-left: 8px solid Green;
+	border-left: 8px solid Green;
 }

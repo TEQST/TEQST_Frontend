@@ -16,10 +16,9 @@ export class ListenPage extends BaseComponent {
 
   public folders = [];
 
-  constructor(
-    public loaderService: LoaderService,
-    private alertManager: AlertManagerService,
-    private listenerService: ListenerService) {
+  constructor(public loaderService: LoaderService,
+              private alertManager: AlertManagerService,
+              private listenerService: ListenerService) {
 
     super(loaderService);
   }

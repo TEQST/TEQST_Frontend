@@ -14,9 +14,11 @@ div {
 		font-size: 1.4em;
 		font-weight: bold;
 	}
+
 	&.done {
 		border-left: 8px solid green;
 	}
+
 	&.error {
 		border-left: 8px solid red;
 		background-color: red;

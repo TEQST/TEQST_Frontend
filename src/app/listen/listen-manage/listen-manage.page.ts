@@ -24,12 +24,11 @@ export class ListenManagePage extends BaseComponent implements OnInit {
 
   private currentFolderId: string;
 
-  constructor(
-    public loaderService: LoaderService,
-    private listenerService: ListenerService,
-    private route: ActivatedRoute,
-    private modalController: ModalController,
-  ) {
+  constructor(public loaderService: LoaderService,
+              private listenerService: ListenerService,
+              private route: ActivatedRoute,
+              private modalController: ModalController) {
+
     super(loaderService);
     this.currentFolder = {
       id: 0,

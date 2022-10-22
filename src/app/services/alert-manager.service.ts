@@ -11,9 +11,8 @@ export class AlertManagerService {
   private alert: HTMLIonAlertElement;
   private noInternetAlert: HTMLIonAlertElement;
 
-  constructor(
-    public alertController: AlertController,
-    private navCtrl: NavController) {
+  constructor(public alertController: AlertController,
+              private navCtrl: NavController) {
 
     this.alertController.create({animated: false}).then((t) => {
       t.present(); t.dismiss();
@@ -145,7 +144,7 @@ export class AlertManagerService {
 
   async presentNoInternetAlert(): Promise<void> {
     // don't show alert if constant is set
-    if (Constants.DEVELOPER_MODE_NO_INTERNET) return;
+    if (Constants.DISABLE_NO_INTERNET_ALERT) return;
 
     this.noInternetAlert = await this.alertController.create({
       header: 'No Internet',

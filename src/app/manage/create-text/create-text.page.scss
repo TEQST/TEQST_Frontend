@@ -13,7 +13,8 @@ ion-input[type="number"] {
         max-height: 50px;
     }
 
-    &.item-has-focus, &.ion-invalid {
+    &.item-has-focus,
+    &.ion-invalid {
         padding-bottom: 0px;
         border-width: 2px;
     }

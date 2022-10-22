@@ -18,10 +18,9 @@ import {RollbarService} from 'src/app/rollbar';
 })
 export class ServerErrorInterceptorService implements HttpInterceptor {
 
-  constructor(
-    private alertService: AlertManagerService,
-    private userService: UsermgmtService,
-    private injector: Injector) { }
+  constructor(private alertService: AlertManagerService,
+              private userService: UsermgmtService,
+              private injector: Injector) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {

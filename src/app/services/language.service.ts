@@ -14,7 +14,9 @@ export class LanguageService {
   SERVER_URL = Constants.SERVER_URL;
   public menuLanguage;
 
-  constructor(public http: HttpClient, private translate: TranslateService ) {
+  constructor(public http: HttpClient,
+              private translate: TranslateService ) {
+
     this.menuLanguage = localStorage.getItem('MenuLanguage');
   }
 

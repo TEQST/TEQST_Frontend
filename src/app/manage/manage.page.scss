@@ -1,8 +1,9 @@
-.folderIcon, .textIcon {
+.folderIcon,
+.textIcon {
     margin-right: 10px;
 }
 
-.fabfix{
+.fabfix {
     margin-bottom: 50px;
 }
 
@@ -11,7 +12,7 @@ ion-fab-button {
     height: 60px;
 }
 
-.fix-padding{
+.fix-padding {
     padding-bottom: 80px;
 }
 
@@ -21,11 +22,13 @@ ion-checkbox {
     margin-right: 9px;
 }
 
-ion-button.delete, #multiSelectToolbar .actions ion-button {
+ion-button.delete,
+#multiSelectToolbar .actions ion-button {
     height: 25px;
 }
 
-#contentTitleWrapper, #multiSelectToolbar {
+#contentTitleWrapper,
+#multiSelectToolbar {
     display: flex;
     justify-content: space-between;
 }
@@ -78,8 +81,11 @@ ion-checkbox.selectCheckbox {
     margin: auto;
 }
 
-#folderList, #textList {
-    ion-button.delete, ion-checkbox.selectCheckbox {
+#folderList,
+#textList {
+
+    ion-button.delete,
+    ion-checkbox.selectCheckbox {
         position: absolute;
         right: 17px;
     }

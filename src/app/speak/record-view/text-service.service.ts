@@ -35,9 +35,8 @@ export class TextServiceService {
   private isRecordingExistsChecked: boolean;
   private nextActiveSentenceIndex: number;
 
-  constructor(
-    private http: HttpClient,
-    public authenticationService: AuthenticationService) { }
+  constructor(public authenticationService: AuthenticationService,
+              private http: HttpClient) {}
 
   public reset(): void {
     this.sentences.next([]);

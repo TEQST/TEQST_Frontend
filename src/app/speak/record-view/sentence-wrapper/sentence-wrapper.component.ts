@@ -18,24 +18,21 @@ import {takeUntil} from 'rxjs/operators';
 export class SentenceWrapperComponent
 implements OnInit, OnDestroy, AfterViewChecked {
 
-  private ngUnsubscribe = new Subject<void>();
+  @ViewChild('sentenceWrapper', {read: ElementRef}) sentenceWrapper: ElementRef
+  @ViewChildren('sentenceDomElement') sentenceList: QueryList<ElementRef>;
 
   public sentences: string[];
   public sentencesRecordingStatus: SentenceStatus[];
   public activeSentence: number;
   public isRecording: boolean;
   public furthestSentence: number;
+
+  private ngUnsubscribe = new Subject<void>();
   private newIndex = false
 
-  constructor(
-    private textService: TextServiceService,
-    private recordingService: AudioRecordingService,
-    private playbackService: RecordingPlaybackService,
-  ) {
-  }
-
-  @ViewChild('sentenceWrapper', {read: ElementRef}) sentenceWrapper: ElementRef
-  @ViewChildren('sentenceDomElement') sentenceList: QueryList<ElementRef>;
+  constructor(private textService: TextServiceService,
+              private recordingService: AudioRecordingService,
+              private playbackService: RecordingPlaybackService) {}
 
   ngOnInit(): void {
     this.subscribeToServices();

@@ -36,6 +36,7 @@ export class FolderContentPage extends BaseComponent implements OnInit {
               private route: ActivatedRoute,
               private modalController: ModalController,
               private alertManager: AlertManagerService) {
+
     super(loaderService);
 
     this.subfolders = [];

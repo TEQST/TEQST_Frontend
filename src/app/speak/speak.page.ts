@@ -15,11 +15,10 @@ export class SpeakPage extends BaseComponent implements OnInit {
 
   public recentFolders = [];
 
-  constructor(
-    public loaderService: LoaderService,
-    private shareFolderService: ShareFolderService,
-    private router: Router,
-  ) {
+  constructor(public loaderService: LoaderService,
+              private shareFolderService: ShareFolderService,
+              private router: Router) {
+
     super(loaderService);
   }
 

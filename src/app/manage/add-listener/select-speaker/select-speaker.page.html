@@ -30,6 +30,8 @@
   </ion-slides>
 </ion-content>
 <ion-footer class="ion-text-end">
-  <ion-button *ngIf="creating" color="primary" (click)="createListening()">{{'manage.addListenerModal.selectSpeaker.finish' | translate}}</ion-button>
-  <ion-button *ngIf="!creating" color="primary" (click)="updateListening()">{{'manage.addListenerModal.selectSpeaker.update' | translate}}</ion-button>
+  <ion-button *ngIf="creating" color="primary" (click)="createListening()">
+    {{'manage.addListenerModal.selectSpeaker.finish' | translate}}</ion-button>
+  <ion-button *ngIf="!creating" color="primary" (click)="updateListening()">
+    {{'manage.addListenerModal.selectSpeaker.update' | translate}}</ion-button>
 </ion-footer>

@@ -24,11 +24,8 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 
 export class AudioRecordingService {
 
-
   private stream: MediaStream;
   private activeRecorder;
-  private recorded = new Map<number, Blob>();
-  private audio = new Audio();
 
   private recordingFailed$ = new Subject<string>();
   private isRecording$ = new BehaviorSubject<boolean>(false);
@@ -44,12 +41,13 @@ export class AudioRecordingService {
   private recordingTimeoutLength = 180000; // 3 min = 3*60*1000=180000
   private recordingTimeout;
 
-  constructor(private textService: TextServiceService,
-              public authenticationService: AuthenticationService,
+  constructor(public authenticationService: AuthenticationService,
+              public toastController: ToastController,
               private alertService: AlertManagerService,
               private recordingUploadService: RecordingUploadService,
-              private playbackService: RecordingPlaybackService,
-              public toastController: ToastController) {
+              private textService: TextServiceService,
+              private playbackService: RecordingPlaybackService) {
+
     this.subscribeToServices();
     this.alertService.presentRecordingInfoAlert();
   }
@@ -63,7 +61,6 @@ export class AudioRecordingService {
         .subscribe((index) => this.furthestSentence = index);
     this.textService.getRecordingId().subscribe((id) => {
       this.recordingId = id;
-      this.resetRecordingData();
     });
     this.textService.getSentenceHasRecording()
         .subscribe((value) => this.sentenceHasRecording = value);
@@ -75,10 +72,6 @@ export class AudioRecordingService {
         .subscribe((status) => this.updateSentenceRecordingStatus(status));
     this.playbackService.getIsPlaying()
         .subscribe((state) => this.isPlaying = state);
-  }
-
-  resetRecordingData(): void {
-    this.recorded = new Map<number, Blob>(); // delete locally saved recordings
   }
 
   recordingFailed(): Observable<string> {

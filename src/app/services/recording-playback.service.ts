@@ -18,7 +18,7 @@ export class RecordingPlaybackService {
   private isPlaying = new BehaviorSubject<boolean>(false);
 
   constructor(public authenticationService: AuthenticationService,
-              private http: HttpClient) { }
+              private http: HttpClient) {}
 
   public async playSentenceRecording(
       recordingId: number,

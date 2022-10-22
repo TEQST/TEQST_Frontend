@@ -18,7 +18,7 @@ export class FolderStatsPage {
 
   public folderStats: FolderStats;
 
-  constructor(private viewCtrl: ModalController) { }
+  constructor(private viewCtrl: ModalController) {}
 
   ionViewWillEnter(): void {
     this.navComponent.push(SpeakerListPage, {

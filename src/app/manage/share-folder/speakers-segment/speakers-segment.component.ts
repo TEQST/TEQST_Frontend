@@ -20,8 +20,7 @@ export class SpeakersSegmentComponent implements OnInit {
   private speakers: User[];
   private searchTerm = '';
 
-  constructor(
-    private shareFolderService: ShareFolderService) { }
+  constructor(private shareFolderService: ShareFolderService) { }
 
   ngOnInit(): void {
     // reset Search term on each opening of the modal

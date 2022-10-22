@@ -19,7 +19,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
 
   private requests: HttpRequest<any>[] = [];
 
-  constructor(public loaderService: LoaderService) { }
+  constructor(public loaderService: LoaderService) {}
 
   removeRequest(req: HttpRequest<any>): void {
     const i = this.requests.indexOf(req);

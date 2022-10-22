@@ -16,10 +16,9 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 })
 export class AccessGuard implements CanActivate {
 
-  constructor(
-    private userService: UsermgmtService,
-    private router: Router,
-    private authService: AuthenticationService) { }
+  constructor(private userService: UsermgmtService,
+              private router: Router,
+              private authService: AuthenticationService) { }
 
   /* Check if a user is allowed to navigate to a specific route
      based on the set flag in the router

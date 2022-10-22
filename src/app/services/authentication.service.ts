@@ -20,15 +20,12 @@ export class AuthenticationService {
   private httpOptions;
   private dataFromServer: any = '';
 
-  constructor(
-    public http: HttpClient,
-    public navCtrl: NavController,
-    public languageService: LanguageService,
-    public usermgmtService: UsermgmtService,
-    private alertService: AlertManagerService,
-    private route: ActivatedRoute) {
-
-  }
+  constructor(public http: HttpClient,
+              public navCtrl: NavController,
+              public languageService: LanguageService,
+              public usermgmtService: UsermgmtService,
+              private alertService: AlertManagerService,
+              private route: ActivatedRoute) {}
 
   // login into Website, saving userdata in localStorage, redirect to speak tab
   // and fetching userdata from server
