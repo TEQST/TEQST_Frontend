@@ -14,7 +14,6 @@ export class SpeakerProgressTextViewComponent implements OnDestroy {
   public textTitle: string;
   private ngUnsubscribe = new Subject<void>();
 
-
   constructor(private textStateService: TextStateService) {
     this.textStateService.getTextTitle().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((title) => this.textTitle = title);

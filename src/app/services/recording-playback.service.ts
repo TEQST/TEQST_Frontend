@@ -59,7 +59,6 @@ export class RecordingPlaybackService {
   public stopAudioPlayback(): void {
     this.audio.pause();
     this.audio.currentTime = 0;
-
   }
 
   public addToCache(sentenceRecording: SentenceRecordingModel): void {
@@ -95,7 +94,6 @@ export class RecordingPlaybackService {
     });
     return recordingIndex;
   }
-
 
   // get recordings of already recorded sentences from the server
   private async fetchSentenceRecordingBlob(

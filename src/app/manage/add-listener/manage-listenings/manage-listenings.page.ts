@@ -22,14 +22,13 @@ export class ManageListeningsPage implements OnInit {
   constructor(
     public navParams: NavParams,
     public listenerData: ListenerDataService,
-    private shareFolderService: ShareFolderService,
     public viewCtrl: ModalController,
+    private shareFolderService: ShareFolderService,
     private alertController: AlertController,
     private alertManagerService: AlertManagerService,
   ) {
     this.navComponent = navParams.get('navComponent');
   }
-
 
   ngOnInit(): void {
     this.fetchListenings();

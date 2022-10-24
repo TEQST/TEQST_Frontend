@@ -23,9 +23,9 @@ export class AuthenticationService {
   constructor(
     public http: HttpClient,
     public navCtrl: NavController,
-    private alertService: AlertManagerService,
     public languageService: LanguageService,
     public usermgmtService: UsermgmtService,
+    private alertService: AlertManagerService,
     private route: ActivatedRoute) {
 
   }
@@ -37,6 +37,8 @@ export class AuthenticationService {
     let menuLanguage;
     this.http.post(url, dataToSend, this.httpOptions)
         .subscribe((loginResponse: object) => {
+
+          // set variables based on received data
           const userData = loginResponse['user'] as User;
           this.usermgmtService.initLoggingData(userData.id, userData.username);
           this.usermgmtService.isPublisher.next(userData.is_publisher);
@@ -51,6 +53,7 @@ export class AuthenticationService {
           this.languageService
               .setMenuLanguage(this.languageService.menuLanguage);
 
+          // redirect user
           if (this.route.snapshot.queryParamMap.has('next')) {
             const nextURL = this.route.snapshot.queryParamMap.get('next');
             this.navCtrl.navigateForward(nextURL);

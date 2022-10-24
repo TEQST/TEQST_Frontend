@@ -13,11 +13,11 @@ import {TextStateService} from 'src/app/services/text-state.service';
 })
 export class TextWrapperComponent implements OnInit, OnDestroy {
 
-  private ngUnsubscribe = new Subject<void>();
   public sentences: string[] = [];
-
   public furthestSentence = 1;
   public activeSentence = 1;
+
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(private textStateService: TextStateService,
               private route: ActivatedRoute,
@@ -39,6 +39,8 @@ export class TextWrapperComponent implements OnInit, OnDestroy {
         .subscribe((sentences) => this.sentences = sentences);
   }
 
+  // update speaker name based on url parameter,
+  // so it can be used by the text-detail page
   private shareRouteParams(): void {
     this.route.paramMap
         .pipe(
@@ -51,7 +53,6 @@ export class TextWrapperComponent implements OnInit, OnDestroy {
 
   // when clicking on a sentence set it to active
   onSelect(index: number): void {
-    // this.playbackService.stopAudioPlayback();
     this.textStateService.setActiveSentenceIndex(index);
   }
 

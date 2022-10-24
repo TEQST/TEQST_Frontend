@@ -12,7 +12,6 @@ import {TextStateService} from 'src/app/services/text-state.service';
 export class SpeakerProgressTextViewComponent implements OnDestroy {
 
   public ngUnsubscribe = new Subject<void>();
-
   public textTitle: string;
 
   constructor(private textStateService: TextStateService) {

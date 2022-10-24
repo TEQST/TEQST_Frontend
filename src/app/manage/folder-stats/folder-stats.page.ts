@@ -21,7 +21,6 @@ export class FolderStatsPage {
   constructor(private viewCtrl: ModalController) { }
 
   ionViewWillEnter(): void {
-    console.log(this.navComponent);
     this.navComponent.push(SpeakerListPage, {
       navComponent: this.navComponent,
       viewCtrl: this.viewCtrl,
@@ -30,6 +29,5 @@ export class FolderStatsPage {
       role: this.role,
     });
   }
-
 
 }

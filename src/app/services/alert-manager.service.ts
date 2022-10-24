@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AlertController, NavController} from '@ionic/angular';
+import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -143,7 +144,9 @@ export class AlertManagerService {
   }
 
   async presentNoInternetAlert(): Promise<void> {
-    return
+    // don't show alert if constant is set
+    if (Constants.DEVELOPER_MODE_NO_INTERNET) return;
+
     this.noInternetAlert = await this.alertController.create({
       header: 'No Internet',
       message: 'Please restore the connection to the internet',

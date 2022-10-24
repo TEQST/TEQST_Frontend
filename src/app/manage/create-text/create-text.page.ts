@@ -17,8 +17,6 @@ export class CreateTextPage implements OnInit, OnDestroy {
   @ViewChild('titleInput', {static: false}) titleInput: IonInput;
   @ViewChild('selectFileWrapper', {static: false}) selectFileWrapper: IonItem;
 
-  private ngUnsubscribe = new Subject<void>();
-
   public formValid: boolean;
   public titleValid: boolean;
   public languageSelected: boolean;
@@ -38,6 +36,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
   private textSplitLinesMin = 5;
   private textSplitLinesMax = 100;
   private textSplitLinesDefault = 30;
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(private formBuilder: FormBuilder,
               private viewCtrl: ModalController,
@@ -76,7 +75,6 @@ export class CreateTextPage implements OnInit, OnDestroy {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-
 
   dismiss(): void {
     // close the modal without passing data
