@@ -21,6 +21,7 @@ export class ListenManagePage extends BaseComponent implements OnInit {
 
   public currentFolder: FolderDetail;
   public texts: TextBasic[];
+
   private currentFolderId: string;
 
   constructor(
@@ -64,7 +65,6 @@ export class ListenManagePage extends BaseComponent implements OnInit {
     this.listenerService.loadContentsOfSharedFolder(this.currentFolderId)
         .subscribe((res) => {
           this.texts = res['texts'];
-          console.log(this.texts);
         }, (err) => {
           alert(err);
         });
