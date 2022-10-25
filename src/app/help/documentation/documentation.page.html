@@ -19,71 +19,73 @@
       <nav>
         <ion-list>
           <ion-list-header>
+            <ion-label>0. General information</ion-label>
+          </ion-list-header>
+          <ion-item button (click)="scrollToElement(generalInformationTabs)">
+            <ion-label>0.1 The different tabs</ion-label>
+          </ion-item>
+          <ion-item button (click)="scrollToElement(generalInformationNavigation)">
+            <ion-label>0.2 Navigating through the folder structure</ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-list-header>
             <ion-label>1. Speaker tab</ion-label>
           </ion-list-header>
           <ion-item button (click)="scrollToElement(speakerTabLink)">
             <ion-label>1.1 Opening a link to a shared folder</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(speakerTabNavigation)">
-            <ion-label>1.2 Navigating through the folder structure</ion-label>
-          </ion-item>
           <ion-item button (click)="scrollToElement(speakerTabRec)">
-            <ion-label>1.3 Recording audio data</ion-label>
+            <ion-label>1.2 Recording audio data</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(speakerTabRecTime)">
-            <ion-label>1.4 View your recording time</ion-label>
+            <ion-label>1.3 View your recording time</ion-label>
           </ion-item>
         </ion-list>
         <ion-list>
           <ion-list-header>
             <ion-label>2. Listener tab</ion-label>
           </ion-list-header>
-          <ion-item button (click)="scrollToElement(listenerTabNavigation)">
-            <ion-label>2.1 Navigating through the folder structure</ion-label>
-          </ion-item>
           <ion-item button (click)="scrollToElement(listenerTabStats)">
-            <ion-label>2.2 Statistics about speakers</ion-label>
+            <ion-label>2.1 Statistics about speakers</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(listenerTabListening)">
-            <ion-label>2.3 Listening to different speakers</ion-label>
+            <ion-label>2.2 Listening to different speakers</ion-label>
           </ion-item>
         </ion-list>
         <ion-list>
           <ion-list-header>
             <ion-label>3. Publisher tab</ion-label>
           </ion-list-header>
-          <ion-item button (click)="scrollToElement(publisherTabNavigation)">
-            <ion-label>3.1 Navigating through the folder structure</ion-label>
-          </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabCreateFolder)">
-            <ion-label>3.2 Creating a folder</ion-label>
+            <ion-label>3.1 Creating a folder</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabUpload)">
-            <ion-label>3.3 Uploading a text</ion-label>
+            <ion-label>3.2 Uploading a text</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabSharingFolderSpeakers)">
-            <ion-label>3.4 Sharing a folder with speakers</ion-label>
+            <ion-label>3.3 Sharing a folder with speakers</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabSharingFolderListeners)">
-            <ion-label>3.5 Sharing a folder with listeners</ion-label>
+            <ion-label>3.4 Sharing a folder with listeners</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabDeleting)">
-            <ion-label>3.6 Deleting single folders or texts</ion-label>
+            <ion-label>3.5 Deleting single folders or texts</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabDeletingMultiple)">
-            <ion-label>3.7 Deleting multiple folders or texts</ion-label>
+            <ion-label>3.6 Deleting multiple folders or texts</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabStatistics)">
-            <ion-label>3.8 Statistics about speakers</ion-label>
+            <ion-label>3.7 Statistics about speakers</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabStatistics)">
-            <ion-label>3.9 Listening to different speakers</ion-label>
+            <ion-label>3.8 Listening to different speakers</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabDownloadRecordings)">
-            <ion-label>3.10 Downloading recordings</ion-label>
+            <ion-label>3.9 Downloading recordings</ion-label>
           </ion-item>
           <ion-item button (click)="scrollToElement(publisherTabDownloadStatistics)">
-            <ion-label>3.11 Downloading statistics</ion-label>
+            <ion-label>3.10 Downloading statistics</ion-label>
           </ion-item>
         </ion-list>
         <ion-list>
@@ -103,13 +105,84 @@
   <!-- the main content -->
   <ion-content class="content-wrapper" id="content-wrapper">
     <div class="content">
+      <article #generalInformation>
+        <h2>0. General information</h2>
+        <section #generalInformationTabs>
+          <h3>0.1 The different tabs</h3>
+          <figure>
+            <img src="../../assets/img/documentation/Different-Tabs.png" alt="Image of publisher list">
+            <figcaption>Figure 1:&nbsp; The different tabs</figcaption>
+          </figure>
+          <table id="differentTabsTable">
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>[1] <ion-icon name="mic" color="primary"></ion-icon></td>
+                <td>
+                  <ul>
+                    <li>Recording audio data</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>[2] <ion-icon name="ear" color="primary"></ion-icon></td>
+                <td>
+                  <ul>
+                    <li>Listening to recordings by other users</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>[3] <ion-icon name="cloud-upload" color="primary"></ion-icon></td>
+                <td>
+                  <ul>
+                    <li style="color:red">This tab is only visible for users with publisher status</li>
+                    <li>Creating / deleting folders and texts</li>
+                    <li>Sharing folders with speakers and listeners</li>
+                    <li>Listening to recordings by other users</li>
+                    <li>Viewing and downloading recording statistics</li>
+                    <li>Downloading recorded speech data</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>[4] <ion-icon name="settings" color="primary"></ion-icon></td>
+                <td>
+                  <ul>
+                    <li>Updating profile information</li>
+                    <li>Changing menu language</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section #generalInformationNavigation>
+          <h3>0.2 Navigating through the folder structure</h3>
+          <figure>
+            <img src="../../assets/img/documentation/Folder-Navigation.png" alt="Image of folder overview">
+            <figcaption>Figure 3:&nbsp; Folder navigation</figcaption>
+          </figure>
+          <p>
+            You can navigate through the folder structure by clicking on folders <ion-icon name="folder"
+              color="primary"></ion-icon> or texts <ion-icon name="reader"></ion-icon> to open them
+            or pressing the back <ion-icon name="arrow-back"></ion-icon> or home <ion-icon name="home"></ion-icon>
+            button to move up in hierarchy.
+          </p>
+        </section>
+      </article>
       <article #speakerTab>
         <h2>1. Speaker tab</h2>
         <section #speakerTabLink>
           <h3>1.1 Opening a link to a shared folder</h3>
           <figure>
             <img src="../../assets/img/documentation/Speaker-Folder.png" alt="Image of publisher list">
-            <figcaption>Figure 1:&nbsp; Contents of a shared folder</figcaption>
+            <figcaption>Figure 1:&nbsp; Contents of shared folder "english"</figcaption>
           </figure>
           <p>
             When you click on a link that has been shared with you,
@@ -120,36 +193,23 @@
           </p>
           <figure>
             <img src="../../assets/img/documentation/Speaker-RecentFolders.png" alt="Image of folder overview">
-            <figcaption>Figure 3:&nbsp; Recent folders</figcaption>
+            <figcaption>Figure 3:&nbsp; Recent folders including the folder "english"</figcaption>
           </figure>
           <p>
-            You can now access it anytime by clicking it in the speak tab.
+            You can now access it anytime by opening it by clicking in the speak tab.
           </p>
           <figure>
             <img src="../../assets/img/documentation/Speaker-TextOverview.png" alt="Image of folder overview">
-            <figcaption>Figure 3:&nbsp; Texts in folder f6_1 by publisher jannik</figcaption>
+            <figcaption>Figure 3:&nbsp; Texts in folder stories</figcaption>
           </figure>
           <p>
             After you have selected a folder you can see the texts within the folder.
-            (<span class="red">[2]</span> in Figure 3)<br>
+            (<span class="red">[1]</span> in Figure 3)<br>
             Now you can choose a text, for collecting audio data, by clicking the name of the text.<br>
             If you open a text the first time you have to give the permission,
             to use your collected audio data, whether for text-to-speech, speech-recognition or both.<br>
             If you are interested in the recording time for this folder, click the alarm clock
-            <ion-icon name="alarm" color="primary"></ion-icon> (<span class="red">[1]</span> in Figure 3).
-          </p>
-        </section>
-        <section #speakerTabNavigation>
-          <h3>1.2 Navigating through the folder structure</h3>
-          <figure>
-            <img src="../../assets/img/documentation/Folder-Navigation.png" alt="Image of folder overview">
-            <figcaption>Figure 3:&nbsp; Folder navigation</figcaption>
-          </figure>
-          <p>
-            You can navigate through the folder structure by clicking on folders <ion-icon name="folder"
-              color="primary"></ion-icon> or texts <ion-icon name="reader"></ion-icon> to open them
-            or pressing the back <ion-icon name="arrow-back"></ion-icon> or home <ion-icon name="home"></ion-icon>
-            button to move up in hierarchy.
+            <ion-icon name="alarm" color="primary"></ion-icon> (<span class="red">[2]</span> in Figure 3).
           </p>
         </section>
         <section #speakerTabRec>
@@ -217,6 +277,29 @@
             For rerecording press the microphone button <ion-icon name="mic" class="mic-icon"></ion-icon>&nbsp;<span
               class="red">[2]</span> and the rerecording will start directly.
           </p>
+          <h4>Keyboard Shortcuts</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Space</td>
+                <td>Start / Stop recording</td>
+              </tr>
+              <tr>
+                <td>Right / Down</td>
+                <td>Jump to next sentence</td>
+              </tr>
+              <tr>
+                <td>Left / Up</td>
+                <td>Jump to previous sentence</td>
+              </tr>
+            </tbody>
+          </table>
         </section>
         <section #speakerTabRecTime>
           <h3>1.4 View your recording time:</h3>
@@ -237,11 +320,6 @@
       </article>
       <article #listenerTab>
         <h2>2. Listener tab</h2>
-        <section #listenerTabNavigation>
-          <h3>2.1 Navigating through the folder structure</h3>
-          <p>See <a href="javascript:void(0)" (click)="scrollToElement(speakerTabNavigation)">Navigating through the
-              folder structure</a></p>
-        </section>
         <section #listenerTabStats>
           <h3>2.2 Statistics about speakers</h3>
           <figure>
@@ -274,11 +352,6 @@
       </article>
       <article #publisherTab>
         <h2>3. Publisher view:</h2>
-        <section #publisherTabNavigation>
-          <h3>3.1 Navigating through the folder structure</h3>
-          See <a href="javascript:void(0)" (click)="scrollToElement(speakerTabNavigation)">Navigating through the folder
-            structure</a>
-        </section>
         <section #publisherTabCreateFolder>
           <h3>3.2 Creating a folder:</h3>
           <figure>
@@ -330,23 +403,6 @@
             <span class="red">[5]</span> You can select how many sentences will be in one splitted text.<br>
             <span class="red">[6]</span> Upload your text by clicking on the create text button.
           </p>
-          <figure>
-            <img src="../../assets/img/documentation/Publisher-sharringFolder.png" alt="Image of folder overview">
-            <figcaption>Figure 11:&nbsp; Publisher sharring a text
-            </figcaption>
-          </figure>
-          <p>
-            Now you can share your folder to some speaker. The sharring pop up is shown after you have clicked on the
-            cloud symbol <ion-icon name="cloud" color="primary"></ion-icon> in the top right corner <span
-              class="red">[1]</span>.<br>
-            Already added speakers are shown on top, below all other existing users are listed. <br>
-            If you want share your folder to an user, you can search for his name in the searchbar <span
-              class="red">[2]</span> and add him by
-            clicking the green plus button <ion-icon name="add" class="add-icon-green"></ion-icon>&nbsp;<span
-              class="red">[3]</span>.
-            If you want to drawback the access, you can delete users from your folder by clicking the red minus button
-            <ion-icon name="remove" class="minus-icon-red"></ion-icon>&nbsp;<span class="red">[4]</span>.
-          </p>
         </section>
         <section #publisherTabSharingFolderSpeakers>
           <h3>3.4 Sharing a folder with speakers</h3>
@@ -360,10 +416,10 @@
           <h3>3.5 Sharing a folder with listeners</h3>
           <p>
             First navigate to the folder you would like to share.
-            To permit a person to listen to the recording of others click on the ear symbol.
+            To permit a person to listen to the recording of others click on the ear symbol <ion-icon id="add-listener-icon" name="ear" color="dark"></ion-icon>.
             Existing listening permissions will be listed here.
-            Now click on the blue plus button to add a new listening permission.
-            Here you can add one or multiple users by clicking the green plus button next to their name.
+            Now click on the blue plus button <ion-icon name="add" id="add-listening-icon"></ion-icon> to add a new listening permission.
+            Here you can add one or multiple users by clicking the green plus button <ion-icon name="add" id="add-listening-user-icon"></ion-icon> next to their name.
             Then click on the next button.
             You can allow the listeners to listen to speakers either by certain accents or their usernames.
             This can be done by switching between the tabs "by accent" and "by username".
