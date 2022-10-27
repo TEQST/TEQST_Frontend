@@ -1,5 +1,5 @@
 import {RegisterForm} from './../interfaces/register-form';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NavController} from '@ionic/angular';
@@ -9,6 +9,7 @@ import {User} from '../interfaces/user';
 import {UsermgmtService} from './usermgmt.service';
 import {Constants} from '../constants';
 import {ActivatedRoute} from '@angular/router';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class AuthenticationService {
   SERVER_URL = Constants.SERVER_URL;
   private httpOptions;
   private dataFromServer: any = '';
+  private loginURL = Constants.SERVER_URL + '/api/auth/login/';
 
   constructor(
     public http: HttpClient,
@@ -26,15 +28,15 @@ export class AuthenticationService {
     public languageService: LanguageService,
     public usermgmtService: UsermgmtService,
     private route: ActivatedRoute) {
-
   }
 
   // login into Website, saving userdata in localStorage, redirect to speak tab
   // and fetching userdata from server
-  login(dataToSend): void {
-    const url = this.SERVER_URL + '/api/auth/login/';
+  async login(dataToSend): Promise<void> {
     let menuLanguage;
-    this.http.post(url, dataToSend, this.httpOptions)
+    await fetch(this.loginURL);
+
+    this.http.post(this.loginURL, dataToSend, this.httpOptions)
         .subscribe((loginResponse: object) => {
           const userData = loginResponse['user'] as User;
           this.usermgmtService.initLoggingData(userData.id, userData.username);
@@ -43,9 +45,6 @@ export class AuthenticationService {
           menuLanguage = userData.menu_language.short;
           this.languageService.updateMenuLanguage(menuLanguage);
           this.dataFromServer = JSON.stringify(loginResponse);
-          localStorage.setItem(
-              'Token',
-              'Token ' + JSON.parse(this.dataFromServer).token);
           this.usermgmtService.storeUserData(userData);
           this.languageService
               .setMenuLanguage(this.languageService.menuLanguage);
@@ -95,9 +94,13 @@ export class AuthenticationService {
     });
   }
 
+  getCookieValue(name: string): string {
+    return document.cookie.match(
+        '(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || '';
+  }
+
   isLoggedIn(): boolean {
-    // if no auth token is found in local storage AUTH_TOKEN = null
-    return !(localStorage.getItem('Token') === null);
+    return (this.getCookieValue('isLoggedIn') === 'true');
   }
 
 }
