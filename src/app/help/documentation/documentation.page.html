@@ -122,7 +122,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>[1] <ion-icon name="mic" color="primary"></ion-icon></td>
+                <td>[1] <ion-icon name="mic" color="primary"></ion-icon>
+                </td>
                 <td>
                   <ul>
                     <li>Recording audio data</li>
@@ -130,7 +131,8 @@
                 </td>
               </tr>
               <tr>
-                <td>[2] <ion-icon name="ear" color="primary"></ion-icon></td>
+                <td>[2] <ion-icon name="ear" color="primary"></ion-icon>
+                </td>
                 <td>
                   <ul>
                     <li>Listening to recordings by other users</li>
@@ -138,7 +140,8 @@
                 </td>
               </tr>
               <tr>
-                <td>[3] <ion-icon name="cloud-upload" color="primary"></ion-icon></td>
+                <td>[3] <ion-icon name="cloud-upload" color="primary"></ion-icon>
+                </td>
                 <td>
                   <ul>
                     <li style="color:red">This tab is only visible for users with publisher status</li>
@@ -151,7 +154,8 @@
                 </td>
               </tr>
               <tr>
-                <td>[4] <ion-icon name="settings" color="primary"></ion-icon></td>
+                <td>[4] <ion-icon name="settings" color="primary"></ion-icon>
+                </td>
                 <td>
                   <ul>
                     <li>Updating profile information</li>
@@ -245,17 +249,19 @@
             </figcaption>
           </figure>
           <p>
-            The microphone button <ion-icon name="mic" class="mic-icon"></ion-icon> was clicked.<br>
-            The recording of sentence 6 (<span class="red">[4]</span> in Figure 6) has started.<br>
-            <span class="red">[1]</span> The microphone button <ion-icon name="mic" class="mic-icon">
-            </ion-icon> changed to the red blinking square <ion-icon name="square" class="mic-icon-recording">
-            </ion-icon>,
-            which indicates, that you are currently recording.<br>
-            After you finished reading out the sentence you can press <span class="red">[1]</span> or <span
-              class="red">[2]</span>.
-            If you press <span class="red">[1]</span> the current
+            In the scenario in Figure 6 the microphone button <ion-icon name="mic" class="mic-icon"></ion-icon> was
+            clicked.<br>
+            Now we are recording the sixth sentence <span class="red">[4]</span><br>
+            This is being indicated by the blinking square button <ion-icon name="square" class="mic-icon-recording">
+            </ion-icon><span class="red">[1]</span>
+            which replaced the microphone button <ion-icon name="mic" class="mic-icon"></ion-icon>.<br>
+            After you finished reading out the sentence you can press
+            <ion-icon name="square" class="mic-icon-recording"></ion-icon> or
+            <ion-icon name="arrow-forward" class="arrow-forward-icon"></ion-icon>.
+            If you press <ion-icon name="square" class="mic-icon-recording"></ion-icon> the current
             recording is saved and then the recording is paused automatically (Figure 5).<br>
-            If you press <span class="red">[2]</span> instead your current recording is saved and the recording of the
+            If you press <ion-icon name="arrow-forward" class="arrow-forward-icon"></ion-icon> instead your current
+            recording is saved and the recording of the
             next sentence starts
             immediately.<br>
             Having made a big mistake or made a long pause you can delete your current recording with the trashcan
@@ -345,7 +351,7 @@
             On the left you can see a <span class="green_bar_right">green bar</span> which indicates the recorded
             sentences.<br>
             You can select single sentences
-            and listen them by clicking the play button <ion-icon name="play" class="play-icon">
+            and listen to them by clicking the play button <ion-icon name="play" class="play-icon">
             </ion-icon>&nbsp;<span class="red">[2]</span>.
           </p>
         </section>
@@ -362,9 +368,8 @@
           <p>
             If the admin has promoted you to a publisher a new publisher icon will be shown in the tab bar <ion-icon
               name="cloud-upload" color="primary"></ion-icon>&nbsp;<span class="red">[1]</span>.<br>
-            By clicking on it, you will be redirected to an overview of all folders you have created (initially, this
-            list
-            is empty).<br>
+            By clicking on it, you will be redirected to an overview of all folders you have created
+            (initially, the list will be empty).<br>
             The plus button <ion-icon name="add" class="add-icon"></ion-icon>&nbsp;<span class="red">[2]</span> allows
             you to
             create new folders and texts.<br>
@@ -379,8 +384,9 @@
             </figcaption>
           </figure>
           <p>
-            Figure 9 shows an empty folder, where a new text <span class="red">[1]</span> or a new folder <span
-              class="red">[2]</span> can be created.
+            Figure 9 shows an empty folder, where a new text <ion-icon name="reader"></ion-icon><span
+              class="red">[1]</span>
+            or a new folder <ion-icon name="folder" color="primary"></ion-icon><span class="red">[2]</span> can be created.
           </p>
         </section>
         <section #publisherTabUpload>
@@ -416,10 +422,13 @@
           <h3>3.5 Sharing a folder with listeners</h3>
           <p>
             First navigate to the folder you would like to share.
-            To permit a person to listen to the recording of others click on the ear symbol <ion-icon id="add-listener-icon" name="ear" color="dark"></ion-icon>.
+            To permit a person to listen to the recording of others click on the ear symbol <ion-icon
+              id="add-listener-icon" name="ear" color="dark"></ion-icon>.
             Existing listening permissions will be listed here.
-            Now click on the blue plus button <ion-icon name="add" id="add-listening-icon"></ion-icon> to add a new listening permission.
-            Here you can add one or multiple users by clicking the green plus button <ion-icon name="add" id="add-listening-user-icon"></ion-icon> next to their name.
+            Now click on the blue plus button <ion-icon name="add" id="add-listening-icon"></ion-icon> to add a new
+            listening permission.
+            Here you can add one or multiple users by clicking the green plus button <ion-icon name="add"
+              id="add-listening-user-icon"></ion-icon> next to their name.
             Then click on the next button.
             You can allow the listeners to listen to speakers either by certain accents or their usernames.
             This can be done by switching between the tabs "by accent" and "by username".
