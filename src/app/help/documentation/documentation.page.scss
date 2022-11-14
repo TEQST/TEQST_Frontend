@@ -11,7 +11,6 @@ ion-title {
   }
 }
 
-
 ion-split-pane {
   margin-top: 56px;
   --side-max-width: 400px;
@@ -39,9 +38,30 @@ section {
   padding-top: 10px;
 }
 
+ion-menu {
+  --width: 350px;
+}
+
 article {
-  margin: 0 30px;
   font-size: 1.2em;
+  padding: 0;
+  margin-top: 50px;
+  border-bottom: 1px solid var(--ion-color-medium);
+
+  section {
+    margin: 0 30px;
+    padding-top: 10px;
+  }
+
+  h2 {
+    font-weight: bold;
+    margin: 0;
+    padding: 10px 30px;
+  }
+
+  h4 {
+    font-weight: bold;
+  }
 
   figure {
     margin: 0;
@@ -50,10 +70,36 @@ article {
       text-align: center;
       font-style: italic;
     }
+
+    img {
+      box-shadow: 2px 2px 3px #888, -1px -1px 2px #aaa;
+    }
   }
 
   ion-icon {
     transform: translateY(5px);
+  }
+
+  table {
+    border: 1px solid #000;
+
+    th,
+    td {
+      padding: 10px;
+    }
+
+    &#differentTabsTable {
+      margin-top: 30px;
+      width: 100%;
+
+      th {
+        text-align: left;
+      }
+
+      td:first-child {
+        color: red;
+      }
+    }
   }
 }
 
@@ -140,6 +186,27 @@ article {
   padding: 5px 12px;
   border-radius: 40%;
   font-size: 0.8em;
+}
+
+#add-listener-icon {
+  background-color: var(--ion-color-light);
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.07), 0 1px 18px 0 rgba(0, 0, 0, 0.07);
+  padding: 15px;
+  border-radius: 50%;
+}
+
+#add-listening-icon {
+  background-color: var(--ion-color-primary);
+  padding: 8px 13px;
+  border-radius: 15%;
+  color: #fff;
+}
+
+#add-listening-user-icon {
+  background-color: var(--ion-color-success);
+  padding: 5px;
+  border-radius: 15%;
+  color: #fff;
 }
 
 #login-button ion-icon {

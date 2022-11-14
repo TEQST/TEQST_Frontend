@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/listen">
+        <ion-icon name="home"></ion-icon>
+      </ion-button>
       <ion-back-button *ngIf="currentFolder.id" defaultHref="tabs/listen"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
