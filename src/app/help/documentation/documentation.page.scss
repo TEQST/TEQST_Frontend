@@ -1,5 +1,5 @@
 ion-split-pane>ion-content ion-content {
-  --padding-top: 10px;
+  --padding-top: 0;
   --padding-start: 15px;
   --padding-end: 15px;
   --padding-bottom: 10px;
@@ -28,10 +28,11 @@ ion-split-pane {
 }
 
 nav {
-  padding: 10px 0;
+  padding: 0 0;
 
   ion-list {
     background: transparent !important;
+    padding: 7px !important;
 
     ion-list-header {
       font-weight: bold;
@@ -41,6 +42,11 @@ nav {
 
   ion-item {
     transition: .2s ease border;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --inner-padding-bottom: 0;
+    --inner-padding-top: 0;
+    --border-color: transparent;
   }
 
   ion-item.active-link {
@@ -59,9 +65,9 @@ nav {
 
 figure {
   margin: 0;
+  margin-bottom: 15px;
 
   figcaption {
-    text-align: center;
     font-style: italic;
   }
 
