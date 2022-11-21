@@ -7,6 +7,18 @@ const routes: Routes = [
   {
     path: '',
     component: DocumentationPage,
+    children: [
+      {
+        path: 'general',
+        loadChildren: () => import('./general/general.module')
+            .then( (m) => m.GeneralPageModule),
+      },
+      {
+        path: 'speak-tab',
+        loadChildren: () => import('./speak-tab/speak-tab.module')
+            .then( (m) => m.SpeakTabPageModule),
+      },
+    ],
   },
 ];
 
