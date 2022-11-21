@@ -6,6 +6,4 @@ import {Component, ViewEncapsulation} from '@angular/core';
   styleUrls: ['./documentation.page.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class DocumentationPage {
-
-}
+export class DocumentationPage {}

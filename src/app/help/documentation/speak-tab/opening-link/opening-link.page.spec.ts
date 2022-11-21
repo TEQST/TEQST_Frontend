@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { OpeningLinkPage } from './opening-link.page';
+import {OpeningLinkPage} from './opening-link.page';
 
 describe('OpeningLinkPage', () => {
   let component: OpeningLinkPage;
@@ -9,8 +9,8 @@ describe('OpeningLinkPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OpeningLinkPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [OpeningLinkPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OpeningLinkPage);

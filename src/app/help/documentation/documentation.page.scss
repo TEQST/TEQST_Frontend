@@ -1,4 +1,4 @@
-ion-content {
+ion-split-pane>ion-content ion-content {
   --padding-top: 10px;
   --padding-start: 15px;
   --padding-end: 15px;
@@ -31,12 +31,21 @@ nav {
   padding: 10px 0;
 
   ion-list {
-    background: transparent!important;
+    background: transparent !important;
 
     ion-list-header {
       font-weight: bold;
       font-size: 1.3em;
     }
+  }
+
+  ion-item {
+    transition: .2s ease border;
+  }
+
+  ion-item.active-link {
+    --background: var(--ion-color-light-shade);
+    pointer-events: none;
   }
 }
 
@@ -49,17 +58,17 @@ nav {
 }
 
 figure {
-      margin: 0;
-  
-      figcaption {
-        text-align: center;
-        font-style: italic;
-      }
-  
-      img {
-        border: 1px solid #ccc;
-      }
-    }
+  margin: 0;
+
+  figcaption {
+    text-align: center;
+    font-style: italic;
+  }
+
+  img {
+    border: 1px solid #ccc;
+  }
+}
 
 // article,
 // section {

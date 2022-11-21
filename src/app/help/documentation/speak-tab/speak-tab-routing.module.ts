@@ -13,6 +13,16 @@ const routes: Routes = [
         loadChildren: () => import('./opening-link/opening-link.module')
             .then( (m) => m.OpeningLinkPageModule),
       },
+      {
+        path: 'recording-audio',
+        loadChildren: () => import('./recording-audio/recording-audio.module')
+            .then( (m) => m.RecordingAudioPageModule),
+      },
+      {
+        path: 'time-stats',
+        loadChildren: () => import('./time-stats/time-stats.module')
+            .then( (m) => m.TimeStatsPageModule),
+      },
     ],
   },
 ];

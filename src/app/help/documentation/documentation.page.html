@@ -21,10 +21,10 @@
           <ion-list-header>
             <ion-label>0. General information</ion-label>
           </ion-list-header>
-          <ion-item button routerLink="/documentation/general/tabs">
+          <ion-item button routerLink="/documentation/general/tabs" routerLinkActive="active-link">
             <ion-label>0.1 The different tabs</ion-label>
           </ion-item>
-          <ion-item button routerLink="/documentation/general/navigation">
+          <ion-item button routerLink="/documentation/general/navigation" routerLinkActive="active-link">
             <ion-label>0.2 Navigating through the folder structure</ion-label>
           </ion-item>
         </ion-list>
@@ -32,13 +32,13 @@
           <ion-list-header>
             <ion-label>1. Speaker tab</ion-label>
           </ion-list-header>
-          <ion-item button routerLink="/documentation/speak-tab/opening-link">
+          <ion-item button routerLink="/documentation/speak-tab/opening-link" routerLinkActive="active-link">
             <ion-label>1.1 Opening a link to a shared folder</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(speakerTabRec)">
+          <ion-item button routerLink="/documentation/speak-tab/recording-audio" routerLinkActive="active-link">
             <ion-label>1.2 Recording audio data</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(speakerTabRecTime)">
+          <ion-item button routerLink="/documentation/speak-tab/time-stats" routerLinkActive="active-link">
             <ion-label>1.3 View your recording time</ion-label>
           </ion-item>
         </ion-list>
@@ -46,10 +46,10 @@
           <ion-list-header>
             <ion-label>2. Listener tab</ion-label>
           </ion-list-header>
-          <ion-item button (click)="scrollToElement(listenerTabStats)">
+          <ion-item button routerLink="/documentation/listen-tab/statistics" routerLinkActive="active-link">
             <ion-label>2.1 Statistics about speakers</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(listenerTabListening)">
+          <ion-item button routerLink="/documentation/listen-tab/listening-to-speakers" routerLinkActive="active-link">
             <ion-label>2.2 Listening to different speakers</ion-label>
           </ion-item>
         </ion-list>
@@ -57,34 +57,34 @@
           <ion-list-header>
             <ion-label>3. Publisher tab</ion-label>
           </ion-list-header>
-          <ion-item button (click)="scrollToElement(publisherTabCreateFolder)">
+          <ion-item button routerLink="/documentation/publisher-tab/create-folder" routerLinkActive="active-link">
             <ion-label>3.1 Creating a folder</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabUpload)">
+          <ion-item button routerLink="/documentation/publisher-tab/upload-text" routerLinkActive="active-link">
             <ion-label>3.2 Uploading a text</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabSharingFolderSpeakers)">
+          <ion-item button routerLink="/documentation/publisher-tab/share-folder-speaker" routerLinkActive="active-link">
             <ion-label>3.3 Sharing a folder with speakers</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabSharingFolderListeners)">
+          <ion-item button routerLink="/documentation/publisher-tab/share-folder-listener" routerLinkActive="active-link">
             <ion-label>3.4 Sharing a folder with listeners</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabDeleting)">
+          <ion-item button routerLink="/documentation/publisher-tab/delete-single-folder" routerLinkActive="active-link">
             <ion-label>3.5 Deleting single folders or texts</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabDeletingMultiple)">
+          <ion-item button routerLink="/documentation/publisher-tab/delete-multiple-folders" routerLinkActive="active-link">
             <ion-label>3.6 Deleting multiple folders or texts</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabStatistics)">
+          <ion-item button routerLink="/documentation/publisher-tab/speaker-stats" routerLinkActive="active-link">
             <ion-label>3.7 Statistics about speakers</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabStatistics)">
+          <ion-item button routerLink="/documentation/publisher-tab/listening-to-speakers" routerLinkActive="active-link">
             <ion-label>3.8 Listening to different speakers</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabDownloadRecordings)">
+          <ion-item button routerLink="/documentation/publisher-tab/download-recordings" routerLinkActive="active-link">
             <ion-label>3.9 Downloading recordings</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(publisherTabDownloadStatistics)">
+          <ion-item button routerLink="/documentation/publisher-tab/download-statistics" routerLinkActive="active-link">
             <ion-label>3.10 Downloading statistics</ion-label>
           </ion-item>
         </ion-list>
@@ -92,10 +92,10 @@
           <ion-list-header>
             <ion-label>4. Settings tab</ion-label>
           </ion-list-header>
-          <ion-item button (click)="scrollToElement(settingsTabChangeMenuLanguage)">
+          <ion-item button routerLink="/documentation/settings-tab/change-menu-language" routerLinkActive="active-link">
             <ion-label>4.1 Changing menu language</ion-label>
           </ion-item>
-          <ion-item button (click)="scrollToElement(settingsTabUpdateOther)">
+          <ion-item button routerLink="/documentation/settings-tab/update-information" routerLinkActive="active-link">
             <ion-label>4.2 Updating other profile information</ion-label>
           </ion-item>
         </ion-list>
