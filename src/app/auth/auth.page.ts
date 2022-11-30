@@ -46,7 +46,7 @@ export class AuthPage extends BaseComponent {
   }
 
   redirectToHelp(): void {
-    window.open(this.SERVER_URL + '/documentation');
+    window.open(this.SERVER_URL + '/documentation/general/tabs');
   }
 
 }

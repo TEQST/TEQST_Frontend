@@ -20,10 +20,22 @@ ion-title {
 
 ion-split-pane {
   margin-top: 56px;
-  --side-max-width: 400px;
+  --side-max-width: 330px;
 
   .content {
     max-width: 1200px;
+
+    ion-icon {
+        font-size: 1.5em;
+        transform: translateY(5px);
+
+        &.fill {
+          background-color: var(--ion-color-primary);
+          color: white;
+          font-size: 1em;
+          padding: 10px;
+        }
+    }
   }
 }
 
@@ -73,6 +85,29 @@ figure {
 
   img {
     border: 1px solid #ccc;
+    max-width: 800px;
+  }
+}
+
+table {
+  border: 1px solid var(--ion-color-medium);
+
+  th,
+  td {
+    padding: 10px;
+  }
+
+  &#differentTabsTable {
+    margin-top: 30px;
+    width: 100%;
+
+    th {
+      text-align: left;
+    }
+
+    td:first-child {
+      color: red;
+    }
   }
 }
 
@@ -109,28 +144,6 @@ figure {
 //   ion-icon {
 //     transform: translateY(5px);
 //   }
-
-//   table {
-//     border: 1px solid var(--ion-color-medium);
-
-//     th,
-//     td {
-//       padding: 10px;
-//     }
-
-//     &#differentTabsTable {
-//       margin-top: 30px;
-//       width: 100%;
-
-//       th {
-//         text-align: left;
-//       }
-
-//       td:first-child {
-//         color: red;
-//       }
-//     }
-//   }
 // }
 
 // .red_circle {
@@ -141,51 +154,6 @@ figure {
 
 // .red_underline {
 //   border-bottom: 3px solid var(--ion-color-danger);
-// }
-
-// .blue_underline {
-//   border-bottom: 3px solid var(--ion-color-primary);
-// }
-
-// .green_bar_right,
-// .red_bar_right {
-//   padding-right: 5px;
-//   border-right-width: 3px;
-//   border-right-style: solid,
-// }
-
-// .green_bar_right {
-//   border-right-color: green;
-// }
-
-// .red_bar_right {
-//   border-right-color: var(--ion-color-danger);
-// }
-
-// .mic-icon,
-// .mic-icon-recording,
-// .arrow-back-icon,
-// .arrow-forward-icon,
-// .trash-icon,
-// .publisher-icon,
-// .add-icon {
-//   border-radius: 50%;
-//   padding: 5px;
-// }
-
-// .mic-icon,
-// .mic-icon-recording,
-// .arrow-back-icon,
-// .arrow-forward-icon,
-// .trash-icon,
-// .play-icon,
-// .add-icon {
-//   background-color: var(--ion-color-primary);
-//   color: white;
-// }
-
-// .mic-icon-recording {
-//   color: var(--ion-color-danger);
 // }
 
 // .trash-icon,
@@ -204,11 +172,7 @@ figure {
 //   background-color: var(--ion-color-success);
 // }
 
-// .play-icon {
-//   padding: 5px 12px;
-//   border-radius: 40%;
-//   font-size: 0.8em;
-// }
+
 
 // #add-listener-icon {
 //   background-color: var(--ion-color-light);
