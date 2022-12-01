@@ -51,7 +51,6 @@ const routes: Routes = [
     :Promise<ListenPageModule> =>
       import('./listen/listen.module').then( (m) => m.ListenPageModule),
   },
-
 ];
 
 @NgModule({

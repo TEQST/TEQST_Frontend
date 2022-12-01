@@ -33,6 +33,10 @@ const routes: Routes = [
         loadChildren: () => import('./settings-tab/settings-tab.module')
             .then( (m) => m.SettingsTabPageModule),
       },
+      {
+        path: 'admin-panel',
+        loadChildren: () => import('./admin-panel/admin-panel.module').then( m => m.AdminPanelPageModule)
+      },
     ],
   },
 ];
