@@ -45,7 +45,8 @@
           <ion-icon name="checkmark-done"></ion-icon>
         </ion-button>
       </div>
-      <ion-button [class.active]="showMultiSelect" id="toggleMultiSelect" (click)="toggleMultiSelect()" fill="clear" [disabled]="subfolders.length == 0 && texts.length == 0">
+      <ion-button [class.active]="showMultiSelect" id="toggleMultiSelect" (click)="toggleMultiSelect()" fill="clear"
+        [disabled]="subfolders.length == 0 && texts.length == 0">
         <ion-icon *ngIf="!showMultiSelect" name="checkbox-outline"></ion-icon>
         <ion-icon *ngIf="showMultiSelect" name="checkbox"></ion-icon>
       </ion-button>
@@ -58,11 +59,11 @@
         (click)="showMultiSelect ? toggleSelectItem($event) : null" [state]="{folderName: folder.name}">
         <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
         <ion-buttons class="delete" [class.active]="!showMultiSelect" slot="end">
-          <ion-button color="danger" (click)="openDeleteFolderAlert($event, folder)">
-            <ion-icon name="trash" slot="icon-only"></ion-icon>
-          </ion-button>
           <ion-button (click)="createLink($event, folder)">
             <ion-icon name="link" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button color="danger" (click)="openDeleteFolderAlert($event, folder)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-buttons>
         <ion-checkbox class="selectCheckbox" [class.active]="showMultiSelect" slot="end"></ion-checkbox>
@@ -71,14 +72,15 @@
   </div>
 
   <div #textList id="textList">
-    <ion-list *ngIf="texts.length > 0" class="fix-padding">
+    <ion-list *ngIf="texts.length > 0">
       <ion-item button *ngFor="let text of texts" [routerLink]="showMultiSelect ? null : ['/tabs/manage/text', text.id]"
         (click)="showMultiSelect ? toggleSelectItem($event) : null">
         <ion-icon name="reader" color="dark" class="textIcon"></ion-icon>{{ text.title }}
-        <ion-button class="delete" [class.active]="!showMultiSelect" color="danger" slot="end"
-          (click)="openDeleteTextAlert($event, text)">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
+        <ion-buttons class="delete" [class.active]="!showMultiSelect" slot="end">
+          <ion-button color="danger" (click)="openDeleteTextAlert($event, text)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
         <ion-checkbox class="selectCheckbox" [class.active]="showMultiSelect" slot="end"></ion-checkbox>
       </ion-item>
     </ion-list>
