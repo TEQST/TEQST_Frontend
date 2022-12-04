@@ -12,3 +12,13 @@
     border-radius: 15%;
     padding: 5px!important;
 }
+
+.next-btn, .finish-btn {
+    display: inline-block;
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-light);
+    border-radius: 10%;
+    padding: 10px 14px;
+    font-size: 0.8em;
+    user-select: none;
+}
