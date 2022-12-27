@@ -32,7 +32,7 @@ export class TextDetailPage extends BaseComponent implements OnInit {
   public recordingState: RecordingStateModel;
 
   private textStats: TextStats;
-  private speakers: string[];
+  private speakers: string[] = [];
 
   constructor(public loaderService: LoaderService,
               private listenerService: ListenerService,

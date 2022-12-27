@@ -33,7 +33,7 @@ export class TextDetailPage extends BaseComponent implements OnInit {
   public selectedSpeaker: Observable<string>;
 
   private textStats: TextStats;
-  private speakers: string[];
+  private speakers: string[] = [];
 
   constructor(public loaderService: LoaderService,
               private manageFolderService: ManageFolderService,
