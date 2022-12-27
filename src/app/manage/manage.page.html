@@ -19,7 +19,7 @@
       <ion-button *ngIf="currentFolder.name == '/'" color="primary" (click)="downloadstatistics()">
         <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
       </ion-button>
-      <ion-button color="primary" (click)="openAddListenerModal()">
+      <ion-button *ngIf="currentFolder.name != '/'" color="primary" (click)="openAddListenerModal()">
         <ion-icon name="ear"></ion-icon>
       </ion-button>
     </ion-buttons>
