@@ -5,6 +5,8 @@ import {Observable} from 'rxjs';
 
 import {Language} from 'src/app/interfaces/language';
 import {Constants} from 'src/app/constants';
+import menuLanguagesData from '../../assets/menu-languages.json';
+
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,6 @@ export class LanguageService {
 
   constructor(public http: HttpClient,
               private translate: TranslateService ) {
-
     this.menuLanguage = localStorage.getItem('MenuLanguage');
   }
 
@@ -33,16 +34,8 @@ export class LanguageService {
     localStorage.setItem('MenuLanguage', lang);
   }
 
-  async getAllMenuLanguages(): Promise<Language[]> {
-    const allMenuLangs: Language[] = [];
-    await this.getLangs().toPromise().then((dataReturnFromServer: any) => {
-      for (const singleLanguage of dataReturnFromServer) {
-        if (singleLanguage['is_menu_language'] === true) {
-          allMenuLangs.push(singleLanguage);
-        }
-      }
-    });
-    return allMenuLangs;
+  getAllMenuLanguages() {
+    return menuLanguagesData.menuLanguages;
   }
 
   getMenuLanguage(): string {

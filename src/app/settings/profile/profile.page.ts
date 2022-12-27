@@ -19,7 +19,7 @@ export class ProfilePage extends BaseComponent implements OnInit {
   public profileForm: FormGroup;
 
   allLangs: Language[] = [];
-  allMenuLangs: Language[] = [];
+  allMenuLangs = [];
 
   constructor(public usermgmtService: UsermgmtService,
               public languageService: LanguageService,
@@ -50,9 +50,7 @@ export class ProfilePage extends BaseComponent implements OnInit {
 
   private async loadContent(): Promise<void> {
     // load menu languages
-    await this.languageService.getAllMenuLanguages().then((menuLanguages)=> {
-      this.allMenuLangs = menuLanguages;
-    });
+    this.allMenuLangs = this.languageService.getAllMenuLanguages();
     // load spoken languages
     await this.languageService.getLangs().toPromise().then((languages) => {
       this.allLangs = languages;

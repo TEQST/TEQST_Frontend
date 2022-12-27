@@ -3,5 +3,4 @@ export interface Language {
     native_name: string;
     short: string;
     right_to_left: boolean;
-    is_menu_language: boolean;
 }
