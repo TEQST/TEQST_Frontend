@@ -23,12 +23,12 @@ export class ManageFolderService {
     private alertManager: AlertManagerService) {}
 
   getFolderInfoFor(folderId: string): Observable<object> {
-    const url = this.SERVER_URL + `/api/folders/${folderId}/`;
+    const url = this.SERVER_URL + `/api/pub/folders/${folderId}/`;
     return this.http.get(url);
   }
 
   getSubfolderListFor(folderId: string): Observable<object> {
-    let url = this.SERVER_URL + `/api/folders/`;
+    let url = this.SERVER_URL + `/api/pub/folders/`;
     if (folderId) {
       url += folderId + '/';
     }
@@ -41,7 +41,7 @@ export class ManageFolderService {
   }
 
   createFolder(parentId: string, folderName: string): Observable<object> {
-    const url = this.SERVER_URL + `/api/folders/`;
+    const url = this.SERVER_URL + `/api/pub/folders/`;
 
     return this.http.post(url,
         {
@@ -52,7 +52,7 @@ export class ManageFolderService {
   }
 
   deleteFolder(folderId: string): Observable<object> {
-    const url = this.SERVER_URL + `/api/folders/${folderId}/`;
+    const url = this.SERVER_URL + `/api/pub/folders/${folderId}/`;
     return this.http.delete(url);
   }
 
@@ -93,7 +93,7 @@ export class ManageFolderService {
   }
 
   downloadFolder(folder: Folder): void {
-    const url = this.SERVER_URL + `/api/download/${folder.id}/`;
+    const url = this.SERVER_URL + `/api/pub/sharedfolders/${folder.id}/download/`;
 
     const fileName = `${folder.name}_${folder.id}.zip`;
 

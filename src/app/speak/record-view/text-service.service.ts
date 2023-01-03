@@ -92,7 +92,7 @@ export class TextServiceService {
   async checkIfRecordingInfoExists(): Promise<boolean> {
     let result = false;
     const getRecordingInfoUrl = this.SERVER_URL +
-      `/api/textrecordings/?text=${this.textId}`;
+      `/api/spk/textrecordings/?text=${this.textId}`;
 
     await this.http.get(getRecordingInfoUrl).toPromise()
         .then((info) => {
@@ -117,7 +117,7 @@ export class TextServiceService {
       root: this.root_uid,
     };
 
-    const postRecordingInfoUrl = this.SERVER_URL + `/api/textrecordings/`;
+    const postRecordingInfoUrl = this.SERVER_URL + `/api/spk/textrecordings/`;
 
     this.http.post(postRecordingInfoUrl, recordingInfo).subscribe((info) => {
       this.setRecordingInfo(info);

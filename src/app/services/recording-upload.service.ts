@@ -44,7 +44,7 @@ export class RecordingUploadService {
     const audioFile = new File([sentenceRecording.audioBlob], 'recording.wav');
     const formData = new FormData();
     formData.append('audiofile', audioFile);
-    const sentenceRecordingUrl = this.SERVER_URL + '/api/sentencerecordings/';
+    const sentenceRecordingUrl = this.SERVER_URL + '/api/speak/sentencerecordings/';
 
     if (isReUpload) {
       // replace existing sentence recording

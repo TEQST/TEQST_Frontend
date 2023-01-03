@@ -106,7 +106,7 @@ export class RecordingPlaybackService {
     };
     // TODO: Switch to new sentencerecording URL as soon as its active
     const url = this.SERVER_URL +
-      `/api/sentencerecordings/${recordingId}/${sentenceNumber}/`;
+      `/api/spk/sentencerecordings/${recordingId}/${sentenceNumber}/`;
     return await this.http.get<Blob>(url, audioHttpOptions).toPromise();
   }
 

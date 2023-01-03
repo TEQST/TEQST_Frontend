@@ -18,7 +18,7 @@ export class ShareFolderService {
 
   getSharingSpeakers(sharedfolderId: number): Observable<JSON[]> {
     const url =
-      this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
+      this.SERVER_URL + `/api/pub/sharedfolders/${sharedfolderId}/speakers`;
     return this.http.get<JSON[]>(url);
   }
 
@@ -27,7 +27,7 @@ export class ShareFolderService {
       speakers: number[],
       public_for_all: boolean): Observable<JSON> {
 
-    const url = this.SERVER_URL + `/api/sharedfolders/${sharedfolderId}/`;
+    const url = this.SERVER_URL + `/api/pub/sharedfolders/${sharedfolderId}/speakers`;
     return this.http.put<JSON>(url, {
       speaker_ids: speakers,
       public: public_for_all,
