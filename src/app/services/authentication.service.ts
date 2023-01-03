@@ -31,7 +31,6 @@ export class AuthenticationService {
   // and fetching userdata from server
   login(dataToSend): void {
     const url = this.SERVER_URL + '/api/auth/login/';
-    let menuLanguage;
     this.http.post(url, dataToSend, this.httpOptions)
         .subscribe((loginResponse: object) => {
 
@@ -40,15 +39,11 @@ export class AuthenticationService {
           this.usermgmtService.initLoggingData(userData.id, userData.username);
           this.usermgmtService.isPublisher.next(userData.is_publisher);
           this.usermgmtService.isListener.next(userData.is_listener);
-          menuLanguage = userData.menu_language.short;
-          this.languageService.updateMenuLanguage(menuLanguage);
           this.dataFromServer = JSON.stringify(loginResponse);
           localStorage.setItem(
               'Token',
               'Token ' + JSON.parse(this.dataFromServer).token);
           this.usermgmtService.storeUserData(userData);
-          this.languageService
-              .setMenuLanguage(this.languageService.menuLanguage);
 
           // redirect user
           if (this.route.snapshot.queryParamMap.has('next')) {

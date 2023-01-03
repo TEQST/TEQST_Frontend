@@ -18,7 +18,27 @@ export class LanguageService {
 
   constructor(public http: HttpClient,
               private translate: TranslateService ) {
+    this.initMenuLanguage();
+  }
+
+  /* load menu language from local storage
+     if it is not set, either set to english if available
+     or the first menu language in the list */
+  initMenuLanguage() {
     this.menuLanguage = localStorage.getItem('MenuLanguage');
+    if (this.menuLanguage == null) {
+      for (let lang of menuLanguagesData.menuLanguages) {
+        if (lang.short == 'en') {
+          this.setMenuLanguage(lang.short);
+          return;
+        }
+      }
+      if (menuLanguagesData.menuLanguages.length > 0) {
+        this.setMenuLanguage(menuLanguagesData.menuLanguages[0].short);
+      }else {
+        alert('Error: Please add at least one menu language!');
+      }
+    }
   }
 
   // returns all speakable Languages created by an admin
