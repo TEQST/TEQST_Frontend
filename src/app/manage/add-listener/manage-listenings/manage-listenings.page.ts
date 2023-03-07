@@ -62,6 +62,7 @@ export class ManageListeningsPage implements OnInit {
     this.listenerData.setListeners(listening.listeners);
     this.listenerData.setSpeakers(listening.speakers);
     this.listenerData.setAccents(listening.accents);
+    this.listenerData.setAllSpeakers(listening.all_speakers);
     this.navComponent.push(SelectListenerPage, {
       navComponent: this.navComponent,
     });

@@ -57,23 +57,25 @@ export class ShareFolderService {
   }
 
   createListening(
-      folderId, listenerIds, speakerIds, accents): Observable<JSON> {
+      folderId, listenerIds, speakerIds, accents, allSpeakers): Observable<JSON> {
     const url = this.SERVER_URL + `/api/pub/listeners/`;
     return this.http.post<JSON>(url, {
       folder: folderId,
       listeners: listenerIds,
       speakers: speakerIds,
       accents: accents,
+      all_speakers: allSpeakers,
     });
   }
 
   updateListening(
-      listeningId, listenerIds, speakerIds, accents): Observable<JSON> {
+      listeningId, listenerIds, speakerIds, accents, allSpeakers): Observable<JSON> {
     const url = this.SERVER_URL + `/api/pub/listeners/${listeningId}/`;
     return this.http.put<JSON>(url, {
       listeners: listenerIds,
       speakers: speakerIds,
       accents: accents,
+      all_speakers: allSpeakers,
     });
   }
 

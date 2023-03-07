@@ -20,6 +20,10 @@
   </ion-segment>
 </ion-header>
 <ion-content>
+  <ion-item>
+    <ion-label>Allow access to all users</ion-label>
+    <ion-toggle #allToggle (ionChange)="allUsersToggleChanged($event)"></ion-toggle>
+  </ion-item>
   <ion-slides #slides (ionSlideDidChange)="slideChanged()">
     <ion-slide>
       <app-select-spk-acc-seg></app-select-spk-acc-seg>

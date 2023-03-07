@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IonNav, IonSlides, ModalController, NavParams} from '@ionic/angular';
+import {IonNav, IonSlides, IonToggle, ModalController, NavParams} from '@ionic/angular';
 import {ShareFolderService} from 'src/app/services/share-folder.service';
 import {ListenerDataService} from '../listener-data.service';
 
@@ -11,6 +11,7 @@ import {ListenerDataService} from '../listener-data.service';
 export class SelectSpeakerPage implements OnInit {
 
   @ViewChild('slides', {static: true}) slider: IonSlides;
+  @ViewChild('allToggle', {static: true}) allToggle: IonToggle;
   segment = 0;
 
   public navComponent: IonNav;
@@ -26,6 +27,7 @@ export class SelectSpeakerPage implements OnInit {
 
   ngOnInit(): void {
     this.creating = this.listenerData.getCreating();
+    this.allToggle.checked = this.listenerData.getAllSpeakers();
   }
 
   async segmentChanged($event): Promise<void> {
@@ -36,8 +38,12 @@ export class SelectSpeakerPage implements OnInit {
     this.segment = await this.slider.getActiveIndex();
   }
 
+  async allUsersToggleChanged($event): Promise<void> {
+    this.listenerData.setAllSpeakers($event.detail.value);
+  }
+
   getValidatedListeningData()
-  :{listenerIds: number[], speakerIds: number[], accents: string[]} {
+  :{listenerIds: number[], speakerIds: number[], accents: string[], allSpeakers: boolean} {
     const listeners = this.listenerData.getListeners();
     if (listeners.length == 0) {
       alert('must have at least one listener');
@@ -45,8 +51,9 @@ export class SelectSpeakerPage implements OnInit {
     }
     const speakers = this.listenerData.getSpeakers();
     const accents = this.listenerData.getAccents();
-    if (speakers.length == 0 && accents.length == 0) {
-      alert('speakers and accents cant both be empty');
+    const allSpeakers = this.listenerData.getAllSpeakers();
+    if (speakers.length == 0 && accents.length == 0 && !allSpeakers) {
+      alert('speakers and accents cant both be empty unless you allow access to all');
       return;
     }
     const listenerIds = listeners.map((listener) => listener.id);
@@ -55,6 +62,7 @@ export class SelectSpeakerPage implements OnInit {
       listenerIds: listenerIds,
       speakerIds: speakerIds,
       accents: accents,
+      allSpeakers: allSpeakers,
     };
   }
 
@@ -64,7 +72,7 @@ export class SelectSpeakerPage implements OnInit {
     const data = this.getValidatedListeningData();
 
     this.shareFolderService.createListening(
-        folderId, data.listenerIds, data.speakerIds, data.accents,
+        folderId, data.listenerIds, data.speakerIds, data.accents, data.allSpeakers,
     ).subscribe((res) => {
       console.log('worked');
       this.navComponent.popToRoot();
@@ -83,7 +91,7 @@ export class SelectSpeakerPage implements OnInit {
     const listeningId = this.listenerData.getListeningId();
     const data = this.getValidatedListeningData();
     this.shareFolderService.updateListening(
-        listeningId, data.listenerIds, data.speakerIds, data.accents,
+        listeningId, data.listenerIds, data.speakerIds, data.accents, data.allSpeakers,
     ).subscribe((res) => {
       console.log('worked');
       this.navComponent.popToRoot();

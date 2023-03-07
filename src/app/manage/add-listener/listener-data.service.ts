@@ -13,11 +13,13 @@ export class ListenerDataService {
   private listeners: User[];
   private speakers: User[];
   private accents: string[];
+  private allSpeakers: boolean;
 
   wipeSelectableData(): void {
     this.listeners = [];
     this.speakers = [];
     this.accents = [];
+    this.allSpeakers = false;
   }
 
   setCreating(creating): void {
@@ -66,5 +68,13 @@ export class ListenerDataService {
 
   getAccents(): string[] {
     return this.accents;
+  }
+
+  setAllSpeakers(allSpeakers): void {
+    this.allSpeakers = allSpeakers;
+  }
+
+  getAllSpeakers(): boolean {
+    return this.allSpeakers;
   }
 }
