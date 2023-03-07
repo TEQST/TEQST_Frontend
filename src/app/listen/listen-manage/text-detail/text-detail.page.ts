@@ -67,6 +67,10 @@ export class TextDetailPage extends BaseComponent implements OnInit {
     this.getStats();
   }
 
+  hasNoSpeakers(): boolean {
+    return this.speakers.length == 0;
+  }
+
   async presentSpeakerSelect(ev: any): Promise<void> {
     const popover = await this.popoverController.create({
       component: SpeakerSelectPopoverComponent,
