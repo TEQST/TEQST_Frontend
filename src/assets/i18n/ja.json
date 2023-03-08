@@ -130,11 +130,11 @@
 		"logoutBtn": "ログアウト",
 		"contentTitle": "設定",
 		"profileSettingsLabel": "プロファイル設定",
+		"languageSettingsLabel": "メニュー言語の変更",
 		"profile": {
 			"saveBtn": "変更を保存",
 			"contentTitle": "プロファイル",
-			"spokenLanguagesLabel": "口頭言語",
-			"menuLanguageLabel": "メニュー言語"
+			"spokenLanguagesLabel": "口頭言語"
 		}
 	},
 	"pageNotFoun": {

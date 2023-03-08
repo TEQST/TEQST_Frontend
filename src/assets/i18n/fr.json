@@ -130,11 +130,11 @@
 		"logoutBtn": "Déconnexion",
 		"contentTitle": "Paramètres",
 		"profileSettingsLabel": "Paramètres du profil",
+		"languageSettingsLabel": "Changer la langue des menus",
 		"profile": {
 			"saveBtn": "Enregistrer les modifications",
 			"contentTitle": "Profil",
-			"spokenLanguagesLabel": "Langues parlées",
-			"menuLanguageLabel": "Langue des menus"
+			"spokenLanguagesLabel": "Langues parlées"
 		}
 	},
 	"pageNotFound": {

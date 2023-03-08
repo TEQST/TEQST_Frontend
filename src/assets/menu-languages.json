@@ -14,7 +14,7 @@
         },
         {
             "english_name": "Spanish",
-            "native_name": "Deutsch",
+            "native_name": "Español",
             "short": "es",
             "right_to_left": false
         },
@@ -26,13 +26,13 @@
         },
         {
             "english_name": "Chinese (Simplified)",
-            "native_name": "",
+            "native_name": "中文(简体)",
             "short": "zhCHS",
             "right_to_left": false
         },
         {
             "english_name": "Chinese (Traditional)",
-            "native_name": "",
+            "native_name": "中文(繁體)",
             "short": "zhCHT",
             "right_to_left": false
         }

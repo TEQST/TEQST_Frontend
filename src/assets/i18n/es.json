@@ -130,11 +130,11 @@
 		"logoutBtn": "Cerrar sesión",
 		"contentTitle": "Configuración",
 		"profileSettingsLabel": "Configuración de perfil",
+		"languageSettingsLabel": "Cambiar el idioma del menú",
 		"profile": {
 			"saveBtn": "Guardar cambios",
 			"contentTitle": "Perfil",
-			"spokenLanguagesLabel": "Idiomas hablados",
-			"menuLanguageLabel": "Idioma del menú"
+			"spokenLanguagesLabel": "Idiomas hablados"
 		}
 	},
 	"pageNotFound": {

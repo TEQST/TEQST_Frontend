@@ -21,7 +21,7 @@
 </ion-header>
 <ion-content>
   <ion-item>
-    <ion-label>Allow access to all users</ion-label>
+    <ion-label>{{'manage.addListenerModal.selectSpeaker.allSpeakers' | translate}}</ion-label>
     <ion-toggle #allToggle (ionChange)="allUsersToggleChanged($event)"></ion-toggle>
   </ion-item>
   <ion-slides #slides (ionSlideDidChange)="slideChanged()">
