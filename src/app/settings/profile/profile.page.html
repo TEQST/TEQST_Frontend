@@ -63,13 +63,5 @@
     </ion-item>
 
 
-    <ion-item>
-      <ion-label position="stacked">{{'settings.profile.menuLanguageLabel' | translate}}:</ion-label>
-      <ion-select formControlName="menu_language_id">
-        <ion-select-option *ngFor="let lang of allMenuLangs" value="{{lang?.short}}">{{lang.native_name}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-
   </form>
 </ion-content>

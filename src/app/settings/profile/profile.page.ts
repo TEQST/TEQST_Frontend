@@ -39,7 +39,6 @@ export class ProfilePage extends BaseComponent implements OnInit {
       country: [''],
       accent: [''],
       language_ids: [[]],
-      menu_language_id: [''],
     });
   }
 
@@ -49,8 +48,6 @@ export class ProfilePage extends BaseComponent implements OnInit {
   }
 
   private async loadContent(): Promise<void> {
-    // load menu languages
-    this.allMenuLangs = this.languageService.getAllMenuLanguages();
     // load spoken languages
     await this.languageService.getLangs().toPromise().then((languages) => {
       this.allLangs = languages;
@@ -58,7 +55,6 @@ export class ProfilePage extends BaseComponent implements OnInit {
     this.usermgmtService.getProfileData().subscribe((profileData) => {
       const formData = {
         ...profileData,
-        menu_language_id: profileData.menu_language.short,
         language_ids: profileData.languages.map((lang) => lang.short),
       };
       this.profileForm.patchValue(formData);

@@ -34,8 +34,8 @@ export class AuthPage extends BaseComponent {
         'menuLanguages': menulanguages,
       },
       event: ev,
-      translucent: true,
-      showBackdrop: false,
+      translucent: false,
+      showBackdrop: true,
     });
 
     return await popover.present();
