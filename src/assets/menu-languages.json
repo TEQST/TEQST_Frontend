@@ -1,0 +1,40 @@
+{
+    "menuLanguages": [
+        {
+            "english_name": "German",
+            "native_name": "Deutsch",
+            "short": "de",
+            "right_to_left": false
+        },
+        {
+            "english_name": "English",
+            "native_name": "English",
+            "short": "en",
+            "right_to_left": false
+        },
+        {
+            "english_name": "Spanish",
+            "native_name": "Español",
+            "short": "es",
+            "right_to_left": false
+        },
+        {
+            "english_name": "Japanese",
+            "native_name": "日本語",
+            "short": "ja",
+            "right_to_left": false
+        },
+        {
+            "english_name": "Chinese (Simplified)",
+            "native_name": "中文(简体)",
+            "short": "zhCHS",
+            "right_to_left": false
+        },
+        {
+            "english_name": "Chinese (Traditional)",
+            "native_name": "中文(繁體)",
+            "short": "zhCHT",
+            "right_to_left": false
+        }
+    ]
+}

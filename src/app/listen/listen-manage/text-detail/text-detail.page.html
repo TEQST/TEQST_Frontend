@@ -1,0 +1,20 @@
+<ion-header class="no-select">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/listen"></ion-back-button>
+    </ion-buttons>
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentSpeakerSelect($event)" [disabled]="hasNoSpeakers()">
+        <ion-label>{{'listen.textDetail.selectedSpeakerLabel' | translate}} {{selectedSpeaker | async}}</ion-label>
+        <ion-icon name="caret-down-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #content style="height: 100%;" class="fadeInWhenLoaded">
+    <router-outlet></router-outlet>
+  </div>
+</ion-content>

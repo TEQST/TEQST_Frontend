@@ -5,7 +5,6 @@ import {FolderStats} from 'src/app/interfaces/folder-stats';
 import {StatisticsService} from 'src/app/services/statistics.service';
 import {SpeakerDetailPage} from '../speaker-detail/speaker-detail.page';
 
-
 @Component({
   selector: 'app-speaker-list',
   templateUrl: './speaker-list.page.html',
@@ -27,8 +26,9 @@ export class SpeakerListPage {
     this.navComponent = navParams.get('navComponent');
     this.folderId = navParams.get('folderId');
     this.folderName = navParams.get('folderName');
+    const role = navParams.get('role');
 
-    this.statsServices.getSharedFolderStats(this.folderId)
+    this.statsServices.getSharedFolderStats(this.folderId, role)
         .subscribe((folderStats) => {
           this.addCompletedCountToSpeakers(folderStats);
           this.folderStats = folderStats;

@@ -3,8 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable} from 'rxjs';
 
-import {Language} from '../interfaces/language';
-import {Constants} from '../constants';
+import {Language} from 'src/app/interfaces/language';
+import {Constants} from 'src/app/constants';
+import menuLanguagesData from '../../assets/menu-languages.json';
+
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +16,30 @@ export class LanguageService {
   SERVER_URL = Constants.SERVER_URL;
   public menuLanguage;
 
-  constructor(public http: HttpClient, private translate: TranslateService ) {
-    this.menuLanguage = localStorage.getItem('MenuLanguage');
+  constructor(public http: HttpClient,
+              private translate: TranslateService ) {
+    this.initMenuLanguage();
   }
 
+  /* load menu language from local storage
+     if it is not set, either set to english if available
+     or the first menu language in the list */
+  initMenuLanguage() {
+    this.menuLanguage = localStorage.getItem('MenuLanguage');
+    if (this.menuLanguage == null) {
+      for (let lang of menuLanguagesData.menuLanguages) {
+        if (lang.short == 'en') {
+          this.setMenuLanguage(lang.short);
+          return;
+        }
+      }
+      if (menuLanguagesData.menuLanguages.length > 0) {
+        this.setMenuLanguage(menuLanguagesData.menuLanguages[0].short);
+      }else {
+        alert('Error: Please add at least one menu language!');
+      }
+    }
+  }
 
   // returns all speakable Languages created by an admin
   getLangs(): Observable<Language[]> {
@@ -25,28 +47,21 @@ export class LanguageService {
     return this.http.get<Language[]>(url);
   }
 
-
   putMenuLanguageLocalStorage(): void {
     localStorage.setItem('MenuLanguage', this.menuLanguage);
   }
   putMenuLanguageLocalStorageWithParam(lang: string): void {
     localStorage.setItem('MenuLanguage', lang);
   }
-  async getAllMenuLanguages(): Promise<Language[]> {
-    const allMenuLangs: Language[] = [];
-    await this.getLangs().toPromise().then((dataReturnFromServer: any) => {
-      for (const singleLanguage of dataReturnFromServer) {
-        if (singleLanguage['is_menu_language'] === true) {
-          allMenuLangs.push(singleLanguage);
-        }
-      }
-    });
-    return allMenuLangs;
+
+  getAllMenuLanguages() {
+    return menuLanguagesData.menuLanguages;
   }
 
   getMenuLanguage(): string {
     return this.menuLanguage;
   }
+
   setMenuLanguage(lang: string): void {
     if (lang !== null && lang !== undefined) {
       this.menuLanguage = lang;
@@ -54,6 +69,7 @@ export class LanguageService {
       this.translate.use(lang);
     }
   }
+
   updateMenuLanguage(temporalMenuLanguage): void {
     if (temporalMenuLanguage === localStorage.getItem('MenuLanguage') ||
         localStorage.getItem('MenuLanguage') === null) {

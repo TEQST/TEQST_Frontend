@@ -30,9 +30,10 @@ export class TextDetailPage extends BaseComponent implements OnInit {
 
   public text: TextObject;
   public recordingState: RecordingStateModel;
-  private textStats: TextStats;
   public selectedSpeaker: Observable<string>;
-  private speakers: string[];
+
+  private textStats: TextStats;
+  private speakers: string[] = [];
 
   constructor(public loaderService: LoaderService,
               private manageFolderService: ManageFolderService,
@@ -65,6 +66,10 @@ export class TextDetailPage extends BaseComponent implements OnInit {
 
     this.selectedSpeaker = this.routeStateService.speakerParam;
     this.getStats();
+  }
+
+  hasNoSpeakers(): boolean {
+    return this.speakers.length == 0;
   }
 
   async presentSpeakerSelect(ev: any): Promise<void> {

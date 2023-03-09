@@ -1,6 +1,6 @@
 <ion-header class="no-select">
   <ion-toolbar>
-    <ion-title>{{'Create a new folder' | translate}}</ion-title>
+    <ion-title>{{'manage.createFolderModal.modalTitle' | translate}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissForm()">
         <ion-icon name="close"></ion-icon>
@@ -12,12 +12,12 @@
 <ion-content class="no-select">
   <form [formGroup]="createFolderForm" (ngSubmit)="submitForm()">
     <ion-item id="titleInputItem">
-      <ion-label position="stacked">{{'Title' | translate}}</ion-label>
+      <ion-label position="stacked">{{'manage.createFolderModal.folderNameLabel' | translate}}</ion-label>
       <ion-input #folderNameInput formControlName="folderName" name="name"></ion-input>
     </ion-item>
     <div class="ion-padding">
       <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!folderNameValid">
-        {{'Create folder' | translate}}</ion-button>
+        {{'manage.createFolderModal.createBtn' | translate}}</ion-button>
     </div>
   </form>
 </ion-content>

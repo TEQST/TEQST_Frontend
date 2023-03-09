@@ -1,9 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
-import {SpeakTabNavService} from 'src/app/services/speak-tab-nav.service';
-import {BaseComponent} from '../base-component';
-import {AlertManagerService} from '../services/alert-manager.service';
-import {LoaderService} from '../services/loader.service';
+import {ShareFolderService} from 'src/app/services/share-folder.service';
+import {BaseComponent} from 'src/app/base-component';
+import {LoaderService} from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-speak',
@@ -13,30 +13,29 @@ import {LoaderService} from '../services/loader.service';
 
 export class SpeakPage extends BaseComponent implements OnInit {
 
-  @ViewChild('publisherList', {read: ElementRef}) publisherListElem: ElementRef
+  public recentFolders = [];
 
-  public publishers: any
+  constructor(public loaderService: LoaderService,
+              private shareFolderService: ShareFolderService,
+              private router: Router) {
 
-  constructor(private navService : SpeakTabNavService,
-              private alertManager: AlertManagerService,
-              public loaderService: LoaderService) {
     super(loaderService);
   }
 
-  ngOnInit() { }
-
-  async ionViewWillEnter() {
-    this.publishers = [];
-    this.publisherListElem.nativeElement.classList.remove('loaded');
-
-    this.navService.getPublisherList()
-        .subscribe(
-            (data) => {
-              this.publishers = data;
-              this.publisherListElem.nativeElement.classList.add('loaded');
-            },
-            (err) => this.alertManager
-                .showErrorAlert(err.status, err.statusText),
-        );
+  ngOnInit(): void {
+    this.shareFolderService.getRecentLinks().subscribe(
+        (res) => {
+          this.recentFolders = res;
+        },
+        (err) => {
+          console.log(err);
+        },
+    );
   }
+
+  openFolder(id, root_id): void {
+    this.router.navigateByUrl(
+        '/tabs/speak/link/' + id + '?root=' + root_id);
+  }
+
 }

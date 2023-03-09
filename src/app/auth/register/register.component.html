@@ -1,43 +1,48 @@
 <form *ngIf="currentRegisterStep === 1" [formGroup]="stepOneForm" (ngSubmit)="nextStep()"
   (keyup.enter)="stepOneForm?.valid ? nextStep() : undefined">
   <ion-item lines="full">
-    <ion-label position="floating">{{ 'Username' | translate }}</ion-label>
+    <ion-label position="floating">{{ 'username' | translate }}</ion-label>
     <ion-input formControlName="username" type="text" id="username"></ion-input>
   </ion-item>
   <div class="error" *ngIf="errorControl.username.errors?.required && errorControl.username.touched">
-    Username is required.
+    {{ 'auth.register.usernameRequiredErrorMsg' | translate }}
   </div>
   <div class="warning" *ngIf="stepOneForm.controls.username.pending">
-    Checking username...
+    {{ 'auth.register.checkingUsernameMsg' | translate }}
   </div>
-  <div class="error" *ngIf="!errorControl.username.valid && !errorControl.username.pending && !errorControl.username.errors?.required">
-    Username is already taken.
+  <div class="error"
+    *ngIf="!errorControl.username.valid && !errorControl.username.pending && !errorControl.username.errors?.required">
+    {{ 'auth.register.usernameTakenErrorMsg' | translate }}
   </div>
   <ion-item id="password-item" lines="full">
-    <ion-label position="floating">{{ 'Password' | translate }}</ion-label>
+    <ion-label position="floating">{{ 'password' | translate }}</ion-label>
     <ion-button id="toggle-password" fill=clear slot="end" (click)="showPassword = !showPassword">
       <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
     </ion-button>
     <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'" id="password"></ion-input>
   </ion-item>
   <ion-item lines="full">
-    <ion-label position="floating">{{'Year of birth' | translate}}</ion-label>
+    <ion-label position="floating">{{'yearOfBirth' | translate}}</ion-label>
     <ion-input formControlName="birth_year" inputmode="decimal"></ion-input>
   </ion-item>
   <div class="error" *ngIf="!errorControl.birth_year.valid && errorControl.birth_year.touched">
-    Please enter the year in the format YYYY. Example: 1992
+    {{'auth.register.yearOfBirthErrorMsg' | translate}}
   </div>
   <ion-item lines="full">
-    <ion-label position="floating">{{'Language' | translate}}</ion-label>
+    <ion-label position="floating">{{'auth.register.spokenLanguagesLabel' | translate}}</ion-label>
     <ion-select multiple="true" formControlName="language_ids">
       <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item lines="full" >
+  <ion-item lines="full">
     <ion-checkbox #cbox formControlName="checkbox"></ion-checkbox>
-    <ion-label (click)="cbox.checked = !cbox.checked" class="cbox-label">I accept the <a [routerLink]="[]" (click)="presentServicesAgreement()">Services Agreement</a></ion-label>
+    <ion-label (click)="cbox.checked = !cbox.checked" class="cbox-label">{{'auth.register.acceptServiceAgreementLabel.0'
+      | translate}}<a [routerLink]="[]"
+        (click)="presentServicesAgreement()">{{'auth.register.acceptServiceAgreementLabel.1' |
+        translate}}</a>{{'auth.register.acceptServiceAgreementLabel.2' | translate}}</ion-label>
   </ion-item>
-  <ion-button class="button-submit" type="submit" [disabled]="!stepOneForm.valid" expand="block">{{'Next' | translate}}
+  <ion-button class="button-submit" type="submit" [disabled]="!stepOneForm.valid" expand="block">
+    {{'auth.register.nextBtn' | translate}}
   </ion-button>
 </form>
 
@@ -45,27 +50,30 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="previousStep()">
-        <ion-icon name="arrow-back-outline"></ion-icon>    </ion-button>
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 
   <form [formGroup]="stepTwoForm" (ngSubmit)="performRegister()"
     (keyup.enter)="stepTwoForm.valid ? performRegister() : undefined">
-    
+
     <ion-item lines="full">
-      <ion-label position="floating">{{'Email' | translate}}: </ion-label>
-      <ion-input  formControlName="email"></ion-input>
+      <ion-label position="floating">{{'email' | translate}}: </ion-label>
+      <ion-input formControlName="email"></ion-input>
     </ion-item>
-  
+
     <!-- Country -->
     <ion-item id="country" lines="full" (click)="openCountryDropdown()">
-      <ion-label position="floating">{{'Country' | translate}}: </ion-label>
-      <ion-input id="country" formControlName="country" (ionFocus)="openCountryDropdown()" (ionChange)="filterCountries($event)"></ion-input>
+      <ion-label position="floating">{{'countryOfResidence' | translate}}: </ion-label>
+      <ion-input id="country" formControlName="country" autocomplete="none" (ionFocus)="openCountryDropdown()"
+        (ionChange)="filterCountries($event)"></ion-input>
     </ion-item>
-    <div id="country" *ngIf="showCountryDropdown" class="country-dropdown-container" (clickOutside)="clearCountryDropdown()">
+    <div id="country" *ngIf="showCountryDropdown" class="country-dropdown-container"
+      (clickOutside)="clearCountryDropdown()">
       <ion-content>
         <ion-virtual-scroll [items]="filteredCountries" approxItemHeight="48px">
-          <ion-item button  *virtualItem="let country" (click)="selectCountry(country)">
+          <ion-item button *virtualItem="let country" (click)="selectCountry(country)">
             {{country.english_name}}
           </ion-item>
         </ion-virtual-scroll>
@@ -74,12 +82,14 @@
 
     <!-- Accent -->
     <ion-item id="accent" lines="full" (click)="openAccentDropdown()">
-      <ion-label position="floating">{{'Accent' | translate}}: </ion-label>
-      <ion-input id="accent" formControlName="accent" (ionFocus)="openAccentDropdown()" (ionChange)="filterAccents($event)"></ion-input>
+      <ion-label position="floating">{{'accent' | translate}}: </ion-label>
+      <ion-input id="accent" formControlName="accent" autocomplete="none" (ionFocus)="openAccentDropdown()"
+        (ionChange)="filterAccents($event)"></ion-input>
     </ion-item>
-    <div id="accent" *ngIf="showAccentDropdown" class="accent-dropdown-container" (clickOutside)="closeAccentDropdown()">
+    <div id="accent" *ngIf="showAccentDropdown" class="accent-dropdown-container"
+      (clickOutside)="closeAccentDropdown()">
       <div *ngIf="filteredAccents.length === 0">
-        <ion-item-divider>{{'Add new Accent' | translate}}</ion-item-divider>
+        <ion-item-divider>{{'auth.register.addNewAccentLabel' | translate}}</ion-item-divider>
         <ion-item button (click)="closeAccentDropdown()">
           {{stepTwoForm.value.accent}}
           <ion-icon color="primary" slot="end" name="add-circle"></ion-icon>
@@ -93,31 +103,33 @@
         </ion-virtual-scroll>
       </ion-content>
     </div>
-  
+
     <ion-item lines="full">
-      <ion-label position="floating">{{'Education Level' | translate}}:</ion-label>
+      <ion-label position="floating">{{'educationLevel' | translate}}:</ion-label>
       <ion-select name="education" formControlName="education">
-        <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
-        <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
-        <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
-        <ion-select-option value="N">{{'Prefer not to say' | translate}}</ion-select-option>
+        <ion-select-option value="B6">{{'educationLevel_0_6' | translate}}</ion-select-option>
+        <ion-select-option value="6T12">{{'educationLevel_6_12' | translate}}</ion-select-option>
+        <ion-select-option value="M12">{{'educationLevel_12+' | translate}}</ion-select-option>
+        <ion-select-option value="N">{{'educationLevel_unknown' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
-  
+
     <ion-item lines="full">
-      <ion-label position="floating">{{'Gender' | translate}}:</ion-label>
+      <ion-label position="floating">{{'gender' | translate}}:</ion-label>
       <ion-select name="gender" formControlName="gender">
-        <ion-select-option value="F">{{'Female' | translate}}</ion-select-option>
-        <ion-select-option value="M">{{'Male' | translate}}</ion-select-option>
-        <ion-select-option value="N">{{'Prefer not to say' | translate}}</ion-select-option>
+        <ion-select-option value="F">{{'female' | translate}}</ion-select-option>
+        <ion-select-option value="M">{{'male' | translate}}</ion-select-option>
+        <ion-select-option value="N">{{'gender_diverse' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button class="button-submit" type="submit" [disabled]="!stepTwoForm.valid" expand="block">{{'Register' | translate}}
+    <ion-button class="button-submit" type="submit" [disabled]="!stepTwoForm.valid" expand="block">
+      {{'auth.register.registerBtn' | translate}}
     </ion-button>
   </form>
 </div>
 
 <ion-card-content>
-  <ng-container>{{'Already have an Account?' | translate}}</ng-container>
-  <p><a routerLink="/login" class="login-redirect">{{'Login here' | translate }}</a></p>
+  <ng-container>{{'auth.register.alreadyHasAccountLabel' | translate}}</ng-container>
+  <p><a [routerLink]="['/login']" [queryParams]="qParams" class="login-redirect">{{'auth.register.loginLink' | translate
+      }}</a></p>
 </ion-card-content>

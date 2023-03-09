@@ -1,62 +1,148 @@
 {
-	"0-6 years": "0-6年間",
-	"6-12 years": "6-12年間",
-	"Accent": "訛り",
-	"Added Speaker": "追加されたスピーカー",
-	"All Users": "すべてのユーザー",
-	"Already have an Account?": "アカウントをお持ちですか？",
-	"Birthyear": "生年",
-	"Completed texts": "完成したテキスト",
-	"Country": "国",
-	"Create a new folder": "新しいフォルダー",
-	"Create a new text": "新しいテキスト",
-	"Create folder": "作成",
-	"Create text": "作成",
-	"Detailed statistics for": "詳細な統計:",
-	"Don't have an Account yet?": "アカウントはまだありませんか?",
-	"Education Level": "教育レベル",
-	"Female": "女",
-	"Finished Sentences": "終了文",
-	"Folders by": "出版社: ",
-	"Folders of": "出版社: ",
-	"Gender": "性別",
-	"Language": "言語",
-	"Languages": "音声言語",
-	"Login": "サインイン",
-	"Login here": "こちらからログインしてください",
-	"Logout": "サインアウト",
-	"Male": "男",
-	"Maximum lines per text": "各テキストの行数",
-	"Menu Language": "UI言語",
-	"Next": "次",
-	"No statistics to display. Please share the folder to a speaker.": "表示する統計はありません。フォルダをスピーカーに共有してください。",
-	"Password": "パスワード",
-	"Profile": "プロフィール",
-	"Profile Settings": "プロフィール",
-	"Public": "パブリック",
-	"Public folders": "パブリックフォルダ",
-	"Public for everyone": "すべての人に公開",
-	"Recording time": "記録時間",
-	"Recording time by text": "テキストによる記録時間",
-	"Recording time for": "記録時間:",
-	"Register": "登録",
-	"Register here": "こちらから登録してください",
-	"Save changes": "保存",
-	"Search for User": "ユーザーを検索",
-	"Select One": "選択",
-	"Select Speaker for": "スピーカーを選択してください:",
-	"Select a publisher": "出版社を選択してください",
-	"Settings": "設定",
-	"Split into multiple texts": "テキストを分割する",
-	"Statistics for": "スタッツ:",
-	"Text Content": "テキストコンテンツ",
-	"Texts in": "フォルダ: ",
-	"Title": "題名",
-	"Total recording time": "総記録時間",
-	"Username": "ユーザー名",
-	"Year of birth": "生年",
-	"including re-recordings": "再録を含む",
-	"more than 12 years": "12年以上",
-	"texts": "テキスト",
-	"without re-recordings": "再録なし"
+	"username": "ユーザー名",
+	"password": "パスワード",
+	"email": "メール",
+	"yearOfBirth": "誕生年",
+	"countryOfResidence": "居住国",
+	"accent": "アクセント（母国語）",
+	"educationLevel": "教育レベル",
+	"educationLevel_0_6": "0-6年",
+	"educationLevel_6_12": "6-12年",
+	"educationLevel_12 +": "12年以上",
+	"educationLevel_unknown": "言わない方がいい",
+	"gender": "性別",
+	"male": "男性",
+	"female": "女性",
+	"gender_diverse": "言わない方がいい",
+	"auth": {
+		"login": {
+			"loginBtn": "ログイン",
+			"noAccountYetLabel": "まだアカウントをお持ちではありませんか？",
+			"registerLink": "ここで登録"
+		},
+		"register": {
+			"usernameRequiredErrorMsg": "ユーザー名が必要です。",
+			"checkingUsernameMsg": "ユーザー名を確認しています...",
+			"usernameTakenErrorMsg": "ユーザー名は既に使用されています。",
+			"yearOfBirthErrorMsg": "年をYYYYの形式で入力してください。例:1992",
+			"spokenLanguagesLabel": "どの言語を話しますか？",
+			"acceptServiceAgreementLabel": [
+				"私は受け入れる",
+				"サービス契約",
+				""
+			],
+			"nextBtn": "次へ",
+			"addNewAccentLabel": "新しいアクセントを追加",
+			"registerBtn": "登録",
+			"alreadyHasAccountLabel": "すでにアカウントをお持ちですか？",
+			"loginLink": "ここにログイン"
+		},
+		"footerToolbar": {
+			"changeLanguageBtnTooltip": "言語の変更",
+			"documentationBtnTooltip": "ヘルプが必要ですか？",
+			"adminPageBtnTooltip": "管理ページ"
+		}
+	},
+	"listen": {
+		"contentTitle": "発行元を選択",
+		"folderList": {
+			"contentTitle": "Folders by"
+		},
+		"textList": {
+			"contentTitle": "テキスト入力"
+		},
+		"textDetail": {
+			"selectedSpeakerLabel": "スピーカー:"
+		}
+	},
+	"manage": {
+		"contentTitle": "フォルダ",
+		"textDetail": {
+			"selectedSpeakerLabel": "スピーカー:"
+		},
+		"createFolderModal": {
+			"modalTitle": "新しいフォルダを作成",
+			"folderNameLabel": "タイトル",
+			"createBtn": "フォルダの作成"
+		},
+		"createTextModal": {
+			"modalTitle": "新しいテキストを作成",
+			"textNameLabel": "タイトル",
+			"textContentLabel": "テキストコンテンツ",
+			"languageLabel": "Language",
+			"splitTextLabel": "複数のテキストに分割",
+			"splitTextMaxLinesLabel": "テキストあたりの最大行数",
+			"createTextBtn": "テキストを作成"
+		},
+		"folderStatsModal": {
+			"speakerList": {
+				"modalTitle": "Statistics for",
+				"textsCountSpan": "texts",
+				"folderNotSharedErrorMsg": "表示する統計がありません。フォルダーをスピーカーと共有してください。"
+			},
+			"speakerDetail": {
+				"modalTitle": "の詳細な統計",
+				"completedTextsLabel": "完成したテキスト",
+				"totalRecordingTimeLabel": "合計記録時間",
+				"includeRerecordingsLabel": "再録音を含む",
+				"excludeRerecordingsLabel": "再録音なし",
+				"recordingTimeByTextLabel": "テキストによる時間の記録",
+				"finishedSentencesLabel": "完成した文",
+				"recordingTimeLabel": "記録時間"
+			}
+		},
+		"shareFolderModal": {
+			"modalTitle": "共有オプション",
+			"speakersSegmentLabel": "スピーカー",
+			"listenersSegmentLabel": "リスナー",
+			"listenersSegment": {
+				"searchbarPlaceholder": "ユーザーを検索",
+				"addedListenersLabel": "追加されたリスナー",
+				"allUsersLabel": "すべてのユーザー"
+			},
+			"speakersSegment": {
+				"searchbarPlaceholder": "ユーザーを検索",
+				"publicForEveryoneLabel": "すべての人に公開",
+				"addedSpeakersLabel": "スピーカーを追加",
+				"allUsersLabel": "すべてのユーザー"
+			}
+		}
+	},
+	"speak": {
+		"textProgresWords": "words",
+		"folderList": {
+			"personalFolderContentTitle": "Folders by",
+			"publicFolderContentTitle": "パブリックフォルダー"
+		},
+		"textList": {
+			"contentTitle": "テキスト入力"
+		},
+		"timeStatsModal": {
+			"modalTitle": "の記録時間",
+			"includeRerecordingsLabel": "再録音を含む",
+			"excludeRerecordingsLabel": "再録音なし"
+		},
+		"recordView": {
+			"uploadingMsg": "アップロード中...＆nbsp;"
+		}
+	},
+	"settings": {
+		"logoutBtn": "ログアウト",
+		"contentTitle": "設定",
+		"profileSettingsLabel": "プロファイル設定",
+		"languageSettingsLabel": "メニュー言語の変更",
+		"profile": {
+			"saveBtn": "変更を保存",
+			"contentTitle": "プロファイル",
+			"spokenLanguagesLabel": "口頭言語"
+		}
+	},
+	"pageNotFoun": {
+		"title": "404ページが見つかりません",
+		"text": [
+			"迷子ですか？クリック",
+			"ここ",
+			"ダッシュボードに移動します！"
+		]
+	}
 }

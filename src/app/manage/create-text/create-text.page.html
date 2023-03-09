@@ -1,6 +1,6 @@
 <ion-header class="no-select">
   <ion-toolbar>
-    <ion-title>{{'Create a new text' | translate}}</ion-title>
+    <ion-title>{{'manage.createTextModal.modalTitle' | translate}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
@@ -12,16 +12,16 @@
   <form [formGroup]="createTextForm" (ngSubmit)="createText(createTextForm.value)">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
-        <ion-label position="stacked">{{'Title' | translate}}</ion-label>
+        <ion-label position="stacked">{{'manage.createTextModal.textNameLabel' | translate}}</ion-label>
         <ion-input #titleInput formControlName="title" name="name"></ion-input>
       </ion-item>
       <ion-item #selectFileWrapper [ngClass]="fileSelected ? 'ion-valid' : 'ion-invalid'">
-        <ion-label position="stacked">{{'Text Content' | translate}}</ion-label>
+        <ion-label position="stacked">{{'manage.createTextModal.textContentLabel' | translate}}</ion-label>
         <ion-input (change)="setFile($event.target.files.item(0))" ng-required="required" type="file" accept=".txt">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>{{'Language' | translate}}</ion-label>
+        <ion-label>{{'manage.createTextModal.languageLabel' | translate}}</ion-label>
         <ion-select formControlName="language" placeholder="{{'Select One' | translate}}">
           <ion-select-option *ngFor="let lang of availableLanguages" value="{{lang.short}}">
             {{lang.native_name}}
@@ -29,17 +29,17 @@
         </ion-select>
       </ion-item>
       <ion-item id="text-split-toggle-item" lines="none">
-        <ion-label>{{'Split into multiple texts' | translate}}</ion-label>
+        <ion-label>{{'manage.createTextModal.splitTextLabel' | translate}}</ion-label>
         <ion-toggle (ionChange)="textSplitToggleChanged($event)"></ion-toggle>
       </ion-item>
       <ion-item id="text-split-detail" lines="none" [ngClass]="{'visible': enableTextSplit}">
-        <ion-label>{{'Maximum lines per text' | translate}}</ion-label>
+        <ion-label>{{'manage.createTextModal.splitTextMaxLinesLabel' | translate}}</ion-label>
         <ion-input formControlName="splitLines" type="number" inputmode="numeric"></ion-input>
       </ion-item>
     </ion-list>
     <div class="ion-padding">
       <ion-button [disabled]="!formValid" expand="block" type="submit" class="ion-no-margin" color="dark">
-        {{'Create text' | translate}}
+        {{'manage.createTextModal.createTextBtn' | translate}}
       </ion-button>
     </div>
   </form>

@@ -7,6 +7,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {Observable} from 'rxjs';
+
 import {UsermgmtService} from 'src/app/services/usermgmt.service';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 
@@ -15,10 +16,9 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 })
 export class AccessGuard implements CanActivate {
 
-  constructor(
-    private userService: UsermgmtService,
-    private router: Router,
-    private authService: AuthenticationService) { }
+  constructor(private userService: UsermgmtService,
+              private router: Router,
+              private authService: AuthenticationService) { }
 
   /* Check if a user is allowed to navigate to a specific route
      based on the set flag in the router
@@ -36,6 +36,8 @@ export class AccessGuard implements CanActivate {
        the user has to be authenticated
        to navigate to the specified route
        Otherwise just redirect him to the login page */
+
+    // redirect user to login page if he is not logged in
     if (requiresLogin) {
       if (!this.authService.isLoggedIn()) {
         if (state.url !== '/admin') {

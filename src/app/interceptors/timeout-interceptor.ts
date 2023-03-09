@@ -8,7 +8,7 @@ import {
 import {Observable} from 'rxjs';
 import {timeout} from 'rxjs/operators';
 
-import {Constants} from '../constants';
+import {Constants} from 'src/app/constants';
 
 @Injectable()
 export class TimeoutInterceptor implements HttpInterceptor {

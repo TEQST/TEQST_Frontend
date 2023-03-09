@@ -24,6 +24,7 @@ Example for src/app/constants.ts:
 export class Constants {
     public static SERVER_URL = '';
     public static REQUEST_TIMEOUT = 30000;
+    public static DISABLE_NO_INTERNET_ALERT = false;
 }
 ```
 

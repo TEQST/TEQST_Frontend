@@ -27,16 +27,42 @@
       }
     }
   ],
+  "dataGroups": [
+    {
+      "name": "teqst-api",
+      "version": 2,
+      "urls": [
+        "/admin",
+        "/admin/**",
+        "/api",
+        "/api/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 50,
+        "maxAge": "1d",
+        "timeout": "30s",
+        "strategy": "freshness"
+      }
+    },
+    {
+      "name": "teqst-statics",
+      "version": 1,
+      "urls": [
+        "/static",
+        "/static/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 50,
+        "maxAge": "1d",
+        "timeout": "30s",
+        "strategy": "performance"
+      }
+    }
+  ],
   "navigationUrls": [
     "/**",         
     "!/**/*.*",    
     "!/**/*__*", 
-    "!/**/*__*/**",
-    "!/admin",
-    "!/admin/**",
-    "!/api",
-    "!/api/**",
-    "!/static",
-    "!/static/**"
+    "!/**/*__*/**"
   ]
 }

@@ -2,11 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 
+import {Constants} from 'src/app/constants';
 import {AuthenticationService} from './authentication.service';
-import {Constants} from '../constants';
-import {SharedFolder} from './../interfaces/shared-folder';
-import {AlertManagerService} from './alert-manager.service';
-
 
 @Injectable({
   providedIn: 'root',
@@ -18,20 +15,24 @@ SERVER_URL = Constants.SERVER_URL;
 public sharedTextsList = new Subject<any>()
 public requestMade = new Subject<any>();
 
-constructor(
-  private http: HttpClient,
-  public authenticationService: AuthenticationService,
-  private alertService: AlertManagerService) { }
+constructor(private http: HttpClient,
+            public authenticationService: AuthenticationService) { }
+
+getFolderInfo(id, root_uid) {
+  this.requestMade.next(true);
+  const url = this.SERVER_URL + `/api/spk/folders/${id}?root=${root_uid}`;
+  return this.http.get(url);
+}
 
 getPublisherList() {
   this.requestMade.next(true);
-  const url = this.SERVER_URL + '/api/publishers/';
+  const url = this.SERVER_URL + '/api/spk/publishers/';
   return this.http.get(url);
 }
 
 getInfoForPublisher(publisherId: string) {
   this.requestMade.next(true);
-  const url = this.SERVER_URL + `/api/publishers/${publisherId}/`;
+  const url = this.SERVER_URL + `/api/spk/publishers/${publisherId}/`;
   return this.http.get(url);
 }
 
@@ -41,20 +42,11 @@ getPublicFolders() {
   return this.http.get(url);
 }
 
-loadContentsOfSharedFolder(folderId: string) {
+loadContentsOfSharedFolder(folderId: string, root_id: string) {
   this.requestMade.next(true);
-  const url = this.SERVER_URL + `/api/spk/sharedfolders/${folderId}/`;
-
-  return this.http.get<SharedFolder>(url).subscribe(
-      (data) => {
-        this.sharedTextsList.next(data);
-      },
-      (err) => this.alertService
-          .showErrorAlert(err.status, err.statusText),
-  );
+  const url = this.SERVER_URL +
+      `/api/spk/sharedfolders/${folderId}/texts?root=${root_id}`;
+  return this.http.get(url);
 }
-getInfoForSharedfolder(folderId: string) {
-  const url = this.SERVER_URL + `/api/spk/sharedfolders/${folderId}/`;
 
-}
 }

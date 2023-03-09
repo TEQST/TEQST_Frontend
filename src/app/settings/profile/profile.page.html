@@ -3,79 +3,65 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/settings"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="primary" id="save" [disabled]="!profileForm.valid" (click)="saveProfileData()">
-        {{'Save changes' | translate}}
-        <ion-icon name="checkmark-circle"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="no-select">
-  <h1>{{'Profile' | translate}}</h1>
+  <h1>{{'settings.profile.contentTitle' | translate}}</h1>
   <form [formGroup]="profileForm">
-    <ion-item>
-      <ion-label id="username" position="stacked">{{'Username' | translate}}:</ion-label>
+    <ion-item disabled>
+      <ion-label id="username" position="stacked">{{'username' | translate}}:</ion-label>
       <ion-input formControlName="username" readonly></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">{{'Email' | translate}}:</ion-label>
-      <ion-input formControlName="email"></ion-input>
+    <ion-item (focusout)="saveProfileData()">
+      <ion-label position="stacked">{{'email' | translate}}:</ion-label>
+      <ion-input formControlName="email" (keydown)="saveIfEnter($event)"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">{{'Birthyear' | translate}}:</ion-label>
-      <ion-input formControlName="birth_year" inputmode="decimal"></ion-input>
+      <ion-label position="stacked">{{'yearOfBirth' | translate}}:</ion-label>
+      <ion-input formControlName="birth_year" inputmode="decimal" disabled="true"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">{{'Country' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'countryOfResidence' | translate}}:</ion-label>
       <ion-input formControlName="country" disabled="true"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">{{'Accent' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'accent' | translate}}:</ion-label>
       <ion-input formControlName="accent" disabled="true"></ion-input>
     </ion-item>
 
 
     <ion-item>
-      <ion-label position="stacked">{{'Languages' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'settings.profile.spokenLanguagesLabel' | translate}}:</ion-label>
       <ion-select multiple="true" formControlName="language_ids">
         <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">{{'Education Level' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'educationLevel' | translate}}:</ion-label>
       <ion-select formControlName="education" disabled="true">
-        <ion-select-option value="B6">{{'0-6 years' | translate}}</ion-select-option>
-        <ion-select-option value="6T12">{{'6-12 years' | translate}}</ion-select-option>
-        <ion-select-option value="M12">{{'more than 12 years' | translate}}</ion-select-option>
-        <ion-select-option value="N">{{'Prefer not to say' | translate}}</ion-select-option>
+        <ion-select-option value="B6">{{'educationLevel_0_6' | translate}}</ion-select-option>
+        <ion-select-option value="6T12">{{'educationLevel_6_12' | translate}}</ion-select-option>
+        <ion-select-option value="M12">{{'educationLevel_12+' | translate}}</ion-select-option>
+        <ion-select-option value="N">{{'educationLevel_unknown' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">{{'Gender' | translate}}:</ion-label>
+      <ion-label position="stacked">{{'gender' | translate}}:</ion-label>
       <ion-select formControlName="gender" disabled="true">
-        <ion-select-option value="F">{{'Female' | translate}}</ion-select-option>
-        <ion-select-option value="M">{{'Male' | translate}}</ion-select-option>
-        <ion-select-option value="N">{{'Prefer not to say' | translate}}</ion-select-option>
+        <ion-select-option value="F">{{'female' | translate}}</ion-select-option>
+        <ion-select-option value="M">{{'male' | translate}}</ion-select-option>
+        <ion-select-option value="N">{{'gender_diverse' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
 
-
-    <ion-item>
-      <ion-label position="stacked">{{'Menu Language' | translate}}:</ion-label>
-      <ion-select formControlName="menu_language_id">
-        <ion-select-option *ngFor="let lang of allMenuLangs" value="{{lang?.short}}">{{lang.native_name}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
 
   </form>
 </ion-content>

@@ -1,62 +1,182 @@
 {
-	"0-6 years": "0-6 years",
-	"6-12 years": "6-12 years",
-	"Accent": "Accent",
-	"Added Speaker": "Added Speaker",
-	"All Users": "All Users",
-	"Already have an Account?": "Already have an Account?",
-	"Birthyear": "Birthyear",
-	"Completed texts": "Completed texts",
-	"Country": "Country",
-	"Create a new folder": "Create a new folder",
-	"Create a new text": "Create a new text",
-	"Create folder": "Create folder",
-	"Create text": "Create text",
-	"Detailed statistics for": "Detailed statistics for",
-	"Don't have an Account yet?": "Don't have an Account yet?",
-	"Education Level": "Education Level",
-	"Female": "Female",
-	"Finished Sentences": "Finished Sentences",
-	"Folders by": "Folders by",
-	"Folders of": "Folders of",
-	"Gender": "Gender",
-	"Language": "Language",
-	"Languages": "Languages",
-	"Login": "Login",
-	"Login here": "Login here",
-	"Logout": "Logout",
-	"Male": "Male",
-	"Maximum lines per text": "Maximum lines per text",
-	"Menu Language": "Menu Language",
-	"Next": "Next",
-	"No statistics to display. Please share the folder to a speaker.": "No statistics to display. Please share the folder to a speaker.",
-	"Password": "Password",
-	"Profile": "Profile",
-	"Profile Settings": "Profile Settings",
-	"Public": "Public",
-	"Public folders": "Public folders",
-	"Public for everyone": "Public for everyone",
-	"Recording time": "Recording time",
-	"Recording time by text": "Recording time by text",
-	"Recording time for": "Recording time for",
-	"Register": "Register",
-	"Register here": "Register here",
-	"Save changes": "Save changes",
-	"Search for User": "Search for User",
-	"Select One": "Select One",
-	"Select Speaker for": "Select Speaker for",
-	"Select a publisher": "Select a publisher",
-	"Settings": "Settings",
-	"Split into multiple texts": "Split into multiple texts",
-	"Statistics for": "Statistics for",
-	"Text Content": "Text Content",
-	"Texts in": "Texts in",
-	"Title": "Title",
-	"Total recording time": "Total recording time",
-	"Username": "Username",
-	"Year of birth": "Year of birth",
-	"including re-recordings": "including re-recordings",
-	"more than 12 years": "more than 12 years",
-	"texts": "texts",
-	"without re-recordings": "without re-recordings"
+	"username": "Username",
+	"password": "Password",
+	"email": "Email",
+	"yearOfBirth": "Year of birth",
+	"countryOfResidence": "Country of residence",
+	"accent": "Accent (Mother tongue)",
+	"educationLevel": "Education level",
+	"educationLevel_0_6": "0-6 years",
+	"educationLevel_6_12": "6-12 years",
+	"educationLevel_12+": "more than 12 years",
+	"educationLevel_unknown": "Prefer not to say",
+	"gender": "Gender",
+	"male": "Male",
+	"female": "Female",
+	"gender_diverse": "Prefer not to say",
+	"auth": {
+		"login": {
+			"loginBtn": "Login",
+			"noAccountYetLabel": "Don't have an account yet?",
+			"registerLink": "Register here"
+		},
+		"register": {
+			"usernameRequiredErrorMsg": "Username is required.",
+			"checkingUsernameMsg": "Checking username...",
+			"usernameTakenErrorMsg": "Username is already taken.",
+			"yearOfBirthErrorMsg": "Please enter the year in the format YYYY. Example: 1992",
+			"spokenLanguagesLabel": "Which languages do you speak?",
+			"acceptServiceAgreementLabel": [
+				"I accept the ",
+				"Service Agreement",
+				""
+			],
+			"nextBtn": "Next",
+			"addNewAccentLabel": "Add new accent",
+			"registerBtn": "Register",
+			"alreadyHasAccountLabel": "Already have an Account?",
+			"loginLink": "Login here"
+		},
+		"footerToolbar": {
+			"changeLanguageBtnTooltip": "Change language",
+			"documentationBtnTooltip": "Need help?",
+			"adminPageBtnTooltip": "Admin page"
+		}
+	},
+	"listen": {
+		"contentTitle": "Select a folder",
+		"noSharedFolders": "Recordings you can listen to will be shown here.",
+		"folderList": {
+			"contentTitle": "Folders by"
+		},
+		"textList": {
+			"contentTitle": "Texts in"
+		},
+		"textDetail": {
+			"selectedSpeakerLabel": "Speaker:"
+		}
+	},
+	"manage": {
+		"contentTitle": "Folders of",
+		"textDetail": {
+			"selectedSpeakerLabel": "Speaker:"
+		},
+		"createFolderModal": {
+			"modalTitle": "Create a new folder",
+			"folderNameLabel": "Title",
+			"createBtn": "Create folder"
+		},
+		"createTextModal": {
+			"modalTitle": "Create a new text",
+			"textNameLabel": "Title",
+			"textContentLabel": "Text content",
+			"languageLabel": "Language",
+			"splitTextLabel": "Split into multiple texts",
+			"splitTextMaxLinesLabel": "Maximum lines per text",
+			"createTextBtn": "Create text"
+		},
+		"folderStatsModal": {
+			"speakerList": {
+				"modalTitle": "Statistics for",
+				"textsCountSpan": "texts",
+				"folderNotSharedErrorMsg": "No statistics to display. Please share the folder to a speaker."
+			},
+			"speakerDetail": {
+				"modalTitle": "Detailed statistics for",
+				"completedTextsLabel": "Completed texts",
+				"totalRecordingTimeLabel": "Total recording time",
+				"includeRerecordingsLabel": "including re-recordings",
+				"excludeRerecordingsLabel": "without re-recordings",
+				"recordingTimeByTextLabel": "Recording time by text",
+				"finishedSentencesLabel": "Finished sentences",
+				"recordingTimeLabel": "Recording time"
+			}
+		},
+		"shareFolderModal": {
+			"modalTitle": "Speakers for ",
+			"speakersSegmentLabel": "Speakers",
+			"listenersSegmentLabel": "Listeners",
+			"listenersSegment": {
+				"searchbarPlaceholder": "Search for user",
+				"addedListenersLabel": "Added listeners",
+				"allUsersLabel": "All users"
+			},
+			"speakersSegment": {
+				"searchbarPlaceholder": "Search for user",
+				"publicForEveryoneLabel": "Public for everyone",
+				"addedSpeakersLabel": "Added speakers",
+				"allUsersLabel": "All users"
+			}
+		},
+		"addListenerModal": {
+			"manageListenings": {
+				"title": "Listening Permissions",
+				"noListeningAvailable": "No Listening Permissions",
+				"cancel": "Cancel"
+			},
+			"selectListener": {
+				"title": "Select Listener",
+				"searchbarPlaceholder": "Search for user",
+				"addedListenersLabel": "Added listeners",
+				"allUsersLabel": "All users",
+				"next": "Next"
+			},
+			"selectSpeaker": {
+				"title": "Select speaker",
+				"byAccents": "By Accent",
+				"byUsernames": "By Username",
+				"allSpeakers": "Allow accessing all speakers",
+				"finish": "Finish",
+				"update": "Update",
+				"speakerSegment": {
+					"searchbarPlaceholder": "Search for user",
+					"addedSpeakersLabel": "Added speakers",
+					"allUsersLabel": "All users"
+				},
+				"accentSegment": {
+					"searchbarPlaceholder": "Search for accent",
+					"addedAccentsLabel": "Added accents",
+					"allAccentsLabel": "All accents"
+				}
+			}
+		}
+	},
+	"speak": {
+		"textProgresWords": "words",
+		"noSharedFolders": "Your recently opened links will be listed here.",
+		"folderList": {
+			"personalFolderContentTitle": "Folders by",
+			"publicFolderContentTitle": "Public folders"
+		},
+		"textList": {
+			"contentTitle": "Texts in"
+		},
+		"timeStatsModal": {
+			"modalTitle": "Recording time for",
+			"includeRerecordingsLabel": "including re-recordings",
+			"excludeRerecordingsLabel": "without re-recordings"
+		},
+		"recordView": {
+			"uploadingMsg": "Uploading... &nbsp;"
+		}
+	},
+	"settings": {
+		"logoutBtn": "Logout",
+		"contentTitle": "Settings",
+		"profileSettingsLabel": "Profile settings",
+		"languageSettingsLabel": "Change menu language",
+		"profile": {
+			"saveBtn": "Save changes",
+			"contentTitle": "Profile",
+			"spokenLanguagesLabel": "Spoken languages"
+		}
+	},
+	"pageNotFound": {
+		"title": "404 Page Not Found",
+		"text": [
+			"Are you lost? Click ",
+			"here",
+			" to go to the dashboard!"
+		]
+	}
 }

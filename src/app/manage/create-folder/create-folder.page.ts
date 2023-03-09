@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Input} from '@angular/core';
+import {Component, ViewChild, Input} from '@angular/core';
 import {ModalController, IonInput} from '@ionic/angular';
 import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
 
@@ -7,7 +7,7 @@ import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
   templateUrl: './create-folder.page.html',
   styleUrls: ['./create-folder.page.scss'],
 })
-export class CreateFolderPage implements OnInit {
+export class CreateFolderPage {
 
   @Input() parentId: any
   @ViewChild('folderNameInput', {static: false}) folderNameInput: IonInput
@@ -19,8 +19,8 @@ export class CreateFolderPage implements OnInit {
   private validatorPattern = new RegExp('^(?!\\.|\\s)[^\\\\\/:\\*"<>\\|]+$')
   private existingFolderNames: string[]
 
-  constructor(private formBuilder: FormBuilder,
-              public viewCtrl: ModalController) {
+  constructor(public viewCtrl: ModalController,
+              private formBuilder: FormBuilder) {
 
     this.createFolderForm = this.formBuilder.group({
       folderName: ['', (control) => {
@@ -30,8 +30,6 @@ export class CreateFolderPage implements OnInit {
 
     this.folderNameValid = false;
   }
-
-  ngOnInit() { }
 
   folderNameValidator(control: FormControl) {
     const folderName = control.value;
@@ -45,7 +43,7 @@ export class CreateFolderPage implements OnInit {
     }
   }
 
-  submitForm() {
+  submitForm(): void {
     const formData = this.createFolderForm.value;
     // close the modal passing its data
     this.viewCtrl.dismiss({
@@ -53,7 +51,7 @@ export class CreateFolderPage implements OnInit {
     });
   }
 
-  dismissForm() {
+  dismissForm(): void {
     // close the modal without passing data
     this.viewCtrl.dismiss();
   }

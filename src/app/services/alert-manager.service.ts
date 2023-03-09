@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AlertController, NavController} from '@ionic/angular';
+import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,8 @@ export class AlertManagerService {
   private alert: HTMLIonAlertElement;
   private noInternetAlert: HTMLIonAlertElement;
 
-  constructor(
-    public alertController: AlertController,
-    private navCtrl: NavController) {
+  constructor(public alertController: AlertController,
+              private navCtrl: NavController) {
 
     this.alertController.create({animated: false}).then((t) => {
       t.present(); t.dismiss();
@@ -41,6 +41,28 @@ export class AlertManagerService {
         }],
     });
 
+    await this.alert.present();
+  }
+
+  async presentLoginFailedAlert(): Promise<void> {
+    if (this.alertActive) {
+      return;
+    }
+    this.alertActive = true;
+    this.alert = await this.alertController.create({
+      header: 'Login Failed',
+      subHeader: 'Invalid credentials',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          handler: (): void => {
+            // Navigate back to the login page
+            this.navCtrl.navigateForward('/login');
+            this.alertActive = false;
+          },
+        }],
+    });
     await this.alert.present();
   }
 
@@ -121,6 +143,9 @@ export class AlertManagerService {
   }
 
   async presentNoInternetAlert(): Promise<void> {
+    // don't show alert if constant is set
+    if (Constants.DISABLE_NO_INTERNET_ALERT) return;
+
     this.noInternetAlert = await this.alertController.create({
       header: 'No Internet',
       message: 'Please restore the connection to the internet',

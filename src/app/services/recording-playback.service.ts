@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {SentenceRecordingModel} from './../models/sentence-recording.model';
+
+import {Constants} from 'src/app/constants';
+import {SentenceRecordingModel} from 'src/app/models/sentence-recording.model';
 import {AuthenticationService} from './authentication.service';
-import {Constants} from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class RecordingPlaybackService {
   private isPlaying = new BehaviorSubject<boolean>(false);
 
   constructor(public authenticationService: AuthenticationService,
-              private http: HttpClient) { }
+              private http: HttpClient) {}
 
   public async playSentenceRecording(
       recordingId: number,
@@ -58,7 +59,6 @@ export class RecordingPlaybackService {
   public stopAudioPlayback(): void {
     this.audio.pause();
     this.audio.currentTime = 0;
-
   }
 
   public addToCache(sentenceRecording: SentenceRecordingModel): void {
@@ -95,7 +95,6 @@ export class RecordingPlaybackService {
     return recordingIndex;
   }
 
-
   // get recordings of already recorded sentences from the server
   private async fetchSentenceRecordingBlob(
       recordingId: number,
@@ -107,7 +106,7 @@ export class RecordingPlaybackService {
     };
     // TODO: Switch to new sentencerecording URL as soon as its active
     const url = this.SERVER_URL +
-      `/api/sentencerecordings/${recordingId}/${sentenceNumber}/`;
+      `/api/spk/sentencerecordings/${recordingId}/${sentenceNumber}/`;
     return await this.http.get<Blob>(url, audioHttpOptions).toPromise();
   }
 

@@ -1,0 +1,26 @@
+<ion-header class="no-select">
+  <ion-toolbar>
+    <ion-title>{{'speak.timeStatsModal.modalTitle' | translate}} {{folderName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>{{'speak.timeStatsModal.includeRerecordingsLabel' | translate}}</ion-label>
+      <span class="ion-float-right">
+        {{timeFormat.getTimeString(timeStats.rec_time_with_rep)}}
+      </span>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{'speak.timeStatsModal.excludeRerecordingsLabel' | translate}}</ion-label>
+      <span class="ion-float-right">
+        {{timeFormat.getTimeString(timeStats.rec_time_without_rep)}}
+      </span>
+    </ion-item>
+  </ion-list>
+</ion-content>

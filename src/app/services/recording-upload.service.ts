@@ -2,13 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 
-import {Constants} from '../constants';
+import {Constants} from 'src/app/constants';
+import {SentenceRecordingModel} from 'src/app/models/sentence-recording.model';
+import {RecordingUploadResponse}
+  from 'src/app/interfaces/recording-upload-response';
 import {AlertManagerService} from './alert-manager.service';
-import {SentenceRecordingModel} from './../models/sentence-recording.model';
 import {AuthenticationService} from './authentication.service';
-import {
-  RecordingUploadResponse,
-} from './../interfaces/recording-upload-response';
 
 @Injectable({
   providedIn: 'root',
@@ -23,10 +22,9 @@ export class RecordingUploadService {
   private lastUploadResponse =
     new BehaviorSubject<RecordingUploadResponse>(null);
 
-  constructor(
-    private http: HttpClient,
-    public authenticationService: AuthenticationService,
-    private alertService: AlertManagerService) { }
+  constructor(public authenticationService: AuthenticationService,
+              private http: HttpClient,
+              private alertService: AlertManagerService) {}
 
   public uploadRecording(
       sentenceRecording: SentenceRecordingModel,
@@ -43,12 +41,10 @@ export class RecordingUploadService {
     const queueElement = this.uploadQueue.shift();
     const isReUpload = queueElement[1];
     const sentenceRecording = queueElement[0];
-
     const audioFile = new File([sentenceRecording.audioBlob], 'recording.wav');
-
     const formData = new FormData();
     formData.append('audiofile', audioFile);
-    const sentenceRecordingUrl = this.SERVER_URL + '/api/sentencerecordings/';
+    const sentenceRecordingUrl = this.SERVER_URL + '/api/spk/sentencerecordings/';
 
     if (isReUpload) {
       // replace existing sentence recording
@@ -73,8 +69,6 @@ export class RecordingUploadService {
 
       }, () => this.uploadFailed());
     }
-
-
   }
 
   private checkIfQueueIsFinished(): void {

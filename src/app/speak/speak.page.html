@@ -1,45 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
     <ion-img src="../../assets/img/logo.png"></ion-img>
-    <!-- <ion-buttons slot="end">
-      <ion-button color="primary">
-        <ion-icon name="information-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons> -->
-    
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="no-select">
-  <h1>{{'Select a publisher' | translate}}</h1>
-  <div #publisherList class="fadeInWhenLoaded">
-    <ion-list *ngIf="this.publishers != null">
-      <ion-item button routerLink="/tabs/speak/public">
-        <ion-icon name="earth" class="public"></ion-icon> {{'Public' | translate}}
-      </ion-item>
-      <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/speak/{{pub.id}}"
-        [state]="{publisherName: pub.username}">
-        <ion-icon name="person" class="person"></ion-icon> {{ pub.username }}
-      </ion-item>
-    </ion-list>
-
-      <ion-button id="info-trigger" expand="block" fill="clear">Where are my Tasks?</ion-button>
-    <ion-popover trigger="info-trigger" alignment="center" side="bottom">
-      <ng-template>
-        <ion-content>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Info</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              You can only see tasks which correspond to your language(s).
-              Make sure to enter your language(s) in your profile.
-            </ion-card-content>
-          </ion-card>
-        </ion-content>
-      </ng-template>
-    </ion-popover>
-
-  </div>
+  <h1>Recent Folders</h1>
+  <ion-list>
+    <ion-item button *ngFor="let folder of recentFolders" (click)="openFolder(folder.folder.id, folder.folder.root)">
+      <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon>
+      <ion-label>
+        <h2>{{ folder.folder.name }}</h2>
+        <p>{{ folder.folder.path }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-note *ngIf="recentFolders.length == 0" class="ion-padding">
+    {{'speak.noSharedFolders' | translate}}
+  </ion-note>
 </ion-content>

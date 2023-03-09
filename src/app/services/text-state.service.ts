@@ -1,7 +1,8 @@
-import {RecordingStateModel} from './../models/recording-state.model';
-import {TextObject} from './../interfaces/text-object';
 import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import {Injectable} from '@angular/core';
+
+import {RecordingStateModel} from 'src/app/models/recording-state.model';
+import {TextObject} from 'src/app/interfaces/text-object';
 
 @Injectable()
 
