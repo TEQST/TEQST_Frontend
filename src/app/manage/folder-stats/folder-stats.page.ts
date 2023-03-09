@@ -1,6 +1,7 @@
-import {FolderStats} from './../../interfaces/folder-stats';
 import {Component, Input, ViewChild} from '@angular/core';
 import {ModalController, IonNav} from '@ionic/angular';
+
+import {FolderStats} from 'src/app/interfaces/folder-stats';
 import {SpeakerListPage} from './speaker-list/speaker-list.page';
 
 @Component({
@@ -12,11 +13,12 @@ export class FolderStatsPage {
 
   @Input() folderId: number;
   @Input() folderName: string;
+  @Input() role: 'pub' | 'lstn';
   @ViewChild('navComponent', {static: false}) navComponent: IonNav
 
   public folderStats: FolderStats;
 
-  constructor(private viewCtrl: ModalController) { }
+  constructor(private viewCtrl: ModalController) {}
 
   ionViewWillEnter(): void {
     this.navComponent.push(SpeakerListPage, {
@@ -24,8 +26,8 @@ export class FolderStatsPage {
       viewCtrl: this.viewCtrl,
       folderId: this.folderId,
       folderName: this.folderName,
+      role: this.role,
     });
   }
-
 
 }

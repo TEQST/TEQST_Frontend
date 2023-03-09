@@ -28,13 +28,15 @@
 @import "globalDarkMode.scss";
 
 /* fix input validation hints not visible on ios */
-ion-item.ion-invalid.ion-touched, ion-item.ion-invalid.item-has-focus {
+ion-item.ion-invalid.ion-touched,
+ion-item.ion-invalid.item-has-focus {
     --border-color: var(--ion-color-danger);
 }
 
 ion-item.ion-valid.item-has-focus {
     --border-color: var(--ion-color-success);
 }
+
 /* end fix */
 
 * {
@@ -45,10 +47,14 @@ ion-item.ion-valid.item-has-focus {
 }
 
 .not-selectable {
-    -webkit-user-select: none; /* Safari */        
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+/Edge */
-    user-select: none; /* Standard */
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE10+/Edge */
+    user-select: none;
+    /* Standard */
 }
 
 ion-button {
@@ -81,18 +87,24 @@ ion-icon {
 }
 
 ion-toolbar {
-    ion-buttons, ion-button  {
+
+    ion-buttons,
+    ion-button {
         transition: .3s ease opacity;
     }
 }
 
+ion-note {
+    margin: 5px;
+}
+
 .fadeInWhenLoaded {
-    opacity: 0!important;
+    opacity: 0 !important;
     transition: .3s ease opacity;
 }
 
 .fadeInWhenLoaded.loaded {
-    opacity: 1!important;
+    opacity: 1 !important;
 }
 
 /* hotfix for https://github.com/ionic-team/ionic-framework/issues/17397  */
@@ -103,7 +115,7 @@ ion-toolbar {
 }
 
 .alert-checkbox-group::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 .alert-checkbox-group::-webkit-scrollbar-thumb {
@@ -111,23 +123,28 @@ ion-toolbar {
     outline: 1px solid slategrey;
 }
 
-.no-select, .no-select * {
+.no-select,
+.no-select * {
     user-select: none;
 }
 
 .no-select input {
-    user-select: auto!important;
+    user-select: auto !important;
 }
 
 .disabled {
-    &, * {
+
+    &,
+    * {
         pointer-events: none;
     }
+
     opacity: 0.5;
 }
 
 // note: does not work on ion-img because of shadow-root
-.no-drag, .no-drag * {
+.no-drag,
+.no-drag * {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;

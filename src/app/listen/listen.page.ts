@@ -1,9 +1,10 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {BaseComponent} from '../base-component';
+import {Component, ElementRef, ViewChild}
+  from '@angular/core';
+import {BaseComponent} from 'src/app/base-component';
 
-import {AlertManagerService} from '../services/alert-manager.service';
-import {ListenerService} from '../services/listener.service';
-import {LoaderService} from '../services/loader.service';
+import {AlertManagerService} from 'src/app/services/alert-manager.service';
+import {ListenerService} from 'src/app/services/listener.service';
+import {LoaderService} from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-listen',
@@ -11,25 +12,26 @@ import {LoaderService} from '../services/loader.service';
   styleUrls: ['./listen.page.scss'],
 })
 export class ListenPage extends BaseComponent {
-  @ViewChild('publisherList', {read: ElementRef}) publisherListElem: ElementRef
+  @ViewChild('folderList', {read: ElementRef}) folderListElem: ElementRef
 
-  public publishers: any
+  public folders = [];
 
-  constructor(private alertManager: AlertManagerService,
-              public loaderService: LoaderService,
+  constructor(public loaderService: LoaderService,
+              private alertManager: AlertManagerService,
               private listenerService: ListenerService) {
+
     super(loaderService);
   }
 
   async ionViewWillEnter(): Promise<void> {
-    this.publishers = [];
-    this.publisherListElem.nativeElement.classList.remove('loaded');
+    this.folders = [];
+    this.folderListElem.nativeElement.classList.remove('loaded');
 
-    await this.listenerService.getPublisherList()
+    this.listenerService.getSharedFolders()
         .subscribe(
             (data) => {
-              this.publishers = data;
-              this.publisherListElem.nativeElement.classList.add('loaded');
+              this.folders = data;
+              this.folderListElem.nativeElement.classList.add('loaded');
             },
             (err) => this.alertManager
                 .showErrorAlert(err.status, err.statusText),

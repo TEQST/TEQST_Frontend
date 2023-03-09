@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavParams} from '@ionic/angular';
 
 import {TimeFormatService} from 'src/app/services/time-format.service';

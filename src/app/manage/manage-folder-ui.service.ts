@@ -2,11 +2,10 @@ import {Injectable} from '@angular/core';
 import {AlertController, ModalController} from '@ionic/angular';
 
 import {AlertManagerService} from '../services/alert-manager.service';
+import {AddListenerPage} from './add-listener/add-listener.page';
 import {CreateFolderPage} from './create-folder/create-folder.page';
-import { FilterFolderPage } from './filter-folder/filter-folder.page';
 import {FolderStatsPage} from './folder-stats/folder-stats.page';
 import {Folder} from './manage.folder';
-import {ShareFolderPage} from './share-folder/share-folder.page';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +15,7 @@ export class ManageFolderUIService {
   constructor(
     private alertController: AlertController,
     private modalController: ModalController,
-    private alertManager: AlertManagerService) { }
+    private alertManager: AlertManagerService) {}
 
   // create folder objects from the given subfolderInfo data
   initSubfolderList(subfolderInfo): any {
@@ -79,18 +78,10 @@ export class ManageFolderUIService {
     await alert.present();
   }
 
-  async openFilterModal(): Promise<void> {
+  async openAddListenerModal(currentFolder): Promise<void> {
     const modal = await this.modalController.create({
-      component: FilterFolderPage,
-    });
-    return await modal.present();
-  }
-
-  async openShareFolderModal(currentFolder): Promise<void> {
-    const modal = await this.modalController.create({
-      component: ShareFolderPage,
+      component: AddListenerPage,
       componentProps: {
-        // pass variables to the modal
         folderId: currentFolder.id,
         folderName: currentFolder.name,
       },
@@ -105,6 +96,7 @@ export class ManageFolderUIService {
         // pass variables to the modal
         folderId: currentFolder.id,
         folderName: currentFolder.name,
+        role: 'pub',
       },
     });
     return await modal.present();

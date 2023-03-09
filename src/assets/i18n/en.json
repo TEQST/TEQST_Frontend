@@ -44,7 +44,8 @@
 		}
 	},
 	"listen": {
-		"contentTitle": "Select a publisher",
+		"contentTitle": "Select a folder",
+		"noSharedFolders": "Recordings you can listen to will be shown here.",
 		"folderList": {
 			"contentTitle": "Folders by"
 		},
@@ -92,7 +93,7 @@
 			}
 		},
 		"shareFolderModal": {
-			"modalTitle": "Sharing options for",
+			"modalTitle": "Speakers for ",
 			"speakersSegmentLabel": "Speakers",
 			"listenersSegmentLabel": "Listeners",
 			"listenersSegment": {
@@ -106,10 +107,43 @@
 				"addedSpeakersLabel": "Added speakers",
 				"allUsersLabel": "All users"
 			}
+		},
+		"addListenerModal": {
+			"manageListenings": {
+				"title": "Listening Permissions",
+				"noListeningAvailable": "No Listening Permissions",
+				"cancel": "Cancel"
+			},
+			"selectListener": {
+				"title": "Select Listener",
+				"searchbarPlaceholder": "Search for user",
+				"addedListenersLabel": "Added listeners",
+				"allUsersLabel": "All users",
+				"next": "Next"
+			},
+			"selectSpeaker": {
+				"title": "Select speaker",
+				"byAccents": "By Accent",
+				"byUsernames": "By Username",
+				"allSpeakers": "Allow accessing all speakers",
+				"finish": "Finish",
+				"update": "Update",
+				"speakerSegment": {
+					"searchbarPlaceholder": "Search for user",
+					"addedSpeakersLabel": "Added speakers",
+					"allUsersLabel": "All users"
+				},
+				"accentSegment": {
+					"searchbarPlaceholder": "Search for accent",
+					"addedAccentsLabel": "Added accents",
+					"allAccentsLabel": "All accents"
+				}
+			}
 		}
 	},
 	"speak": {
 		"textProgresWords": "words",
+		"noSharedFolders": "Your recently opened links will be listed here.",
 		"folderList": {
 			"personalFolderContentTitle": "Folders by",
 			"publicFolderContentTitle": "Public folders"
@@ -130,11 +164,11 @@
 		"logoutBtn": "Logout",
 		"contentTitle": "Settings",
 		"profileSettingsLabel": "Profile settings",
+		"languageSettingsLabel": "Change menu language",
 		"profile": {
 			"saveBtn": "Save changes",
 			"contentTitle": "Profile",
-			"spokenLanguagesLabel": "Spoken languages",
-			"menuLanguageLabel": "Menu language"
+			"spokenLanguagesLabel": "Spoken languages"
 		}
 	},
 	"pageNotFound": {

@@ -1,9 +1,6 @@
-.folderIcon, .textIcon {
+.folderIcon,
+.textIcon {
     margin-right: 10px;
-}
-
-.fabfix{
-    margin-bottom: 50px;
 }
 
 ion-fab-button {
@@ -11,29 +8,28 @@ ion-fab-button {
     height: 60px;
 }
 
-.fix-padding{
-    padding-bottom: 80px;
+#toggleMultiSelect, ion-checkbox {
+    margin-right: 15px;
 }
 
 ion-checkbox {
     margin-top: 0;
     margin-bottom: 0;
-    margin-right: 9px;
 }
 
-ion-button.delete, #multiSelectToolbar .actions ion-button {
+#multiSelectToolbar .actions ion-button {
     height: 25px;
 }
 
-#contentTitleWrapper, #multiSelectToolbar {
+#contentTitleWrapper,
+#multiSelectToolbar {
     display: flex;
     justify-content: space-between;
 }
 
 #multiSelectToolbar .actions,
-#folderList ion-button.delete,
 #folderList ion-buttons.delete,
-#textList ion-button.delete,
+#textList ion-buttons.delete,
 ion-checkbox.selectCheckbox {
     opacity: 0;
     visibility: hidden;
@@ -53,7 +49,7 @@ ion-checkbox.selectCheckbox {
         overflow: hidden;
         text-align: right;
         width: 250px;
-        right: 60px;
+        right: 70px;
         margin-top: 12px;
         margin-right: 5px;
         padding-left: 20px;
@@ -66,20 +62,13 @@ ion-checkbox.selectCheckbox {
     #toggleMultiSelect {
         --background: transparent;
         color: var(--ion-color-dark);
-        margin-right: 10px;
         margin-top: 10px;
     }
 }
 
-#filter-select-label {
-    font-weight: bold;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-}
-
-#folderList, #textList {
-    ion-button.delete, ion-checkbox.selectCheckbox {
+#folderList,
+#textList {
+    ion-checkbox.selectCheckbox {
         position: absolute;
         right: 17px;
     }

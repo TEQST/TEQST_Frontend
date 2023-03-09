@@ -130,11 +130,11 @@
 		"logoutBtn": "註銷",
 		"contentTitle": "設置",
 		"profileSettingsLabel": "配置文件設置",
+		"languageSettingsLabel": "更改菜單語言",
 		"profile": {
 			"saveBtn": "保存更改",
 			"contentTitle": "個人資料",
-			"spokenLanguagesLabel": "口語",
-			"menuLanguageLabel": "菜單語言"
+			"spokenLanguagesLabel": "口語"
 		}
 	},
 	"pageNotFound": {

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="handleBackButton($event)" defaultHref="tabs/speak"></ion-back-button>
+    </ion-buttons>
+    <ion-item lines="none" slot="end" *ngIf="isUploadActive">
+      <ion-label>{{'speak.recordView.uploadingMsg' | translate}}</ion-label>
+      <ion-spinner color="primary"></ion-spinner>
+    </ion-item>
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [class]="hasRecording ? 'hasRecording' : 'noRecording'">
+    <div class="recordSentences">
+      <h1 class="no-select">{{textTitle}}</h1>
+      <app-sentence-wrapper [dir]="isRightToLeft ? 'rtl' : 'ltr'"></app-sentence-wrapper>
+    </div>
+    <div class="recordFooter">
+      <app-player *ngIf="hasRecording"></app-player>
+      <app-recorder></app-recorder>
+    </div>
+  </div>
+</ion-content>

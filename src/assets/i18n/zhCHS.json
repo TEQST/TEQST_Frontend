@@ -129,11 +129,11 @@
 		"logoutBtn": "注销",
 		"contentTitle": "设置",
 		"profileSettingsLabel": "配置文件设置",
+		"languageSettingsLabel": "更改菜单语言",
 		"profile": {
 			"saveBtn": "保存更改",
 			"contentTitle": "个人资料",
-			"spokenLanguagesLabel": "口语",
-			"menuLanguageLabel": "菜单语言"
+			"spokenLanguagesLabel": "口语"
 		}
 	},
 	"pageNotFound": {

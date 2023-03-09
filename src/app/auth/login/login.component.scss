@@ -10,6 +10,7 @@ ion-card-content {
 ion-item {
   --padding-top: 0;
   --inner-padding-bottom: 0;
+
   &#password-item {
     --inner-padding-end: 0;
     --padding-bottom: 6;
@@ -20,6 +21,7 @@ ion-button {
   &.button-submit {
     margin: 10px 7px;
   }
+
   &#toggle-password {
     --ripple-color: transparent;
     --background-hover: false;
@@ -27,5 +29,5 @@ ion-button {
     width: 4em;
     margin: 0;
     font-size: 16px;
-  }  
+  }
 }

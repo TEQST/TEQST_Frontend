@@ -6,7 +6,6 @@ import {Subject} from 'rxjs';
 import {RouteStateService} from 'src/app/services/route-state.service';
 import {TextStateService} from 'src/app/services/text-state.service';
 
-
 @Component({
   selector: 'app-text-wrapper',
   templateUrl: './text-wrapper.component.html',
@@ -14,11 +13,11 @@ import {TextStateService} from 'src/app/services/text-state.service';
 })
 export class TextWrapperComponent implements OnInit, OnDestroy {
 
-  private ngUnsubscribe = new Subject<void>();
   public sentences: string[] = [];
-
   public furthestSentence = 1;
   public activeSentence = 1;
+
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(private textStateService: TextStateService,
               private route: ActivatedRoute,

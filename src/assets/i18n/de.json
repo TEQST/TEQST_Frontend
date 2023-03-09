@@ -130,11 +130,11 @@
 		"logoutBtn": "Abmelden",
 		"contentTitle": "Einstellungen",
 		"profileSettingsLabel": "Profil",
+		"languageSettingsLabel": "Menüsprache ändern",
 		"profil": {
 			"saveBtn": "Änderungen speichern",
 			"contentTitle": "Profil",
-			"spokenLanguagesLabel": "Gesprochene Sprachen",
-			"menuLanguageLabel": "Menüsprache"
+			"spokenLanguagesLabel": "Gesprochene Sprachen"
 		}
 	},
 	"pageNotFound": {

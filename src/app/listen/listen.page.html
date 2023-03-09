@@ -7,12 +7,14 @@
 
 <ion-content class="no-select">
   <h1>{{'listen.contentTitle' | translate}}</h1>
-  <div #publisherList class="fadeInWhenLoaded">
-    <ion-list *ngIf="this.publishers != null">
-      <ion-item button *ngFor="let pub of publishers" routerLink="/tabs/listen/{{pub.id}}"
-        [state]="{publisherName: pub.username}">
-        <ion-icon name="person"></ion-icon> {{ pub.username }}
-      </ion-item>
-    </ion-list>
-  </div>
+
+  <ion-list #folderList class="fadeInWhenLoaded">
+    <ion-item button *ngFor="let folder of folders" routerLink="/tabs/listen/{{folder.id}}"
+      [state]="{folderName: folder.name}">
+      <ion-icon name="folder" class="folderIcon" color="primary"></ion-icon> {{ folder.name }}
+    </ion-item>
+  </ion-list>
+  <ion-note *ngIf="folders.length == 0" class="ion-padding">
+    {{'listen.noSharedFolders' | translate}}
+  </ion-note>
 </ion-content>

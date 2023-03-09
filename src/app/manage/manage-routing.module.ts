@@ -16,11 +16,7 @@ const routes: Routes = [
     path: 'text/:textId',
     loadChildren: () => import('./text-detail/text-detail.module')
         .then( (m) => m.TextDetailPageModule),
-  },  {
-    path: 'filter-folder',
-    loadChildren: () => import('./filter-folder/filter-folder.module').then( m => m.FilterFolderPageModule)
   },
-
 ];
 
 @NgModule({

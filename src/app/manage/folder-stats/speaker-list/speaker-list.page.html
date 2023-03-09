@@ -18,7 +18,8 @@
             <h2>{{speaker.name}}</h2>
           </ion-label>
           <span class="progress-text ion-float-right">
-            {{speaker.completedTextsCount}} / {{speaker.texts.length}} {{'manage.folderStatsModal.speakerList.textsCountSpan' | translate}}
+            {{speaker.completedTextsCount}} / {{speaker.texts.length}}
+            {{'manage.folderStatsModal.speakerList.textsCountSpan' | translate}}
           </span>
           <ion-icon [ngClass]="{'hidden' : !(speaker.completedTextsCount === speaker.texts.length)}"
             class="ion-float-right" color="success" name="checkmark-circle"></ion-icon>

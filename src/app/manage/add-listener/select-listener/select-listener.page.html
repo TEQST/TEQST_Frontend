@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'manage.addListenerModal.selectListener.title' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="viewCtrl.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar (ionChange)="onSearchTerm($event)" animated
+    placeholder="{{'manage.addListenerModal.selectListener.searchbarPlaceholder' | translate}}">
+  </ion-searchbar>
+  <div #userLists class="fadeInWhenLoaded">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>{{'manage.addListenerModal.selectListener.addedListenersLabel' | translate}}</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let listener of filteredListeners">
+        <ion-label>{{listener.username}}</ion-label>
+        <ion-button color="danger" slot="end" (click)="removeListener(listener)">
+          <ion-icon name="remove"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>{{'manage.addListenerModal.selectListener.allUsersLabel' | translate}}</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let user of filteredUsers">
+        <ion-label>{{user.username}}</ion-label>
+        <ion-button color="success" slot="end" (click)="addListener(user)">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-text-end">
+  <ion-button color="primary" (click)="showSelectSpeaker()">{{'manage.addListenerModal.selectListener.next' |
+    translate}}</ion-button>
+</ion-footer>

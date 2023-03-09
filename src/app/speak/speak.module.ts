@@ -6,6 +6,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {SpeakPageRoutingModule} from './speak-routing.module';
 import {SpeakPage} from './speak.page';
+import {TimeStatsComponent} from './time-stats/time-stats.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import {SpeakPage} from './speak.page';
     SpeakPageRoutingModule,
     TranslateModule,
   ],
-  declarations: [SpeakPage],
+  declarations: [SpeakPage, TimeStatsComponent],
 })
 export class SpeakPageModule {}

@@ -10,7 +10,8 @@
   <div class="warning" *ngIf="stepOneForm.controls.username.pending">
     {{ 'auth.register.checkingUsernameMsg' | translate }}
   </div>
-  <div class="error" *ngIf="!errorControl.username.valid && !errorControl.username.pending && !errorControl.username.errors?.required">
+  <div class="error"
+    *ngIf="!errorControl.username.valid && !errorControl.username.pending && !errorControl.username.errors?.required">
     {{ 'auth.register.usernameTakenErrorMsg' | translate }}
   </div>
   <ion-item id="password-item" lines="full">
@@ -25,7 +26,7 @@
     <ion-input formControlName="birth_year" inputmode="decimal"></ion-input>
   </ion-item>
   <div class="error" *ngIf="!errorControl.birth_year.valid && errorControl.birth_year.touched">
-    {{'auth.register.yearOfBirthErrorMsg' | translate}
+    {{'auth.register.yearOfBirthErrorMsg' | translate}}
   </div>
   <ion-item lines="full">
     <ion-label position="floating">{{'auth.register.spokenLanguagesLabel' | translate}}</ion-label>
@@ -33,11 +34,15 @@
       <ion-select-option *ngFor="let lang of allLangs" value={{lang.short}}>{{lang.native_name}}</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item lines="full" >
+  <ion-item lines="full">
     <ion-checkbox #cbox formControlName="checkbox"></ion-checkbox>
-    <ion-label (click)="cbox.checked = !cbox.checked" class="cbox-label">{{'auth.register.acceptServiceAgreementLabel.0' | translate}}<a [routerLink]="[]" (click)="presentServicesAgreement()">{{'auth.register.acceptServiceAgreementLabel.1' | translate}}</a>{{'auth.register.acceptServiceAgreementLabel.2' | translate}}</ion-label>
+    <ion-label (click)="cbox.checked = !cbox.checked" class="cbox-label">{{'auth.register.acceptServiceAgreementLabel.0'
+      | translate}}<a [routerLink]="[]"
+        (click)="presentServicesAgreement()">{{'auth.register.acceptServiceAgreementLabel.1' |
+        translate}}</a>{{'auth.register.acceptServiceAgreementLabel.2' | translate}}</ion-label>
   </ion-item>
-  <ion-button class="button-submit" type="submit" [disabled]="!stepOneForm.valid" expand="block">{{'auth.register.nextBtn' | translate}}
+  <ion-button class="button-submit" type="submit" [disabled]="!stepOneForm.valid" expand="block">
+    {{'auth.register.nextBtn' | translate}}
   </ion-button>
 </form>
 
@@ -52,21 +57,23 @@
 
   <form [formGroup]="stepTwoForm" (ngSubmit)="performRegister()"
     (keyup.enter)="stepTwoForm.valid ? performRegister() : undefined">
-    
+
     <ion-item lines="full">
       <ion-label position="floating">{{'email' | translate}}: </ion-label>
       <ion-input formControlName="email"></ion-input>
     </ion-item>
-  
+
     <!-- Country -->
     <ion-item id="country" lines="full" (click)="openCountryDropdown()">
       <ion-label position="floating">{{'countryOfResidence' | translate}}: </ion-label>
-      <ion-input id="country" formControlName="country" autocomplete="none" (ionFocus)="openCountryDropdown()" (ionChange)="filterCountries($event)"></ion-input>
+      <ion-input id="country" formControlName="country" autocomplete="none" (ionFocus)="openCountryDropdown()"
+        (ionChange)="filterCountries($event)"></ion-input>
     </ion-item>
-    <div id="country" *ngIf="showCountryDropdown" class="country-dropdown-container" (clickOutside)="clearCountryDropdown()">
+    <div id="country" *ngIf="showCountryDropdown" class="country-dropdown-container"
+      (clickOutside)="clearCountryDropdown()">
       <ion-content>
         <ion-virtual-scroll [items]="filteredCountries" approxItemHeight="48px">
-          <ion-item button  *virtualItem="let country" (click)="selectCountry(country)">
+          <ion-item button *virtualItem="let country" (click)="selectCountry(country)">
             {{country.english_name}}
           </ion-item>
         </ion-virtual-scroll>
@@ -76,9 +83,11 @@
     <!-- Accent -->
     <ion-item id="accent" lines="full" (click)="openAccentDropdown()">
       <ion-label position="floating">{{'accent' | translate}}: </ion-label>
-      <ion-input id="accent" formControlName="accent" autocomplete="none" (ionFocus)="openAccentDropdown()" (ionChange)="filterAccents($event)"></ion-input>
+      <ion-input id="accent" formControlName="accent" autocomplete="none" (ionFocus)="openAccentDropdown()"
+        (ionChange)="filterAccents($event)"></ion-input>
     </ion-item>
-    <div id="accent" *ngIf="showAccentDropdown" class="accent-dropdown-container" (clickOutside)="closeAccentDropdown()">
+    <div id="accent" *ngIf="showAccentDropdown" class="accent-dropdown-container"
+      (clickOutside)="closeAccentDropdown()">
       <div *ngIf="filteredAccents.length === 0">
         <ion-item-divider>{{'auth.register.addNewAccentLabel' | translate}}</ion-item-divider>
         <ion-item button (click)="closeAccentDropdown()">
@@ -94,7 +103,7 @@
         </ion-virtual-scroll>
       </ion-content>
     </div>
-  
+
     <ion-item lines="full">
       <ion-label position="floating">{{'educationLevel' | translate}}:</ion-label>
       <ion-select name="education" formControlName="education">
@@ -104,7 +113,7 @@
         <ion-select-option value="N">{{'educationLevel_unknown' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
-  
+
     <ion-item lines="full">
       <ion-label position="floating">{{'gender' | translate}}:</ion-label>
       <ion-select name="gender" formControlName="gender">
@@ -113,12 +122,14 @@
         <ion-select-option value="N">{{'gender_diverse' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button class="button-submit" type="submit" [disabled]="!stepTwoForm.valid" expand="block">{{'auth.register.registerBtn' | translate}}
+    <ion-button class="button-submit" type="submit" [disabled]="!stepTwoForm.valid" expand="block">
+      {{'auth.register.registerBtn' | translate}}
     </ion-button>
   </form>
 </div>
 
 <ion-card-content>
   <ng-container>{{'auth.register.alreadyHasAccountLabel' | translate}}</ng-container>
-  <p><a [routerLink]="['/login']" [queryParams]="qParams" class="login-redirect">{{'auth.register.loginLink' | translate }}</a></p>
+  <p><a [routerLink]="['/login']" [queryParams]="qParams" class="login-redirect">{{'auth.register.loginLink' | translate
+      }}</a></p>
 </ion-card-content>

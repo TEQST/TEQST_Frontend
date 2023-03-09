@@ -1,5 +1,6 @@
 import {Router} from '@angular/router';
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild}
+  from '@angular/core';
 import {NavParams, PopoverController} from '@ionic/angular';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -13,10 +14,10 @@ export class SpeakerSelectPopoverComponent implements OnInit, OnDestroy {
   @ViewChild('searchbar', {read: ElementRef}) searchBarElem: ElementRef
 
   public ngUnsubscribe = new Subject<void>();
-
   public speakers = [];
   public filteredSpeakers = [];
   public selectedSpeaker: string;
+
   private speakerSelected: boolean;
 
   constructor(private navParams: NavParams,
@@ -56,7 +57,6 @@ export class SpeakerSelectPopoverComponent implements OnInit, OnDestroy {
   async dismissPopover(): Promise<void> {
     await this.popoverController.dismiss();
   }
-
 
   handleSearch(event): void {
     const searchTerm = event.target.value;

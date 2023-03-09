@@ -1,7 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertController, ToastController} from '@ionic/angular';
 import {saveAs} from 'file-saver';
+import {Observable} from 'rxjs';
 
 import {Folder} from './manage.folder';
 import {Text} from './manage.text';
@@ -11,8 +12,7 @@ import {StatisticsService} from 'src/app/services/statistics.service';
 import {LoaderService} from 'src/app/services/loader.service';
 import {ManageFolderUIService} from './manage-folder-ui.service';
 import {ManageTextUIService} from './manage-text-ui.service';
-import {BaseComponent} from '../base-component';
-import { Observable } from 'rxjs';
+import {BaseComponent} from 'src/app/base-component';
 
 @Component({
   selector: 'app-manage',
@@ -32,15 +32,15 @@ export class ManagePage extends BaseComponent {
   public texts: Text[]
   public username: string
   public showMultiSelect = false;
-  public isFilterActive = false;
+  public deleteSelectionButtonDisabled = true;
 
   constructor(public loaderService: LoaderService,
+              public toastController: ToastController,
               private manageFolderService: ManageFolderService,
               private manageFolderUIService: ManageFolderUIService,
               private manageTextUIService: ManageTextUIService,
               private statisticsService: StatisticsService,
               private alertController: AlertController,
-              public toastController: ToastController,
               private router: Router,
               private route: ActivatedRoute,
               private alertManager: AlertManagerService) {
@@ -132,14 +132,17 @@ export class ManagePage extends BaseComponent {
     }
     const item = e.target.querySelector('.selectCheckbox');
     item.checked = !item.checked;
+    this.updateDeleteButtonDisabledState();
   }
 
   uncheckAllItems(): void {
     this.setAllItemsCheckedState(false);
+    this.deleteSelectionButtonDisabled = true;
   }
 
   checkAllItems(): void {
     this.setAllItemsCheckedState(true);
+    this.updateDeleteButtonDisabledState();
   }
 
   getAllCheckboxes(): any {
@@ -156,6 +159,7 @@ export class ManagePage extends BaseComponent {
       }
     }
     this.uncheckAllItems();
+    this.updateDeleteButtonDisabledState();
   }
 
   setAllItemsCheckedState(checked): void {
@@ -164,18 +168,23 @@ export class ManagePage extends BaseComponent {
     }
   }
 
-  deleteSelectedItems(): Observable<object> {
-    let dataList = [];
-    let listParentElem = null;
-    if (this.currentFolder.is_sharedfolder) {
-      dataList = this.texts;
-      listParentElem = this.textListElem;
-    } else {
-      dataList = this.subfolders;
-      listParentElem = this.folderListElem;
-    }
+  getCheckboxDomElements() {
+    const listParentElem =
+      this.currentFolder.is_sharedfolder ?
+      this.textListElem : this.folderListElem;
     const listElem = listParentElem.nativeElement.querySelector('ion-list');
     const checkboxes = listElem.querySelectorAll('.selectCheckbox');
+    return checkboxes;
+  }
+
+  deleteSelectedItems(): Observable<object> {
+    const checkboxes = this.getCheckboxDomElements();
+    const listParentElem =
+      this.currentFolder.is_sharedfolder ?
+      this.textListElem : this.folderListElem;
+    const listElem = listParentElem.nativeElement.querySelector('ion-list');
+    const dataList =
+      this.currentFolder.is_sharedfolder ? this.texts : this.subfolders;
     const idsToDelete = [];
     for (const checkbox of checkboxes) {
       const li = checkbox.parentNode;
@@ -194,6 +203,17 @@ export class ManagePage extends BaseComponent {
       return this.manageFolderService.deleteFolders(idsToDelete);
     }
 
+  }
+
+  updateDeleteButtonDisabledState() {
+    const checkboxes = this.getCheckboxDomElements();
+    let disabled = true;
+    for (const checkbox of checkboxes) {
+      if (checkbox.checked) {
+        disabled = false;
+      }
+    }
+    this.deleteSelectionButtonDisabled = disabled;
   }
 
   async openDeleteSelectedItemsModal(): Promise<void> {
@@ -229,12 +249,8 @@ export class ManagePage extends BaseComponent {
     });
   }
 
-  openFilterModal(): void {
-    this.manageFolderUIService.openFilterModal();
-  }
-
-  openShareFolderModal(): void {
-    this.manageFolderUIService.openShareFolderModal(this.currentFolder);
+  openAddListenerModal(): void {
+    this.manageFolderUIService.openAddListenerModal(this.currentFolder);
   }
 
   openFolderStatsModal(): void {
