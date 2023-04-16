@@ -11,15 +11,15 @@
       <ion-button color="primary" (click)="openFolderStatsModal()">
         <ion-icon name="stats-chart"></ion-icon>
       </ion-button>
-      <ion-button color="primary" (click)="downloadFolder()">
+    </ion-buttons>
+    <ion-buttons *ngIf="currentFolder.name != '/'" slot="end">
+      <!--<ion-button *ngIf="currentFolder.name == '/'" color="primary" (click)="downloadstatistics()">
+        <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
+      </ion-button>-->
+      <ion-button color="primary" (click)="presentDownloadSelect($event)">
         <ion-icon name="download"></ion-icon>
       </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button *ngIf="currentFolder.name == '/'" color="primary" (click)="downloadstatistics()">
-        <ion-icon src="../../assets/icons/download-statistics.svg"></ion-icon>
-      </ion-button>
-      <ion-button *ngIf="currentFolder.name != '/'" color="primary" (click)="openAddListenerModal()">
+      <ion-button color="primary" (click)="openAddListenerModal()">
         <ion-icon name="ear"></ion-icon>
       </ion-button>
     </ion-buttons>

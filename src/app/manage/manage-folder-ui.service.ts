@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {AlertController, ModalController} from '@ionic/angular';
+import {AlertController, ModalController, PopoverController} from '@ionic/angular';
 
 import {AlertManagerService} from '../services/alert-manager.service';
 import {AddListenerPage} from './add-listener/add-listener.page';
 import {CreateFolderPage} from './create-folder/create-folder.page';
 import {FolderStatsPage} from './folder-stats/folder-stats.page';
+import { DownloadFolderComponent } from './download-folder/download-folder.component';
 import {Folder} from './manage.folder';
 
 @Injectable({
@@ -15,6 +16,7 @@ export class ManageFolderUIService {
   constructor(
     private alertController: AlertController,
     private modalController: ModalController,
+    private popoverController: PopoverController,
     private alertManager: AlertManagerService) {}
 
   // create folder objects from the given subfolderInfo data
@@ -101,4 +103,19 @@ export class ManageFolderUIService {
     });
     return await modal.present();
   }
+
+  async presentDownloadSelect(ev: any, folder): Promise<void> {
+    const popover = await this.popoverController.create({
+      component: DownloadFolderComponent,
+      componentProps: {
+        folderId: folder.id,
+        isSharedfolder: folder.is_sharedfolder,
+      },
+      event: ev,
+      translucent: true,
+      showBackdrop: false,
+    });
+    return await popover.present();
+  }
+
 }
