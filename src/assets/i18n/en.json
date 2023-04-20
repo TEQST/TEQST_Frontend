@@ -139,6 +139,22 @@
 					"allAccentsLabel": "All accents"
 				}
 			}
+		},
+		"downloadPopover": {
+			"statistics": "Statistics",
+			"content": "Content",
+			"statisticsModal": {
+				"title": "Select Month",
+				"basic": {
+					
+				},
+				"detailed": {
+
+				}
+			},
+			"contentModal": {
+
+			}
 		}
 	},
 	"speak": {

@@ -1,0 +1,5 @@
+<ion-datetime (ionChange)="onValueChange($event)" presentation="month-year" size="cover" #datetime>
+  <span slot="title">Select a Month</span>
+  <ion-button slot="buttons" (click)="datetime.confirm(false)" expand="block">Confirm</ion-button>
+</ion-datetime>
+

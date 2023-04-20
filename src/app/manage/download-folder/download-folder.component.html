@@ -1,8 +1,11 @@
 <ion-list>
-  <ion-item>
-    <ion-label>Statistics</ion-label>
+  <ion-item button (click)="openStatisticsModal()">
+    <ion-label>{{ 'manage.downloadPopover.statistics' | translate }}</ion-label>
   </ion-item>
-  <ion-item [disabled]="!isSharedfolder">
-    <ion-label>Content</ion-label>
+  <!--<ion-item [disabled]="!isSharedfolder" (click)="downloadFolder()" ></ion-item>
+    <ion-label>{{ 'manage.downloadPopover.content' | translate }}</ion-label>
+  </ion-item>-->
+  <ion-item disabled>
+    <ion-label>{{ 'manage.downloadPopover.content' | translate }}</ion-label>
   </ion-item>
 </ion-list>

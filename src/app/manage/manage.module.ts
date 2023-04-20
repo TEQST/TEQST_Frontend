@@ -11,6 +11,8 @@ import {CreateFolderPageModule} from './create-folder/create-folder.module';
 import {CreateTextPageModule} from './create-text/create-text.module';
 import {TextDetailPageModule} from './text-detail/text-detail.module';
 import {AddListenerPageModule} from './add-listener/add-listener.module';
+import { DownloadFolderComponent } from './download-folder/download-folder.component';
+import { DownloadStatisticsPageModule } from './download-folder/download-statistics/download-statistics.module';
 
 
 @NgModule({
@@ -24,10 +26,12 @@ import {AddListenerPageModule} from './add-listener/add-listener.module';
     TextDetailPageModule,
     FolderStatsPageModule,
     AddListenerPageModule,
+    DownloadStatisticsPageModule,
     TranslateModule,
   ],
   declarations: [
     ManagePage,
+    DownloadFolderComponent,
   ],
 })
 export class ManagePageModule {}

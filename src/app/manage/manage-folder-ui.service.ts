@@ -108,8 +108,8 @@ export class ManageFolderUIService {
     const popover = await this.popoverController.create({
       component: DownloadFolderComponent,
       componentProps: {
-        folderId: folder.id,
-        isSharedfolder: folder.is_sharedfolder,
+        folder: folder,
+        role: 'pub',
       },
       event: ev,
       translucent: true,
