@@ -9,6 +9,7 @@ import { DownloadStatisticsPageRoutingModule } from './download-statistics-routi
 
 import { DownloadStatisticsPage } from './download-statistics.page';
 import { DownloadBasicComponent } from './download-basic/download-basic.component';
+import { DownloadAdvancedComponent } from './download-advanced/download-advanced.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { DownloadBasicComponent } from './download-basic/download-basic.componen
   declarations: [
     DownloadStatisticsPage,
     DownloadBasicComponent,
+    DownloadAdvancedComponent
   ]
 })
 export class DownloadStatisticsPageModule {}

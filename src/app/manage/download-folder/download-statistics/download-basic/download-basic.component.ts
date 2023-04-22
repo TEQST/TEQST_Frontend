@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonDatetime, IonNav, ModalController, NavParams } from '@ionic/angular';
+import { TimeframeService } from '../timeframe.service';
+import { DownloadAdvancedComponent } from '../download-advanced/download-advanced.component';
 
 @Component({
   selector: 'app-download-basic',
@@ -8,26 +10,33 @@ import { IonDatetime, IonNav, ModalController, NavParams } from '@ionic/angular'
 })
 export class DownloadBasicComponent implements OnInit {
 
-  @ViewChild('datetime', {read: IonDatetime}) datePicker: IonDatetime;
-
   public navComponent: IonNav;
 
+  public get curMonth() {
+    return this.timeframeService.getMonth();
+  }
+
+  public set curMonth(value: string) {
+    this.timeframeService.setMonth(value);
+  }
+
   constructor(public navParams: NavParams,
+    private timeframeService: TimeframeService,
     private viewCtrl: ModalController) {
     this.navComponent = navParams.get('navComponent');
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  //Despite the name, this only triggers when the confirm button is pressed
-  onValueChange(ev: any) {
-    console.log(ev.detail.value)
-    console.log(ev.detail.value.split('-', 2))
-    const splitted = ev.detail.value.split('-', 2)
-    this.viewCtrl.dismiss({
-      "month": splitted[1],
-      "year": splitted[0],
-    })
+  ionViewWillEnter() {
+    this.timeframeService.setBasic();
+  }
+
+  toAdvanced() {
+    console.log("Nav to Advanced")
+    this.navComponent.push(DownloadAdvancedComponent, {
+      navComponent: this.navComponent,
+    });
   }
 
 }

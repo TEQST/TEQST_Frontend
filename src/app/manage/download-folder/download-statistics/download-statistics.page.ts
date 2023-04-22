@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonNav, ModalController } from '@ionic/angular';
 import { DownloadBasicComponent } from './download-basic/download-basic.component';
+import { TimeframeService } from './timeframe.service';
 
 @Component({
   selector: 'app-download-statistics',
@@ -11,10 +12,11 @@ export class DownloadStatisticsPage implements OnInit {
 
   @ViewChild('navComponent') navComponent: IonNav;
 
-  constructor(
+  constructor(private timeframeService: TimeframeService,
     private viewCtrl: ModalController) { }
 
   ngOnInit() {
+    this.timeframeService.resetValues()
   }
 
   ionViewWillEnter(): void {
@@ -24,6 +26,12 @@ export class DownloadStatisticsPage implements OnInit {
   }
 
   dismiss() {
+    this.viewCtrl.dismiss()
+  }
+
+  confirm() {
+    const params = this.timeframeService.getParams()
+    console.log(params)
     this.viewCtrl.dismiss()
   }
 

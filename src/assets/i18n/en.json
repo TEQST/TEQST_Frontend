@@ -144,7 +144,8 @@
 			"statistics": "Statistics",
 			"content": "Content",
 			"statisticsModal": {
-				"title": "Select Month",
+				"title": "Select Timeframe",
+				"confirm": "Confirm",
 				"basic": {
 					
 				},

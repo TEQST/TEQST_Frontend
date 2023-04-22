@@ -27,15 +27,6 @@ export class DownloadFolderComponent implements OnInit {
     const modal = await this.modalController.create({
       component: DownloadStatisticsPage,
     });
-    modal.onDidDismiss().then(
-      async (returnData) => {
-        console.log(returnData);
-        const data = returnData.data;
-        if (data) {
-          this.folderService.downloadStatistics(this.folder, this.role, data)
-        }
-      }
-    )
     this.viewCtrl.dismiss()
     await modal.present()
   }

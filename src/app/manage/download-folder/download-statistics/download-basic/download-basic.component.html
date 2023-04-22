@@ -1,5 +1,11 @@
-<ion-datetime (ionChange)="onValueChange($event)" presentation="month-year" size="cover" #datetime>
-  <span slot="title">Select a Month</span>
-  <ion-button slot="buttons" (click)="datetime.confirm(false)" expand="block">Confirm</ion-button>
+<ion-datetime presentation="month-year" size="cover" [(ngModel)]="curMonth">
+
 </ion-datetime>
+
+<p><b>Note:</b> When navigating back from the 'Advanced' option, 
+  the selector wheel appears to be visually broken. 
+  The selector is still functional, you can use it as normal.
+  We are aware of this and working on a fix</p>
+
+<ion-button (click)="toAdvanced()" expand="block" fill="clear">Advanced</ion-button>
 
