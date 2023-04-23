@@ -31,8 +31,7 @@ export class DownloadStatisticsPage implements OnInit {
 
   confirm() {
     const params = this.timeframeService.getParams()
-    console.log(params)
-    this.viewCtrl.dismiss()
+    this.viewCtrl.dismiss(params)
   }
 
 }

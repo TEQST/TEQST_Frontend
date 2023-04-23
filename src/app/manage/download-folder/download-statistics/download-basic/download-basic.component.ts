@@ -15,7 +15,6 @@ export class DownloadBasicComponent implements OnInit {
   public get curMonth() {
     return this.timeframeService.getMonth();
   }
-
   public set curMonth(value: string) {
     this.timeframeService.setMonth(value);
   }
@@ -33,7 +32,6 @@ export class DownloadBasicComponent implements OnInit {
   }
 
   toAdvanced() {
-    console.log("Nav to Advanced")
     this.navComponent.push(DownloadAdvancedComponent, {
       navComponent: this.navComponent,
     });

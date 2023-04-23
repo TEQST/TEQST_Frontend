@@ -18,7 +18,6 @@ export class TimeframeService {
     return this.month;
   }
   public setMonth(value: string) {
-    console.log(`Month set to: ${value}`)
     this.month = value;
   }
 
@@ -41,12 +40,10 @@ export class TimeframeService {
   }
 
   setBasic() {
-    console.log("Set to Basic")
     this.mode = "basic"
   }
 
   setAdvanced() {
-    console.log("Set to Advanced")
     this.mode = "advanced"
   }
 

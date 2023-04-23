@@ -12,6 +12,20 @@ export class DownloadAdvancedComponent implements OnInit {
 
   public navComponent: IonNav;
 
+  public get curStart() {
+    return this.timeframeService.getStart();
+  }
+  public set curStart(value: string) {
+    this.timeframeService.setStart(value);
+  }
+
+  public get curEnd() {
+    return this.timeframeService.getEnd();
+  }
+  public set curEnd(value: string) {
+    this.timeframeService.setEnd(value);
+  }
+
   constructor(public navParams: NavParams,
     private timeframeService: TimeframeService,
     private viewCtrl: ModalController) { }
@@ -23,7 +37,7 @@ export class DownloadAdvancedComponent implements OnInit {
   }
 
   toBasic() {
-    this.navComponent.popToRoot()
+    this.navComponent.pop()
   }
 
 }

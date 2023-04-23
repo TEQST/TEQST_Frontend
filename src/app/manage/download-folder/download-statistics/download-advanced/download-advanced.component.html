@@ -1,5 +1,25 @@
-<p>
-  download-advanced works!
-</p>
+
+<ion-list>
+  <ion-item>
+    <ion-label>Start</ion-label>
+    <ion-datetime-button datetime="start"></ion-datetime-button>
+  </ion-item>
+  <ion-item>
+    <ion-label>End</ion-label>
+    <ion-datetime-button datetime="end"></ion-datetime-button>
+  </ion-item>
+</ion-list>
+
+<ion-popover [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="start" presentation="date" [(ngModel)]="curStart"></ion-datetime>
+  </ng-template>
+</ion-popover>
+
+<ion-popover [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="end" presentation="date" [(ngModel)]="curEnd"></ion-datetime>
+  </ng-template>
+</ion-popover>
 
 <ion-button (click)="toBasic()" expand="block" fill="clear">Basic</ion-button>

@@ -23,12 +23,19 @@ export class DownloadFolderComponent implements OnInit {
   ngOnInit() {}
 
   async openStatisticsModal(): Promise<void> {
-    console.log("Open statistics modal")
     const modal = await this.modalController.create({
       component: DownloadStatisticsPage,
     });
-    this.viewCtrl.dismiss()
-    await modal.present()
+    modal.onDidDismiss().then(
+      async (returnData) => {
+        const data = returnData.data;
+        if (data) {
+          this.folderService.downloadStatistics(this.folder, this.role, data)
+        }
+      }
+    );
+    this.viewCtrl.dismiss();
+    await modal.present();
   }
 
   downloadFolder() {

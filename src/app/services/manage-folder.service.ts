@@ -122,7 +122,7 @@ export class ManageFolderService {
       console.log(`${key}==${params[key]}`)
       times.push(params[key])
     }
-    times.sort()
+    times.sort() //Sorts either month_year or start_end
 
     this.http.get(url, {responseType: 'blob', params: params}).subscribe((statsheet) => {
       saveAs(statsheet, `${folder.name}_${times.join('_')}.xlsx`);
