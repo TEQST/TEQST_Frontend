@@ -119,7 +119,6 @@ export class ManageFolderService {
 
     let times: string[] = []
     for (const key in params) {
-      console.log(`${key}==${params[key]}`)
       times.push(params[key])
     }
     times.sort() //Sorts either month_year or start_end

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonDatetime, IonNav, ModalController, NavParams } from '@ionic/angular';
 import { TimeframeService } from '../timeframe.service';
 import { DownloadAdvancedComponent } from '../download-advanced/download-advanced.component';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-download-basic',
@@ -21,8 +22,13 @@ export class DownloadBasicComponent implements OnInit {
 
   constructor(public navParams: NavParams,
     private timeframeService: TimeframeService,
+    private languageService: LanguageService,
     private viewCtrl: ModalController) {
     this.navComponent = navParams.get('navComponent');
+  }
+
+  public get lang() {
+    return this.languageService.getMenuLanguage()
   }
 
   ngOnInit() { }

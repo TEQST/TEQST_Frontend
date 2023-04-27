@@ -7,7 +7,9 @@ export class TimeframeService {
 
   private month: string;
   private start: string;
+  private startActive: boolean;
   private end: string;
+  private endActive: boolean;
   private mode: "basic" | "advanced";
 
   constructor() {
@@ -26,6 +28,20 @@ export class TimeframeService {
   }
   public setStart(value: string) {
     this.start = value;
+  }
+
+  public isStartActive() {
+    return this.startActive;
+  }
+  public setStartActive(value: boolean) {
+    this.startActive = value;
+  }
+
+  public isEndActive() {
+    return this.endActive;
+  }
+  public setEndActive(value: boolean) {
+    this.endActive = value;
   }
 
   public getEnd(): string {
@@ -59,8 +75,8 @@ export class TimeframeService {
     if (this.mode === "advanced") {
       // Grab date from timestamps
       return {
-        "start": this.start.split('T')[0],
-        "end": this.end.split('T')[0]
+        "start": this.startActive ? this.start.split('T')[0] : "2000-01-01",
+        "end": this.endActive ? this.end.split('T')[0] : "2999-12-31",
       }
     }
   }
@@ -68,7 +84,9 @@ export class TimeframeService {
   resetValues() {
     this.month = new Date().toISOString()
     this.start = new Date().toISOString()
+    this.startActive = true;
     this.end = new Date().toISOString()
+    this.endActive = true;
     this.mode = "basic"
   }
 

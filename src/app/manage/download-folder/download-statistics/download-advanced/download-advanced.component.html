@@ -2,23 +2,25 @@
 <ion-list>
   <ion-item>
     <ion-label>Start</ion-label>
-    <ion-datetime-button datetime="start"></ion-datetime-button>
+    <ion-toggle [(ngModel)]="startEnabled"></ion-toggle>
+    <ion-datetime-button datetime="start" [disabled]="!startEnabled"></ion-datetime-button>
   </ion-item>
   <ion-item>
     <ion-label>End</ion-label>
-    <ion-datetime-button datetime="end"></ion-datetime-button>
+    <ion-toggle [(ngModel)]="endEnabled"></ion-toggle>
+    <ion-datetime-button datetime="end" [disabled]="!endEnabled"></ion-datetime-button>
   </ion-item>
 </ion-list>
 
 <ion-popover [keepContentsMounted]="true">
   <ng-template>
-    <ion-datetime id="start" presentation="date" [(ngModel)]="curStart"></ion-datetime>
+    <ion-datetime id="start" presentation="date" [(ngModel)]="curStart" [locale]="lang"></ion-datetime>
   </ng-template>
 </ion-popover>
 
 <ion-popover [keepContentsMounted]="true">
   <ng-template>
-    <ion-datetime id="end" presentation="date" [(ngModel)]="curEnd"></ion-datetime>
+    <ion-datetime id="end" presentation="date" [(ngModel)]="curEnd" [locale]="lang"></ion-datetime>
   </ng-template>
 </ion-popover>
 
