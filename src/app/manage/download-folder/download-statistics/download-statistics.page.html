@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'manage.downloadPopover.statisticsModal.title' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+
+  <ion-nav #navComponent></ion-nav>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-button (click)="confirm()" expand="block">{{ 'manage.downloadPopover.statisticsModal.confirm' | translate }}</ion-button>
+</ion-footer>

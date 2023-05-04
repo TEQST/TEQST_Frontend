@@ -257,9 +257,9 @@ export class ManagePage extends BaseComponent {
     this.manageFolderUIService.openFolderStatsModal(this.currentFolder);
   }
 
-  downloadFolder(): void {
+  /*downloadFolder(): void {
     this.manageFolderService.downloadFolder(this.currentFolder);
-  }
+  }*/
 
   openCreateTextModal(): void {
     this.manageTextUIService.openCreateTextModal(
@@ -287,10 +287,14 @@ export class ManagePage extends BaseComponent {
     });
   }
 
-  downloadstatistics(): void {
+  /*downloadstatistics(): void {
     this.statisticsService.downloadstatistics().subscribe((blob) => {
       saveAs(blob, 'statistics.csv');
     });
+  }*/
+
+  async presentDownloadSelect(ev: any): Promise<void> {
+    return this.manageFolderUIService.presentDownloadSelect(ev, this.currentFolder)
   }
 
   async createLink($event, folder): Promise<void> {

@@ -62,7 +62,6 @@ export class UsermgmtService {
   }
 
   storeUserData(userData: User): void {
-    this.languageService.putMenuLanguageLocalStorage(),
     localStorage.setItem(
         'isPublisher',
         JSON.stringify(this.isPublisher.getValue()));

@@ -112,5 +112,20 @@ export class ManageFolderService {
     },
     );
   }
+
+  downloadStatistics(folder: Folder, role: 'pub' | 'lstn', params): void {
+    const url = this.SERVER_URL + 
+      `/api/${role}/folders/${folder.id}/stats/`
+
+    let times: string[] = []
+    for (const key in params) {
+      times.push(params[key])
+    }
+    times.sort() //Sorts either month_year or start_end
+
+    this.http.get(url, {responseType: 'blob', params: params}).subscribe((statsheet) => {
+      saveAs(statsheet, `${folder.name}_${times.join('_')}.xlsx`);
+    });
+  }
 }
 
