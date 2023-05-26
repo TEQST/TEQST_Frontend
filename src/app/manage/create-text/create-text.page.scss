@@ -23,3 +23,49 @@ ion-input[type="number"] {
         font-size: 0.8em;
     }
 }
+
+#line-split-detail {
+    overflow: hidden;
+    max-height: 0px;
+    padding-bottom: 1px;
+    border-bottom: 1px solid var(--border-color);
+    transition: 0.2s ease max-height;
+
+    &.visible {
+        max-height: 50px;
+    }
+
+    &.item-has-focus,
+    &.ion-invalid {
+        padding-bottom: 0px;
+        border-width: 2px;
+    }
+
+    ion-label {
+        font-size: 0.8em;
+    }
+}
+
+#custom-sep-toggle-item {
+    overflow: hidden;
+    max-height: 0px;
+    padding-bottom: 1px;
+    border-bottom: 1px solid var(--border-color);
+    transition: 0.2s ease max-height;
+
+    &.visible {
+        max-height: 50px;
+    }
+}
+
+#custom-sep-detail {
+    overflow: hidden;
+    max-height: 0px;
+    padding-bottom: 1px;
+    border-bottom: 1px solid var(--border-color);
+    transition: 0.2s ease max-height;
+
+    &.visible {
+        max-height: 50px;
+    }
+}

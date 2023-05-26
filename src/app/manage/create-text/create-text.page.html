@@ -17,7 +17,7 @@
       </ion-item>
       <ion-item #selectFileWrapper [ngClass]="fileSelected ? 'ion-valid' : 'ion-invalid'">
         <ion-label position="stacked">{{'manage.createTextModal.textContentLabel' | translate}}</ion-label>
-        <ion-input (change)="setFile($event.target.files.item(0))" ng-required="required" type="file" accept=".txt">
+        <ion-input (change)="setFile($event.target.files.item(0))" ng-required="required" type="file" accept=".txt,.doc,.docx">
         </ion-input>
       </ion-item>
       <ion-item>
@@ -35,6 +35,26 @@
       <ion-item id="text-split-detail" lines="none" [ngClass]="{'visible': enableTextSplit}">
         <ion-label>{{'manage.createTextModal.splitTextMaxLinesLabel' | translate}}</ion-label>
         <ion-input formControlName="splitLines" type="number" inputmode="numeric"></ion-input>
+      </ion-item>
+      <ion-item id="line-split-toggle-item" lines="none">
+        <ion-label>{{'manage.createTextModal.splitLineLabel' | translate}}</ion-label>
+        <ion-toggle (ionChange)="lineSplitToggleChanged($event)"></ion-toggle>
+      </ion-item>
+      <ion-item id="line-split-detail" lines="none" [ngClass]="{'visible': enableLineSplit}">
+        <ion-label>{{'manage.createTextModal.splitLineMaxCharsLabel' | translate}}</ion-label>
+        <ion-input formControlName="splitChars" type="number" inputmode="numeric"></ion-input>
+      </ion-item>
+      <ion-item id="tokenize-toggle-item" lines="none">
+        <ion-label>{{'manage.createTextModal.tokenizeLabel' | translate}}</ion-label>
+        <ion-toggle (ionChange)="tokenizeToggleChanged($event)"></ion-toggle>
+      </ion-item>
+      <ion-item id="custom-sep-toggle-item" lines="none" [ngClass]="{'visible': !tokenize}">
+        <ion-label>{{'manage.createTextModal.customSepLabel' | translate}}</ion-label>
+        <ion-toggle (ionChange)="customSepToggleChanged($event)"></ion-toggle>
+      </ion-item>
+      <ion-item id="custom-sep-detail" lines="none" [ngClass]="{'visible': enableCustomSep}">
+        <ion-label position="stacked">{{'manage.createTextModal.customSepDetailLabel' | translate}}</ion-label>
+        <ion-input formControlName="customSep"></ion-input>
       </ion-item>
     </ion-list>
     <div class="ion-padding">
