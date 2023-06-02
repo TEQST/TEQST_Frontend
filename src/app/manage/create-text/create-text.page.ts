@@ -28,8 +28,9 @@ export class CreateTextPage implements OnInit, OnDestroy {
   public availableLanguages: any;
   public language: string;
   public languageNative: string;
-  public tokenize: boolean;
-  public enableCustomSep: boolean;
+  public tokenize = "tknz";
+  public regexSeparator = "regSep";
+  public separator: string;
   public createTextForm: FormGroup;
 
   /* allow any characters except \,/,:,*,<,>,| and whitespaces
@@ -65,7 +66,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
         (control): {lineSplitChars: boolean} => {
           return this.splitCharsValidator(control);
         }],
-      customSep: [''],
+      separator: ['\\n\\n'],
     });
 
     this.createTextForm.valueChanges.pipe(takeUntil(this.ngUnsubscribe))
@@ -74,7 +75,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
         });
     this.splitLinesValid = true;
     this.splitCharsValid = true;
-    this.tokenize = false;
+    this.separator = this.tokenize; 
   }
 
   ngOnInit(): void {
@@ -99,8 +100,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
     const returnData = {
       title: formData.title,
       textfile: this.file,
-      language: formData.language,
-      tokenize: this.tokenize};
+      language: formData.language};
 
     if (this.enableTextSplit) {
       returnData['max_lines'] = formData.splitLines;
@@ -110,9 +110,11 @@ export class CreateTextPage implements OnInit, OnDestroy {
       returnData['max_chars'] = formData.splitChars;
     }
 
-    if (!this.tokenize && this.enableCustomSep) {
-      console.log(formData.customSep)
-      returnData['separator'] = formData.customSep;
+    if (this.separator === this.tokenize) {
+      returnData['tokenize'] = true;
+    }
+    if (this.separator === this.regexSeparator) {
+      returnData['separator'] = formData.separator;
     }
 
     this.viewCtrl.dismiss(returnData);
@@ -186,13 +188,10 @@ export class CreateTextPage implements OnInit, OnDestroy {
     this.updateFormValidity();
   }
 
-  tokenizeToggleChanged($event): void {
-    this.tokenize = $event.detail.checked;
-    this.updateFormValidity();
-  }
-
-  customSepToggleChanged($event): void {
-    this.enableCustomSep = $event.detail.checked;
+  sepRadioChanged($event): void {
+    console.log($event)
+    this.separator = $event.detail.value;
+    console.log(this.separator)
     this.updateFormValidity();
   }
 }

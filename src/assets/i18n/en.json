@@ -75,9 +75,10 @@
 			"splitTextMaxLinesLabel": "Maximum lines per text",
 			"splitLineLabel": "Split long lines",
 			"splitLineMaxCharsLabel": "Maximum characters per line",
-			"tokenizeLabel": "Tokenize for sentences",
-			"customSepLabel": "Use custom separator",
-			"customSepDetailLabel": "Regex Separator (python flavor)",
+			"sentenceSeparateLabel": "Sentence Separation",
+			"tokenizeLabel": "Tokenization",
+			"regexSepLabel": "Regex",
+			"regexSepDetailLabel": "Python Flavor (Linux Newlines)",
 			"createTextBtn": "Create text"
 		},
 		"folderStatsModal": {
