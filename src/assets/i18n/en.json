@@ -75,8 +75,8 @@
 			"splitTextMaxLinesLabel": "Maximum lines per text",
 			"splitLineLabel": "Split long lines",
 			"splitLineMaxCharsLabel": "Maximum characters per line",
-			"sentenceSeparateLabel": "Sentence Separation",
-			"tokenizeLabel": "Tokenization",
+			"sentenceSeparateLabel": "Line Separation",
+			"tokenizeLabel": "Sentence Tokenization",
 			"regexSepLabel": "Regex",
 			"regexSepDetailLabel": "Python Flavor (Linux Newlines)",
 			"createTextBtn": "Create text"

@@ -19,6 +19,7 @@
         <ion-label position="stacked">{{'manage.createTextModal.textContentLabel' | translate}}</ion-label>
         <ion-input (change)="setFile($event.target.files.item(0))" ng-required="required" type="file" accept=".txt,.doc,.docx">
         </ion-input>
+        <p class="picker-types">Supported file types: .txt, .doc(x)</p>
       </ion-item>
       <ion-item>
         <ion-label>{{'manage.createTextModal.languageLabel' | translate}}</ion-label>
@@ -47,20 +48,24 @@
       <ion-item lines="none">
         <ion-label>{{'manage.createTextModal.sentenceSeparateLabel' | translate}}</ion-label>
       </ion-item>
-      <ion-radio-group (ionChange)="sepRadioChanged($event)" [value]="separator">
-        <ion-item lines="none">
-          <ion-label>{{'manage.createTextModal.tokenizeLabel' | translate}}</ion-label>
-          <ion-radio [value]="tokenize" slot="end"></ion-radio>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label>{{'manage.createTextModal.regexSepLabel' | translate}}</ion-label>
-          <ion-radio [value]="regexSeparator" slot="end"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-      <ion-item>
-        <ion-label position="stacked">{{'manage.createTextModal.regexSepDetailLabel' | translate}}</ion-label>
-        <ion-input formControlName="separator"></ion-input>
-      </ion-item>
+      <!--<ion-list lines="full" class="ion-no-margin ion-no-padding">-->
+        <ion-radio-group (ionChange)="sepRadioChanged($event)" [value]="separator">
+          <ion-item class="indent" lines="none">
+            <ion-label>{{'manage.createTextModal.tokenizeLabel' | translate}}</ion-label>
+            <ion-radio [value]="tokenize" slot="end"></ion-radio>
+          </ion-item>
+          <ion-item class="indent" lines="none">
+            <ion-label>{{'manage.createTextModal.regexSepLabel' | translate}}</ion-label>
+            <ion-radio [value]="regexSeparator" slot="end"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        <div class="indent">
+          <ion-item class="indent" lines="none">
+            <ion-label position="stacked">{{'manage.createTextModal.regexSepDetailLabel' | translate}}</ion-label>
+            <ion-input formControlName="separator"></ion-input>
+          </ion-item>
+        </div>
+      <!--</ion-list>-->
     </ion-list>
     <div class="ion-padding">
       <ion-button [disabled]="!formValid" expand="block" type="submit" class="ion-no-margin" color="dark">

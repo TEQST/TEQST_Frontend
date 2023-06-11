@@ -84,20 +84,25 @@
         <ion-checkbox class="selectCheckbox" [class.active]="showMultiSelect" slot="end"></ion-checkbox>
       </ion-item>
     </ion-list>
-    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-      <ion-fab-button color="primary">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-list side="top">
-        <ion-fab-button *ngIf="!currentFolder.is_sharedfolder" (click)="openCreateFolderModal()">
-          <ion-icon name="folder" color="primary"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button *ngIf="currentFolder.id != null && (currentFolder.is_sharedfolder || subfolders.length == 0)"
-          (click)="openCreateTextModal()">
-          <ion-icon name="reader" color="dark"></ion-icon>
-        </ion-fab-button>
-      </ion-fab-list>
-    </ion-fab>
   </div>
+
+  <ion-list lines="none">
+    <ion-item></ion-item>
+  </ion-list>
+
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button *ngIf="!currentFolder.is_sharedfolder" (click)="openCreateFolderModal()">
+        <ion-icon name="folder" color="primary"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="currentFolder.id != null && (currentFolder.is_sharedfolder || subfolders.length == 0)"
+        (click)="openCreateTextModal()">
+        <ion-icon name="reader" color="dark"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 
 </ion-content>
