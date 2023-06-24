@@ -53,7 +53,7 @@ export class ManageTextUIService {
         .then(async (returnData) => {
           const params = returnData.data;
           if (params) {
-            params['shared_folder'] = currentFolder.id;
+            params['parent'] = currentFolder.id;
             this.manageFolderService.createText(params)
                 .subscribe(
                     successCallback,

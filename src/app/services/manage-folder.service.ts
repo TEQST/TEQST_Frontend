@@ -73,7 +73,7 @@ export class ManageFolderService {
         }
       }
     }
-    const url = this.SERVER_URL + `/api/pub/texts/`;
+    const url = this.SERVER_URL + `/api/pub/texts/upload-text/`;
     return this.http.post(url, formData);
   }
 

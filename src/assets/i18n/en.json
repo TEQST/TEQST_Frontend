@@ -73,6 +73,12 @@
 			"languageLabel": "Language",
 			"splitTextLabel": "Split into multiple texts",
 			"splitTextMaxLinesLabel": "Maximum lines per text",
+			"splitLineLabel": "Split long lines",
+			"splitLineMaxCharsLabel": "Maximum characters per line",
+			"sentenceSeparateLabel": "Line Separation",
+			"tokenizeLabel": "Sentence Tokenization",
+			"regexSepLabel": "Regex",
+			"regexSepDetailLabel": "Python Flavor (Linux Newlines)",
 			"createTextBtn": "Create text"
 		},
 		"folderStatsModal": {

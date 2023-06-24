@@ -22,10 +22,15 @@ export class CreateTextPage implements OnInit, OnDestroy {
   public languageSelected: boolean;
   public fileSelected: boolean;
   public enableTextSplit: boolean;
+  public enableLineSplit: boolean;
   public splitLinesValid: boolean;
+  public splitCharsValid: boolean;
   public availableLanguages: any;
   public language: string;
   public languageNative: string;
+  public tokenize = "tknz";
+  public regexSeparator = "regSep";
+  public separator: string;
   public createTextForm: FormGroup;
 
   /* allow any characters except \,/,:,*,<,>,| and whitespaces
@@ -36,6 +41,9 @@ export class CreateTextPage implements OnInit, OnDestroy {
   private textSplitLinesMin = 5;
   private textSplitLinesMax = 100;
   private textSplitLinesDefault = 30;
+  private lineSplitCharsMin = 30;
+  private lineSplitCharsMax = 2000;
+  private lineSplitCharsDefault = 250;
   private ngUnsubscribe = new Subject<void>();
 
   constructor(public usermgmtService: UsermgmtService,
@@ -54,6 +62,11 @@ export class CreateTextPage implements OnInit, OnDestroy {
         (control): {textSplitLines: boolean} => {
           return this.splitLinesValidator(control);
         }],
+      splitChars: [this.lineSplitCharsDefault,
+        (control): {lineSplitChars: boolean} => {
+          return this.splitCharsValidator(control);
+        }],
+      separator: ['\\n\\n'],
     });
 
     this.createTextForm.valueChanges.pipe(takeUntil(this.ngUnsubscribe))
@@ -61,6 +74,8 @@ export class CreateTextPage implements OnInit, OnDestroy {
           this.updateFormValidity();
         });
     this.splitLinesValid = true;
+    this.splitCharsValid = true;
+    this.separator = this.tokenize; 
   }
 
   ngOnInit(): void {
@@ -89,6 +104,17 @@ export class CreateTextPage implements OnInit, OnDestroy {
 
     if (this.enableTextSplit) {
       returnData['max_lines'] = formData.splitLines;
+    }
+
+    if (this.enableLineSplit) {
+      returnData['max_chars'] = formData.splitChars;
+    }
+
+    if (this.separator === this.tokenize) {
+      returnData['tokenize'] = true;
+    }
+    if (this.separator === this.regexSeparator) {
+      returnData['separator'] = formData.separator;
     }
 
     this.viewCtrl.dismiss(returnData);
@@ -133,15 +159,39 @@ export class CreateTextPage implements OnInit, OnDestroy {
     return null;
   }
 
+  splitCharsValidator(control: FormControl): {lineSplitChars: boolean} {
+    const chars = control.value;
+    this.splitCharsValid = chars >= this.lineSplitCharsMin &&
+                           chars <= this.lineSplitCharsMax;
+
+    if (!this.splitLinesValid) {
+      return {lineSplitChars: true};
+    }
+    return null;
+  }
+
   updateFormValidity(): void {
     this.formValid = this.titleValid &&
                      this.fileSelected &&
                      this.languageSelected &&
-                   (!this.enableTextSplit || this.splitLinesValid);
+                   (!this.enableTextSplit || this.splitLinesValid) &&
+                   (!this.enableLineSplit || this.splitCharsValid);
   }
 
   textSplitToggleChanged($event): void {
     this.enableTextSplit = $event.detail.checked;
+    this.updateFormValidity();
+  }
+
+  lineSplitToggleChanged($event): void {
+    this.enableLineSplit = $event.detail.checked;
+    this.updateFormValidity();
+  }
+
+  sepRadioChanged($event): void {
+    console.log($event)
+    this.separator = $event.detail.value;
+    console.log(this.separator)
     this.updateFormValidity();
   }
 }
