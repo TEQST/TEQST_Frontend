@@ -67,7 +67,9 @@ export class ManageFolderService {
       if ({}.hasOwnProperty.call(params, param)) {
         const paramValue = params[param];
         if (param == 'textfile') {
-          formData.append('textfile', paramValue, paramValue.name);
+          for (var i = 0; i < paramValue.length; i++) {
+            formData.append(param, paramValue[i], paramValue[i].name)
+          }
         } else {
           formData.append(param, paramValue);
         }

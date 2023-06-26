@@ -17,7 +17,8 @@
       </ion-item>
       <ion-item #selectFileWrapper [ngClass]="fileSelected ? 'ion-valid' : 'ion-invalid'">
         <ion-label position="stacked">{{'manage.createTextModal.textContentLabel' | translate}}</ion-label>
-        <ion-input (change)="setFile($event.target.files.item(0))" ng-required="required" type="file" accept=".txt,.doc,.docx">
+        <ion-input (change)="setFiles($event.target.files)" ng-required="required" 
+          type="file" accept=".txt,.doc,.docx" multiple="true">
         </ion-input>
         <p class="picker-types">Supported file types: .txt, .doc(x)</p>
       </ion-item>

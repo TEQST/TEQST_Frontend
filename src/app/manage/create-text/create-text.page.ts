@@ -36,7 +36,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
   /* allow any characters except \,/,:,*,<,>,| and whitespaces
      but not filenames starting with the character . */
   private validatorPattern = new RegExp('^(?!\\.)[^\\\\\/:\\*"<>\\| ]+$');
-  private file: File;
+  private files: File[];
   private existingTextNames: string[];
   private textSplitLinesMin = 5;
   private textSplitLinesMax = 100;
@@ -99,7 +99,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
     // close the modal and pass its data back to the view
     const returnData = {
       title: formData.title,
-      textfile: this.file,
+      textfile: this.files,
       language: formData.language};
 
     if (this.enableTextSplit) {
@@ -120,8 +120,9 @@ export class CreateTextPage implements OnInit, OnDestroy {
     this.viewCtrl.dismiss(returnData);
   }
 
-  setFile(file): void {
-    this.file = file;
+  setFiles(files): void {
+    console.log(files)
+    this.files = files;
     this.fileSelected = true;
     this.updateFormValidity();
   }
@@ -189,9 +190,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
   }
 
   sepRadioChanged($event): void {
-    console.log($event)
     this.separator = $event.detail.value;
-    console.log(this.separator)
     this.updateFormValidity();
   }
 }
