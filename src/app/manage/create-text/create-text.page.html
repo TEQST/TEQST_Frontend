@@ -20,7 +20,8 @@
         <ion-input (change)="setFiles($event.target.files)" ng-required="required" 
           type="file" accept=".txt,.doc,.docx" multiple="true">
         </ion-input>
-        <p class="picker-types">Supported file types: .txt, .doc(x)</p>
+        <p class="help-text">{{'manage.createTextModal.textContentTypes' | translate}} .txt, .doc(x)</p>
+        <p class="help-text">{{'manage.createTextModal.textContentMultiple' | translate}}</p>
       </ion-item>
       <ion-item>
         <ion-label>{{'manage.createTextModal.languageLabel' | translate}}</ion-label>

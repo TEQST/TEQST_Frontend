@@ -70,6 +70,8 @@
 			"modalTitle": "Create a new text",
 			"textNameLabel": "Title",
 			"textContentLabel": "Text content",
+			"textContentTypes": "Supported file types:",
+			"textContentMultiple": "Select multiple using Ctrl+Click",
 			"languageLabel": "Language",
 			"splitTextLabel": "Split into multiple texts",
 			"splitTextMaxLinesLabel": "Maximum lines per text",
