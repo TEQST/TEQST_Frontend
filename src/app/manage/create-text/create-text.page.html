@@ -23,11 +23,7 @@
         <p class="help-text">{{'manage.createTextModal.textContentTypes' | translate}} .txt, .doc(x)</p>
         <p class="help-text">{{'manage.createTextModal.textContentMultiple' | translate}}</p>
       </ion-item>
-      <ion-radio-group (ionChange)="namingRadioChanged($event)" [value]="naming">
-        <ion-item lines="none" class="indent multi-file-naming" [ngClass]="{'visible': fileMultiple}">
-          <ion-label>{{'manage.createTextModal.filenamesLabel' | translate}}</ion-label>
-          <ion-radio [value]="filenames" slot="end"></ion-radio>
-        </ion-item>
+      <ion-radio-group (ionChange)="namingRadioChanged($event)" [value]="naming"> 
         <ion-item lines="none" class="indent multi-file-naming" [ngClass]="{'visible': fileMultiple}">
           <ion-label>{{'manage.createTextModal.concatLabel' | translate}}</ion-label>
           <ion-radio [value]="concat" slot="end"></ion-radio>
@@ -35,6 +31,10 @@
         <ion-item lines="none" class="indent multi-file-naming" [ngClass]="{'visible': fileMultiple}">
           <ion-label>{{'manage.createTextModal.numberLabel' | translate}}</ion-label>
           <ion-radio [value]="numbering" slot="end"></ion-radio>
+        </ion-item>
+        <ion-item lines="none" class="indent multi-file-naming" [ngClass]="{'visible': fileMultiple}">
+          <ion-label>{{'manage.createTextModal.filenamesLabel' | translate}}</ion-label>
+          <ion-radio [value]="filenames" slot="end"></ion-radio>
         </ion-item>
       </ion-radio-group>
       <ion-item>

@@ -5,8 +5,6 @@ ion-input[type="number"] {
 .multi-file-naming {
     overflow: hidden;
     max-height: 0px;
-    padding-bottom: 1px;
-    border-bottom: 1px solid var(--border-color);
     transition: 0.2s ease max-height;
 
     &.visible {
