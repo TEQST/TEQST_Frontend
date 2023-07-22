@@ -150,7 +150,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
     const title = control.value;
     this.titleValid = (this.validatorPattern.test(title) &&
                        title.trim() !== '' && // title not empty
-                      !this.existingTextNames.includes(title));
+                      true); //!this.existingTextNames.includes(title)); Title changes in  backend make this irrelevant/wrong
 
     if (!this.titleValid) {
       return {textTitle: true};
