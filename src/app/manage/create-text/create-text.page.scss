@@ -2,6 +2,16 @@ ion-input[type="number"] {
     text-align: right;
 }
 
+.multi-file-naming {
+    overflow: hidden;
+    max-height: 0px;
+    transition: 0.2s ease max-height;
+
+    &.visible {
+        max-height: 50px;
+    }
+}
+
 #text-split-detail {
     overflow: hidden;
     max-height: 0px;
@@ -46,7 +56,7 @@ ion-input[type="number"] {
     }
 }
 
-.picker-types {
+.help-text {
     font-size: 0.7em;
     margin: 0;
 }

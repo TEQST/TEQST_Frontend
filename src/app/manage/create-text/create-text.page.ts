@@ -18,32 +18,45 @@ export class CreateTextPage implements OnInit, OnDestroy {
   @ViewChild('selectFileWrapper', {static: false}) selectFileWrapper: IonItem;
 
   public formValid: boolean;
+  public createTextForm: FormGroup;
   public titleValid: boolean;
+
   public languageSelected: boolean;
+  public availableLanguages: any;
+  public language: string;
+  public languageNative: string;
+
   public fileSelected: boolean;
+  public fileMultiple: boolean;
+  
+  public filenames = "filenames";
+  public concat = "concat";
+  public numbering = "numbering";
+  public naming: string;
+
   public enableTextSplit: boolean;
   public enableLineSplit: boolean;
   public splitLinesValid: boolean;
   public splitCharsValid: boolean;
-  public availableLanguages: any;
-  public language: string;
-  public languageNative: string;
+  
   public tokenize = "tknz";
   public regexSeparator = "regSep";
   public separator: string;
-  public createTextForm: FormGroup;
 
   /* allow any characters except \,/,:,*,<,>,| and whitespaces
      but not filenames starting with the character . */
   private validatorPattern = new RegExp('^(?!\\.)[^\\\\\/:\\*"<>\\| ]+$');
-  private file: File;
+  private files: File[];
   private existingTextNames: string[];
+
   private textSplitLinesMin = 5;
   private textSplitLinesMax = 100;
   private textSplitLinesDefault = 30;
+
   private lineSplitCharsMin = 30;
   private lineSplitCharsMax = 2000;
   private lineSplitCharsDefault = 250;
+
   private ngUnsubscribe = new Subject<void>();
 
   constructor(public usermgmtService: UsermgmtService,
@@ -75,7 +88,8 @@ export class CreateTextPage implements OnInit, OnDestroy {
         });
     this.splitLinesValid = true;
     this.splitCharsValid = true;
-    this.separator = this.tokenize; 
+    this.separator = this.tokenize;
+    this.naming = this.concat;
   }
 
   ngOnInit(): void {
@@ -99,8 +113,12 @@ export class CreateTextPage implements OnInit, OnDestroy {
     // close the modal and pass its data back to the view
     const returnData = {
       title: formData.title,
-      textfile: this.file,
+      textfile: this.files,
       language: formData.language};
+
+    if (this.fileMultiple) {
+      returnData['naming'] = this.naming;
+    }
 
     if (this.enableTextSplit) {
       returnData['max_lines'] = formData.splitLines;
@@ -120,9 +138,11 @@ export class CreateTextPage implements OnInit, OnDestroy {
     this.viewCtrl.dismiss(returnData);
   }
 
-  setFile(file): void {
-    this.file = file;
+  setFiles(files): void {
+    console.log(files)
+    this.files = files;
     this.fileSelected = true;
+    this.fileMultiple = files.length > 1
     this.updateFormValidity();
   }
 
@@ -130,7 +150,7 @@ export class CreateTextPage implements OnInit, OnDestroy {
     const title = control.value;
     this.titleValid = (this.validatorPattern.test(title) &&
                        title.trim() !== '' && // title not empty
-                      !this.existingTextNames.includes(title));
+                      true); //!this.existingTextNames.includes(title)); Title changes in  backend make this irrelevant/wrong
 
     if (!this.titleValid) {
       return {textTitle: true};
@@ -189,9 +209,13 @@ export class CreateTextPage implements OnInit, OnDestroy {
   }
 
   sepRadioChanged($event): void {
-    console.log($event)
     this.separator = $event.detail.value;
-    console.log(this.separator)
+    this.updateFormValidity();
+  }
+
+  namingRadioChanged($event): void {
+    this.naming = $event.detail.value;
+    console.log(this.naming)
     this.updateFormValidity();
   }
 }
