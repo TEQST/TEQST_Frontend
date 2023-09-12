@@ -4,6 +4,7 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { DownloadStatisticsPage } from './download-statistics/download-statistics.page';
 import { Folder } from '../manage.folder';
 import { ManageFolderService } from 'src/app/services/manage-folder.service';
+import { DownloadContentPage } from './download-content/download-content.page';
 
 @Component({
   selector: 'app-download-folder',
@@ -38,8 +39,15 @@ export class DownloadFolderComponent implements OnInit {
     await modal.present();
   }
 
-  downloadFolder() {
-    this.folderService.downloadFolder(this.folder)
+  async openContentModal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: DownloadContentPage,
+      componentProps: {
+        folder: this.folder,
+      },
+    });
+    this.viewCtrl.dismiss();
+    await modal.present();
   }
 
 }

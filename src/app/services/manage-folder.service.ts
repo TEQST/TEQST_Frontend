@@ -94,27 +94,6 @@ export class ManageFolderService {
     return this.http.get<TextObject>(url, {});
   }
 
-  downloadFolder(folder: Folder): void {
-    const url = this.SERVER_URL + `/api/pub/sharedfolders/${folder.id}/download/`;
-
-    const fileName = `${folder.name}_${folder.id}.zip`;
-
-    this.http.get(url, {responseType: 'blob'}).subscribe((zipData) => {
-      const blob = new Blob([zipData], {
-        type: 'application/zip',
-      });
-      // save file locally
-      saveAs(blob, fileName);
-    },
-    () => {
-      this.alertManager.showErrorAlertNoRedirection(
-          'No download available',
-          'No Speaker has finished a text of the current folder yet. ' +
-              'Please try again later.');
-    },
-    );
-  }
-
   downloadStatistics(folder: Folder, role: 'pub' | 'lstn', params): void {
     const url = this.SERVER_URL + 
       `/api/${role}/folders/${folder.id}/stats/`

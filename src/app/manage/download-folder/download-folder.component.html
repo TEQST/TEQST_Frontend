@@ -2,10 +2,7 @@
   <ion-item button (click)="openStatisticsModal()">
     <ion-label>{{ 'manage.downloadPopover.statistics' | translate }}</ion-label>
   </ion-item>
-  <!--<ion-item [disabled]="!isSharedfolder" (click)="downloadFolder()" ></ion-item>
-    <ion-label>{{ 'manage.downloadPopover.content' | translate }}</ion-label>
-  </ion-item>-->
-  <ion-item disabled>
+  <ion-item button (click)="openContentModal()" >
     <ion-label>{{ 'manage.downloadPopover.content' | translate }}</ion-label>
   </ion-item>
 </ion-list>
