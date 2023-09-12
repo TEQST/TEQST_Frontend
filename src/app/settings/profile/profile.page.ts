@@ -69,12 +69,6 @@ export class ProfilePage extends BaseComponent implements OnInit {
             this.saveProfileData();
           });
         });
-    this.profileForm.get('menu_language_id').valueChanges
-        .subscribe(() => {
-          setTimeout(() => { // wait for next tick since value hasn't been updated see https://www.tektutorialshub.com/angular/valuechanges-in-angular-forms/
-            this.saveProfileData();
-          });
-        });
   }
 
   saveProfileData(): void {
@@ -83,9 +77,6 @@ export class ProfilePage extends BaseComponent implements OnInit {
       return;
     }
     this.usermgmtService.updateProfile(this.profileForm.value).subscribe(() => {
-      this.languageService.setMenuLanguage(
-          this.profileForm.value.menu_language_id,
-      );
       this.presentSavedToast();
     }, () => {
       this.presentSaveFailToast();

@@ -14,10 +14,11 @@ import menuLanguagesData from '../../assets/menu-languages.json';
 export class LanguageService {
 
   SERVER_URL = Constants.SERVER_URL;
-  public menuLanguage;
+  public menuLanguage; //TODO maybe this should be private
 
   constructor(public http: HttpClient,
               private translate: TranslateService ) {
+    //TODO maybe move this to getMenuLanguage to avoid loading delay
     this.initMenuLanguage();
   }
 
