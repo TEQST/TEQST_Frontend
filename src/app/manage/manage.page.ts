@@ -55,7 +55,7 @@ export class ManagePage extends BaseComponent {
     if (typeof routeParams !== 'undefined' && 'folder' in routeParams) {
       this.currentFolder = routeParams.folder;
     } else {
-      this.currentFolder = new Folder(null, null, '', false);
+      this.currentFolder = new Folder(null, null, null, '', false);
     }
 
     this.subfolders = [];
@@ -94,6 +94,8 @@ export class ManagePage extends BaseComponent {
                 // get information about the current folder
                 this.currentFolder.name = data['name'];
                 this.currentFolder.is_sharedfolder = data['is_sharedfolder'];
+                this.currentFolder.uid = data['root'];
+                this.currentFolder.dlpath = data['path'];
                 const subfolderInfo = data['subfolder'];
 
                 if (this.currentFolder.is_sharedfolder) {

@@ -26,6 +26,7 @@ export class ManageFolderUIService {
       const folder = new Folder(
           folderInfo.id,
           folderInfo.root,
+          folderInfo.path,
           folderInfo.name,
           folderInfo.is_sharedfolder);
       subfolders.push(folder);

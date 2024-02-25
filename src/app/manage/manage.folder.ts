@@ -7,6 +7,7 @@ export class Folder {
 
     id: string
     uid: string
+    dlpath: string
     name: string
     is_sharedfolder: boolean
 
@@ -14,9 +15,10 @@ export class Folder {
       this.folderService = folderService;
     }
 
-    constructor(id, uid, name, is_sharedFolder) {
+    constructor(id, uid, dlpath, name, is_sharedFolder) {
       this.id = id;
       this.uid = uid;
+      this.dlpath = dlpath;
       this.name = name;
       this.is_sharedfolder = is_sharedFolder;
     }

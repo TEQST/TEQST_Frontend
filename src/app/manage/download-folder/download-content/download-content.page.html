@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Download Folder Content</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item lines="none">
+      You can use the following url to access this folder
+    </ion-item>
+    <ion-item style="font-family: monospace;">
+      {{ server }}{{ folder.dlpath }}
+      <ion-button slot="end" (click)="copyLink($event, key_url)"><ion-icon name="clipboard"></ion-icon></ion-button>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      You can use the following commands to download the folder and its content automatically
+    </ion-item>
+    <ion-item lines="none" style="font-family: monospace;">
+      {{ wget_cmd }} "[url]"
+      <ion-button slot="end" (click)="copyLink($event, key_wg1)"><ion-icon name="clipboard"></ion-icon></ion-button>
+    </ion-item>
+    <!--<ion-item lines="none">
+      Use --no-directories if you want all files dumped into the current directory. Naming conflicts are resolved.
+    </ion-item>-->
+    <ion-item lines="none"  style="font-family: monospace;">
+      {{ wget2_cmd }} "[url]"
+      <ion-button slot="end" (click)="copyLink($event, key_wg2)"><ion-icon name="clipboard"></ion-icon></ion-button>
+    </ion-item>
+    <!--<ion-item lines="none">
+      If you use --content-disposition with wget2, all files will be dumped in the current directory (subject to naming conflicts).<br>
+      Use --no-directories if you want this behaviour, this will resolve naming conflicts.
+    </ion-item>-->
+  </ion-list>
+</ion-content>
